@@ -125,4 +125,4 @@ const Scrollspy: FC<ScrollspyProps> = ({ shown, anchors }) => {
   )
 }
 
-export default Scrollspy
+export { Scrollspy }

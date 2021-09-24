@@ -17,4 +17,4 @@ const BurgerButton: FC<BurgerButtonProps> = ({ open = false }) => {
   )
 }
 
-export default BurgerButton
+export { BurgerButton }

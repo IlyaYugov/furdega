@@ -1,6 +1,6 @@
-import { FC } from 'react'
-import { Col, Row } from 'react-bootstrap'
-import YellowSnakeIcon from '../../public/svg/yellow-snake.svg'
+import { FC } from "react"
+import { Col, Row } from "react-bootstrap"
+import { ReactComponent as YellowSnakeIcon } from "../../assets/svg/yellow-snake.svg"
 
 type PortfolioSectionProps = {
   title: string
@@ -21,4 +21,4 @@ const PortfolioSection: FC<PortfolioSectionProps> = ({ title }) => {
   )
 }
 
-export default PortfolioSection
+export { PortfolioSection }

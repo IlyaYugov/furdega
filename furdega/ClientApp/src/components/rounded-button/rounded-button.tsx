@@ -18,4 +18,4 @@ const RoundedButton: FC<RoundedButtonProps> = ({
   )
 }
 
-export default RoundedButton
+export { RoundedButton }

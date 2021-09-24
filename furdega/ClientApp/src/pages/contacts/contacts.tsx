@@ -4,4 +4,4 @@ const Contacts: FC = () => {
   return <h1>Contacts page</h1>
 }
 
-export default Contacts
+export { Contacts }

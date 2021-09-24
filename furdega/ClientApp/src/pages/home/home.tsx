@@ -1,7 +1,7 @@
 import { Row, Col, Container, Button } from "react-bootstrap"
 import styles from "./home.module.scss"
 import { WorkExampleType } from "../../types/work-example"
-import Scrollspy from "../../components/scrollspy/scrollspy"
+import { Scrollspy } from "../../components/scrollspy/scrollspy"
 import { useInView } from "react-intersection-observer"
 import About from "./sections/about/about"
 import WorkExamples from "./sections/work-examples/work-examples"

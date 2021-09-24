@@ -1,9 +1,8 @@
 import { Col, Container, Row } from "react-bootstrap"
-import PortfolioSection from "../../components/portfolio-section/portfolio-section"
-import Scrollspy from "../../components/scrollspy/scrollspy"
+import { PortfolioSection } from "../../components/portfolio-section/portfolio-section"
+import { Scrollspy } from "../../components/scrollspy/scrollspy"
 import scrollspyPortfolioAnchors from "../../const/scrollspy-portfolio-anchors"
 import styles from "./portfolio.module.scss"
-import commonStyles from "../styles/pages/common.module.scss"
 import { FC } from "react"
 
 const Portfolio: FC = () => {
@@ -25,7 +24,7 @@ const Portfolio: FC = () => {
 
       <Container className="g-0 content overflow-hidden">
         <Row className="flex-nowrap py-5 g-0 bg-light">
-          <Col className={commonStyles["scrollspy-col"]} sm={4} md={4} lg={3}>
+          <Col className="scrollspy-col" sm={4} md={4} lg={3}>
             <Scrollspy shown={true} anchors={scrollspyPortfolioAnchors} />
           </Col>
 
@@ -38,4 +37,4 @@ const Portfolio: FC = () => {
   )
 }
 
-export default Portfolio
+export { Portfolio }
