@@ -1,0 +1,42 @@
+@each $name, $font-weight in $font-weights {
+  @font-face {
+    font-family: VelaSans;
+    src: url(../assets/fonts/VelaSans/#{$name}.woff2) format("woff2"),
+      url(../assets/fonts/VelaSans/#{$name}.woff) format("woff");
+    font-weight: $font-weight;
+    font-display: swap;
+  }
+}
+
+@font-face {
+  font-family: Anticva;
+  src: url(../assets/fonts/Anticva/regular.otf);
+  font-weight: 400;
+  font-display: swap;
+}
+
+html {
+  font-size: 16px; // rem
+}
+
+h1 {
+  font-family: Anticva;
+  color: var(--bs-dark);
+}
+
+h2 {
+  font-family: Anticva;
+  color: var(--bs-dark);
+}
+
+.fw-demibold {
+  font-weight: map-get($font-weights, demibold) !important;
+}
+
+.fs-medium {
+  font-size: $font-size-base * 1.125;
+}
+
+.fs-large {
+  font-size: $font-size-lg;
+}

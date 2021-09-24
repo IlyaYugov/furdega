@@ -1,0 +1,17 @@
+@mixin button-container {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 32px 40px;
+  white-space: nowrap;
+}
+
+.primary {
+  @include button-container;
+  background-image: url("../../assets/svg/ellipse-yellow.svg");
+}
+
+.secondary {
+  @include button-container;
+  background-image: url("../../assets/svg/ellipse-light.svg");
+}

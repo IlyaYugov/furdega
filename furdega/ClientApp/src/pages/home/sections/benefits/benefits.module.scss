@@ -1,0 +1,9 @@
+@use "../../../../styles/mixins";
+
+.moved-column-pic {
+  margin-top: 50% !important;
+
+  @media screen and (max-width: 992px) {
+    margin-top: 100% !important;
+  }
+}

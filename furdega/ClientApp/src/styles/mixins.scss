@@ -1,0 +1,25 @@
+@mixin responsive($xl, $lg, $md, $sm) {
+  @content ($xl);
+
+  @media screen and (max-width: 1200px) {
+    @content ($lg);
+  }
+
+  @media screen and (max-width: 992px) {
+    @content ($md);
+  }
+
+  @media screen and (max-width: 576px) {
+    @content ($sm);
+  }
+}
+
+@mixin backdrop($zindex) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $zindex;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}

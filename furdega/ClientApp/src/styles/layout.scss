@@ -1,0 +1,17 @@
+@use "mixins";
+@use "variables";
+
+.content {
+  @include mixins.responsive(64px, 56px, 32px, variables.$content-sm-padding)
+    using($d) {
+    padding-left: $d;
+    padding-right: $d;
+  }
+}
+
+.scrollspy-col {
+  @media screen and (max-width: 576px) {
+    width: 0;
+    flex: 0;
+  }
+}

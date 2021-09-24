@@ -1,0 +1,18 @@
+@use "../../styles/mixins";
+@use "../../styles/variables";
+
+.wrapper {
+  z-index: variables.$zindex-header;
+  position: relative;
+  background-color: #fff;
+}
+
+.menu-backdrop {
+  @include mixins.backdrop(variables.$zindex-header-menu-backdrop);
+}
+
+.header-section {
+  @include mixins.responsive(32px, 32px, 32px, 6px) using ($d) {
+    padding: $d 0;
+  }
+}

@@ -1,0 +1,13 @@
+@use "../../styles/mixins";
+
+.footer {
+  @include mixins.responsive(70px, 56px, 52px, 52px) using ($d) {
+    padding-top: $d !important;
+    padding-bottom: $d !important;
+  }
+
+  font-size: 1rem;
+  @media screen and (max-width: 992px) {
+    font-size: 1rem * 0.875;
+  }
+}
