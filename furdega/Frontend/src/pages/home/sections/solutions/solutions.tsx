@@ -15,9 +15,7 @@ const Solutions: FC = () => {
 
       <Row className="g-0 my-5">
         <Col md={8} className="position-relative" style={{ height: "53px" }}>
-          <div className="position-absolute" style={{ right: 0 }}>
-            <YellowSnakeIcon />
-          </div>
+          <YellowSnakeIcon className="position-absolute" style={{ right: 0 }} />
         </Col>
         <Col md={4}></Col>
       </Row>
@@ -57,9 +55,7 @@ const Solutions: FC = () => {
       <Row className="g-0 my-5">
         <Col md={4}></Col>
         <Col md={8} className="position-relative" style={{ height: "53px" }}>
-          <div className="position-absolute" style={{ left: 0 }}>
-            <YellowSnakeIcon />
-          </div>
+          <YellowSnakeIcon className="position-absolute" style={{ left: 0 }} />
         </Col>
       </Row>
 
@@ -99,9 +95,7 @@ const Solutions: FC = () => {
 
       <Row className="g-0 my-5">
         <Col md={8} className="position-relative" style={{ height: "53px" }}>
-          <div className="position-absolute" style={{ right: 0 }}>
-            <YellowSnakeIcon />
-          </div>
+          <YellowSnakeIcon className="position-absolute" style={{ right: 0 }} />
         </Col>
         <Col md={4}></Col>
       </Row>
@@ -141,9 +135,7 @@ const Solutions: FC = () => {
       <Row className="g-0 my-5">
         <Col md={4}></Col>
         <Col md={8} className="position-relative" style={{ height: "53px" }}>
-          <div className="position-absolute" style={{ left: 0 }}>
-            <YellowSnakeIcon />
-          </div>
+          <YellowSnakeIcon className="position-absolute" style={{ left: 0 }} />
         </Col>
       </Row>
 
@@ -183,9 +175,7 @@ const Solutions: FC = () => {
 
       <Row className="g-0 my-5">
         <Col md={8} className="position-relative" style={{ height: "53px" }}>
-          <div className="position-absolute" style={{ right: 0 }}>
-            <YellowSnakeIcon />
-          </div>
+          <YellowSnakeIcon className="position-absolute" style={{ right: 0 }} />
         </Col>
         <Col md={4}></Col>
       </Row>

@@ -19,9 +19,7 @@ const WorkExamples: FC<WorkExamplesProps> = ({ workExamples }) => {
           <div key={`work-example-${index}`} className="mb-5">
             <WorkExample {...workExample} />
             {index !== workExamples.length - 1 ? (
-              <div className="mt-5">
-                <YellowSnakeIcon />
-              </div>
+              <YellowSnakeIcon className="mt-5" />
             ) : null}
           </div>
         ))}
