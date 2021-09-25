@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Furdega.Controllers
@@ -10,7 +11,49 @@ namespace Furdega.Controllers
         [HttpGet]
         public async Task<HomePageContent> GetHomePageContent()
         {
-            return new HomePageContent();
+            return new HomePageContent
+            {
+                AboutSection = new AboutSection
+                {
+                    Header = "Header",
+                    Text = "Text"
+                },
+                Header = "Header",
+                CompanyBenefitsSection = new CompanyBenefitsSection
+                {
+                    Header = "Header",
+                    CompanyBenefits = new CompanyBenefit
+                    {
+                        Description = "Description",
+                        ImageUrl = "ImageUrl",
+                        Title = "Title"
+                    }
+                },
+                ImageUrl = "ImageUrl",
+                IssueSolutionsSection = new IssueSolutionsSection
+                {
+                    Header = "Header",
+                    IssueSolutions = Array.Empty<IssueSolution>()
+                },
+                StaffSection = new StaffSection
+                {
+                    Header = "Header",
+                    Employees = Array.Empty<Employee>()
+                },
+                WorkExamplesSection = new WorkExamplesSection
+                {
+                    Header = "Header",
+                    WorkExamples = Array.Empty<WorkExample>()
+                },
+                WorkingProcessSection = new WorkingProcessSection
+                {
+                    Header = "Header",
+                    FinalStage = "Final",
+                    FirstStage = "First",
+                    SecondStage = "Second",
+                    ThirdStage = "Third"
+                }
+            };
         }
 
         [HttpPost]
