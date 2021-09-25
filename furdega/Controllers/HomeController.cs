@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Furdega.Controllers
@@ -10,9 +8,9 @@ namespace Furdega.Controllers
     public class HomeController : ControllerBase
     {
         [HttpGet]
-        public async Task<IEnumerable<HomePageContent>> GetTypes()
+        public async Task<HomePageContent> GetHomePageContent()
         {
-            return Array.Empty<HomePageContent>();
+            return new HomePageContent();
         }
 
         [HttpPost]
