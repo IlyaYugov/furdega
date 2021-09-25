@@ -10,8 +10,7 @@ import Solutions from "./sections/solutions/solutions"
 import Process from "./sections/process/process"
 import Staff from "./sections/staff/staff"
 import useMobileScreen from "../../utils/useMobileScreen"
-import scrollspyIndexAnchorsMap from "../../const/scrollspy-index-anchors-map"
-import scrollspyIndexAnchors from "../../const/scrollspy-index-anchors"
+import { scrollspyAnchors, scrollspyAnchorsMap } from "../../const/home"
 import { FC, useEffect, useState } from "react"
 import workExamplesApi from "../../api/work-examples-api"
 import LazyLoad from "react-lazyload"
@@ -62,7 +61,7 @@ const Home: FC = () => {
           <Col className="scrollspy-col" sm={4} md={4} lg={3}>
             <Scrollspy
               shown={isMobile || isTopScrollspyVisible}
-              anchors={scrollspyIndexAnchors}
+              anchors={scrollspyAnchors}
             />
           </Col>
 
@@ -73,15 +72,12 @@ const Home: FC = () => {
             lg={9}
             className="px-3 ps-sm-5 overflow-hidden"
           >
-            <div
-              id={scrollspyIndexAnchorsMap["about"].id}
-              className={styles.block}
-            >
+            <div id={scrollspyAnchorsMap["about"].id} className={styles.block}>
               <About />
             </div>
 
             <div
-              id={scrollspyIndexAnchorsMap["examples"].id}
+              id={scrollspyAnchorsMap["examples"].id}
               className={styles.block}
             >
               <WorkExamples workExamples={workExamples} />
@@ -98,7 +94,7 @@ const Home: FC = () => {
             </div>
 
             <div
-              id={scrollspyIndexAnchorsMap["benefits"].id}
+              id={scrollspyAnchorsMap["benefits"].id}
               className={styles.block}
             >
               <Benefits />
@@ -121,22 +117,19 @@ const Home: FC = () => {
           <Col className="scrollspy-col" sm={4} md={4} lg={3}>
             <Scrollspy
               shown={!isMobile && isBottomScrollspyVisible}
-              anchors={scrollspyIndexAnchors}
+              anchors={scrollspyAnchors}
             />
           </Col>
 
           <Col sm={8} md={8} lg={9} className="ps-sm-5">
             <div
-              id={scrollspyIndexAnchorsMap["process"].id}
+              id={scrollspyAnchorsMap["process"].id}
               className={styles.block}
             >
               <Process />
             </div>
 
-            <div
-              id={scrollspyIndexAnchorsMap["staff"].id}
-              className={styles.block}
-            >
+            <div id={scrollspyAnchorsMap["staff"].id} className={styles.block}>
               <Staff />
             </div>
           </Col>
