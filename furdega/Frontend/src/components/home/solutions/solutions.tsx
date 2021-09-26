@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Row, Col } from "react-bootstrap"
 
-import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
+import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
 import { IssueSolutionsSection } from "../../../types/home"
 import { SolutionBlock } from "./solution-block"
 

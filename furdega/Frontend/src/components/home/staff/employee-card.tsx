@@ -2,7 +2,7 @@ import { FC } from "react"
 import LazyLoad from "react-lazyload"
 import { Row, Col } from "react-bootstrap"
 
-import { Employee } from "../../../../types/home/employee"
+import { Employee } from "../../../types/home/employee"
 
 const EmployeeCard: FC<Employee & { reverse?: boolean }> = ({
   title,

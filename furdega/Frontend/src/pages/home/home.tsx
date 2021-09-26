@@ -43,7 +43,7 @@ const Home: FC = () => {
         <div
           className={`d-flex flex-xl-row flex-column justify-content-between align-items-xl-end align-items-sm-start align-items-stretch ${styles["title"]}`}
         >
-          <h1 className="me-3">Подарите мягкой мебели вторую жизнь</h1>
+          <h1 className="me-3">{content.header}</h1>
           <Button
             size="lg"
             className={`fw-demibold mt-4 mt-xl-0 mb-0 mb-xl-4 ${styles["title-button"]}`}

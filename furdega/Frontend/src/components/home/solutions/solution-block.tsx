@@ -2,7 +2,7 @@ import { FC } from "react"
 import { Row, Col } from "react-bootstrap"
 import LazyLoad from "react-lazyload"
 
-import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
+import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
 import { RoundedButton } from "../../rounded-button/rounded-button"
 import { IssueSolution } from "../../../types/home"
 

@@ -40,7 +40,14 @@ const AboutSection: FC<AdminSectionProps<AboutSectionType>> = (props) => {
       </Col>
 
       <Col>
-        <Button size="lg">Применить</Button>
+        <Button
+          size="lg"
+          onClick={() => {
+            props.onChange({ header, text })
+          }}
+        >
+          Применить
+        </Button>
       </Col>
     </Row>
   )
