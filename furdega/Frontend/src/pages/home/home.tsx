@@ -4,14 +4,12 @@ import { Row, Col, Container, Button } from "react-bootstrap"
 import { useInView } from "react-intersection-observer"
 
 import { Scrollspy } from "../../components/scrollspy/scrollspy"
-
 import { About } from "./sections/about/about"
 import { WorkExamples } from "./sections/work-examples/work-examples"
 import { Benefits } from "./sections/benefits/benefits"
 import { Solutions } from "./sections/solutions/solutions"
 import { Process } from "./sections/process/process"
 import { Staff } from "./sections/staff/staff"
-
 import { useMobileScreen } from "../../utils/useMobileScreen"
 import { scrollspyAnchors, scrollspyAnchorsMap } from "../../const/home"
 import { homeApi } from "../../api/home-api"

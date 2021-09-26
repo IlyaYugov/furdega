@@ -1,7 +1,6 @@
 import { FC } from "react"
 
 import { WorkExample } from "./work-example"
-
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 import { WorkExamplesSection } from "../../../../types/home/work-examples-section"
 

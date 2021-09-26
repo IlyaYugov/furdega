@@ -8,7 +8,6 @@ import { ReactComponent as WhatsappIcon } from "../../assets/svg/whatsapp.svg"
 import { ReactComponent as ViberIcon } from "../../assets/svg/viber.svg"
 import { ReactComponent as TelegramIcon } from "../../assets/svg/telegram.svg"
 import { ReactComponent as PhoneIcon } from "../../assets/svg/phone.svg"
-
 import { BurgerButton } from "../burger-button/burger-button"
 import { routes } from "../../const/routes"
 

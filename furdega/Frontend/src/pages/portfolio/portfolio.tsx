@@ -3,7 +3,6 @@ import { FC } from "react"
 
 import { PortfolioSection } from "./portfolio-section"
 import { Scrollspy } from "../../components/scrollspy/scrollspy"
-
 import { scrollspyAnchors } from "../../const/portfolio"
 
 import styles from "./portfolio.module.scss"

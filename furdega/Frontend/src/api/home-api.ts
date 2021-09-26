@@ -1,4 +1,5 @@
 import axios from "axios"
+
 import { HomePageContent } from "../types/home/home-page-content"
 
 const homeApi = {

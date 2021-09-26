@@ -3,7 +3,6 @@ import { BrowserRouter, Switch, Route } from "react-router-dom"
 
 import { Footer } from "./components/footer/footer"
 import { Header } from "./components/header/header"
-
 import { Admin } from "./pages/admin/admin"
 import { Catalog } from "./pages/catalog/catalog"
 import { Contacts } from "./pages/contacts/contacts"

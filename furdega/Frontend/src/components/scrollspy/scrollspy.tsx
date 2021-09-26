@@ -6,7 +6,6 @@ import { ReactComponent as WhatsappIcon } from "../../assets/svg/whatsapp.svg"
 import { ReactComponent as ViberIcon } from "../../assets/svg/viber.svg"
 import { ReactComponent as TelegramIcon } from "../../assets/svg/telegram.svg"
 import { ReactComponent as DotsIcon } from "../../assets/svg/dots.svg"
-
 import { useOnClickOutside } from "../../utils/useOnClickOutside"
 import { ScrollspyAnchor } from "../../types/scrollspy-anchor"
 
