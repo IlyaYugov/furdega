@@ -1,8 +1,10 @@
 import { FC } from "react"
-import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 import LazyLoad from "react-lazyload"
 import { Row, Col } from "react-bootstrap"
+
 import { RoundedButton } from "../../../../components/rounded-button/rounded-button"
+
+import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 import { IssueSolutionsSection } from "../../../../types/home/issue-solutions-section"
 
 const Solutions: FC<IssueSolutionsSection> = ({ header, issueSolutions }) => {

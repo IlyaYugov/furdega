@@ -1,12 +1,16 @@
 import { FC } from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
+
 import { Footer } from "./components/footer/footer"
 import { Header } from "./components/header/header"
+
 import { Admin } from "./pages/admin/admin"
 import { Catalog } from "./pages/catalog/catalog"
 import { Contacts } from "./pages/contacts/contacts"
 import { Home } from "./pages/home/home"
 import { Portfolio } from "./pages/portfolio/portfolio"
+
+import "./styles/index.scss"
 
 const App: FC = () => {
   return (

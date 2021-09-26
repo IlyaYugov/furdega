@@ -1,8 +1,11 @@
 import { FC } from "react"
-import styles from "../../home.module.scss"
+
 import WorkExample from "./work-example"
+
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 import { WorkExamplesSection } from "../../../../types/home/work-examples-section"
+
+import styles from "../../home.module.scss"
 
 const WorkExamples: FC<WorkExamplesSection> = ({ header, workExamples }) => {
   return (

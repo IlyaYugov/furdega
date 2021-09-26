@@ -25,13 +25,13 @@ const Home: FC = () => {
   const [bottomScrollspyRef, isBottomScrollspyVisible] = useInView()
   const isMobile = useMobileScreen()
 
-  const fetchWorkExamples = async () => {
+  const fetchContent = async () => {
     const data = await homeApi.getHomePageContent()
     setContent(data)
   }
 
   useEffect(() => {
-    fetchWorkExamples()
+    fetchContent()
   }, [])
 
   // TODO add skeleton or default content

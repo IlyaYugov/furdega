@@ -1,6 +1,7 @@
 import { FC } from "react"
 import { Col, Container, Row, Button } from "react-bootstrap"
 import LazyLoad from "react-lazyload"
+
 import { WorkExample as WorkExampleType } from "../../../../types/home/work-example"
 
 enum ImagesType {

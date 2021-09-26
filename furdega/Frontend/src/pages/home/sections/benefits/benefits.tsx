@@ -1,10 +1,12 @@
 import { FC } from "react"
-import styles from "../../home.module.scss"
-import benefitsStyles from "./benefits.module.scss"
 import LazyLoad from "react-lazyload"
 import { Row, Col } from "react-bootstrap"
+
 import { CompanyBenefitsSection } from "../../../../types/home/company-benefits-section"
 import { CompanyBenefit } from "../../../../types/home/company-benefit"
+
+import styles from "../../home.module.scss"
+import benefitsStyles from "./benefits.module.scss"
 
 const Benefit: FC<CompanyBenefit & { moved?: boolean }> = ({
   title,

@@ -1,14 +1,18 @@
 import { FC, forwardRef, MouseEvent as ReactMouseEvent, useState } from "react"
 import { Col, Container, Dropdown, Row } from "react-bootstrap"
-import styles from "./header.module.scss"
+import { useLocation } from "react-router"
+import { Link } from "react-router-dom"
+
 import { ReactComponent as LogoIcon } from "../../assets/svg/logo.svg"
 import { ReactComponent as WhatsappIcon } from "../../assets/svg/whatsapp.svg"
 import { ReactComponent as ViberIcon } from "../../assets/svg/viber.svg"
 import { ReactComponent as TelegramIcon } from "../../assets/svg/telegram.svg"
 import { ReactComponent as PhoneIcon } from "../../assets/svg/phone.svg"
+
 import { BurgerButton } from "../burger-button/burger-button"
-import { useLocation } from "react-router"
-import { Link } from "react-router-dom"
+import { routes } from "../../const/routes"
+
+import styles from "./header.module.scss"
 
 const DropdownToggle = forwardRef<HTMLDivElement | null>(
   ({ children }, ref) => {
@@ -28,29 +32,6 @@ const DropdownToggle = forwardRef<HTMLDivElement | null>(
 )
 
 DropdownToggle.displayName = "DropdownToggle"
-
-const routes = [
-  {
-    path: "/",
-    name: "Главная",
-  },
-  {
-    path: "/portfolio",
-    name: "Портфолио",
-  },
-  {
-    path: "/catalog",
-    name: "Каталог",
-  },
-  {
-    path: "/blog",
-    name: "Блог",
-  },
-  {
-    path: "/contacts",
-    name: "Контакты",
-  },
-]
 
 const Header: FC = () => {
   const location = useLocation()

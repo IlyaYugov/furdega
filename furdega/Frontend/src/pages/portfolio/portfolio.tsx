@@ -1,9 +1,12 @@
 import { Col, Container, Row } from "react-bootstrap"
-import { PortfolioSection } from "../../components/portfolio-section/portfolio-section"
-import { Scrollspy } from "../../components/scrollspy/scrollspy"
-import { scrollspyAnchors } from "../../const/portfolio"
-import styles from "./portfolio.module.scss"
 import { FC } from "react"
+
+import { PortfolioSection } from "./portfolio-section"
+import { Scrollspy } from "../../components/scrollspy/scrollspy"
+
+import { scrollspyAnchors } from "../../const/portfolio"
+
+import styles from "./portfolio.module.scss"
 
 const Portfolio: FC = () => {
   return (

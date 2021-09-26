@@ -1,9 +1,11 @@
 import { FC } from "react"
 import { Col, Container, Row } from "react-bootstrap"
+
 import { ReactComponent as LogoContrastIcon } from "../../assets/svg/logo-contrast.svg"
 import { ReactComponent as FacebookContrastIcon } from "../../assets/svg/facebook-contrast.svg"
 import { ReactComponent as VkContrastIcon } from "../../assets/svg/vk-contrast.svg"
 import { ReactComponent as InstaContrastIcon } from "../../assets/svg/insta-contrast.svg"
+
 import styles from "./footer.module.scss"
 
 const Footer: FC = () => {

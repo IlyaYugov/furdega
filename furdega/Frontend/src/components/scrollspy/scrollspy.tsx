@@ -1,15 +1,18 @@
 import { FC, useRef, useState } from "react"
 import { Col, Row, Button } from "react-bootstrap"
 import ReactScrollspy from "react-scrollspy"
-import styles from "./scrollspy.module.scss"
+
 import { ReactComponent as WhatsappIcon } from "../../assets/svg/whatsapp.svg"
 import { ReactComponent as ViberIcon } from "../../assets/svg/viber.svg"
 import { ReactComponent as TelegramIcon } from "../../assets/svg/telegram.svg"
 import { ReactComponent as DotsIcon } from "../../assets/svg/dots.svg"
-import useOnClickOutside from "../../utils/useOnClickOutside"
+
+import { useOnClickOutside } from "../../utils/useOnClickOutside"
 import { ScrollspyAnchor } from "../../types/scrollspy-anchor"
 
-export type ScrollspyProps = {
+import styles from "./scrollspy.module.scss"
+
+type ScrollspyProps = {
   shown: boolean
   anchors: ScrollspyAnchor[]
 }

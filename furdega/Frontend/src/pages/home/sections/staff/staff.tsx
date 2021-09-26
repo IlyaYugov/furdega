@@ -1,8 +1,10 @@
 import { FC } from "react"
-import styles from "../../home.module.scss"
 import LazyLoad from "react-lazyload"
 import { Row, Col } from "react-bootstrap"
+
 import { StaffSection } from "../../../../types/home/staff-section"
+
+import styles from "../../home.module.scss"
 
 const Staff: FC<StaffSection> = ({ header, employees }) => {
   return (

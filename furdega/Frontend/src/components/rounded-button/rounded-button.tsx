@@ -1,4 +1,5 @@
 import { FC } from "react"
+
 import styles from "./rounded-button.module.scss"
 
 type RoundedButtonProps = {

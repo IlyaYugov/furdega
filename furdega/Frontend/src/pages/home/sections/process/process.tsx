@@ -1,8 +1,10 @@
 import { FC } from "react"
-import styles from "../../home.module.scss"
 import { Row, Col } from "react-bootstrap"
 import LazyLoad from "react-lazyload"
+
 import { WorkingProcessSection } from "../../../../types/home/working-process-section"
+
+import styles from "../../home.module.scss"
 
 const Process: FC<WorkingProcessSection> = ({
   header,

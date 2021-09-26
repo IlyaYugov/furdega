@@ -1,6 +1,8 @@
 import { FC } from "react"
+
 import { ReactComponent as BurgerIcon } from "../../assets/svg/burger.svg"
 import { ReactComponent as CrossIcon } from "../../assets/svg/cross.svg"
+
 import styles from "./burger-button.module.scss"
 
 type BurgerButtonProps = {
