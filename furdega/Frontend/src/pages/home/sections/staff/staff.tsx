@@ -1,6 +1,7 @@
 import { FC } from "react"
-import LazyLoad from "react-lazyload"
 import { Row, Col } from "react-bootstrap"
+
+import { EmployeeCard } from "./employee-card"
 
 import { StaffSection } from "../../../../types/home/staff-section"
 
@@ -13,45 +14,11 @@ const Staff: FC<StaffSection> = ({ header, employees }) => {
 
       <div className={styles["block-content"]}>
         <Row className="flex-column gy-5">
-          <Col>
-            <Row className="justify-items-between">
-              <Col xs={5}>
-                <LazyLoad height={479}>
-                  <img
-                    className="img-fluid w-100"
-                    src={employees[0].imageUrl}
-                    alt={employees[0].imageUrl}
-                  />
-                </LazyLoad>
-              </Col>
-              <Col xs={5} className="d-flex flex-column justify-content-end">
-                <h4 className="fw-bold">{employees[0].title}</h4>
-                <small className="d-block mt-3">
-                  {employees[0].description}
-                </small>
-              </Col>
-            </Row>
-          </Col>
-
-          <Col>
-            <Row className="flex-row-reverse justify-items-between">
-              <Col xs={5}>
-                <LazyLoad height={479}>
-                  <img
-                    className="img-fluid w-100"
-                    src={employees[1].imageUrl}
-                    alt={employees[1].imageUrl}
-                  />
-                </LazyLoad>
-              </Col>
-              <Col xs={5} className="d-flex flex-column justify-content-end">
-                <h4 className="fw-bold">{employees[1].title}</h4>
-                <small className="d-block mt-3">
-                  {employees[1].description}
-                </small>
-              </Col>
-            </Row>
-          </Col>
+          {employees.map((employee, index) => (
+            <Col>
+              <EmployeeCard reverse={index % 2 === 1} {...employee} />
+            </Col>
+          ))}
         </Row>
       </div>
     </>
