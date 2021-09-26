@@ -15,3 +15,25 @@
     flex: 0;
   }
 }
+
+.block {
+  @include mixins.responsive(110px, 96px, 80px, 70px) using ($d) {
+    margin-bottom: $d;
+  }
+}
+
+.block-title {
+  @include mixins.responsive(70px, 56px, 44px, 32px) using ($d) {
+    margin-bottom: $d;
+  }
+}
+
+.block-content {
+  font-size: 1rem * 1.125;
+  @include mixins.responsive(80px, 80px, 0, 0) using ($d) {
+    margin-left: $d;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 1rem;
+  }
+}

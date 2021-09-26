@@ -2,7 +2,7 @@ import { FC } from "react"
 import LazyLoad from "react-lazyload"
 import { Row, Col } from "react-bootstrap"
 
-import { CompanyBenefit } from "../../../../types/home/company-benefit"
+import { CompanyBenefit } from "../../../types/home"
 
 const BenefitCard: FC<CompanyBenefit & { leftAligned?: boolean }> = ({
   title,

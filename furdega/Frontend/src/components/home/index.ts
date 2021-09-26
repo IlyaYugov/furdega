@@ -1,0 +1,6 @@
+export { About } from "./about/about"
+export { Benefits } from "./benefits/benefits"
+export { Process } from "./process/process"
+export { Solutions } from "./solutions/solutions"
+export { Staff } from "./staff/staff"
+export { WorkExamples } from "./work-examples/work-examples"

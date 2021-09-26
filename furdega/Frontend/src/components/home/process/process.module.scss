@@ -1,0 +1,16 @@
+.step-title {
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    right: -24px;
+    bottom: -24px;
+    top: -24px;
+    left: -24px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../../assets/svg/highlight-ellipse.svg);
+  }
+}

@@ -2,7 +2,7 @@ import { FC } from "react"
 import { Row, Col } from "react-bootstrap"
 
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
-import { IssueSolutionsSection } from "../../../../types/home/issue-solutions-section"
+import { IssueSolutionsSection } from "../../../types/home"
 import { SolutionBlock } from "./solution-block"
 
 const Solutions: FC<IssueSolutionsSection> = ({ header, issueSolutions }) => {

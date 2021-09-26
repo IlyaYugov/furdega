@@ -2,9 +2,9 @@ import { FC } from "react"
 import { Row, Col } from "react-bootstrap"
 import LazyLoad from "react-lazyload"
 
-import { WorkingProcessSection } from "../../../../types/home/working-process-section"
+import { WorkingProcessSection } from "../../../types/home"
 
-import styles from "../../home.module.scss"
+import styles from "./process.module.scss"
 
 const Process: FC<WorkingProcessSection> = ({
   header,
@@ -15,9 +15,9 @@ const Process: FC<WorkingProcessSection> = ({
 }) => {
   return (
     <>
-      <h2 className={styles["block-title"]}>{header}</h2>
+      <h2 className="block-title">{header}</h2>
 
-      <div className={styles["block-content"]}>
+      <div className="block-content">
         <Row>
           <Col xs={6}>
             <div className="d-flex">

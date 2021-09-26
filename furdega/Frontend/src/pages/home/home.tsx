@@ -4,16 +4,18 @@ import { Row, Col, Container, Button } from "react-bootstrap"
 import { useInView } from "react-intersection-observer"
 
 import { Scrollspy } from "../../components/scrollspy/scrollspy"
-import { About } from "./sections/about/about"
-import { WorkExamples } from "./sections/work-examples/work-examples"
-import { Benefits } from "./sections/benefits/benefits"
-import { Solutions } from "./sections/solutions/solutions"
-import { Process } from "./sections/process/process"
-import { Staff } from "./sections/staff/staff"
+import {
+  About,
+  Solutions,
+  Process,
+  WorkExamples,
+  Benefits,
+  Staff,
+} from "../../components/home"
 import { useMobileScreen } from "../../utils/useMobileScreen"
 import { scrollspyAnchors, scrollspyAnchorsMap } from "../../const/home"
 import { homeApi } from "../../api/home-api"
-import { HomePageContent } from "../../types/home/home-page-content"
+import { HomePageContent } from "../../types/home"
 
 import styles from "./home.module.scss"
 
@@ -39,19 +41,19 @@ const Home: FC = () => {
     <Container fluid className="g-0">
       <Container className="g-0 content">
         <div
-          className={`d-flex flex-xl-row flex-column justify-content-between align-items-xl-end align-items-sm-start align-items-stretch ${styles["top-title"]}`}
+          className={`d-flex flex-xl-row flex-column justify-content-between align-items-xl-end align-items-sm-start align-items-stretch ${styles["title"]}`}
         >
           <h1 className="me-3">Подарите мягкой мебели вторую жизнь</h1>
           <Button
             size="lg"
-            className={`fw-demibold mt-4 mt-xl-0 mb-0 mb-xl-4 ${styles["top-title-button"]}`}
+            className={`fw-demibold mt-4 mt-xl-0 mb-0 mb-xl-4 ${styles["title-button"]}`}
           >
             бесплатная консультация
           </Button>
         </div>
       </Container>
 
-      <Container className={`g-0 ${styles["top-banner"]}`}>
+      <Container className={`g-0 ${styles["banner"]}`}>
         <LazyLoad height={550}>
           <img
             className="img-fluid w-100"
@@ -77,18 +79,15 @@ const Home: FC = () => {
             lg={9}
             className="px-3 ps-sm-5 overflow-hidden"
           >
-            <div id={scrollspyAnchorsMap["about"].id} className={styles.block}>
+            <div className="block" id={scrollspyAnchorsMap["about"].id}>
               <About {...content.aboutSection} />
             </div>
 
-            <div
-              id={scrollspyAnchorsMap["examples"].id}
-              className={styles.block}
-            >
+            <div className="block" id={scrollspyAnchorsMap["examples"].id}>
               <WorkExamples {...content.workExamplesSection} />
             </div>
 
-            <div className={styles.block}>
+            <div className="block">
               <LazyLoad height={398}>
                 <img
                   className="img-fluid w-100"
@@ -98,10 +97,7 @@ const Home: FC = () => {
               </LazyLoad>
             </div>
 
-            <div
-              id={scrollspyAnchorsMap["benefits"].id}
-              className={styles.block}
-            >
+            <div className="block" id={scrollspyAnchorsMap["benefits"].id}>
               <Benefits {...content.companyBenefitsSection} />
             </div>
           </Col>
@@ -127,14 +123,11 @@ const Home: FC = () => {
           </Col>
 
           <Col sm={8} md={8} lg={9} className="ps-sm-5">
-            <div
-              id={scrollspyAnchorsMap["process"].id}
-              className={styles.block}
-            >
+            <div className="block" id={scrollspyAnchorsMap["process"].id}>
               <Process {...content.workingProcessSection} />
             </div>
 
-            <div id={scrollspyAnchorsMap["staff"].id} className={styles.block}>
+            <div className="block" id={scrollspyAnchorsMap["staff"].id}>
               <Staff {...content.staffSection} />
             </div>
           </Col>

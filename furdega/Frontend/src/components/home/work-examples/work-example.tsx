@@ -2,7 +2,7 @@ import { FC } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 
 import { WorkExampleImageBlock } from "./work-example-image-block"
-import { WorkExample as WorkExampleType } from "../../../../types/home/work-example"
+import { WorkExample as WorkExampleType } from "../../../types/home"
 
 const WorkExample: FC<WorkExampleType> = ({
   title,
