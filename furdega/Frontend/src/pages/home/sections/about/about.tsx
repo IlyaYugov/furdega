@@ -21,4 +21,4 @@ const About: FC<AboutSection> = ({ header, text }) => {
   )
 }
 
-export default About
+export { About }

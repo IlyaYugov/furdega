@@ -100,4 +100,4 @@ const Solutions: FC<IssueSolutionsSection> = ({ header, issueSolutions }) => {
   )
 }
 
-export default Solutions
+export { Solutions }

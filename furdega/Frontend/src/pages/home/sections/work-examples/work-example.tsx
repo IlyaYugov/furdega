@@ -112,4 +112,4 @@ const WorkExample: FC<WorkExampleType> = ({
   )
 }
 
-export default WorkExample
+export { WorkExample }

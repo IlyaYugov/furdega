@@ -102,4 +102,4 @@ const Benefits: FC<CompanyBenefitsSection> = ({ header, companyBenefits }) => {
   )
 }
 
-export default Benefits
+export { Benefits }

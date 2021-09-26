@@ -5,12 +5,12 @@ import { useInView } from "react-intersection-observer"
 
 import { Scrollspy } from "../../components/scrollspy/scrollspy"
 
-import About from "./sections/about/about"
-import WorkExamples from "./sections/work-examples/work-examples"
-import Benefits from "./sections/benefits/benefits"
-import Solutions from "./sections/solutions/solutions"
-import Process from "./sections/process/process"
-import Staff from "./sections/staff/staff"
+import { About } from "./sections/about/about"
+import { WorkExamples } from "./sections/work-examples/work-examples"
+import { Benefits } from "./sections/benefits/benefits"
+import { Solutions } from "./sections/solutions/solutions"
+import { Process } from "./sections/process/process"
+import { Staff } from "./sections/staff/staff"
 
 import { useMobileScreen } from "../../utils/useMobileScreen"
 import { scrollspyAnchors, scrollspyAnchorsMap } from "../../const/home"
@@ -58,7 +58,7 @@ const Home: FC = () => {
           <img
             className="img-fluid w-100"
             src="/images/index-top-pic.jpg"
-            alt="index-top-pic.jpg"
+            alt="/images/index-top-pic.jpg"
           />
         </LazyLoad>
       </Container>
@@ -95,7 +95,7 @@ const Home: FC = () => {
                 <img
                   className="img-fluid w-100"
                   src="/images/separator.png"
-                  alt="separator.png"
+                  alt="/images/separator.png"
                 />
               </LazyLoad>
             </div>
@@ -148,7 +148,7 @@ const Home: FC = () => {
           <img
             className="img-fluid w-100"
             src="/images/separator-big.png"
-            alt="separator-big.png"
+            alt="/images/separator-big.png"
           />
         </LazyLoad>
       </Container>

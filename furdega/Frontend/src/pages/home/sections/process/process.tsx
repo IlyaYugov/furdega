@@ -78,7 +78,7 @@ const Process: FC<WorkingProcessSection> = ({
             <img
               className="img-fluid w-100"
               src="/images/separator-subtle.png"
-              alt="separator-subtle.png"
+              alt="/images/separator-subtle.png"
             />
           </LazyLoad>
         </div>
@@ -87,4 +87,4 @@ const Process: FC<WorkingProcessSection> = ({
   )
 }
 
-export default Process
+export { Process }

@@ -58,4 +58,4 @@ const Staff: FC<StaffSection> = ({ header, employees }) => {
   )
 }
 
-export default Staff
+export { Staff }
