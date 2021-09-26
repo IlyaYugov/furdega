@@ -2,7 +2,6 @@ import { FC } from "react"
 import { Row, Col } from "react-bootstrap"
 
 import { EmployeeCard } from "./employee-card"
-
 import { StaffSection } from "../../../../types/home/staff-section"
 
 import styles from "../../home.module.scss"
