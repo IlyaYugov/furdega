@@ -1,19 +1,23 @@
+import { FC, useEffect, useState } from "react"
+import LazyLoad from "react-lazyload"
 import { Row, Col, Container, Button } from "react-bootstrap"
-import styles from "./home.module.scss"
-import { Scrollspy } from "../../components/scrollspy/scrollspy"
 import { useInView } from "react-intersection-observer"
+
+import { Scrollspy } from "../../components/scrollspy/scrollspy"
+
 import About from "./sections/about/about"
 import WorkExamples from "./sections/work-examples/work-examples"
 import Benefits from "./sections/benefits/benefits"
 import Solutions from "./sections/solutions/solutions"
 import Process from "./sections/process/process"
 import Staff from "./sections/staff/staff"
-import useMobileScreen from "../../utils/useMobileScreen"
+
+import { useMobileScreen } from "../../utils/useMobileScreen"
 import { scrollspyAnchors, scrollspyAnchorsMap } from "../../const/home"
-import { FC, useEffect, useState } from "react"
-import LazyLoad from "react-lazyload"
-import { HomePageContent } from "../../types/home/home-page-content"
 import { homeApi } from "../../api/home-api"
+import { HomePageContent } from "../../types/home/home-page-content"
+
+import styles from "./home.module.scss"
 
 const Home: FC = () => {
   const [content, setContent] = useState<HomePageContent | null>(null)
