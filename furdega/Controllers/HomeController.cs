@@ -22,12 +22,7 @@ namespace Furdega.Controllers
                 CompanyBenefitsSection = new CompanyBenefitsSection
                 {
                     Header = "Header",
-                    CompanyBenefits = new CompanyBenefit
-                    {
-                        Description = "Description",
-                        ImageUrl = "ImageUrl",
-                        Title = "Title"
-                    }
+                    CompanyBenefits = Array.Empty<CompanyBenefit>()
                 },
                 ImageUrl = "ImageUrl",
                 IssueSolutionsSection = new IssueSolutionsSection
@@ -140,7 +135,7 @@ namespace Furdega.Controllers
 
     public class CompanyBenefitsSection: HomeSectionBase
     {
-        public CompanyBenefit CompanyBenefits { get; set; }
+        public CompanyBenefit[] CompanyBenefits { get; set; }
     }
 
     public class CompanyBenefit
