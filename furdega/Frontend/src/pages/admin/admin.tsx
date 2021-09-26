@@ -1,6 +1,7 @@
 import { FC } from "react"
 import { Tabs, Tab, Container } from "react-bootstrap"
-import { HomeTab } from "./tabs/home/home"
+
+import { HomeTab } from "../../components/admin"
 
 const Admin: FC = () => {
   return (
