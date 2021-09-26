@@ -1,6 +1,5 @@
 import { Row, Col, Container, Button } from "react-bootstrap"
 import styles from "./home.module.scss"
-import { WorkExampleType } from "../../types/work-example"
 import { Scrollspy } from "../../components/scrollspy/scrollspy"
 import { useInView } from "react-intersection-observer"
 import About from "./sections/about/about"
@@ -12,23 +11,27 @@ import Staff from "./sections/staff/staff"
 import useMobileScreen from "../../utils/useMobileScreen"
 import { scrollspyAnchors, scrollspyAnchorsMap } from "../../const/home"
 import { FC, useEffect, useState } from "react"
-import workExamplesApi from "../../api/work-examples-api"
 import LazyLoad from "react-lazyload"
+import { HomePageContent } from "../../types/home/home-page-content"
+import { homeApi } from "../../api/home-api"
 
 const Home: FC = () => {
-  const [workExamples, setWorkExamples] = useState<WorkExampleType[]>([])
+  const [content, setContent] = useState<HomePageContent | null>(null)
   const [topScrollspyRef, isTopScrollspyVisible] = useInView()
   const [bottomScrollspyRef, isBottomScrollspyVisible] = useInView()
   const isMobile = useMobileScreen()
 
   const fetchWorkExamples = async () => {
-    const data = await workExamplesApi.get()
-    setWorkExamples(data)
+    const data = await homeApi.getHomePageContent()
+    setContent(data)
   }
 
   useEffect(() => {
     fetchWorkExamples()
   }, [])
+
+  // TODO add skeleton or default content
+  if (!content) return null
 
   return (
     <Container fluid className="g-0">
@@ -73,14 +76,14 @@ const Home: FC = () => {
             className="px-3 ps-sm-5 overflow-hidden"
           >
             <div id={scrollspyAnchorsMap["about"].id} className={styles.block}>
-              <About />
+              <About {...content.aboutSection} />
             </div>
 
             <div
               id={scrollspyAnchorsMap["examples"].id}
               className={styles.block}
             >
-              <WorkExamples workExamples={workExamples} />
+              <WorkExamples {...content.workExamplesSection} />
             </div>
 
             <div className={styles.block}>
@@ -97,7 +100,7 @@ const Home: FC = () => {
               id={scrollspyAnchorsMap["benefits"].id}
               className={styles.block}
             >
-              <Benefits />
+              <Benefits {...content.companyBenefitsSection} />
             </div>
           </Col>
         </Row>
@@ -108,7 +111,7 @@ const Home: FC = () => {
           id="solutions"
           className={`g-0 content ${styles["solutions-block"]}`}
         >
-          <Solutions />
+          <Solutions {...content.issueSolutionsSection} />
         </Container>
       </Container>
 
@@ -126,11 +129,11 @@ const Home: FC = () => {
               id={scrollspyAnchorsMap["process"].id}
               className={styles.block}
             >
-              <Process />
+              <Process {...content.workingProcessSection} />
             </div>
 
             <div id={scrollspyAnchorsMap["staff"].id} className={styles.block}>
-              <Staff />
+              <Staff {...content.staffSection} />
             </div>
           </Col>
         </Row>

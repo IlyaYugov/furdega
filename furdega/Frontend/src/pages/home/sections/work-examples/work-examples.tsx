@@ -1,19 +1,14 @@
 import { FC } from "react"
 import styles from "../../home.module.scss"
-import { WorkExampleType } from "../../../../types/work-example"
 import WorkExample from "./work-example"
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
+import { WorkExamplesSection } from "../../../../types/home/work-examples-section"
 
-type WorkExamplesProps = {
-  workExamples: WorkExampleType[]
-}
-
-const WorkExamples: FC<WorkExamplesProps> = ({ workExamples }) => {
+const WorkExamples: FC<WorkExamplesSection> = ({ header, workExamples }) => {
   return (
     <>
-      <h2 className={styles["block-title"]}>
-        Несколько историй из жизни реставрации мягкой мебели
-      </h2>
+      <h2 className={styles["block-title"]}>{header}</h2>
+
       <div className={styles["block-content"]}>
         {workExamples.map((workExample, index) => (
           <div key={`work-example-${index}`} className="mb-5">

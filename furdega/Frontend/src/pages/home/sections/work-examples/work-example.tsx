@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Col, Container, Row, Button } from "react-bootstrap"
-import { WorkExampleType } from "../../../../types/work-example"
 import LazyLoad from "react-lazyload"
+import { WorkExample as WorkExampleType } from "../../../../types/home/work-example"
 
 enum ImagesType {
   Before,
@@ -14,8 +14,10 @@ const WorkExample: FC<WorkExampleType> = ({
   duration,
   workType,
   description,
+  imageBeforeUrls,
+  imageAfterUrls,
 }) => {
-  const renderImagesBlock = (type: ImagesType) => {
+  const renderImagesBlock = (type: ImagesType, imageUrls: string[]) => {
     return (
       <Col md={12} xl={5}>
         <Row className="g-3 flex-nowrap align-items-xl-start align-items-end">
@@ -25,8 +27,8 @@ const WorkExample: FC<WorkExampleType> = ({
                 <LazyLoad height={512}>
                   <img
                     className="img-fluid w-100"
-                    src="/images/unnamed.png"
-                    alt="unnamed.png"
+                    src={imageUrls[0]}
+                    alt={imageUrls[0]}
                   />
                 </LazyLoad>
               </Col>
@@ -48,8 +50,8 @@ const WorkExample: FC<WorkExampleType> = ({
                 <LazyLoad height={512}>
                   <img
                     className="img-fluid w-100"
-                    src="/images/unnamed.png"
-                    alt="unnamed.png"
+                    src={imageUrls[1]}
+                    alt={imageUrls[1]}
                   />
                 </LazyLoad>
               </Col>
@@ -58,8 +60,8 @@ const WorkExample: FC<WorkExampleType> = ({
                 <LazyLoad height={512}>
                   <img
                     className="img-fluid w-100"
-                    src="/images/unnamed.png"
-                    alt="unnamed.png"
+                    src={imageUrls[2]}
+                    alt={imageUrls[2]}
                   />
                 </LazyLoad>
               </Col>
@@ -90,7 +92,7 @@ const WorkExample: FC<WorkExampleType> = ({
                   <div className="fs-medium fw-demibold">{duration}</div>
                 </Col>
                 <Col>
-                  <div className="opacity-50">Тип мебели</div>
+                  <div className="opacity-50">Тип работы</div>
                   <div className="fs-medium fw-demibold">{workType}</div>
                 </Col>
               </Row>
@@ -102,8 +104,8 @@ const WorkExample: FC<WorkExampleType> = ({
       </Row>
 
       <Row className="g-5 flex-column flex-xl-row justify-content-between">
-        {renderImagesBlock(ImagesType.Before)}
-        {renderImagesBlock(ImagesType.After)}
+        {renderImagesBlock(ImagesType.Before, imageBeforeUrls)}
+        {renderImagesBlock(ImagesType.After, imageAfterUrls)}
       </Row>
     </Container>
   )

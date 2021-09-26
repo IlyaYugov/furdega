@@ -2,13 +2,18 @@ import { FC } from "react"
 import styles from "../../home.module.scss"
 import { Row, Col } from "react-bootstrap"
 import LazyLoad from "react-lazyload"
+import { WorkingProcessSection } from "../../../../types/home/working-process-section"
 
-const Process: FC = () => {
+const Process: FC<WorkingProcessSection> = ({
+  header,
+  firstStage,
+  secondStage,
+  thirdStage,
+  finalStage,
+}) => {
   return (
     <>
-      <h2 className={styles["block-title"]}>
-        Как мы оказываем услуги нашим клиентам
-      </h2>
+      <h2 className={styles["block-title"]}>{header}</h2>
 
       <div className={styles["block-content"]}>
         <Row>
@@ -18,7 +23,7 @@ const Process: FC = () => {
             </div>
 
             <div className="mt-3">
-              <small>Бесплатный вызов дизайнера-технолога</small>
+              <small>{firstStage}</small>
             </div>
           </Col>
 
@@ -33,7 +38,7 @@ const Process: FC = () => {
             </div>
 
             <div className="mt-3">
-              <small>Заключаем с вами договор на оказание услуг</small>
+              <small>{secondStage}</small>
             </div>
           </Col>
         </Row>
@@ -45,7 +50,7 @@ const Process: FC = () => {
             </div>
 
             <div className="mt-3">
-              <small>Забор мебели на фабрику, проведение работ</small>
+              <small>{thirdStage}</small>
             </div>
           </Col>
 
@@ -61,9 +66,7 @@ const Process: FC = () => {
             </div>
 
             <div className="mt-3">
-              <small>
-                ОТК проверка качества, Упаковка мебели, доставка мебели к вам
-              </small>
+              <small>{finalStage}</small>
             </div>
           </Col>
         </Row>
