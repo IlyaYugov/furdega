@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Furdega.Models.MaterialTypes.Input;
 using Furdega.Models.MaterialTypes.Output;
 using Furdega.Services.MaterialTypes;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Furdega.Controllers
 {
