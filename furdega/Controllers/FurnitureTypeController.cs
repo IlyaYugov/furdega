@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Furdega.DataAccess.Models;
 using Furdega.Models.Furnitures.Input;
 using Furdega.Models.Furnitures.Output;
-using Furdega.Models.MaterialTypes.Output;
 using Furdega.Services.FurnitureTypes;
 using Microsoft.AspNetCore.Mvc;
 
