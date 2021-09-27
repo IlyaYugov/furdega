@@ -1,7 +1,14 @@
+using Furdega.DataAccess;
+using Furdega.Repositories;
+using Furdega.Repositories.FurnitureTypes;
+using Furdega.Repositories.RepositoryBase;
+using Furdega.Services.FurnitureTypes;
+using Furdega.Services.FurnitureTypes.Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +35,11 @@ namespace Furdega
             {
                 configuration.RootPath = "Frontend/build";
             });
+
+            services.AddDbContext<FurdegaDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            InitializeServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +78,15 @@ namespace Furdega
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+        }
+
+        private void InitializeServices(IServiceCollection services)
+        {
+            services.AddScoped(typeof(IRepositoryBase<>), typeof(FurdegaRepository<>));
+
+            services.AddScoped<IFurnitureTypeService, FurnitureTypeService>();
+
+            services.AddAutoMapper(typeof(FurnitureTypeProfile));
         }
     }
 }
