@@ -4,6 +4,7 @@ using Furdega.Repositories.FurnitureTypes;
 using Furdega.Repositories.RepositoryBase;
 using Furdega.Services.FurnitureTypes;
 using Furdega.Services.FurnitureTypes.Mapping;
+using Furdega.Services.MaterialTypes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -85,6 +86,7 @@ namespace Furdega
             services.AddScoped(typeof(IRepositoryBase<>), typeof(FurdegaRepository<>));
 
             services.AddScoped<IFurnitureTypeService, FurnitureTypeService>();
+            services.AddScoped<IMaterialTypeService, MaterialTypeService>();
 
             services.AddAutoMapper(typeof(FurnitureTypeProfile));
         }

@@ -45,9 +45,11 @@ namespace Furdega.Services.FurnitureTypes
             await _furnitureTypeRepository.Update(furnitureType);
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var type = await _furnitureTypeRepository.GetById(id);
+
+            await _furnitureTypeRepository.Delete(type);
         }
     }
 }
