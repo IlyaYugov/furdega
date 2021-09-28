@@ -6,7 +6,7 @@ import { PortfolioTab } from "../../components/admin/portfolio-tab/portfolio-tab
 
 const Admin: FC = () => {
   return (
-    <Container className="g-0 content overflow-hidden">
+    <Container className="g-0 content overflow-hidden pb-4">
       <Tabs defaultActiveKey="home" className="mb-4">
         <Tab eventKey="home" title="Главная">
           <HomeTab />

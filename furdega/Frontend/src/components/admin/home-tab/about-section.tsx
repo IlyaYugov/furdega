@@ -9,9 +9,9 @@ const AboutSection: FC<AdminSectionProps<AboutSectionType>> = (props) => {
   const [text, setText] = useState<string>(props.text)
 
   return (
-    <Row className="flex-column">
+    <Row className="flex-column gy-3">
       <Col>
-        <InputGroup className="mb-3">
+        <InputGroup>
           <InputGroup.Text className="w-25 text-center text-wrap">
             Текст заголовка
           </InputGroup.Text>
@@ -27,7 +27,7 @@ const AboutSection: FC<AdminSectionProps<AboutSectionType>> = (props) => {
       </Col>
 
       <Col>
-        <InputGroup className="mb-3">
+        <InputGroup>
           <InputGroup.Text className="w-25">Текст секции</InputGroup.Text>
           <FormControl
             as="textarea"

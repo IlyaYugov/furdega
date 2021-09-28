@@ -16,11 +16,15 @@ import {
   CompanyBenefitsSection,
   HomePageContent,
   IssueSolutionsSection,
+  StaffSection as StaffSectionType,
   WorkExamplesSection as WorkExamplesSectionType,
+  WorkingProcessSection,
 } from "../../../types/home"
 import { AboutSection } from "./about-section"
 import { BenefitsSection } from "./benefits-section"
+import { ProcessSection } from "./process-section"
 import { SolutionsSection } from "./solutions-section"
+import { StaffSection } from "./staff-section"
 import { WorkExamplesSection } from "./work-examples-section"
 
 const HomeTab: FC = () => {
@@ -60,6 +64,16 @@ const HomeTab: FC = () => {
     homeApi.createOrUpdateIssueSolutionsSection(section)
   }
 
+  const onWorkingProcessSectionContentChange = (
+    section: WorkingProcessSection
+  ) => {
+    homeApi.createOrUpdateWorkingProcessSection(section)
+  }
+
+  const onStaffSectionContentChange = (section: StaffSectionType) => {
+    homeApi.createOrUpdateStaffSection(section)
+  }
+
   // TODO add skeleton or default content
   if (!content) return null
 
@@ -93,6 +107,18 @@ const HomeTab: FC = () => {
             <Nav.Item>
               <Nav.Link eventKey="solutions">
                 {scrollspyAnchorsMap["solutions"].name}
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link eventKey="process">
+                {scrollspyAnchorsMap["process"].name}
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link eventKey="staff">
+                {scrollspyAnchorsMap["staff"].name}
               </Nav.Link>
             </Nav.Item>
           </Nav>
@@ -148,6 +174,20 @@ const HomeTab: FC = () => {
               <SolutionsSection
                 {...content.issueSolutionsSection}
                 onChange={onIssueSolutionsSectionContentChange}
+              />
+            </Tab.Pane>
+
+            <Tab.Pane eventKey="process">
+              <ProcessSection
+                {...content.workingProcessSection}
+                onChange={onWorkingProcessSectionContentChange}
+              />
+            </Tab.Pane>
+
+            <Tab.Pane eventKey="staff">
+              <StaffSection
+                {...content.staffSection}
+                onChange={onStaffSectionContentChange}
               />
             </Tab.Pane>
           </Tab.Content>
