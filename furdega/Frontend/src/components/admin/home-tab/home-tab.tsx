@@ -14,8 +14,10 @@ import { scrollspyAnchorsMap } from "../../../const/home"
 import {
   AboutSection as AboutSectionType,
   HomePageContent,
+  WorkExamplesSection as WorkExamplesSectionType,
 } from "../../../types/home"
 import { AboutSection } from "./about-section"
+import { WorkExamplesSection } from "./work-examples-section"
 
 const HomeTab: FC = () => {
   const [content, setContent] = useState<HomePageContent | null>(null)
@@ -23,7 +25,7 @@ const HomeTab: FC = () => {
   const [header, setHeader] = useState<string>("")
 
   const fetchContent = async () => {
-    const data = await homeApi.getHomePageContent()
+    const data = await homeApi.getContent()
     setContent(data)
     setHeader(data.header)
   }
@@ -35,7 +37,13 @@ const HomeTab: FC = () => {
   const onAboutSectionContentChange = (
     aboutSectionContent: AboutSectionType
   ) => {
-    console.log(aboutSectionContent)
+    homeApi.createOrUpdateAboutSection(aboutSectionContent)
+  }
+
+  const onWorkExamplesSectionContentChange = (
+    workExamplesSectionContent: WorkExamplesSectionType
+  ) => {
+    homeApi.createOrUpdateWorkExamplesSection(workExamplesSectionContent)
   }
 
   // TODO add skeleton or default content
@@ -96,7 +104,12 @@ const HomeTab: FC = () => {
               />
             </Tab.Pane>
 
-            <Tab.Pane eventKey="examples"></Tab.Pane>
+            <Tab.Pane eventKey="examples">
+              <WorkExamplesSection
+                {...content.workExamplesSection}
+                onChange={onWorkExamplesSectionContentChange}
+              />
+            </Tab.Pane>
           </Tab.Content>
         </Col>
       </Row>
