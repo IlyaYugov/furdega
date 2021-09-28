@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Furdega.DataAccess.Models;
-using Furdega.Models.Furnitures.Input;
-using Furdega.Models.Furnitures.Output;
+using Furdega.Dtos.Furnitures.Input;
+using Furdega.Dtos.Furnitures.Output;
 using Furdega.Repositories.RepositoryBase;
 
 namespace Furdega.Services.FurnitureTypes

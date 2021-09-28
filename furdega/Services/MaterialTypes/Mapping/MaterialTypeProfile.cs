@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Furdega.DataAccess.Models;
-using Furdega.Models.MaterialTypes.Input;
-using Furdega.Models.MaterialTypes.Output;
+using Furdega.Dtos.MaterialTypes.Input;
+using Furdega.Dtos.MaterialTypes.Output;
 
 namespace Furdega.Services.MaterialTypes.Mapping
 {

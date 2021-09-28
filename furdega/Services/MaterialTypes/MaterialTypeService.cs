@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Furdega.DataAccess.Models;
-using Furdega.Models.MaterialTypes.Input;
-using Furdega.Models.MaterialTypes.Output;
+using Furdega.Dtos.MaterialTypes.Input;
+using Furdega.Dtos.MaterialTypes.Output;
 using Furdega.Repositories.RepositoryBase;
 
 namespace Furdega.Services.MaterialTypes

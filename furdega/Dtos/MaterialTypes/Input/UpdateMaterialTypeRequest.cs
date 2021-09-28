@@ -1,4 +1,4 @@
-﻿namespace Furdega.Models.MaterialTypes.Input
+﻿namespace Furdega.Dtos.MaterialTypes.Input
 {
     public class UpdateMaterialTypeRequest
     {

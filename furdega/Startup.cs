@@ -1,13 +1,12 @@
 using Furdega.DataAccess;
 using Furdega.Repositories;
-using Furdega.Repositories.FurnitureTypes;
 using Furdega.Repositories.RepositoryBase;
 using Furdega.Services.FurnitureTypes;
 using Furdega.Services.FurnitureTypes.Mapping;
+using Furdega.Services.HomePage;
 using Furdega.Services.MaterialTypes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -87,6 +86,7 @@ namespace Furdega
 
             services.AddScoped<IFurnitureTypeService, FurnitureTypeService>();
             services.AddScoped<IMaterialTypeService, MaterialTypeService>();
+            services.AddScoped<IHomePageService, HomePageService>();
 
             services.AddAutoMapper(typeof(FurnitureTypeProfile));
         }

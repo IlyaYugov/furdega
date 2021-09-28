@@ -1,4 +1,4 @@
-﻿namespace Furdega.Models.Furnitures.Input
+﻿namespace Furdega.Dtos.Furnitures.Input
 {
     public class UpdateFurnitureTypeRequest
     {

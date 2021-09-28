@@ -1,4 +1,4 @@
-﻿namespace Furdega.Models.MaterialTypes.Output
+﻿namespace Furdega.Dtos.MaterialTypes.Output
 {
     public class MaterialTypeResponse
     {

@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Furdega.Models.Input;
-using Furdega.Models.Materials.Output;
+using Furdega.Dtos.Materials.Input;
+using Furdega.Dtos.Materials.Output;
 
 namespace Furdega.Controllers
 {

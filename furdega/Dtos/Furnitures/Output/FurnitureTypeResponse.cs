@@ -1,4 +1,4 @@
-﻿namespace Furdega.Models.Furnitures.Output
+﻿namespace Furdega.Dtos.Furnitures.Output
 {
     public class FurnitureTypeResponse
     {

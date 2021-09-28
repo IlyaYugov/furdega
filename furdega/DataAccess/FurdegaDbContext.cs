@@ -5,13 +5,31 @@ namespace Furdega.DataAccess
 {
     public sealed class FurdegaDbContext: DbContext
     {
+        private static volatile bool _isInitialized;
+        private static readonly object Mutex = new();
+
         public DbSet<MaterialType> MaterialTypes { get; set; }
         public DbSet<FurnitureType> FurnitureTypes { get; set; }
+        public DbSet<HomePageSection> HomePageSections { get; set; }
 
-        public FurdegaDbContext(DbContextOptions<FurdegaDbContext> options)
-            : base(options)
+        public FurdegaDbContext(DbContextOptions<FurdegaDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            if (_isInitialized)
+            {
+                return;
+            }
+
+            lock (Mutex)
+            {
+                if (_isInitialized)
+                {
+                    return;
+                }
+
+                Database.Migrate();
+
+                _isInitialized = true;
+            }
         }
     }
 }
