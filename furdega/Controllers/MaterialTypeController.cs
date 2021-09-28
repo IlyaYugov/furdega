@@ -1,40 +1,45 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Furdega.Models.MaterialTypes.Input;
 using Furdega.Models.MaterialTypes.Output;
-using Microsoft.AspNetCore.Authorization;
+using Furdega.Services.MaterialTypes;
 
 namespace Furdega.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class MaterialTypeController : ControllerBase
     {
-        [AllowAnonymous]
+        private readonly IMaterialTypeService _materialTypeService;
+
+        public MaterialTypeController(IMaterialTypeService materialTypeService)
+        {
+            _materialTypeService = materialTypeService;
+        }
+
         [HttpGet]
         public async Task<IEnumerable<MaterialTypeResponse>> GetTypes()
         {
-            return Array.Empty<MaterialTypeResponse>();
+            return await _materialTypeService.GetTypes();
         }
 
         [HttpPost]
         public async Task<int> Create([FromBody] UpdateMaterialTypeRequest type)
         {
-            return 0;
+            return await _materialTypeService.Create(type);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<int> Update(int id, [FromBody] UpdateMaterialTypeRequest type)
+        public async Task Update(int id, [FromBody] UpdateMaterialTypeRequest type)
         {
-            return 0;
+            await _materialTypeService.Update(id, type);
         }
 
         [HttpDelete("{id:int}")]
         public async Task Delete(int id)
         {
+            await _materialTypeService.Delete(id);
         }
     }
 }

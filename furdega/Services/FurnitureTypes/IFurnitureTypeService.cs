@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Furdega.Models.Furnitures.Input;
 using Furdega.Models.Furnitures.Output;
-using Furdega.Models.MaterialTypes.Output;
 
 namespace Furdega.Services.FurnitureTypes
 {
