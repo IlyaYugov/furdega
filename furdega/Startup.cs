@@ -1,6 +1,9 @@
+using System.IO;
+using Furdega.Configuration;
 using Furdega.DataAccess;
 using Furdega.Repositories;
 using Furdega.Repositories.RepositoryBase;
+using Furdega.Services.FileManagers;
 using Furdega.Services.FurnitureTypes;
 using Furdega.Services.FurnitureTypes.Mapping;
 using Furdega.Services.HomePage;
@@ -11,15 +14,21 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 
 namespace Furdega
 {
     public class Startup
     {
+        private const string ProjectSettingsSectionName = "ProjectSettings";
+
+        private readonly IConfiguration _configuration;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -27,7 +36,6 @@ namespace Furdega
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
@@ -35,9 +43,6 @@ namespace Furdega
             {
                 configuration.RootPath = "Frontend/build";
             });
-
-            services.AddDbContext<FurdegaDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             InitializeServices(services);
         }
@@ -57,8 +62,6 @@ namespace Furdega
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
 
             app.UseRouting();
 
@@ -68,6 +71,8 @@ namespace Furdega
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
+
+            InitializeImagesFolder(app, env);
 
             app.UseSpa(spa =>
             {
@@ -82,13 +87,32 @@ namespace Furdega
 
         private void InitializeServices(IServiceCollection services)
         {
+            services.AddDbContext<FurdegaDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.Configure<ProjectSettings>(options => _configuration.GetSection(ProjectSettingsSectionName).Bind(options));
+
             services.AddScoped(typeof(IRepositoryBase<>), typeof(FurdegaRepository<>));
 
             services.AddScoped<IFurnitureTypeService, FurnitureTypeService>();
             services.AddScoped<IMaterialTypeService, MaterialTypeService>();
             services.AddScoped<IHomePageService, HomePageService>();
+            services.AddScoped<IFileManager, FileManager>();
 
             services.AddAutoMapper(typeof(FurnitureTypeProfile));
+        }
+
+        private void InitializeImagesFolder(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            var projectSettings = _configuration.GetSection(ProjectSettingsSectionName).Get<ProjectSettings>();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetDirectoryRoot(env.ContentRootPath), projectSettings.ImagesDirectoryName)),
+                RequestPath = $"/{projectSettings.ImagesDirectoryName}"
+            });
+
+            app.UseSpaStaticFiles();
         }
     }
 }

@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using AutoMapper;
 using Furdega.DataAccess.Models;
 using Furdega.DataAccess.Models.Enums;
-using Furdega.Dtos.HomePage;
+using Furdega.Dtos.HomePage.Input;
+using Furdega.Dtos.HomePage.Output;
+using Furdega.Extensions;
 using Furdega.Repositories.RepositoryBase;
+using Furdega.Services.FileManagers;
 
 namespace Furdega.Services.HomePage
 {
@@ -15,9 +18,15 @@ namespace Furdega.Services.HomePage
     {
         private readonly IRepositoryBase<HomePageSection> _homePageSectionRepository;
 
-        public HomePageService(IRepositoryBase<HomePageSection> homePageSectionRepository)
+        private readonly IFileManager _fileManager;
+
+        private readonly IMapper _mapper;
+
+        public HomePageService(IRepositoryBase<HomePageSection> homePageSectionRepository, IMapper mapper, IFileManager fileManager)
         {
             _homePageSectionRepository = homePageSectionRepository;
+            _mapper = mapper;
+            _fileManager = fileManager;
         }
 
         public async Task<HomePageContent> GetFullPage()
@@ -26,13 +35,13 @@ namespace Furdega.Services.HomePage
 
             var result = new HomePageContent
             {
-                MainHomeSection = GetDeserializedSection<MainHomeSection>(sections),
-                AboutSection = GetDeserializedSection<AboutSection>(sections),
-                CompanyBenefitsSection = GetDeserializedSection<CompanyBenefitsSection>(sections),
-                IssueSolutionsSection = GetDeserializedSection<IssueSolutionsSection>(sections),
-                StaffSection = GetDeserializedSection<StaffSection>(sections),
-                WorkExamplesSection = GetDeserializedSection<WorkExamplesSection>(sections),
-                WorkingProcessSection = GetDeserializedSection<WorkingProcessSection>(sections)
+                MainHomeSection = GetDeserializedSection<MainHomeSectionResponse>(sections),
+                AboutSection = GetDeserializedSection<AboutSectionResponse>(sections),
+                CompanyBenefitsSection = GetDeserializedSection<CompanyBenefitsSectionResponse>(sections),
+                IssueSolutionsSection = GetDeserializedSection<IssueSolutionsSectionResponse>(sections),
+                StaffSection = GetDeserializedSection<StaffSectionResponse>(sections),
+                WorkExamplesSection = GetDeserializedSection<WorkExamplesSectionResponse>(sections),
+                WorkingProcessSection = GetDeserializedSection<WorkingProcessSectionResponse>(sections)
             };
 
             return result;
@@ -60,49 +69,94 @@ namespace Furdega.Services.HomePage
             }
         }
 
-        private TSection GetDeserializedSection<TSection>(List<HomePageSection> sections) where TSection: class
+        public async Task CreateOrUpdateStaffSection(StaffSectionRequest section)
         {
-            var sectionType = GetHomePageSectionTypeByClassType(typeof(TSection));
+            var mappedSection = _mapper.Map<StaffSectionResponse>(section); //TODO: check that mappedSection.Employees is empty
+            mappedSection.Employees = new List<EmployeeResponse>();
+
+            foreach (var employee in section.Employees)
+            {
+                var mappedEmployee = _mapper.Map<EmployeeResponse>(employee);
+                mappedEmployee.ImageUrl = await _fileManager.LoadFile(employee.Image);
+                mappedSection.Employees.Add(mappedEmployee);
+            }
+
+            await CreateOrUpdateSection(HomePageSectionType.StaffSection, mappedSection);
+        }
+
+        public async Task CreateOrUpdateWorkExamplesSection(WorkExamplesSectionRequest section)
+        {
+            var mappedSection = _mapper.Map<WorkExamplesSectionResponse>(section); //TODO: check that mappedSection.WorkExamples is empty
+            mappedSection.WorkExamples = new List<WorkExampleResponse>();
+
+            foreach (var workExample in section.WorkExamples)
+            {
+                var mappedWorkExample = _mapper.Map<WorkExampleResponse>(workExample);
+                mappedWorkExample.AfterImageUrls = new List<string>(); //TODO: check that mappedSection.WorkExamples is empty
+                mappedWorkExample.BeforeImageUrls = new List<string>(); //TODO: check that mappedSection.WorkExamples is empty
+
+                foreach (var afterImage in workExample.AfterImages)
+                {
+                    mappedWorkExample.AfterImageUrls.Add(await _fileManager.LoadFile(afterImage));
+
+                }
+                foreach (var beforeImage in workExample.BeforeImages)
+                {
+                    mappedWorkExample.BeforeImageUrls.Add(await _fileManager.LoadFile(beforeImage));
+                }
+
+                mappedSection.WorkExamples.Add(mappedWorkExample);
+            }
+
+            await CreateOrUpdateSection(HomePageSectionType.WorkExamplesSection, mappedSection);
+        }
+
+        public async Task CreateOrUpdateCompanyBenefitsSection(CompanyBenefitsSectionRequest section)
+        {
+            var mappedSection = _mapper.Map<CompanyBenefitsSectionResponse>(section); //TODO: check that mappedSection.Employees is empty
+            mappedSection.CompanyBenefits = new List<CompanyBenefitResponse>();
+
+            foreach (var companyBenefit in section.CompanyBenefits)
+            {
+                var mappedCompanyBenefit = _mapper.Map<CompanyBenefitResponse>(companyBenefit);
+                mappedCompanyBenefit.ImageUrl = await _fileManager.LoadFile(companyBenefit.Image);
+                mappedSection.CompanyBenefits.Add(mappedCompanyBenefit);
+            }
+
+            await CreateOrUpdateSection(HomePageSectionType.CompanyBenefitsSection, mappedSection);
+        }
+
+        public async Task CreateOrUpdateIssueSolutionsSection(IssueSolutionsSectionRequest section)
+        {
+            var mappedSection = _mapper.Map<IssueSolutionsSectionResponse>(section); //TODO: check that mappedSection.Employees is empty
+            mappedSection.IssueSolutions = new List<IssueSolutionResponse>();
+
+            foreach (var issueSolution in section.IssueSolutions)
+            {
+                var mappedIssueSolution = _mapper.Map<IssueSolutionResponse>(issueSolution);
+                mappedIssueSolution.ImageUrl = await _fileManager.LoadFile(issueSolution.Image);
+                mappedSection.IssueSolutions.Add(mappedIssueSolution);
+            }
+
+            await CreateOrUpdateSection(HomePageSectionType.IssueSolutionsSection, section);
+        }
+
+        public async Task CreateOrUpdateMainHomeSection(MainHomeSectionRequest section)
+        {
+            var mappedSection = _mapper.Map<MainHomeSectionResponse>(section);
+
+            mappedSection.ImageUrl = await _fileManager.LoadFile(section.Image);
+
+            await CreateOrUpdateSection(HomePageSectionType.MainHomeSection, section);
+        }
+
+        private TSection GetDeserializedSection<TSection>(List<HomePageSection> sections) where TSection : class
+        {
+            var sectionType = typeof(TSection).GetHomePageSectionType();
 
             var sectionContent = sections.FirstOrDefault(s => s.SectionTypeId == (int)sectionType)?.SectionContent ?? "{}";
 
             return JsonSerializer.Deserialize<TSection>(sectionContent);
-        }
-
-        private HomePageSectionType GetHomePageSectionTypeByClassType(Type classType)
-        {
-            if (classType == typeof(MainHomeSection))
-            {
-                return HomePageSectionType.MainHomeSection;
-            }
-            else if (classType == typeof(AboutSection))
-            {
-                return HomePageSectionType.AboutSection;
-            }
-            else if (classType == typeof(CompanyBenefitsSection))
-            {
-                return HomePageSectionType.CompanyBenefitsSection;
-            }
-            else if (classType == typeof(IssueSolutionsSection))
-            {
-                return HomePageSectionType.IssueSolutionsSection;
-            }
-            else if (classType == typeof(StaffSection))
-            {
-                return HomePageSectionType.StaffSection;
-            }
-            else if (classType == typeof(WorkExamplesSection))
-            {
-                return HomePageSectionType.WorkExamplesSection;
-            }
-            else if (classType == typeof(WorkingProcessSection))
-            {
-                return HomePageSectionType.WorkingProcessSection;
-            }
-            else
-            {
-                return HomePageSectionType.None;
-            }
         }
     }
 }
