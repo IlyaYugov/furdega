@@ -2,6 +2,7 @@ import { FC } from "react"
 import { Tabs, Tab, Container } from "react-bootstrap"
 
 import { HomeTab } from "../../components/admin"
+import { PortfolioTab } from "../../components/admin/portfolio-tab/portfolio-tab"
 
 const Admin: FC = () => {
   return (
@@ -11,8 +12,12 @@ const Admin: FC = () => {
           <HomeTab />
         </Tab>
 
-        <Tab eventKey="portfolio" title="Портфолио"></Tab>
+        <Tab eventKey="portfolio" title="Портфолио">
+          <PortfolioTab />
+        </Tab>
+
         <Tab eventKey="catalog" title="Каталог"></Tab>
+
         <Tab eventKey="contacts" title="Контакты"></Tab>
       </Tabs>
     </Container>

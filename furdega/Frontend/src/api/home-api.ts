@@ -24,7 +24,18 @@ const homeApi = {
 
   createOrUpdateWorkExamplesSection: async (
     section: WorkExamplesSection
-  ): Promise<void> => {},
+  ): Promise<void> => {
+    const formData = new FormData()
+
+    formData.append("header", section.header)
+    formData.append("workExamples", JSON.stringify(section.workExamples))
+
+    await axios.post(`${BASE_URL}/workexamplessection`, formData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  },
 
   createOrUpdateCompanyBenefitsSection: async (
     section: CompanyBenefitsSection

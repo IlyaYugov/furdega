@@ -13,10 +13,14 @@ import { homeApi } from "../../../api/home-api"
 import { scrollspyAnchorsMap } from "../../../const/home"
 import {
   AboutSection as AboutSectionType,
+  CompanyBenefitsSection,
   HomePageContent,
+  IssueSolutionsSection,
   WorkExamplesSection as WorkExamplesSectionType,
 } from "../../../types/home"
 import { AboutSection } from "./about-section"
+import { BenefitsSection } from "./benefits-section"
+import { SolutionsSection } from "./solutions-section"
 import { WorkExamplesSection } from "./work-examples-section"
 
 const HomeTab: FC = () => {
@@ -34,16 +38,26 @@ const HomeTab: FC = () => {
     fetchContent()
   }, [])
 
-  const onAboutSectionContentChange = (
-    aboutSectionContent: AboutSectionType
-  ) => {
-    homeApi.createOrUpdateAboutSection(aboutSectionContent)
+  const onAboutSectionContentChange = (section: AboutSectionType) => {
+    homeApi.createOrUpdateAboutSection(section)
   }
 
   const onWorkExamplesSectionContentChange = (
-    workExamplesSectionContent: WorkExamplesSectionType
+    section: WorkExamplesSectionType
   ) => {
-    homeApi.createOrUpdateWorkExamplesSection(workExamplesSectionContent)
+    homeApi.createOrUpdateWorkExamplesSection(section)
+  }
+
+  const onCompanyBenefitsSectionContentChange = (
+    section: CompanyBenefitsSection
+  ) => {
+    homeApi.createOrUpdateCompanyBenefitsSection(section)
+  }
+
+  const onIssueSolutionsSectionContentChange = (
+    section: IssueSolutionsSection
+  ) => {
+    homeApi.createOrUpdateIssueSolutionsSection(section)
   }
 
   // TODO add skeleton or default content
@@ -67,6 +81,18 @@ const HomeTab: FC = () => {
             <Nav.Item>
               <Nav.Link eventKey="examples">
                 {scrollspyAnchorsMap["examples"].name}
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link eventKey="benefits">
+                {scrollspyAnchorsMap["benefits"].name}
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link eventKey="solutions">
+                {scrollspyAnchorsMap["solutions"].name}
               </Nav.Link>
             </Nav.Item>
           </Nav>
@@ -108,6 +134,20 @@ const HomeTab: FC = () => {
               <WorkExamplesSection
                 {...content.workExamplesSection}
                 onChange={onWorkExamplesSectionContentChange}
+              />
+            </Tab.Pane>
+
+            <Tab.Pane eventKey="benefits">
+              <BenefitsSection
+                {...content.companyBenefitsSection}
+                onChange={onCompanyBenefitsSectionContentChange}
+              />
+            </Tab.Pane>
+
+            <Tab.Pane eventKey="solutions">
+              <SolutionsSection
+                {...content.issueSolutionsSection}
+                onChange={onIssueSolutionsSectionContentChange}
               />
             </Tab.Pane>
           </Tab.Content>

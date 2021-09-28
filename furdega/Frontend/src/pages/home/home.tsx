@@ -26,7 +26,7 @@ const Home: FC = () => {
   const isMobile = useMobileScreen()
 
   const fetchContent = async () => {
-    const data = await homeApi.getHomePageContent()
+    const data = await homeApi.getContent()
     setContent(data)
   }
 
