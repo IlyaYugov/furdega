@@ -32,3 +32,11 @@ $btn-font-size-lg: 1rem * 1.125;
 $btn-padding-y-lg: 30px;
 $btn-padding-x-lg: 42px;
 $btn-line-height: 1;
+
+$nav-link-color: map-get($theme-colors, "dark");
+$nav-link-hover-color: $body-color;
+$nav-pills-link-active-color: map-get($theme-colors, "dark");
+$nav-pills-link-active-bg: map-get($theme-colors, "primary");
+$nav-tabs-link-active-color: map-get($theme-colors, "dark");
+$nav-tabs-link-active-bg: map-get($theme-colors, "primary");
+$nav-tabs-link-active-border-color: map-get($theme-colors, "primary"); ;
