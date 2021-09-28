@@ -1,7 +1,9 @@
-﻿namespace Furdega.Dtos.HomePage
+﻿using System;
+
+namespace Furdega.Dtos.HomePage
 {
     public class WorkExamplesSection: HomeSectionBase
     {
-        public WorkExample[] WorkExamples { get; set; }
+        public WorkExample[] WorkExamples { get; set; } = Array.Empty<WorkExample>();
     }
 }

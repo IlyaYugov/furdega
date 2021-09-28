@@ -1,5 +1,4 @@
-﻿using Furdega.DataAccess.Models.Enums;
-using Furdega.Repositories.RepositoryBase;
+﻿using Furdega.Repositories.RepositoryBase;
 
 namespace Furdega.DataAccess.Models
 {

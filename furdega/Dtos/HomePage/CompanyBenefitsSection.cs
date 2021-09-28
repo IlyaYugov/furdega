@@ -1,7 +1,9 @@
-﻿namespace Furdega.Dtos.HomePage
+﻿using System;
+
+namespace Furdega.Dtos.HomePage
 {
     public class CompanyBenefitsSection: HomeSectionBase
     {
-        public CompanyBenefit[] CompanyBenefits { get; set; }
+        public CompanyBenefit[] CompanyBenefits { get; set; } = Array.Empty<CompanyBenefit>();
     }
 }
