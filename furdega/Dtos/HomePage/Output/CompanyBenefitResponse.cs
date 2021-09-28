@@ -1,6 +1,6 @@
-﻿namespace Furdega.Dtos.HomePage
+﻿namespace Furdega.Dtos.HomePage.Output
 {
-    public class IssueSolution
+    public class CompanyBenefitResponse
     {
         public string Title { get; set; }
         public string ImageUrl { get; set; }

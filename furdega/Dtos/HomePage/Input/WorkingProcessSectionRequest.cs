@@ -1,6 +1,6 @@
-﻿namespace Furdega.Dtos.HomePage
+﻿namespace Furdega.Dtos.HomePage.Input
 {
-    public class WorkingProcessSection: HomeSectionBase
+    public class WorkingProcessSectionRequest: HomeSectionBase
     {
         public string FirstStage { get; set; }
         public string SecondStage { get; set; }

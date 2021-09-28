@@ -1,8 +1,9 @@
 ﻿using System;
+using Microsoft.AspNetCore.Http;
 
-namespace Furdega.Dtos.HomePage
+namespace Furdega.Dtos.HomePage.Input
 {
-    public class WorkExample
+    public class WorkExampleRequest
     {
         public string Title { get; set; }
 
@@ -12,7 +13,7 @@ namespace Furdega.Dtos.HomePage
 
         public string Description { get; set; }
 
-        public string[] ImageBeforeUrls { get; set; } = Array.Empty<string>();
-        public string[] ImageAfterUrls { get; set; } = Array.Empty<string>();
+        public IFormFile[] BeforeImages { get; set; }
+        public IFormFile[] AfterImages { get; set; }
     }
 }
