@@ -37,8 +37,8 @@ const Portfolio: FC = () => {
     <>
       <Container className={`g-0 ${styles["title-container"]}`}>
         <img
-          src="/images/portfolio-top-pic.jpg"
-          alt="/images/portfolio-top-pic.jpg"
+          src="/assets/portfolio-top-pic.jpg"
+          alt="/assets/portfolio-top-pic.jpg"
           width="1440"
           height="460"
         />

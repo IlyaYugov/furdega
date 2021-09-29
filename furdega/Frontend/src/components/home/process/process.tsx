@@ -77,8 +77,8 @@ const Process: FC<WorkingProcessSection> = ({
           <LazyLoad height={1029}>
             <img
               className="img-fluid w-100"
-              src="/images/separator-subtle.png"
-              alt="/images/separator-subtle.png"
+              src="/assets/separator-subtle.png"
+              alt="/assets/separator-subtle.png"
             />
           </LazyLoad>
         </div>

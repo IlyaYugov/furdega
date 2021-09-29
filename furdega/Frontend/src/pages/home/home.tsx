@@ -91,8 +91,8 @@ const Home: FC = () => {
               <LazyLoad height={398}>
                 <img
                   className="img-fluid w-100"
-                  src="/images/separator.png"
-                  alt="/images/separator.png"
+                  src="/assets/separator.png"
+                  alt="/assets/separator.png"
                 />
               </LazyLoad>
             </div>
@@ -138,8 +138,8 @@ const Home: FC = () => {
         <LazyLoad height={312}>
           <img
             className="img-fluid w-100"
-            src="/images/separator-big.png"
-            alt="/images/separator-big.png"
+            src="/assets/separator-big.png"
+            alt="/assets/separator-big.png"
           />
         </LazyLoad>
       </Container>

@@ -20,9 +20,12 @@ const homeApi = {
     return response.data
   },
 
-  createOrUpdateAboutSection: async (
-    section: AboutSection
-  ): Promise<void> => {},
+  createOrUpdateAboutSection: async (request: AboutSection): Promise<void> => {
+    await axios.post(
+      `${BASE_URL}/about-section`,
+      mapObjectToFormData({ object: request })
+    )
+  },
 
   createOrUpdateWorkExamplesSection: async (
     request: WorkExamplesSectionRequest
@@ -37,7 +40,7 @@ const homeApi = {
     request: MainHomeSectionRequest
   ): Promise<void> => {
     await axios.post(
-      `${BASE_URL}/mainhomesectionrequest`,
+      `${BASE_URL}/main-home-section`,
       mapObjectToFormData({ object: request })
     )
   },
