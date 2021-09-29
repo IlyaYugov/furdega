@@ -9,6 +9,9 @@ import {
   WorkingProcessSection,
   HomePageContent,
 } from "../types/home"
+import { MainHomeSectionRequest } from "../types/home-api/main-home-section-request"
+import { MainHomeSection } from "../types/home/main-home-section"
+import { mapObjectToFormData } from "../utils/mapToFormData"
 
 const BASE_URL = "/api/home"
 
@@ -35,6 +38,15 @@ const homeApi = {
         "Content-Type": "application/json",
       },
     })
+  },
+
+  createOrUpdateMainHomeSection: async (
+    request: MainHomeSectionRequest
+  ): Promise<void> => {
+    await axios.post(
+      `${BASE_URL}/mainhomesectionrequest`,
+      mapObjectToFormData({ object: request })
+    )
   },
 
   createOrUpdateCompanyBenefitsSection: async (

@@ -43,7 +43,7 @@ const Home: FC = () => {
         <div
           className={`d-flex flex-xl-row flex-column justify-content-between align-items-xl-end align-items-sm-start align-items-stretch ${styles["title"]}`}
         >
-          <h1 className="me-3">{content.header}</h1>
+          <h1 className="me-3">{content.mainHomeSection.header}</h1>
           <Button
             size="lg"
             className={`fw-demibold mt-4 mt-xl-0 mb-0 mb-xl-4 ${styles["title-button"]}`}
@@ -57,8 +57,8 @@ const Home: FC = () => {
         <LazyLoad height={550}>
           <img
             className="img-fluid w-100"
-            src="/images/index-top-pic.jpg"
-            alt="/images/index-top-pic.jpg"
+            src={content.mainHomeSection.imageUrl}
+            alt={content.mainHomeSection.imageUrl}
           />
         </LazyLoad>
       </Container>
