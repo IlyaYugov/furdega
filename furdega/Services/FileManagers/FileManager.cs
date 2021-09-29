@@ -11,7 +11,7 @@ namespace Furdega.Services.FileManagers
     public class FileManager: IFileManager
     {
         public const string FileExtensionError = "Not Support file extension";
-        private static readonly string[] AvailableFileExtensions = { ".jpeg", "jpg", ".png" };
+        private static readonly string[] AvailableFileExtensions = { "jpeg", "jpg", "png" };
 
         private readonly ProjectSettings _projectSettings;
 
@@ -34,7 +34,30 @@ namespace Furdega.Services.FileManagers
             return fileUrl;
         }
 
-        public static bool IsFileExtensionCorrect(string fullFileName) => AvailableFileExtensions.Any(ex => Path.GetExtension(fullFileName).Equals(ex, StringComparison.OrdinalIgnoreCase));
+        public async Task<string> LoadFile(string base64Image)
+        {
+            if (base64Image == null)
+            {
+                return null;
+            }
+
+            var fileName = Guid.NewGuid().ToString();
+            var fileUrl = Path.Combine("/", _projectSettings.ImagesDirectoryName, fileName);
+            await LoadFileAsync(base64Image, fileName);
+
+            return fileUrl;
+        }
+
+        private async Task LoadFileAsync(string base64Image, string fileName)
+        {
+            var filePath = Path.Combine(_projectSettings.GetImageDirectoryPath, fileName);
+
+            await using var fileStream = new FileStream(filePath, FileMode.Create);
+            fileStream.Write(Convert.FromBase64String(base64Image));
+        }
+
+        public static bool IsFileExtensionCorrect(string base64Image) 
+            => AvailableFileExtensions.Any(ex => GetFileExtensionFromBase64String(base64Image).Equals(ex, StringComparison.OrdinalIgnoreCase));
 
         private string GenerateFileName(IFormFile file) => string.Concat(Guid.NewGuid().ToString(), Path.GetExtension(file.FileName));
 
@@ -44,6 +67,36 @@ namespace Furdega.Services.FileManagers
 
             await using var fileStream = new FileStream(filePath, FileMode.Create);
             await file.CopyToAsync(fileStream);
+        }
+
+        private static string GetFileExtensionFromBase64String(string base64Image)
+        {
+            var extensionCode = base64Image.Substring(0, 5).ToUpper();
+
+            switch (extensionCode)
+            {
+                case "IVBOR":
+                    return "png";
+                case "/9J/4":
+                    return "jpg";
+                case "AAAAF":
+                    return "mp4";
+                case "JVBER":
+                    return "pdf";
+                case "AAABA":
+                    return "ico";
+                case "UMFYI":
+                    return "rar";
+                case "E1XYD":
+                    return "rtf";
+                case "U1PKC":
+                    return "txt";
+                case "MQOWM":
+                case "77U/M":
+                    return "srt";
+                default:
+                    return string.Empty;
+            }
         }
     }
 }

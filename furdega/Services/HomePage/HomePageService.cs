@@ -161,7 +161,8 @@ namespace Furdega.Services.HomePage
             await CreateOrUpdateSection(HomePageSectionType.MainHomeSection, mappedSection);
         }
 
-        protected TSection GetDeserializedSection<TSection>(List<HomePageSection> sections) where TSection : class
+        //public for reflection in method GetSection
+        public TSection GetDeserializedSection<TSection>(List<HomePageSection> sections) where TSection : class
         {
             var sectionType = typeof(TSection).GetHomePageSectionType();
 

@@ -96,7 +96,7 @@ namespace Furdega.Controllers
         }
 
         [HttpPost("main-home-section")]
-        public async Task<ObjectResult> CreateOrUpdateMainHomeSection([FromForm] MainHomeSectionRequest section)
+        public async Task<ObjectResult> CreateOrUpdateMainHomeSection(MainHomeSectionRequest section)
         {
             if (!section.IsFilesExtensionCorrect())
             {
