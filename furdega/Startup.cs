@@ -104,11 +104,14 @@ namespace Furdega
 
         private void InitializeImagesFolder(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            ProjectSettings.RootPath = Directory.GetDirectoryRoot(env.ContentRootPath);
             var projectSettings = _configuration.GetSection(ProjectSettingsSectionName).Get<ProjectSettings>();
+
+            Directory.CreateDirectory(projectSettings.GetImageDirectoryPath);
+
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetDirectoryRoot(env.ContentRootPath), projectSettings.ImagesDirectoryName)),
+                FileProvider = new PhysicalFileProvider(projectSettings.GetImageDirectoryPath),
                 RequestPath = $"/{projectSettings.ImagesDirectoryName}"
             });
 
