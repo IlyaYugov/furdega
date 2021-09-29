@@ -71,10 +71,10 @@ namespace Furdega.Services.FileManagers
 
         private static string GetFileExtensionFromBase64String(string base64Image)
         {
-            var startIndex = base64Image.IndexOf('/');
+            var startIndex = base64Image.IndexOf('/') + 1;
             var finishIndex = base64Image.IndexOf(';');
 
-            return base64Image.Substring(startIndex + 1, finishIndex - startIndex - 1);
+            return base64Image.Substring(startIndex, finishIndex - startIndex);
         }
     }
 }
