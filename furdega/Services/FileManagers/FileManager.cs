@@ -53,7 +53,7 @@ namespace Furdega.Services.FileManagers
             var filePath = Path.Combine(_projectSettings.GetImageDirectoryPath, fileName);
 
             await using var fileStream = new FileStream(filePath, FileMode.Create);
-            fileStream.Write(Convert.FromBase64String(base64Image));
+            await fileStream.WriteAsync(Convert.FromBase64String(base64Image));
         }
 
         public static bool IsFileExtensionCorrect(string base64Image) 
