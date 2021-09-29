@@ -138,7 +138,7 @@ namespace Furdega.Services.HomePage
                 mappedSection.IssueSolutions.Add(mappedIssueSolution);
             }
 
-            await CreateOrUpdateSection(HomePageSectionType.IssueSolutionsSection, section);
+            await CreateOrUpdateSection(HomePageSectionType.IssueSolutionsSection, mappedSection);
         }
 
         public async Task CreateOrUpdateMainHomeSection(MainHomeSectionRequest section)
@@ -147,7 +147,7 @@ namespace Furdega.Services.HomePage
 
             mappedSection.ImageUrl = await _fileManager.LoadFile(section.Image);
 
-            await CreateOrUpdateSection(HomePageSectionType.MainHomeSection, section);
+            await CreateOrUpdateSection(HomePageSectionType.MainHomeSection, mappedSection);
         }
 
         private TSection GetDeserializedSection<TSection>(List<HomePageSection> sections) where TSection : class

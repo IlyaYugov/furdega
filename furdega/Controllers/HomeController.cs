@@ -5,7 +5,6 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Furdega.DataAccess.Models.Enums;
-using Furdega.Dtos.HomePage;
 using Furdega.Dtos.HomePage.Input;
 using Furdega.Dtos.HomePage.Output;
 using Furdega.Services.HomePage;
@@ -29,7 +28,7 @@ namespace Furdega.Controllers
             return await _homePageService.GetFullPage();
         }
 
-        [HttpPost(nameof(AboutSectionRequest))]
+        [HttpPost("about-section")]
         public async Task CreateOrUpdateAboutSection(AboutSectionRequest section)
         {
             await _homePageService.CreateOrUpdateSection(HomePageSectionType.AboutSection, section);
@@ -42,7 +41,7 @@ namespace Furdega.Controllers
         }
 
 
-        [HttpPost(nameof(StaffSectionRequest))]
+        [HttpPost("staff-section")]
         public async Task<ObjectResult> CreateOrUpdateStaffSection([FromForm] StaffSectionRequest section)
         {
             var fileExtensions =
@@ -59,7 +58,7 @@ namespace Furdega.Controllers
             return Ok(new { });
         }
 
-        [HttpPost(nameof(MainHomeSectionRequest))]
+        [HttpPost("main-home-section")]
         public async Task<ObjectResult> CreateOrUpdateMainHomeSection([FromForm] MainHomeSectionRequest section)
         {
             if (section.Image != null && !Path.GetExtension(section.Image.FileName).Equals(".jpg", StringComparison.OrdinalIgnoreCase))
@@ -72,7 +71,7 @@ namespace Furdega.Controllers
             return Ok(new {});
         }
 
-        [HttpPost(nameof(WorkExamplesSectionRequest))]
+        [HttpPost("work-examples-section")]
         public async Task<ObjectResult> CreateOrUpdateWorkExamplesSection([FromForm] WorkExamplesSectionRequest section)
         {
             var fileExtensions =
@@ -91,7 +90,7 @@ namespace Furdega.Controllers
             return Ok(new { });
         }
 
-        [HttpPost(nameof(CompanyBenefitsSectionRequest))]
+        [HttpPost("company-benefits-section")]
         public async Task<ObjectResult> CreateOrUpdateCompanyBenefitsSection([FromForm] CompanyBenefitsSectionRequest section)
         {
             var fileExtensions =
@@ -108,7 +107,7 @@ namespace Furdega.Controllers
             return Ok(new { });
         }
 
-        [HttpPost(nameof(IssueSolutionsSectionRequest))]
+        [HttpPost("issue-solutions-section")]
         public async Task<ObjectResult> CreateOrUpdateIssueSolutionsSection([FromForm] IssueSolutionsSectionRequest section)
         {
             var fileExtensions =
