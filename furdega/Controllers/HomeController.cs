@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +16,8 @@ namespace Furdega.Controllers
     {
         private readonly IHomePageService _homePageService;
 
+        private static string _availableFileExtensions = [".jpeg",];
+
         public HomeController(IHomePageService homePageService)
         {
             _homePageService = homePageService;
@@ -29,13 +30,13 @@ namespace Furdega.Controllers
         }
 
         [HttpPost("about-section")]
-        public async Task CreateOrUpdateAboutSection(AboutSectionRequest section)
+        public async Task CreateOrUpdateAboutSection([FromForm] AboutSectionRequest section)
         {
             await _homePageService.CreateOrUpdateSection(HomePageSectionType.AboutSection, section);
         }
 
         [HttpPost(nameof(WorkingProcessSectionRequest))]
-        public async Task CreateOrUpdateWorkingProcessSection(WorkingProcessSectionRequest section)
+        public async Task CreateOrUpdateWorkingProcessSection([FromForm] WorkingProcessSectionRequest section)
         {
             await _homePageService.CreateOrUpdateSection(HomePageSectionType.WorkingProcessSection, section);
         }
