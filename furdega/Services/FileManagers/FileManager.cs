@@ -11,7 +11,7 @@ namespace Furdega.Services.FileManagers
     public class FileManager: IFileManager
     {
         public const string FileExtensionError = "Not Support file extension";
-        private static readonly string[] AvailableFileExtensions = { ".jpeg", ".jpg", ".png" };
+        private static readonly string[] AvailableFileExtensions = {".jpg", ".png", ".gif", ".mp4" };
 
         private readonly ProjectSettings _projectSettings;
 
@@ -79,17 +79,13 @@ namespace Furdega.Services.FileManagers
                     return ".png";
                 case "/9J/4":
                     return ".jpg";
+                case "R0lGO":
+                    return ".gif";
+                case "AAAAF":
+                    return ".mp4";
                 default:
                     return string.Empty;
             }
         }
-
-        //private static string GetFileExtensionFromBase64String(string base64Image)
-        //{
-        //    var startIndex = base64Image.IndexOf('/') + 1;
-        //    var finishIndex = base64Image.IndexOf(';');
-
-        //    return base64Image.Substring(startIndex, finishIndex - startIndex);
-        //}
     }
 }
