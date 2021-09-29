@@ -1,12 +1,27 @@
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { Row, Col, InputGroup, FormControl, Button } from "react-bootstrap"
 
-import { AdminSectionProps } from "../../../types/admin-section-props"
+import { homeApi } from "../../../api/home-api"
 import { AboutSection as AboutSectionType } from "../../../types/home"
 
-const AboutSection: FC<AdminSectionProps<AboutSectionType>> = (props) => {
-  const [header, setHeader] = useState<string>(props.header)
-  const [text, setText] = useState<string>(props.text)
+const AboutSection: FC = () => {
+  const [header, setHeader] = useState<string>("")
+  const [text, setText] = useState<string>("")
+
+  const fetchContent = async () => {
+    const response = await homeApi.getAboutSection()
+    setHeader(response.header)
+    setText(response.text)
+  }
+
+  const submit = async (request: AboutSectionType) => {
+    await homeApi.createOrUpdateAboutSection(request)
+    fetchContent()
+  }
+
+  // useEffect(() => {
+  //   fetchContent()
+  // })
 
   return (
     <Row className="flex-column gy-3">
@@ -43,7 +58,7 @@ const AboutSection: FC<AdminSectionProps<AboutSectionType>> = (props) => {
         <Button
           size="lg"
           onClick={() => {
-            props.onChange({ header, text })
+            submit({ header, text })
           }}
         >
           Применить

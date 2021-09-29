@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import {
   Row,
   Col,
@@ -8,42 +8,84 @@ import {
   ListGroup,
   ButtonGroup,
 } from "react-bootstrap"
+import { homeApi } from "../../../../api/home-api"
 
-import {
-  WorkExample,
-  WorkExamplesSection as WorkExamplesSectionType,
-} from "../../../../types/home"
+import { WorkExamplesSection as WorkExamplesSectionType } from "../../../../types/home"
+import { WorkExampleRequest } from "../../../../types/home-api/work-example-request"
 import { WorkExamplesSectionRequest } from "../../../../types/home-api/work-examples-section-request"
-import { WorkExampleModal } from "./work-example-modal"
+import { getWorkExampleRequestFromWorkExample } from "../../../../utils/getWorkExampleRequestFromWorkExample"
+import { WorkExampleCreateModal } from "./work-example-create-modal"
+import { WorkExampleEditModal } from "./work-example-edit-modal"
 
-const WorkExamplesSection: FC<
-  WorkExamplesSectionType & {
-    onChange: (request: WorkExamplesSectionRequest) => void
-  }
-> = (props) => {
-  const [header, setHeader] = useState<string>(props.header)
-  const [workExamples, setWorkExamples] = useState<WorkExample[]>([
-    ...props.workExamples,
-  ])
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+const WorkExamplesSection: FC = () => {
+  const [content, setContent] = useState<WorkExamplesSectionType | null>(null)
+
+  const [header, setHeader] = useState<string>("")
+  const [workExampleRequests, setWorkExampleRequests] = useState<
+    WorkExampleRequest[]
+  >([])
+
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
+
   const [workExampleToEditIndex, setWorkExampleToEditIndex] =
     useState<number>(-1)
 
-  const onModalConfirm = (workExample: WorkExample) => {
-    if (workExampleToEditIndex !== null) {
-      const newExamples = [...workExamples]
-      newExamples.splice(workExampleToEditIndex, 1, workExample)
-      setWorkExamples(newExamples)
-    } else {
-      setWorkExamples([...workExamples, workExample])
+  const fetchContent = async () => {
+    // TODO fetch only current content
+    const data = await homeApi.getContent()
+
+    setContent(data.workExamplesSection)
+    setHeader(data.workExamplesSection.header)
+    setWorkExampleRequests(
+      data.workExamplesSection.workExamples.map((e) =>
+        getWorkExampleRequestFromWorkExample(e)
+      )
+    )
+  }
+
+  const submit = async (section: WorkExamplesSectionRequest) => {
+    await homeApi.createOrUpdateWorkExamplesSection(section)
+    // await fetchContent()
+  }
+
+  useEffect(() => {
+    fetchContent()
+  }, [])
+
+  const onCreateModalConfirm = async (
+    workExampleRequest: WorkExampleRequest
+  ) => {
+    const newWorkExampleRequests = [...workExampleRequests, workExampleRequest]
+    await submit({ header, workExamples: newWorkExampleRequests })
+    setIsCreateModalOpen(false)
+  }
+
+  const onEditModalConfirm = async (workExampleRequest: WorkExampleRequest) => {
+    if (workExampleToEditIndex !== -1) {
+      const newWorkExampleRequests = [...workExampleRequests]
+      newWorkExampleRequests.splice(
+        workExampleToEditIndex,
+        1,
+        workExampleRequest
+      )
+
+      await submit({ header, workExamples: newWorkExampleRequests })
     }
-    setIsModalOpen(false)
+
+    setIsEditModalOpen(false)
     setWorkExampleToEditIndex(-1)
   }
 
-  const deleteWorkExampleByIndex = (indexToDelete: number) => {
-    setWorkExamples(workExamples.filter((_, index) => index !== indexToDelete))
+  const deleteWorkExampleRequestByIndex = (indexToDelete: number) => {
+    setWorkExampleRequests(
+      workExampleRequests.filter((_, index) => index !== indexToDelete)
+    )
   }
+
+  if (!content) return null
+
+  const workExampleToEdit = content.workExamples[workExampleToEditIndex]
 
   return (
     <>
@@ -68,7 +110,7 @@ const WorkExamplesSection: FC<
           <h4>Работы</h4>
 
           <ListGroup className="mb-3">
-            {workExamples.map((example, index) => (
+            {content.workExamples.map((example, index) => (
               <ListGroup.Item>
                 <Row className="flex-nowrap">
                   <Col className="flex-fill">{example.title}</Col>
@@ -77,7 +119,7 @@ const WorkExamplesSection: FC<
                       <Button
                         onClick={() => {
                           setWorkExampleToEditIndex(index)
-                          setIsModalOpen(true)
+                          setIsEditModalOpen(true)
                         }}
                       >
                         Редактировать
@@ -85,7 +127,7 @@ const WorkExamplesSection: FC<
                       <Button
                         variant="danger"
                         onClick={() => {
-                          deleteWorkExampleByIndex(index)
+                          deleteWorkExampleRequestByIndex(index)
                         }}
                       >
                         Удалить
@@ -100,8 +142,7 @@ const WorkExamplesSection: FC<
           <Button
             variant="outline-primary"
             onClick={() => {
-              setWorkExampleToEditIndex(-1)
-              setIsModalOpen(true)
+              setIsCreateModalOpen(true)
             }}
           >
             Создать
@@ -112,7 +153,7 @@ const WorkExamplesSection: FC<
           <Button
             size="lg"
             onClick={() => {
-              props.onChange({ header, workExamples: [] })
+              submit({ header, workExamples: workExampleRequests })
             }}
           >
             Применить
@@ -120,15 +161,25 @@ const WorkExamplesSection: FC<
         </Col>
       </Row>
 
-      <WorkExampleModal
-        show={isModalOpen}
-        workExampleToEditIndex={workExampleToEditIndex}
-        workExamples={workExamples}
-        onConfirm={onModalConfirm}
+      <WorkExampleCreateModal
+        show={isCreateModalOpen}
+        onConfirm={onCreateModalConfirm}
         onCancel={() => {
-          setIsModalOpen(false)
+          setIsCreateModalOpen(false)
         }}
       />
+
+      {workExampleToEdit && (
+        <WorkExampleEditModal
+          show={isEditModalOpen}
+          workExample={workExampleToEdit}
+          onConfirm={onEditModalConfirm}
+          onCancel={() => {
+            setIsEditModalOpen(false)
+            setWorkExampleToEditIndex(-1)
+          }}
+        />
+      )}
     </>
   )
 }

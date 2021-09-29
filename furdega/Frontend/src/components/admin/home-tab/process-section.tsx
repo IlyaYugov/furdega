@@ -1,17 +1,33 @@
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { Row, Col, InputGroup, FormControl, Button } from "react-bootstrap"
 
-import { AdminSectionProps } from "../../../types/admin-section-props"
+import { homeApi } from "../../../api/home-api"
 import { WorkingProcessSection } from "../../../types/home"
 
-const ProcessSection: FC<AdminSectionProps<WorkingProcessSection>> = (
-  props
-) => {
-  const [header, setHeader] = useState<string>(props.header)
-  const [firstStage, setFirstStage] = useState<string>(props.firstStage)
-  const [secondStage, setSecondStage] = useState<string>(props.secondStage)
-  const [thirdStage, setThirdStage] = useState<string>(props.thirdStage)
-  const [finalStage, setFinalStage] = useState<string>(props.finalStage)
+const ProcessSection: FC = () => {
+  const [header, setHeader] = useState<string>("")
+  const [firstStage, setFirstStage] = useState<string>("")
+  const [secondStage, setSecondStage] = useState<string>("")
+  const [thirdStage, setThirdStage] = useState<string>("")
+  const [finalStage, setFinalStage] = useState<string>("")
+
+  const fetchContent = async () => {
+    const response = await homeApi.getProcessSection()
+    setHeader(response.header)
+    setFirstStage(response.firstStage)
+    setSecondStage(response.secondStage)
+    setThirdStage(response.thirdStage)
+    setFinalStage(response.finalStage)
+  }
+
+  const submit = async (request: WorkingProcessSection) => {
+    await homeApi.createOrUpdateWorkingProcessSection(request)
+    fetchContent()
+  }
+
+  // useEffect(() => {
+  //   fetchContent()
+  // })
 
   return (
     <Row className="flex-column gy-3">
@@ -87,7 +103,7 @@ const ProcessSection: FC<AdminSectionProps<WorkingProcessSection>> = (
         <Button
           size="lg"
           onClick={() => {
-            props.onChange({
+            submit({
               header,
               firstStage,
               secondStage,

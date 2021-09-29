@@ -4,16 +4,11 @@ import { Tab, Row, Col, Nav } from "react-bootstrap"
 import { homeApi } from "../../../api/home-api"
 import { scrollspyAnchorsMap } from "../../../const/home"
 import {
-  AboutSection as AboutSectionType,
   CompanyBenefitsSection,
   HomePageContent,
   IssueSolutionsSection,
   StaffSection as StaffSectionType,
-  WorkExamplesSection as WorkExamplesSectionType,
-  WorkingProcessSection,
 } from "../../../types/home"
-import { MainHomeSectionRequest } from "../../../types/home-api/main-home-section-request"
-import { WorkExamplesSectionRequest } from "../../../types/home-api/work-examples-section-request"
 import { AboutSection } from "./about-section"
 import { BenefitsSection } from "./benefits-section"
 import { MainSection } from "./main-section"
@@ -34,16 +29,6 @@ const HomeTab: FC = () => {
     fetchContent()
   }, [])
 
-  const onAboutSectionContentChange = (section: AboutSectionType) => {
-    homeApi.createOrUpdateAboutSection(section)
-  }
-
-  const onWorkExamplesSectionContentChange = (
-    request: WorkExamplesSectionRequest
-  ) => {
-    homeApi.createOrUpdateWorkExamplesSection(request)
-  }
-
   const onCompanyBenefitsSectionContentChange = (
     section: CompanyBenefitsSection
   ) => {
@@ -56,18 +41,8 @@ const HomeTab: FC = () => {
     homeApi.createOrUpdateIssueSolutionsSection(section)
   }
 
-  const onWorkingProcessSectionContentChange = (
-    section: WorkingProcessSection
-  ) => {
-    homeApi.createOrUpdateWorkingProcessSection(section)
-  }
-
   const onStaffSectionContentChange = (section: StaffSectionType) => {
     homeApi.createOrUpdateStaffSection(section)
-  }
-
-  const onMainHomeSectionContentChange = (request: MainHomeSectionRequest) => {
-    homeApi.createOrUpdateMainHomeSection(request)
   }
 
   // TODO add skeleton or default content
@@ -123,24 +98,15 @@ const HomeTab: FC = () => {
         <Col sm={9}>
           <Tab.Content>
             <Tab.Pane eventKey="main">
-              <MainSection
-                {...content.mainHomeSection}
-                onChange={onMainHomeSectionContentChange}
-              />
+              <MainSection />
             </Tab.Pane>
 
             <Tab.Pane eventKey="about">
-              <AboutSection
-                {...content.aboutSection}
-                onChange={onAboutSectionContentChange}
-              />
+              <AboutSection />
             </Tab.Pane>
 
             <Tab.Pane eventKey="examples">
-              <WorkExamplesSection
-                {...content.workExamplesSection}
-                onChange={onWorkExamplesSectionContentChange}
-              />
+              <WorkExamplesSection />
             </Tab.Pane>
 
             <Tab.Pane eventKey="benefits">
@@ -158,10 +124,7 @@ const HomeTab: FC = () => {
             </Tab.Pane>
 
             <Tab.Pane eventKey="process">
-              <ProcessSection
-                {...content.workingProcessSection}
-                onChange={onWorkingProcessSectionContentChange}
-              />
+              <ProcessSection />
             </Tab.Pane>
 
             <Tab.Pane eventKey="staff">
