@@ -71,10 +71,40 @@ namespace Furdega.Services.FileManagers
 
         private static string GetFileExtensionFromBase64String(string base64Image)
         {
-            var startIndex = base64Image.IndexOf('/') + 1;
-            var finishIndex = base64Image.IndexOf(';');
+            var extensionCode = base64Image.Substring(0, 5).ToUpper();
 
-            return base64Image.Substring(startIndex, finishIndex - startIndex);
+            switch (extensionCode)
+            {
+                case "IVBOR":
+                    return "png";
+                case "/9J/4":
+                    return "jpg";
+                case "AAAAF":
+                    return "mp4";
+                case "JVBER":
+                    return "pdf";
+                case "AAABA":
+                    return "ico";
+                case "UMFYI":
+                    return "rar";
+                case "E1XYD":
+                    return "rtf";
+                case "U1PKC":
+                    return "txt";
+                case "MQOWM":
+                case "77U/M":
+                    return "srt";
+                default:
+                    return string.Empty;
+            }
         }
+
+        //private static string GetFileExtensionFromBase64String(string base64Image)
+        //{
+        //    var startIndex = base64Image.IndexOf('/') + 1;
+        //    var finishIndex = base64Image.IndexOf(';');
+
+        //    return base64Image.Substring(startIndex, finishIndex - startIndex);
+        //}
     }
 }
