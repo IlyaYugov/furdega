@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -43,6 +42,18 @@ namespace Furdega.Services.HomePage
                 WorkExamplesSection = GetDeserializedSection<WorkExamplesSectionResponse>(sections),
                 WorkingProcessSection = GetDeserializedSection<WorkingProcessSectionResponse>(sections)
             };
+
+            return result;
+        }
+
+        public async Task<object> GetSection(HomePageSectionType sectionType)
+        {
+            var existingSections = await _homePageSectionRepository.GetItems(s => s.SectionTypeId == (int) sectionType);
+
+            var getSectionMethod = typeof(HomePageService).GetMethod(nameof(GetDeserializedSection));
+            var getSectionMethodGeneric = getSectionMethod.MakeGenericMethod(sectionType.GetHomePageSectionClassType());
+
+            var result = getSectionMethodGeneric.Invoke(this, new []{existingSections});
 
             return result;
         }
@@ -150,7 +161,7 @@ namespace Furdega.Services.HomePage
             await CreateOrUpdateSection(HomePageSectionType.MainHomeSection, mappedSection);
         }
 
-        private TSection GetDeserializedSection<TSection>(List<HomePageSection> sections) where TSection : class
+        protected TSection GetDeserializedSection<TSection>(List<HomePageSection> sections) where TSection : class
         {
             var sectionType = typeof(TSection).GetHomePageSectionType();
 

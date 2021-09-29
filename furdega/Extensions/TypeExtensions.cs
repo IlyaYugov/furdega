@@ -1,11 +1,10 @@
 ﻿using System;
 using Furdega.DataAccess.Models.Enums;
-using Furdega.Dtos.HomePage.Input;
 using Furdega.Dtos.HomePage.Output;
 
 namespace Furdega.Extensions
 {
-    public static class TypeExtensions
+    public static class SectionTypeExtensions
     {
         public static HomePageSectionType GetHomePageSectionType(this Type classType)
         {
@@ -41,6 +40,36 @@ namespace Furdega.Extensions
             {
                 return HomePageSectionType.None;
             }
+        }
+
+        public static Type GetHomePageSectionClassType(this HomePageSectionType sectionType)
+        {
+            switch (sectionType)
+            {
+                case HomePageSectionType.MainHomeSection:
+                    return typeof(MainHomeSectionResponse);
+
+                case HomePageSectionType.AboutSection:
+                    return typeof(AboutSectionResponse);
+
+                case HomePageSectionType.CompanyBenefitsSection:
+                    return typeof(CompanyBenefitsSectionResponse);
+
+                case HomePageSectionType.IssueSolutionsSection:
+                    return typeof(IssueSolutionsSectionResponse);
+
+                case HomePageSectionType.StaffSection:
+                    return typeof(StaffSectionResponse);
+
+                case HomePageSectionType.WorkExamplesSection:
+                    return typeof(WorkExamplesSectionResponse);
+
+                case HomePageSectionType.WorkingProcessSection:
+                    return typeof(WorkingProcessSectionResponse);
+
+            }
+
+            return null;
         }
     }
 }

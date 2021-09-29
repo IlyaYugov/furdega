@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Furdega.DataAccess.Models.Enums;
 using Furdega.Dtos.HomePage.Input;
 using Furdega.Dtos.HomePage.Output;
+using Furdega.Services.FileManagers;
 using Furdega.Services.HomePage;
 
 namespace Furdega.Controllers
@@ -15,8 +16,6 @@ namespace Furdega.Controllers
     public class HomeController : ControllerBase
     {
         private readonly IHomePageService _homePageService;
-        
-        //private static string _availableFileExtensions = [".jpeg",];
 
         public HomeController(IHomePageService homePageService)
         {
@@ -29,29 +28,66 @@ namespace Furdega.Controllers
             return await _homePageService.GetFullPage();
         }
 
+        [HttpGet("about-section")]
+        public async Task<object> GetAboutSection()
+        {
+            return await _homePageService.GetSection(HomePageSectionType.AboutSection);
+        }
+
+        [HttpGet("working-process-section")]
+        public async Task<object> GetWorkingProcessSection()
+        {
+            return await _homePageService.GetSection(HomePageSectionType.WorkingProcessSection);
+        }
+
+        [HttpGet("staff-section")]
+        public async Task<object> GetStaffSection()
+        {
+            return await _homePageService.GetSection(HomePageSectionType.StaffSection);
+        }
+
+        [HttpGet("main-home-section")]
+        public async Task<object> GetMainHomeSection()
+        {
+            return await _homePageService.GetSection(HomePageSectionType.MainHomeSection);
+        }
+
+        [HttpGet("work-examples-section")]
+        public async Task<object> GetWorkExamplesSection()
+        {
+            return await _homePageService.GetSection(HomePageSectionType.WorkExamplesSection);
+        }
+
+        [HttpGet("company-benefits-section")]
+        public async Task<object> GetCompanyBenefitsSection()
+        {
+            return await _homePageService.GetSection(HomePageSectionType.CompanyBenefitsSection);
+        }
+
+        [HttpGet("issue-solutions-section")]
+        public async Task<object> GetIssueSolutionsSection()
+        {
+            return await _homePageService.GetSection(HomePageSectionType.IssueSolutionsSection);
+        }
+
         [HttpPost("about-section")]
         public async Task CreateOrUpdateAboutSection([FromForm] AboutSectionRequest section)
         {
             await _homePageService.CreateOrUpdateSection(HomePageSectionType.AboutSection, section);
         }
 
-        [HttpPost(nameof(WorkingProcessSectionRequest))]
+        [HttpPost("working-process-section")]
         public async Task CreateOrUpdateWorkingProcessSection([FromForm] WorkingProcessSectionRequest section)
         {
             await _homePageService.CreateOrUpdateSection(HomePageSectionType.WorkingProcessSection, section);
         }
 
-
         [HttpPost("staff-section")]
         public async Task<ObjectResult> CreateOrUpdateStaffSection([FromForm] StaffSectionRequest section)
         {
-            var fileExtensions =
-                section.Employees?.Where(s => s.Image != null).Select(s => s.Image.FileName)
-                    .ToList();
-
-            if (fileExtensions != null && fileExtensions.Any() && fileExtensions.All(s => s.Equals(".jpeg", StringComparison.OrdinalIgnoreCase)))
+            if (!section.IsFilesExtensionCorrect())
             {
-                return BadRequest("Not Support file extension");
+                return BadRequest(FileManager.FileExtensionError);
             }
 
             await _homePageService.CreateOrUpdateStaffSection(section);
@@ -62,9 +98,9 @@ namespace Furdega.Controllers
         [HttpPost("main-home-section")]
         public async Task<ObjectResult> CreateOrUpdateMainHomeSection([FromForm] MainHomeSectionRequest section)
         {
-            if (section.Image != null && !Path.GetExtension(section.Image.FileName).Equals(".jpg", StringComparison.OrdinalIgnoreCase))
+            if (!section.IsFilesExtensionCorrect())
             {
-                return BadRequest("Not Support file extension");
+                return BadRequest(FileManager.FileExtensionError);
             }
 
             await _homePageService.CreateOrUpdateMainHomeSection(section);
@@ -75,15 +111,9 @@ namespace Furdega.Controllers
         [HttpPost("work-examples-section")]
         public async Task<ObjectResult> CreateOrUpdateWorkExamplesSection([FromForm] WorkExamplesSectionRequest section)
         {
-            var fileExtensions =
-                section.WorkExamples?.Where(s=>s.AfterImages != null).SelectMany(s => s.AfterImages)
-                    .Union(section.WorkExamples?.Where(s => s.BeforeImages != null).SelectMany(s => s.BeforeImages))
-                    .Select(s => Path.GetExtension(s.FileName))
-                    .ToList();
-
-            if (fileExtensions != null && fileExtensions.Any() && fileExtensions.All(s => s.Equals(".jpeg", StringComparison.OrdinalIgnoreCase)))
+            if (!section.IsFilesExtensionCorrect())
             {
-                return BadRequest("Not Support file extension");
+                return BadRequest(FileManager.FileExtensionError);
             }
 
             await _homePageService.CreateOrUpdateWorkExamplesSection(section);
@@ -94,13 +124,9 @@ namespace Furdega.Controllers
         [HttpPost("company-benefits-section")]
         public async Task<ObjectResult> CreateOrUpdateCompanyBenefitsSection([FromForm] CompanyBenefitsSectionRequest section)
         {
-            var fileExtensions =
-                section.CompanyBenefits?.Where(s => s.Image != null).Select(s => s.Image.FileName)
-                    .ToList();
-
-            if (fileExtensions != null && fileExtensions.Any() && fileExtensions.All(s => s.Equals(".jpeg", StringComparison.OrdinalIgnoreCase)))
+            if (section.IsFilesExtensionCorrect())
             {
-                return BadRequest("Not Support file extension");
+                return BadRequest(FileManager.FileExtensionError);
             }
 
             await _homePageService.CreateOrUpdateCompanyBenefitsSection(section);
@@ -111,13 +137,9 @@ namespace Furdega.Controllers
         [HttpPost("issue-solutions-section")]
         public async Task<ObjectResult> CreateOrUpdateIssueSolutionsSection([FromForm] IssueSolutionsSectionRequest section)
         {
-            var fileExtensions =
-                section.IssueSolutions?.Where(s => s.Image != null).Select(s => s.Image.FileName)
-                    .ToList();
-
-            if (fileExtensions != null && fileExtensions.Any() && fileExtensions.All(s => s.Equals(".jpeg", StringComparison.OrdinalIgnoreCase)))
+            if (section.IsFilesExtensionCorrect())
             {
-                return BadRequest("Not Support file extension");
+                return BadRequest(FileManager.FileExtensionError);
             }
 
             await _homePageService.CreateOrUpdateIssueSolutionsSection(section);

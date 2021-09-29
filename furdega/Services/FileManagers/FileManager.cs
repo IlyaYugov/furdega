@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Furdega.Configuration;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +10,9 @@ namespace Furdega.Services.FileManagers
 {
     public class FileManager: IFileManager
     {
+        public const string FileExtensionError = "Not Support file extension";
+        private static readonly string[] AvailableFileExtensions = { ".jpeg", "jpg", ".png" };
+
         private readonly ProjectSettings _projectSettings;
 
         public FileManager(IOptions<ProjectSettings> projectSettings)
@@ -29,6 +33,8 @@ namespace Furdega.Services.FileManagers
 
             return fileUrl;
         }
+
+        public static bool IsFileExtensionCorrect(string fullFileName) => AvailableFileExtensions.Any(ex => Path.GetExtension(fullFileName).Equals(ex, StringComparison.OrdinalIgnoreCase));
 
         private string GenerateFileName(IFormFile file) => string.Concat(Guid.NewGuid().ToString(), Path.GetExtension(file.FileName));
 

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Furdega.DataAccess.Models.Enums;
-using Furdega.Dtos.HomePage;
 using Furdega.Dtos.HomePage.Input;
 using Furdega.Dtos.HomePage.Output;
 
@@ -9,6 +8,8 @@ namespace Furdega.Services.HomePage
     public interface IHomePageService
     {
         Task<HomePageContent> GetFullPage();
+
+        Task<object> GetSection(HomePageSectionType sectionType);
 
         Task CreateOrUpdateSection(HomePageSectionType sectionType, object sectionContent);
 
