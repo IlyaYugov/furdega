@@ -9,11 +9,11 @@ namespace Furdega.Services.FileManagers
 {
     public class FileManager: IFileManager
     {
-        private readonly string ImagesDirectoryName;
+        private readonly ProjectSettings _projectSettings;
 
         public FileManager(IOptions<ProjectSettings> projectSettings)
         {
-            ImagesDirectoryName = projectSettings.Value.ImagesDirectoryName;
+            _projectSettings = projectSettings.Value;
         }
 
         public async Task<string> LoadFile(IFormFile file)
@@ -24,7 +24,7 @@ namespace Furdega.Services.FileManagers
             }
 
             var fileName = GenerateFileName(file);
-            var fileUrl = Path.Combine("/", ImagesDirectoryName, fileName);
+            var fileUrl = Path.Combine("/", _projectSettings.ImagesDirectoryName, fileName);
             await LoadFileAsync(file, fileName);
 
             return fileUrl;
@@ -34,14 +34,7 @@ namespace Furdega.Services.FileManagers
 
         private async Task LoadFileAsync(IFormFile file, string fileName)
         {
-            var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), ImagesDirectoryName);
-
-            if (!Directory.Exists(directoryPath))
-            {
-                Directory.CreateDirectory(directoryPath);
-            }
-
-            var filePath = Path.Combine(directoryPath, fileName);
+            var filePath = Path.Combine(_projectSettings.GetImageDirectoryPath, fileName);
 
             await using var fileStream = new FileStream(filePath, FileMode.Create);
             await file.CopyToAsync(fileStream);
