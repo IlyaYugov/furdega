@@ -5,12 +5,11 @@ import {
   CompanyBenefitsSection,
   IssueSolutionsSection,
   StaffSection,
-  WorkExamplesSection,
   WorkingProcessSection,
   HomePageContent,
 } from "../types/home"
 import { MainHomeSectionRequest } from "../types/home-api/main-home-section-request"
-import { MainHomeSection } from "../types/home/main-home-section"
+import { WorkExamplesSectionRequest } from "../types/home-api/work-examples-section-request"
 import { mapObjectToFormData } from "../utils/mapToFormData"
 
 const BASE_URL = "/api/home"
@@ -26,18 +25,12 @@ const homeApi = {
   ): Promise<void> => {},
 
   createOrUpdateWorkExamplesSection: async (
-    section: WorkExamplesSection
+    request: WorkExamplesSectionRequest
   ): Promise<void> => {
-    const formData = new FormData()
-
-    formData.append("header", section.header)
-    formData.append("workExamples", JSON.stringify(section.workExamples))
-
-    await axios.post(`${BASE_URL}/workexamplessection`, formData, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    await axios.post(
+      `${BASE_URL}/workexamplessection`,
+      mapObjectToFormData({ object: request })
+    )
   },
 
   createOrUpdateMainHomeSection: async (

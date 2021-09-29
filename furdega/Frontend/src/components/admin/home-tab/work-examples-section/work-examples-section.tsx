@@ -9,16 +9,18 @@ import {
   ButtonGroup,
 } from "react-bootstrap"
 
-import { AdminSectionProps } from "../../../../types/admin-section-props"
 import {
   WorkExample,
   WorkExamplesSection as WorkExamplesSectionType,
 } from "../../../../types/home"
+import { WorkExamplesSectionRequest } from "../../../../types/home-api/work-examples-section-request"
 import { WorkExampleModal } from "./work-example-modal"
 
-const WorkExamplesSection: FC<AdminSectionProps<WorkExamplesSectionType>> = (
-  props
-) => {
+const WorkExamplesSection: FC<
+  WorkExamplesSectionType & {
+    onChange: (request: WorkExamplesSectionRequest) => void
+  }
+> = (props) => {
   const [header, setHeader] = useState<string>(props.header)
   const [workExamples, setWorkExamples] = useState<WorkExample[]>([
     ...props.workExamples,
@@ -110,7 +112,7 @@ const WorkExamplesSection: FC<AdminSectionProps<WorkExamplesSectionType>> = (
           <Button
             size="lg"
             onClick={() => {
-              props.onChange({ header, workExamples })
+              props.onChange({ header, workExamples: [] })
             }}
           >
             Применить

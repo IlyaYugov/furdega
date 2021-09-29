@@ -13,6 +13,7 @@ import {
   WorkingProcessSection,
 } from "../../../types/home"
 import { MainHomeSectionRequest } from "../../../types/home-api/main-home-section-request"
+import { WorkExamplesSectionRequest } from "../../../types/home-api/work-examples-section-request"
 import { AboutSection } from "./about-section"
 import { BenefitsSection } from "./benefits-section"
 import { MainSection } from "./main-section"
@@ -38,9 +39,9 @@ const HomeTab: FC = () => {
   }
 
   const onWorkExamplesSectionContentChange = (
-    section: WorkExamplesSectionType
+    request: WorkExamplesSectionRequest
   ) => {
-    homeApi.createOrUpdateWorkExamplesSection(section)
+    homeApi.createOrUpdateWorkExamplesSection(request)
   }
 
   const onCompanyBenefitsSectionContentChange = (

@@ -62,7 +62,7 @@ namespace Furdega.Controllers
         [HttpPost(nameof(MainHomeSectionRequest))]
         public async Task<ObjectResult> CreateOrUpdateMainHomeSection([FromForm] MainHomeSectionRequest section)
         {
-            if (section.Image != null && !Path.GetExtension(section.Image.FileName).Equals(".jpeg", StringComparison.OrdinalIgnoreCase))
+            if (section.Image != null && !Path.GetExtension(section.Image.FileName).Equals(".jpg", StringComparison.OrdinalIgnoreCase))
             {
                 return BadRequest("Not Support file extension");
             }
