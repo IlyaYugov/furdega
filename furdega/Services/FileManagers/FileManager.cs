@@ -11,7 +11,7 @@ namespace Furdega.Services.FileManagers
     public class FileManager: IFileManager
     {
         public const string FileExtensionError = "Not Support file extension";
-        private static readonly string[] AvailableFileExtensions = { "jpeg", "jpg", "png" };
+        private static readonly string[] AvailableFileExtensions = { ".jpeg", ".jpg", ".png" };
 
         private readonly ProjectSettings _projectSettings;
 
@@ -50,7 +50,7 @@ namespace Furdega.Services.FileManagers
 
         private async Task LoadFileAsync(string base64Image, string fileName)
         {
-            var filePath = Path.Combine(_projectSettings.GetImageDirectoryPath, fileName, GetFileExtensionFromBase64String(base64Image));
+            var filePath = Path.Combine(_projectSettings.GetImageDirectoryPath, string.Concat(fileName,GetFileExtensionFromBase64String(base64Image)));
 
             await using var fileStream = new FileStream(filePath, FileMode.Create);
             await fileStream.WriteAsync(Convert.FromBase64String(base64Image));
@@ -76,24 +76,9 @@ namespace Furdega.Services.FileManagers
             switch (extensionCode)
             {
                 case "IVBOR":
-                    return "png";
+                    return ".png";
                 case "/9J/4":
-                    return "jpg";
-                case "AAAAF":
-                    return "mp4";
-                case "JVBER":
-                    return "pdf";
-                case "AAABA":
-                    return "ico";
-                case "UMFYI":
-                    return "rar";
-                case "E1XYD":
-                    return "rtf";
-                case "U1PKC":
-                    return "txt";
-                case "MQOWM":
-                case "77U/M":
-                    return "srt";
+                    return ".jpg";
                 default:
                     return string.Empty;
             }
