@@ -15,8 +15,8 @@ namespace Furdega.Controllers
     public class HomeController : ControllerBase
     {
         private readonly IHomePageService _homePageService;
-
-        private static string _availableFileExtensions = [".jpeg",];
+        
+        //private static string _availableFileExtensions = [".jpeg",];
 
         public HomeController(IHomePageService homePageService)
         {
