@@ -28,7 +28,7 @@ namespace Furdega.Services.FileManagers
             }
 
             var fileName = Guid.NewGuid().ToString();
-            var fileUrl = Path.Combine("/", _projectSettings.ImagesDirectoryName, fileName, GetFileExtensionFromBase64String(base64Image));
+            var fileUrl = Path.Combine("/", _projectSettings.ImagesDirectoryName, string.Concat(fileName, GetFileExtensionFromBase64String(base64Image)));
             await LoadFileAsync(base64Image, fileUrl);
 
             return fileUrl;
