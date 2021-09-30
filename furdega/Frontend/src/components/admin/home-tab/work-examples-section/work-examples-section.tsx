@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap"
 import { homeApi } from "../../../../api/home-api"
 
-import { WorkExamplesSection as WorkExamplesSectionType } from "../../../../types/home"
+import { WorkExample } from "../../../../types/home"
 import { WorkExampleRequest } from "../../../../types/home-api/work-example-request"
 import { WorkExamplesSectionRequest } from "../../../../types/home-api/work-examples-section-request"
 import { getWorkExampleRequestFromWorkExample } from "../../../../utils/getWorkExampleRequestFromWorkExample"
@@ -18,9 +18,8 @@ import { WorkExampleCreateModal } from "./work-example-create-modal"
 import { WorkExampleEditModal } from "./work-example-edit-modal"
 
 const WorkExamplesSection: FC = () => {
-  const [content, setContent] = useState<WorkExamplesSectionType | null>(null)
-
   const [header, setHeader] = useState<string>("")
+  const [workExamples, setWorkExamples] = useState<WorkExample[]>([])
   const [workExampleRequests, setWorkExampleRequests] = useState<
     WorkExampleRequest[]
   >([])
@@ -32,21 +31,22 @@ const WorkExamplesSection: FC = () => {
     useState<number>(-1)
 
   const fetchContent = async () => {
-    // TODO fetch only current content
-    const data = await homeApi.getContent()
+    const data = await homeApi.getWorkExamplesSection()
 
-    setContent(data.workExamplesSection)
-    setHeader(data.workExamplesSection.header)
+    setHeader(data.header)
+    setWorkExamples(data.workExamples)
     setWorkExampleRequests(
-      data.workExamplesSection.workExamples.map((e) =>
-        getWorkExampleRequestFromWorkExample(e)
-      )
+      data.workExamples.map((e) => getWorkExampleRequestFromWorkExample(e))
     )
   }
 
   const submit = async (section: WorkExamplesSectionRequest) => {
     await homeApi.createOrUpdateWorkExamplesSection(section)
-    // await fetchContent()
+    await fetchContent()
+  }
+
+  const reset = () => {
+    fetchContent()
   }
 
   useEffect(() => {
@@ -83,9 +83,7 @@ const WorkExamplesSection: FC = () => {
     )
   }
 
-  if (!content) return null
-
-  const workExampleToEdit = content.workExamples[workExampleToEditIndex]
+  const workExampleToEdit = workExamples[workExampleToEditIndex]
 
   return (
     <>
@@ -110,7 +108,7 @@ const WorkExamplesSection: FC = () => {
           <h4>Работы</h4>
 
           <ListGroup className="mb-3">
-            {content.workExamples.map((example, index) => (
+            {workExamples.map((example, index) => (
               <ListGroup.Item>
                 <Row className="flex-nowrap">
                   <Col className="flex-fill">{example.title}</Col>
@@ -140,24 +138,39 @@ const WorkExamplesSection: FC = () => {
           </ListGroup>
 
           <Button
-            variant="outline-primary"
+            variant="outline-dark"
             onClick={() => {
               setIsCreateModalOpen(true)
             }}
           >
-            Создать
+            Добавить
           </Button>
         </Col>
 
-        <Col>
-          <Button
-            size="lg"
-            onClick={() => {
-              submit({ header, workExamples: workExampleRequests })
-            }}
-          >
-            Применить
-          </Button>
+        <Col className="d-flex justify-content-end">
+          <Row>
+            <Col>
+              <Button
+                size="lg"
+                onClick={() => {
+                  submit({ header, workExamples: workExampleRequests })
+                }}
+              >
+                Применить
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                size="lg"
+                variant="secondary"
+                onClick={() => {
+                  reset()
+                }}
+              >
+                Сбросить
+              </Button>
+            </Col>
+          </Row>
         </Col>
       </Row>
 

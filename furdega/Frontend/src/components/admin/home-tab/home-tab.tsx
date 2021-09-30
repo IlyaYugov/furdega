@@ -1,11 +1,10 @@
-import { FC, useEffect, useState } from "react"
+import { FC, useState } from "react"
 import { Tab, Row, Col, Nav } from "react-bootstrap"
 
 import { homeApi } from "../../../api/home-api"
 import { scrollspyAnchorsMap } from "../../../const/home"
 import {
   CompanyBenefitsSection,
-  HomePageContent,
   IssueSolutionsSection,
   StaffSection as StaffSectionType,
 } from "../../../types/home"
@@ -18,16 +17,7 @@ import { StaffSection } from "./staff-section"
 import { WorkExamplesSection } from "./work-examples-section"
 
 const HomeTab: FC = () => {
-  const [content, setContent] = useState<HomePageContent | null>(null)
-
-  const fetchContent = async () => {
-    const data = await homeApi.getContent()
-    setContent(data)
-  }
-
-  useEffect(() => {
-    fetchContent()
-  }, [])
+  const [activeKey, setActiveKey] = useState<string>("main")
 
   const onCompanyBenefitsSectionContentChange = (
     section: CompanyBenefitsSection
@@ -45,50 +35,84 @@ const HomeTab: FC = () => {
     homeApi.createOrUpdateStaffSection(section)
   }
 
-  // TODO add skeleton or default content
-  if (!content) return null
-
   return (
-    <Tab.Container defaultActiveKey="main">
+    <Tab.Container>
       <Row>
         <Col sm={3}>
           <Nav variant="pills" className="flex-column">
             <Nav.Item>
-              <Nav.Link eventKey="main">Баннер</Nav.Link>
+              <Nav.Link
+                active={activeKey === "main"}
+                onClick={() => {
+                  setActiveKey("main")
+                }}
+              >
+                Баннер
+              </Nav.Link>
             </Nav.Item>
 
             <Nav.Item>
-              <Nav.Link eventKey="about">
+              <Nav.Link
+                active={activeKey === "about"}
+                onClick={() => {
+                  setActiveKey("about")
+                }}
+              >
                 {scrollspyAnchorsMap["about"].name}
               </Nav.Link>
             </Nav.Item>
 
             <Nav.Item>
-              <Nav.Link eventKey="examples">
+              <Nav.Link
+                active={activeKey === "examples"}
+                onClick={() => {
+                  setActiveKey("examples")
+                }}
+              >
                 {scrollspyAnchorsMap["examples"].name}
               </Nav.Link>
             </Nav.Item>
 
             <Nav.Item>
-              <Nav.Link eventKey="benefits">
+              <Nav.Link
+                active={activeKey === "benefits"}
+                onClick={() => {
+                  setActiveKey("benefits")
+                }}
+              >
                 {scrollspyAnchorsMap["benefits"].name}
               </Nav.Link>
             </Nav.Item>
 
             <Nav.Item>
-              <Nav.Link eventKey="solutions">
+              <Nav.Link
+                active={activeKey === "solutions"}
+                onClick={() => {
+                  setActiveKey("solutions")
+                }}
+              >
                 {scrollspyAnchorsMap["solutions"].name}
               </Nav.Link>
             </Nav.Item>
 
             <Nav.Item>
-              <Nav.Link eventKey="process">
+              <Nav.Link
+                active={activeKey === "process"}
+                onClick={() => {
+                  setActiveKey("process")
+                }}
+              >
                 {scrollspyAnchorsMap["process"].name}
               </Nav.Link>
             </Nav.Item>
 
             <Nav.Item>
-              <Nav.Link eventKey="staff">
+              <Nav.Link
+                active={activeKey === "staff"}
+                onClick={() => {
+                  setActiveKey("staff")
+                }}
+              >
                 {scrollspyAnchorsMap["staff"].name}
               </Nav.Link>
             </Nav.Item>
@@ -96,44 +120,50 @@ const HomeTab: FC = () => {
         </Col>
 
         <Col sm={9}>
-          <Tab.Content>
-            <Tab.Pane eventKey="main">
+          {activeKey === "main" && (
+            <Tab.Pane>
               <MainSection />
             </Tab.Pane>
+          )}
 
-            <Tab.Pane eventKey="about">
+          {activeKey === "about" && (
+            <Tab.Pane>
               <AboutSection />
             </Tab.Pane>
+          )}
 
-            <Tab.Pane eventKey="examples">
+          {activeKey === "examples" && (
+            <Tab.Pane>
               <WorkExamplesSection />
             </Tab.Pane>
+          )}
 
-            <Tab.Pane eventKey="benefits">
+          {/* <Tab.Pane eventKey="benefits">
               <BenefitsSection
                 {...content.companyBenefitsSection}
                 onChange={onCompanyBenefitsSectionContentChange}
               />
-            </Tab.Pane>
+            </Tab.Pane> */}
 
-            <Tab.Pane eventKey="solutions">
+          {/* <Tab.Pane eventKey="solutions">
               <SolutionsSection
                 {...content.issueSolutionsSection}
                 onChange={onIssueSolutionsSectionContentChange}
               />
-            </Tab.Pane>
+            </Tab.Pane> */}
 
-            <Tab.Pane eventKey="process">
+          {activeKey === "process" && (
+            <Tab.Pane>
               <ProcessSection />
             </Tab.Pane>
+          )}
 
-            <Tab.Pane eventKey="staff">
+          {/* <Tab.Pane eventKey="staff">
               <StaffSection
                 {...content.staffSection}
                 onChange={onStaffSectionContentChange}
               />
-            </Tab.Pane>
-          </Tab.Content>
+            </Tab.Pane> */}
         </Col>
       </Row>
     </Tab.Container>

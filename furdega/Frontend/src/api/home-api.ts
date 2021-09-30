@@ -47,7 +47,7 @@ const homeApi = {
 
   getMainHomeSection: async (): Promise<MainHomeSection> => {
     const response = await axios.get<MainHomeSection>(
-      `${BASE_URL}/work-examples-section`
+      `${BASE_URL}/main-home-section`
     )
     return response.data
   },
@@ -72,8 +72,10 @@ const homeApi = {
     return response.data
   },
   createOrUpdateWorkingProcessSection: async (
-    section: WorkingProcessSection
-  ): Promise<void> => {},
+    request: WorkingProcessSection
+  ): Promise<void> => {
+    await axios.post(`${BASE_URL}/working-process-section`, request)
+  },
 
   createOrUpdateStaffSection: async (
     section: StaffSection

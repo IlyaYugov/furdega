@@ -25,9 +25,13 @@ const ProcessSection: FC = () => {
     fetchContent()
   }
 
-  // useEffect(() => {
-  //   fetchContent()
-  // })
+  const reset = () => {
+    fetchContent()
+  }
+
+  useEffect(() => {
+    fetchContent()
+  }, [])
 
   return (
     <Row className="flex-column gy-3">
@@ -99,21 +103,36 @@ const ProcessSection: FC = () => {
         </InputGroup>
       </Col>
 
-      <Col>
-        <Button
-          size="lg"
-          onClick={() => {
-            submit({
-              header,
-              firstStage,
-              secondStage,
-              thirdStage,
-              finalStage,
-            })
-          }}
-        >
-          Применить
-        </Button>
+      <Col className="d-flex justify-content-end">
+        <Row>
+          <Col>
+            <Button
+              size="lg"
+              onClick={() => {
+                submit({
+                  header,
+                  firstStage,
+                  secondStage,
+                  thirdStage,
+                  finalStage,
+                })
+              }}
+            >
+              Применить
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              size="lg"
+              variant="secondary"
+              onClick={() => {
+                reset()
+              }}
+            >
+              Сбросить
+            </Button>
+          </Col>
+        </Row>
       </Col>
     </Row>
   )
