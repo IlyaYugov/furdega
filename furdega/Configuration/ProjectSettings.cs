@@ -3,7 +3,7 @@ namespace Furdega.Configuration
 {
     public class ProjectSettings
     {
-        public static string RootPath { get; set; }
+        private static string RootPath = Directory.GetCurrentDirectory();
 
         public string ImagesDirectoryName { get; set; }
 

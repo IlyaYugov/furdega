@@ -10,7 +10,6 @@ using Furdega.Services.HomePage;
 using Furdega.Services.MaterialTypes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -63,6 +62,8 @@ namespace Furdega
 
             app.UseHttpsRedirection();
 
+            InitializeImagesFolder(app);
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -71,8 +72,6 @@ namespace Furdega
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
-
-            InitializeImagesFolder(app, env);
 
             app.UseSpa(spa =>
             {
@@ -102,9 +101,8 @@ namespace Furdega
             services.AddAutoMapper(typeof(FurnitureTypeProfile));
         }
 
-        private void InitializeImagesFolder(IApplicationBuilder app, IWebHostEnvironment env)
+        private void InitializeImagesFolder(IApplicationBuilder app)
         {
-            ProjectSettings.RootPath = Directory.GetDirectoryRoot(env.ContentRootPath);
             var projectSettings = _configuration.GetSection(ProjectSettingsSectionName).Get<ProjectSettings>();
 
             Directory.CreateDirectory(projectSettings.GetImageDirectoryPath);

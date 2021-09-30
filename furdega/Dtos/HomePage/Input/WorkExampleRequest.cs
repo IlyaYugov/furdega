@@ -2,6 +2,8 @@
 {
     public class WorkExampleRequest
     {
+        public int Position { get; set; }
+
         public string Title { get; set; }
 
         public string FurnitureType { get; set; }
