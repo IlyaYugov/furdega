@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Furdega.DataAccess.Models.Enums;
 using Furdega.Dtos.HomePage.Input;
@@ -50,12 +47,6 @@ namespace Furdega.Controllers
         public async Task<object> GetMainHomeSection()
         {
             return await _homePageService.GetSection(HomePageSectionType.MainHomeSection);
-        }
-
-        [HttpGet("work-examples-section")]
-        public async Task<object> GetWorkExamplesSection()
-        {
-            return await _homePageService.GetSection(HomePageSectionType.WorkExamplesSection);
         }
 
         [HttpGet("company-benefits-section")]

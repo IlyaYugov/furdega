@@ -12,7 +12,12 @@
 
         public string Description { get; set; }
 
-        public string[] BeforeImages { get; set; }
-        public string[] AfterImages { get; set; }
+        public ImageRequest BeforeImage1 { get; set; }
+        public ImageRequest BeforeImage2 { get; set; }
+        public ImageRequest BeforeImage3 { get; set; }
+
+        public ImageRequest AfterImage1 { get; set; }
+        public ImageRequest AfterImage2 { get; set; }
+        public ImageRequest AfterImage3 { get; set; }
     }
 }

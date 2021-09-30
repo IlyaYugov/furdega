@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Furdega.Dtos.HomePage.Output
+﻿namespace Furdega.Dtos.HomePage.Output
 {
     public class WorkExamplesSectionResponse: HomeSectionBase
     {
-        public IList<WorkExampleResponse> WorkExamples { get; set; } = Array.Empty<WorkExampleResponse>();
+        public WorkExampleResponse WorkExample1 { get; set; }
+        public WorkExampleResponse WorkExample2 { get; set; }
+        public WorkExampleResponse WorkExample3 { get; set; }
     }
 }

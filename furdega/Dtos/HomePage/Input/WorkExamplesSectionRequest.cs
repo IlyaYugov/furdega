@@ -1,11 +1,12 @@
-﻿using System.Linq;
-using Furdega.Services.FileManagers;
+﻿using Furdega.Services.FileManagers;
 
 namespace Furdega.Dtos.HomePage.Input
 {
     public class WorkExamplesSectionRequest: HomeSectionBase
     {
-        public WorkExampleRequest[] WorkExamples { get; set; }
+        public WorkExampleRequest WorkExample1 { get; set; }
+        public WorkExampleRequest WorkExample2 { get; set; }
+        public WorkExampleRequest WorkExample3 { get; set; }
 
         public bool IsFilesExtensionCorrect()
         {

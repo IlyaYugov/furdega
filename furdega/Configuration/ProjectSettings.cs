@@ -3,10 +3,10 @@ namespace Furdega.Configuration
 {
     public class ProjectSettings
     {
-        private static string RootPath = Directory.GetCurrentDirectory();
+        public static readonly string ParentDirectoryPath = Directory.GetParent(Directory.GetCurrentDirectory())?.FullName;
 
         public string ImagesDirectoryName { get; set; }
 
-        public string GetImageDirectoryPath => Path.Combine(RootPath, ImagesDirectoryName);
+        public string GetImageDirectoryPath => Path.Combine(ParentDirectoryPath, ImagesDirectoryName);
     }
 }

@@ -7,6 +7,7 @@
     <IsPackable>false</IsPackable>
     <SpaRoot>Frontend\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+    <UserSecretsId>ae5b3f79-bb14-42fe-8982-59b0f393a096</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

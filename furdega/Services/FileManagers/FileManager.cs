@@ -35,7 +35,7 @@ namespace Furdega.Services.FileManagers
 
         private async Task LoadFileAsync(string base64Image, string fileUrl)
         {
-            var filePath = string.Concat(_projectSettings.GetImageDirectoryPath, fileUrl);
+            var filePath = string.Concat(ProjectSettings.ParentDirectoryPath, fileUrl);
 
             await using var fileStream = new FileStream(filePath, FileMode.Create);
             await fileStream.WriteAsync(Convert.FromBase64String(base64Image));
