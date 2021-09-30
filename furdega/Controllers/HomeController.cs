@@ -71,19 +71,19 @@ namespace Furdega.Controllers
         }
 
         [HttpPost("about-section")]
-        public async Task CreateOrUpdateAboutSection([FromForm] AboutSectionRequest section)
+        public async Task CreateOrUpdateAboutSection(AboutSectionRequest section)
         {
             await _homePageService.CreateOrUpdateSection(HomePageSectionType.AboutSection, section);
         }
 
         [HttpPost("working-process-section")]
-        public async Task CreateOrUpdateWorkingProcessSection([FromForm] WorkingProcessSectionRequest section)
+        public async Task CreateOrUpdateWorkingProcessSection(WorkingProcessSectionRequest section)
         {
             await _homePageService.CreateOrUpdateSection(HomePageSectionType.WorkingProcessSection, section);
         }
 
         [HttpPost("staff-section")]
-        public async Task<ObjectResult> CreateOrUpdateStaffSection([FromForm] StaffSectionRequest section)
+        public async Task<ObjectResult> CreateOrUpdateStaffSection(StaffSectionRequest section)
         {
             if (!section.IsFilesExtensionCorrect())
             {
@@ -109,7 +109,7 @@ namespace Furdega.Controllers
         }
 
         [HttpPost("work-examples-section")]
-        public async Task<ObjectResult> CreateOrUpdateWorkExamplesSection([FromForm] WorkExamplesSectionRequest section)
+        public async Task<ObjectResult> CreateOrUpdateWorkExamplesSection(WorkExamplesSectionRequest section)
         {
             if (!section.IsFilesExtensionCorrect())
             {
@@ -122,7 +122,7 @@ namespace Furdega.Controllers
         }
 
         [HttpPost("company-benefits-section")]
-        public async Task<ObjectResult> CreateOrUpdateCompanyBenefitsSection([FromForm] CompanyBenefitsSectionRequest section)
+        public async Task<ObjectResult> CreateOrUpdateCompanyBenefitsSection(CompanyBenefitsSectionRequest section)
         {
             if (section.IsFilesExtensionCorrect())
             {
@@ -135,7 +135,7 @@ namespace Furdega.Controllers
         }
 
         [HttpPost("issue-solutions-section")]
-        public async Task<ObjectResult> CreateOrUpdateIssueSolutionsSection([FromForm] IssueSolutionsSectionRequest section)
+        public async Task<ObjectResult> CreateOrUpdateIssueSolutionsSection(IssueSolutionsSectionRequest section)
         {
             if (section.IsFilesExtensionCorrect())
             {

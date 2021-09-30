@@ -5,7 +5,6 @@ namespace Furdega.Services.FileManagers
 {
     public interface IFileManager
     {
-        Task<string> LoadFile(IFormFile file);
         Task<string> LoadFile(string file);
     }
 }

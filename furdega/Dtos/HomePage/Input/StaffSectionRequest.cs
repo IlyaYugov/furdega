@@ -9,9 +9,9 @@ namespace Furdega.Dtos.HomePage.Input
 
         public bool IsFilesExtensionCorrect()
         {
-            var fileNames = Employees?.Where(s => s.Image != null).Select(s => s.Image.FileName).ToList();
+            var base64Files = Employees?.Where(s => s.Image != null).Select(s => s.Image).ToList();
 
-            return fileNames != null && fileNames.Any() && fileNames.All(FileManager.IsFileExtensionCorrect);
+            return base64Files != null && base64Files.Any() && base64Files.All(FileManager.IsFileExtensionCorrect);
         }
     }
 }

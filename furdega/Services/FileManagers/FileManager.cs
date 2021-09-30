@@ -20,20 +20,6 @@ namespace Furdega.Services.FileManagers
             _projectSettings = projectSettings.Value;
         }
 
-        public async Task<string> LoadFile(IFormFile file)
-        {
-            if (file == null)
-            {
-                return null;
-            }
-
-            var fileName = GenerateFileName(file);
-            var fileUrl = Path.Combine("/", _projectSettings.ImagesDirectoryName, fileName);
-            await LoadFileAsync(file, fileName);
-
-            return fileUrl;
-        }
-
         public async Task<string> LoadFile(string base64Image)
         {
             if (base64Image == null)
@@ -42,15 +28,15 @@ namespace Furdega.Services.FileManagers
             }
 
             var fileName = Guid.NewGuid().ToString();
-            var fileUrl = Path.Combine("/", _projectSettings.ImagesDirectoryName, fileName);
-            await LoadFileAsync(base64Image, fileName);
+            var fileUrl = Path.Combine("/", _projectSettings.ImagesDirectoryName, fileName, GetFileExtensionFromBase64String(base64Image));
+            await LoadFileAsync(base64Image, fileUrl);
 
             return fileUrl;
         }
 
-        private async Task LoadFileAsync(string base64Image, string fileName)
+        private async Task LoadFileAsync(string base64Image, string fileUrl)
         {
-            var filePath = Path.Combine(_projectSettings.GetImageDirectoryPath, string.Concat(fileName,GetFileExtensionFromBase64String(base64Image)));
+            var filePath = Path.Combine(_projectSettings.GetImageDirectoryPath, fileUrl);
 
             await using var fileStream = new FileStream(filePath, FileMode.Create);
             await fileStream.WriteAsync(Convert.FromBase64String(base64Image));
@@ -58,16 +44,6 @@ namespace Furdega.Services.FileManagers
 
         public static bool IsFileExtensionCorrect(string base64Image) 
             => AvailableFileExtensions.Any(ex => GetFileExtensionFromBase64String(base64Image).Equals(ex, StringComparison.OrdinalIgnoreCase));
-
-        private string GenerateFileName(IFormFile file) => string.Concat(Guid.NewGuid().ToString(), Path.GetExtension(file.FileName));
-
-        private async Task LoadFileAsync(IFormFile file, string fileName)
-        {
-            var filePath = Path.Combine(_projectSettings.GetImageDirectoryPath, fileName);
-
-            await using var fileStream = new FileStream(filePath, FileMode.Create);
-            await file.CopyToAsync(fileStream);
-        }
 
         private static string GetFileExtensionFromBase64String(string base64Image)
         {
