@@ -12,9 +12,10 @@ namespace Furdega.Dtos.HomePage.Input
             var base64Files =
                 WorkExamples?.Where(s => s.AfterImages != null).SelectMany(s => s.AfterImages)
                     .Union(WorkExamples?.Where(s => s.BeforeImages != null).SelectMany(s => s.BeforeImages))
+                    .Where(s => !string.IsNullOrEmpty(s))
                     .ToList();
 
-            return base64Files != null && base64Files.Any() && base64Files.All(FileManager.IsFileExtensionCorrect);
+            return base64Files == null || !base64Files.Any() || base64Files.Any() && base64Files.All(FileManager.IsFileExtensionCorrect);
         }
     }
 }

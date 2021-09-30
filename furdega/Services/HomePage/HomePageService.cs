@@ -88,7 +88,8 @@ namespace Furdega.Services.HomePage
             foreach (var employee in section.Employees)
             {
                 var mappedEmployee = _mapper.Map<EmployeeResponse>(employee);
-                mappedEmployee.ImageUrl = await _fileManager.LoadFile(employee.Image);
+                if(!string.IsNullOrEmpty(employee.Image))
+                    mappedEmployee.ImageUrl = await _fileManager.LoadFile(employee.Image);
                 mappedSection.Employees.Add(mappedEmployee);
             }
 
@@ -103,17 +104,25 @@ namespace Furdega.Services.HomePage
             foreach (var workExample in section.WorkExamples)
             {
                 var mappedWorkExample = _mapper.Map<WorkExampleResponse>(workExample);
-                mappedWorkExample.AfterImageUrls = new List<string>(); //TODO: check that mappedSection.WorkExamples is empty
-                mappedWorkExample.BeforeImageUrls = new List<string>(); //TODO: check that mappedSection.WorkExamples is empty
 
-                foreach (var afterImage in workExample.AfterImages)
+                if (workExample.AfterImages.Any())
                 {
-                    mappedWorkExample.AfterImageUrls.Add(await _fileManager.LoadFile(afterImage));
+                    mappedWorkExample.AfterImageUrls = new List<string>(); //TODO: check that mappedSection.WorkExamples is empty
 
+                    foreach (var afterImage in workExample.AfterImages)
+                    {
+                        mappedWorkExample.AfterImageUrls.Add(await _fileManager.LoadFile(afterImage));
+                    }
                 }
-                foreach (var beforeImage in workExample.BeforeImages)
+
+                if (workExample.BeforeImages.Any())
                 {
-                    mappedWorkExample.BeforeImageUrls.Add(await _fileManager.LoadFile(beforeImage));
+                    mappedWorkExample.BeforeImageUrls = new List<string>(); //TODO: check that mappedSection.WorkExamples is empty
+
+                    foreach (var beforeImage in workExample.BeforeImages)
+                    {
+                        mappedWorkExample.BeforeImageUrls.Add(await _fileManager.LoadFile(beforeImage));
+                    }
                 }
 
                 mappedSection.WorkExamples.Add(mappedWorkExample);
@@ -130,7 +139,8 @@ namespace Furdega.Services.HomePage
             foreach (var companyBenefit in section.CompanyBenefits)
             {
                 var mappedCompanyBenefit = _mapper.Map<CompanyBenefitResponse>(companyBenefit);
-                mappedCompanyBenefit.ImageUrl = await _fileManager.LoadFile(companyBenefit.Image);
+                if(!string.IsNullOrEmpty(companyBenefit.Image))
+                    mappedCompanyBenefit.ImageUrl = await _fileManager.LoadFile(companyBenefit.Image);
                 mappedSection.CompanyBenefits.Add(mappedCompanyBenefit);
             }
 
@@ -145,7 +155,8 @@ namespace Furdega.Services.HomePage
             foreach (var issueSolution in section.IssueSolutions)
             {
                 var mappedIssueSolution = _mapper.Map<IssueSolutionResponse>(issueSolution);
-                mappedIssueSolution.ImageUrl = await _fileManager.LoadFile(issueSolution.Image);
+                if(!string.IsNullOrEmpty(issueSolution.Image)) 
+                    mappedIssueSolution.ImageUrl = await _fileManager.LoadFile(issueSolution.Image);
                 mappedSection.IssueSolutions.Add(mappedIssueSolution);
             }
 
@@ -156,7 +167,8 @@ namespace Furdega.Services.HomePage
         {
             var mappedSection = _mapper.Map<MainHomeSectionResponse>(section);
 
-            mappedSection.ImageUrl = await _fileManager.LoadFile(section.Image);
+            if (!string.IsNullOrEmpty(section.Image))
+                mappedSection.ImageUrl = await _fileManager.LoadFile(section.Image);
 
             await CreateOrUpdateSection(HomePageSectionType.MainHomeSection, mappedSection);
         }

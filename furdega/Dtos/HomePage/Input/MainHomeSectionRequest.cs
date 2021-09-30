@@ -6,6 +6,6 @@ namespace Furdega.Dtos.HomePage.Input
     {
         public string Image { get; set; }
 
-        public bool IsFilesExtensionCorrect() => !string.IsNullOrEmpty(Image) && FileManager.IsFileExtensionCorrect(Image);
+        public bool IsFilesExtensionCorrect() => string.IsNullOrEmpty(Image) || !string.IsNullOrEmpty(Image) && FileManager.IsFileExtensionCorrect(Image);
     }
 }
