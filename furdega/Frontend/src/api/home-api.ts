@@ -7,12 +7,7 @@ import {
   StaffSection,
   WorkingProcessSection,
   HomePageContent,
-  WorkExamplesSection,
-  MainHomeSection,
 } from "../types/home"
-import { MainHomeSectionRequest } from "../types/home-api/main-home-section-request"
-import { WorkExamplesSectionRequest } from "../types/home-api/work-examples-section-request"
-import { mapObjectToFormData } from "../utils/mapObjectToFormData"
 
 const BASE_URL = "/api/home"
 
@@ -27,34 +22,7 @@ const homeApi = {
     return response.data
   },
   createOrUpdateAboutSection: async (request: AboutSection): Promise<void> => {
-    await axios.post(
-      `${BASE_URL}/about-section`,
-      mapObjectToFormData({ object: request })
-    )
-  },
-
-  getWorkExamplesSection: async (): Promise<WorkExamplesSection> => {
-    const response = await axios.get<WorkExamplesSection>(
-      `${BASE_URL}/work-examples-section`
-    )
-    return response.data
-  },
-  createOrUpdateWorkExamplesSection: async (
-    request: WorkExamplesSectionRequest
-  ): Promise<void> => {
-    await axios.post(`${BASE_URL}/work-examples-section`, request)
-  },
-
-  getMainHomeSection: async (): Promise<MainHomeSection> => {
-    const response = await axios.get<MainHomeSection>(
-      `${BASE_URL}/main-home-section`
-    )
-    return response.data
-  },
-  createOrUpdateMainHomeSection: async (
-    request: MainHomeSectionRequest
-  ): Promise<void> => {
-    await axios.post(`${BASE_URL}/main-home-section`, request)
+    await axios.post(`${BASE_URL}/about-section`, request)
   },
 
   createOrUpdateCompanyBenefitsSection: async (

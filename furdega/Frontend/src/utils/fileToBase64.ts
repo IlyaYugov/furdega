@@ -1,4 +1,4 @@
-export const fileToBase64Raw = (file: File): Promise<string> =>
+const fileToBase64Raw = (file: File): Promise<string> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
@@ -11,4 +11,4 @@ const fileToBase64 = async (file: File): Promise<string> => {
   return raw64.replace("data:", "").replace(/^.+,/, "")
 }
 
-export { fileToBase64 }
+export { fileToBase64, fileToBase64Raw }
