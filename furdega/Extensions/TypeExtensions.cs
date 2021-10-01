@@ -66,7 +66,6 @@ namespace Furdega.Extensions
 
                 case HomePageSectionType.WorkingProcessSection:
                     return typeof(WorkingProcessSectionResponse);
-
             }
 
             return null;

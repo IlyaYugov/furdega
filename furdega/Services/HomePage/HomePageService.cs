@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -17,11 +18,11 @@ namespace Furdega.Services.HomePage
     {
         private readonly IRepositoryBase<HomePageSection> _homePageSectionRepository;
 
-        private readonly IFileManager _fileManager;
+        private readonly IImageManager _fileManager;
 
         private readonly IMapper _mapper;
 
-        public HomePageService(IRepositoryBase<HomePageSection> homePageSectionRepository, IMapper mapper, IFileManager fileManager)
+        public HomePageService(IRepositoryBase<HomePageSection> homePageSectionRepository, IMapper mapper, IImageManager fileManager)
         {
             _homePageSectionRepository = homePageSectionRepository;
             _mapper = mapper;
@@ -46,16 +47,34 @@ namespace Furdega.Services.HomePage
             return result;
         }
 
-        public async Task<object> GetSection(HomePageSectionType sectionType)
+        public async Task CreateSection(HomePageSectionType sectionType, object sectionContent)
         {
-            var existingSections = await _homePageSectionRepository.GetItems(s => s.SectionTypeId == (int) sectionType);
+            var existingSections = await _homePageSectionRepository.GetItems(s => s.SectionTypeId == (int)sectionType);
 
-            var getSectionMethod = typeof(HomePageService).GetMethod(nameof(GetDeserializedSection));
-            var getSectionMethodGeneric = getSectionMethod.MakeGenericMethod(sectionType.GetHomePageSectionClassType());
+            if (existingSections.FirstOrDefault() != null)
+                throw new Exception($"Section with type:{sectionType} already exist");
 
-            var result = getSectionMethodGeneric.Invoke(this, new []{existingSections});
+            var section = new HomePageSection
+            {
+                SectionTypeId = (int) sectionType, 
+                SectionContent = JsonSerializer.Serialize(sectionContent)
+            };
 
-            return result;
+            await _homePageSectionRepository.Create(section);
+        }
+
+        public async Task UpdateSection(HomePageSectionType sectionType, object sectionContent)
+        {
+            var existingSections = await _homePageSectionRepository.GetItems(s => s.SectionTypeId == (int)sectionType);
+
+            var section = existingSections.FirstOrDefault();
+
+            if (section == null)
+                throw new Exception($"Section with type:{sectionType} is not exist");
+
+            section.SectionContent = JsonSerializer.Serialize(sectionContent);
+
+            await _homePageSectionRepository.Create(section);
         }
 
         public async Task CreateOrUpdateSection(HomePageSectionType sectionType, object sectionContent)
@@ -88,47 +107,77 @@ namespace Furdega.Services.HomePage
             foreach (var employee in section.Employees)
             {
                 var mappedEmployee = _mapper.Map<EmployeeResponse>(employee);
-                if(!string.IsNullOrEmpty(employee.Image))
-                    mappedEmployee.ImageUrl = await _fileManager.LoadFile(employee.Image);
+                mappedEmployee.ImageUrl = await _fileManager.LoadImage(employee.Image);
                 mappedSection.Employees.Add(mappedEmployee);
             }
 
             await CreateOrUpdateSection(HomePageSectionType.StaffSection, mappedSection);
         }
 
-        public async Task CreateOrUpdateWorkExamplesSection(WorkExamplesSectionRequest section)
+        public async Task CreateWorkExamplesSection(WorkExamplesSectionRequest sectionRequest)
         {
-            var mappedSection = _mapper.Map<WorkExamplesSectionResponse>(section); //TODO: check that mappedSection.WorkExamples is empty
-            mappedSection.WorkExamples = new List<WorkExampleResponse>();
+            var mappedSection = _mapper.Map<WorkExamplesSectionResponse>(sectionRequest);
 
-            foreach (var workExample in section.WorkExamples)
-            {
-                var mappedWorkExample = _mapper.Map<WorkExampleResponse>(workExample);
+            mappedSection.WorkExample1.AfterImage1.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample1.AfterImage1);
+            mappedSection.WorkExample1.AfterImage2.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample1.AfterImage2);
+            mappedSection.WorkExample1.AfterImage3.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample1.AfterImage3);
 
-                if (workExample.AfterImages.Any())
-                {
-                    mappedWorkExample.AfterImageUrls = new List<string>(); //TODO: check that mappedSection.WorkExamples is empty
+            mappedSection.WorkExample2.AfterImage1.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample2.AfterImage1);
+            mappedSection.WorkExample2.AfterImage2.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample2.AfterImage2);
+            mappedSection.WorkExample2.AfterImage3.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample2.AfterImage3);
 
-                    foreach (var afterImage in workExample.AfterImages)
-                    {
-                        mappedWorkExample.AfterImageUrls.Add(await _fileManager.LoadFile(afterImage));
-                    }
-                }
+            mappedSection.WorkExample3.AfterImage1.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample3.AfterImage1);
+            mappedSection.WorkExample3.AfterImage2.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample3.AfterImage2);
+            mappedSection.WorkExample3.AfterImage3.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample3.AfterImage3);
 
-                if (workExample.BeforeImages.Any())
-                {
-                    mappedWorkExample.BeforeImageUrls = new List<string>(); //TODO: check that mappedSection.WorkExamples is empty
 
-                    foreach (var beforeImage in workExample.BeforeImages)
-                    {
-                        mappedWorkExample.BeforeImageUrls.Add(await _fileManager.LoadFile(beforeImage));
-                    }
-                }
+            mappedSection.WorkExample1.BeforeImage1.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample1.BeforeImage1);
+            mappedSection.WorkExample1.BeforeImage2.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample1.BeforeImage2);
+            mappedSection.WorkExample1.BeforeImage3.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample1.BeforeImage3);
 
-                mappedSection.WorkExamples.Add(mappedWorkExample);
-            }
+            mappedSection.WorkExample2.BeforeImage1.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample2.BeforeImage1);
+            mappedSection.WorkExample2.BeforeImage2.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample2.BeforeImage2);
+            mappedSection.WorkExample2.BeforeImage3.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample2.BeforeImage3);
 
-            await CreateOrUpdateSection(HomePageSectionType.WorkExamplesSection, mappedSection);
+            mappedSection.WorkExample3.BeforeImage1.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample3.BeforeImage1);
+            mappedSection.WorkExample3.BeforeImage2.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample3.BeforeImage2);
+            mappedSection.WorkExample3.BeforeImage3.ImageUrl = await _fileManager.LoadImage(sectionRequest.WorkExample3.BeforeImage3);
+
+            await CreateSection(HomePageSectionType.WorkExamplesSection, mappedSection);
+        }
+
+        public async Task UpdateWorkExamplesSection(WorkExamplesSectionRequest sectionRequest)
+        {
+            var section = (WorkExamplesSectionResponse)await GetSection(HomePageSectionType.WorkExamplesSection);
+
+            _mapper.Map(sectionRequest, section);
+
+            await _fileManager.LoadImage(sectionRequest.WorkExample1.AfterImage1);
+            await _fileManager.LoadImage(sectionRequest.WorkExample1.AfterImage2);
+            await _fileManager.LoadImage(sectionRequest.WorkExample1.AfterImage3);
+            
+            await _fileManager.LoadImage(sectionRequest.WorkExample2.AfterImage1);
+            await _fileManager.LoadImage(sectionRequest.WorkExample2.AfterImage2);
+            await _fileManager.LoadImage(sectionRequest.WorkExample2.AfterImage3);
+            
+            await _fileManager.LoadImage(sectionRequest.WorkExample3.AfterImage1);
+            await _fileManager.LoadImage(sectionRequest.WorkExample3.AfterImage2);
+            await _fileManager.LoadImage(sectionRequest.WorkExample3.AfterImage3);
+
+
+            await _fileManager.LoadImage(sectionRequest.WorkExample1.BeforeImage1);
+            await _fileManager.LoadImage(sectionRequest.WorkExample1.BeforeImage2);
+            await _fileManager.LoadImage(sectionRequest.WorkExample1.BeforeImage3);
+
+            await _fileManager.LoadImage(sectionRequest.WorkExample2.BeforeImage1);
+            await _fileManager.LoadImage(sectionRequest.WorkExample2.BeforeImage2);
+            await _fileManager.LoadImage(sectionRequest.WorkExample2.BeforeImage3);
+
+            await _fileManager.LoadImage(sectionRequest.WorkExample3.BeforeImage1);
+            await _fileManager.LoadImage(sectionRequest.WorkExample3.BeforeImage2);
+            await _fileManager.LoadImage(sectionRequest.WorkExample3.BeforeImage3);
+
+            await UpdateSection(HomePageSectionType.WorkExamplesSection, section);
         }
 
         public async Task CreateOrUpdateCompanyBenefitsSection(CompanyBenefitsSectionRequest section)
@@ -139,8 +188,7 @@ namespace Furdega.Services.HomePage
             foreach (var companyBenefit in section.CompanyBenefits)
             {
                 var mappedCompanyBenefit = _mapper.Map<CompanyBenefitResponse>(companyBenefit);
-                if(!string.IsNullOrEmpty(companyBenefit.Image))
-                    mappedCompanyBenefit.ImageUrl = await _fileManager.LoadFile(companyBenefit.Image);
+                mappedCompanyBenefit.ImageUrl = await _fileManager.LoadImage(companyBenefit.Image);
                 mappedSection.CompanyBenefits.Add(mappedCompanyBenefit);
             }
 
@@ -156,7 +204,7 @@ namespace Furdega.Services.HomePage
             {
                 var mappedIssueSolution = _mapper.Map<IssueSolutionResponse>(issueSolution);
                 if(!string.IsNullOrEmpty(issueSolution.Image)) 
-                    mappedIssueSolution.ImageUrl = await _fileManager.LoadFile(issueSolution.Image);
+                    mappedIssueSolution.ImageUrl = await _fileManager.LoadImage(issueSolution.Image);
                 mappedSection.IssueSolutions.Add(mappedIssueSolution);
             }
 
@@ -168,7 +216,7 @@ namespace Furdega.Services.HomePage
             var mappedSection = _mapper.Map<MainHomeSectionResponse>(section);
 
             if (!string.IsNullOrEmpty(section.Image))
-                mappedSection.ImageUrl = await _fileManager.LoadFile(section.Image);
+                mappedSection.ImageUrl = await _fileManager.LoadImage(section.Image);
 
             await CreateOrUpdateSection(HomePageSectionType.MainHomeSection, mappedSection);
         }

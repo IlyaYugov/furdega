@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Furdega.DataAccess.Models.Enums;
+using Furdega.Dtos.HomePage;
 using Furdega.Dtos.HomePage.Input;
 using Furdega.Services.FileManagers;
 using Furdega.Services.HomePage;
@@ -31,12 +28,17 @@ namespace Furdega.Controllers.Sections
         [HttpPost]
         public async Task<ActionResult> Create(WorkExamplesSectionRequest section)
         {
-            if (!section.IsFilesExtensionCorrect())
+            if (!section.IsAllBase64ImagesExist())
             {
-                return BadRequest(FileManager.FileExtensionError);
+                return BadRequest(HomeSectionBase.ImagesExistingError);
             }
 
-            await _homePageService.CreateOrUpdateWorkExamplesSection(section);
+            if (!section.IsFilesExtensionCorrect())
+            {
+                return BadRequest(Image.FileFormatError);
+            }
+
+            await _homePageService.CreateWorkExamplesSection(section);
 
             return Ok();
         }
@@ -46,10 +48,10 @@ namespace Furdega.Controllers.Sections
         {
             if (!section.IsFilesExtensionCorrect())
             {
-                return BadRequest(FileManager.FileExtensionError);
+                return BadRequest(Image.FileFormatError);
             }
 
-            await _homePageService.CreateOrUpdateWorkExamplesSection(section);
+            await _homePageService.UpdateWorkExamplesSection(section);
 
             return Ok();
         }

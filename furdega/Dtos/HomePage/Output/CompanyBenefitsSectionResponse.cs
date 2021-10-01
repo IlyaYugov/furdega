@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Furdega.Dtos.HomePage.Output
+﻿namespace Furdega.Dtos.HomePage.Output
 {
     public class CompanyBenefitsSectionResponse: HomeSectionBase
     {
-        public IList<CompanyBenefitResponse> CompanyBenefits { get; set; } = Array.Empty<CompanyBenefitResponse>();
+        public CompanyBenefitResponse CompanyBenefit1 { get; set; }
+        public CompanyBenefitResponse CompanyBenefit2 { get; set; }
+        public CompanyBenefitResponse CompanyBenefit3 { get; set; }
+        public CompanyBenefitResponse CompanyBenefit4 { get; set; }
     }
 }

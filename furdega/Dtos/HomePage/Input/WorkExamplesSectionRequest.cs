@@ -1,8 +1,11 @@
-﻿using Furdega.Services.FileManagers;
+﻿using System;
+using System.Linq;
+using Furdega.Dtos.HomePage.Input.Interfaces;
+using Furdega.Services.FileManagers;
 
 namespace Furdega.Dtos.HomePage.Input
 {
-    public class WorkExamplesSectionRequest: HomeSectionBase
+    public class WorkExamplesSectionRequest: HomeSectionBase, ISectionRequestWithImage
     {
         public WorkExampleRequest WorkExample1 { get; set; }
         public WorkExampleRequest WorkExample2 { get; set; }
@@ -10,13 +13,17 @@ namespace Furdega.Dtos.HomePage.Input
 
         public bool IsFilesExtensionCorrect()
         {
-            var base64Files =
-                WorkExamples?.Where(s => s.AfterImages != null).SelectMany(s => s.AfterImages)
-                    .Union(WorkExamples?.Where(s => s.BeforeImages != null).SelectMany(s => s.BeforeImages))
-                    .Where(s => !string.IsNullOrEmpty(s))
-                    .ToList();
+            var images =
+                WorkExample1?.GetAllImages.Where(s=> s != null) ?? Array.Empty<Image>()
+                    .Union(WorkExample2?.GetAllImages.Where(s => s != null) ?? Array.Empty<Image>())
+                    .Union(WorkExample3?.GetAllImages.Where(s => s != null) ?? Array.Empty<Image>());
 
-            return base64Files == null || !base64Files.Any() || base64Files.Any() && base64Files.All(FileManager.IsFileExtensionCorrect);
+            return !images.Any() || images.Any() && images.All(s=> s.IsFileExtensionCorrect());
         }
+
+        public bool IsAllBase64ImagesExist() =>
+            WorkExample1.GetAllImages.All(s => s != null) &&
+            WorkExample2.GetAllImages.All(s => s != null) &&
+            WorkExample3.GetAllImages.All(s => s != null);
     }
 }

@@ -96,7 +96,7 @@ namespace Furdega
             services.AddScoped<IFurnitureTypeService, FurnitureTypeService>();
             services.AddScoped<IMaterialTypeService, MaterialTypeService>();
             services.AddScoped<IHomePageService, HomePageService>();
-            services.AddScoped<IFileManager, FileManager>();
+            services.AddScoped<IImageManager, ImageManager>();
 
             services.AddAutoMapper(typeof(FurnitureTypeProfile));
         }

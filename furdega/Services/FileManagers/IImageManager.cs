@@ -2,8 +2,8 @@
 
 namespace Furdega.Services.FileManagers
 {
-    public interface IFileManager
+    public interface IImageManager
     {
-        Task<string> LoadFile(string file);
+        Task<string> LoadImage(Image image);
     }
 }

@@ -1,11 +1,13 @@
-﻿using Furdega.Services.FileManagers;
+﻿using Furdega.Dtos.HomePage.Input.Interfaces;
+using Furdega.Services.FileManagers;
 
 namespace Furdega.Dtos.HomePage.Input
 {
-    public class MainHomeSectionRequest: HomeSectionBase
+    public class MainHomeSectionRequest: HomeSectionBase, ISectionRequestWithImage
     {
-        public string Image { get; set; }
+        public Image Image { get; set; }
 
-        public bool IsFilesExtensionCorrect() => string.IsNullOrEmpty(Image) || !string.IsNullOrEmpty(Image) && FileManager.IsFileExtensionCorrect(Image);
+        public bool IsFilesExtensionCorrect() => Image == null || Image != null && Image.IsFileExtensionCorrect();
+        public bool IsAllBase64ImagesExist() => Image != null;
     }
 }

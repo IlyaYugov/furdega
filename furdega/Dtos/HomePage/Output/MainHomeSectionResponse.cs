@@ -2,6 +2,6 @@
 {
     public class MainHomeSectionResponse: HomeSectionBase
     {
-        public string ImageUrl { get; set; }
+        public ImageResponse Image { get; set; }
     }
 }

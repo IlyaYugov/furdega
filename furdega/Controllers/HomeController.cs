@@ -78,7 +78,7 @@ namespace Furdega.Controllers
         {
             if (!section.IsFilesExtensionCorrect())
             {
-                return BadRequest(FileManager.FileExtensionError);
+                return BadRequest(ImageManager.FileExtensionError);
             }
 
             await _homePageService.CreateOrUpdateStaffSection(section);
@@ -91,7 +91,7 @@ namespace Furdega.Controllers
         {
             if (!section.IsFilesExtensionCorrect())
             {
-                return BadRequest(FileManager.FileExtensionError);
+                return BadRequest(ImageManager.FileExtensionError);
             }
 
             await _homePageService.CreateOrUpdateMainHomeSection(section);
@@ -104,7 +104,7 @@ namespace Furdega.Controllers
         {
             if (!section.IsFilesExtensionCorrect())
             {
-                return BadRequest(FileManager.FileExtensionError);
+                return BadRequest(ImageManager.FileExtensionError);
             }
 
             await _homePageService.CreateOrUpdateWorkExamplesSection(section);
@@ -117,7 +117,7 @@ namespace Furdega.Controllers
         {
             if (section.IsFilesExtensionCorrect())
             {
-                return BadRequest(FileManager.FileExtensionError);
+                return BadRequest(ImageManager.FileExtensionError);
             }
 
             await _homePageService.CreateOrUpdateCompanyBenefitsSection(section);
@@ -130,7 +130,7 @@ namespace Furdega.Controllers
         {
             if (section.IsFilesExtensionCorrect())
             {
-                return BadRequest(FileManager.FileExtensionError);
+                return BadRequest(ImageManager.FileExtensionError);
             }
 
             await _homePageService.CreateOrUpdateIssueSolutionsSection(section);

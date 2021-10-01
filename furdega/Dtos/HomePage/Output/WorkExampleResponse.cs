@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Furdega.Dtos.HomePage.Output
+﻿namespace Furdega.Dtos.HomePage.Output
 {
     public class WorkExampleResponse
     {
-        public int Position { get; set; }
-
         public string Title { get; set; }
 
         public string FurnitureType { get; set; }
@@ -22,11 +17,5 @@ namespace Furdega.Dtos.HomePage.Output
         public ImageResponse AfterImage1 { get; set; }
         public ImageResponse AfterImage2 { get; set; }
         public ImageResponse AfterImage3 { get; set; }
-    }
-
-    public class ImageResponse
-    {
-        public Guid Id { get; set; }
-        public string ImageUrl { get; set; }
     }
 }

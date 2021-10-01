@@ -12,6 +12,8 @@ namespace Furdega.Repositories.RepositoryBase
 
         Task<TEntity> GetById(int id, IEnumerable<string> includePaths);
 
+        Task<TEntity> FirstOrDefault(Expression<Func<TEntity, bool>> predicate = null);
+
         Task<List<TEntity>> GetItems(Expression<Func<TEntity, bool>> predicate = null);
 
         Task<TEntity> Create(TEntity entity);

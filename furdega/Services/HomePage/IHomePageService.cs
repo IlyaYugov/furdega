@@ -19,7 +19,8 @@ namespace Furdega.Services.HomePage
 
         Task CreateOrUpdateIssueSolutionsSection(IssueSolutionsSectionRequest section);
 
-        Task CreateOrUpdateWorkExamplesSection(WorkExamplesSectionRequest section);
+        Task CreateWorkExamplesSection(WorkExamplesSectionRequest sectionRequest);
+        Task UpdateWorkExamplesSection(WorkExamplesSectionRequest sectionRequest);
 
         Task CreateOrUpdateMainHomeSection(MainHomeSectionRequest section);
     }

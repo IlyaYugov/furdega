@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Furdega.Services.FileManagers;
 
 namespace Furdega.Dtos.HomePage.Input
@@ -7,11 +8,13 @@ namespace Furdega.Dtos.HomePage.Input
     {
         public EmployeeRequest[] Employees { get; set; }
 
-        public bool IsFilesExtensionCorrect()
+        public override bool IsFilesExtensionCorrect()
         {
-            var base64Files = Employees?.Where(s => !string.IsNullOrEmpty(s.Image)).Select(s => s.Image).ToList();
+            var images = Employees?.Where(s => s.Image != null).Select(s => s.Image) ?? Array.Empty<Image>();
 
-            return base64Files == null || !base64Files.Any() || base64Files.Any() && base64Files.All(FileManager.IsFileExtensionCorrect);
+            return !images.Any() || images.Any() && images.All(s => s.IsFileExtensionCorrect());
         }
+
+        public override bool IsAllBase64ImagesExist() => true;
     }
 }

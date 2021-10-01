@@ -1,17 +1,31 @@
 ﻿using System.Linq;
+using Furdega.Dtos.HomePage.Input.Interfaces;
 using Furdega.Services.FileManagers;
 
 namespace Furdega.Dtos.HomePage.Input
 {
-    public class IssueSolutionsSectionRequest : HomeSectionBase
+    public class IssueSolutionsSectionRequest : HomeSectionBase, ISectionRequestWithImage
     {
-        public IssueSolutionRequest[] IssueSolutions { get; set; }
+        public IssueSolutionRequest IssueSolution1 { get; set; }
+        public IssueSolutionRequest IssueSolution2 { get; set; }
+        public IssueSolutionRequest IssueSolution3 { get; set; }
+        public IssueSolutionRequest IssueSolution4 { get; set; }
 
         public bool IsFilesExtensionCorrect()
         {
-            var base64Files = IssueSolutions?.Where(s => !string.IsNullOrEmpty(s.Image)).Select(s => s.Image).ToList();
+            var images = AllImages.Where(s => s != null);
 
-            return base64Files == null || !base64Files.Any() || base64Files.Any() && base64Files.All(FileManager.IsFileExtensionCorrect);
+            return !images.Any() || images.Any() && images.All(s => s.IsFileExtensionCorrect());
         }
+
+        public bool IsAllBase64ImagesExist() => AllImages.All(s => s != null);
+
+        private Image[] AllImages => new[]
+            {
+                IssueSolution1?.Image, 
+                IssueSolution2?.Image,
+                IssueSolution3?.Image, 
+                IssueSolution4?.Image
+            };
     }
 }

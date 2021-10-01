@@ -31,6 +31,13 @@ namespace Furdega.Repositories.RepositoryBase
             return entities.SingleOrDefaultAsync(x => x.Id == id);
         }
 
+        public Task<TEntity> FirstOrDefault(Expression<Func<TEntity, bool>> predicate = null)
+        {
+            return predicate != null
+                ? Context.Set<TEntity>().FirstOrDefaultAsync(predicate)
+                : Context.Set<TEntity>().FirstOrDefaultAsync();
+        }
+
         public virtual Task<List<TEntity>> GetItems(Expression<Func<TEntity, bool>> predicate = null)
         {
             return predicate != null 
