@@ -2,10 +2,10 @@ import { Dispatch, FC, SetStateAction } from "react"
 import { Col, Row, Button } from "react-bootstrap"
 
 import { SectionMode } from "../../../../const/admin"
-import { WorkExamplesSectionResponse } from "../../../../types/work-examples-section"
+import { CompanyBenefitsSectionResponse } from "../../../../types/company-benefits-section"
 
 type ViewProps = {
-  data: WorkExamplesSectionResponse
+  data: CompanyBenefitsSectionResponse
   setMode: Dispatch<SetStateAction<SectionMode>>
 }
 
@@ -22,7 +22,13 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
       </Button>
     )
 
-  const { header, workExample1, workExample2, workExample3 } = data
+  const {
+    header,
+    companyBenefit1,
+    companyBenefit2,
+    companyBenefit3,
+    companyBenefit4,
+  } = data
 
   return (
     <Row className="flex-column gy-3">
@@ -32,11 +38,13 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
       </Col>
 
       {/* TODO add view */}
-      <Col>{workExample1}</Col>
+      <Col>{companyBenefit1}</Col>
 
-      <Col>{workExample2}</Col>
+      <Col>{companyBenefit2}</Col>
 
-      <Col>{workExample3}</Col>
+      <Col>{companyBenefit3}</Col>
+
+      <Col>{companyBenefit4}</Col>
 
       <Col className="d-flex justify-content-end">
         <Button

@@ -1,136 +1,41 @@
-import { FC, useState } from "react"
-// import {
-//   Row,
-//   Col,
-//   InputGroup,
-//   FormControl,
-//   Button,
-//   ListGroup,
-//   ButtonGroup,
-// } from "react-bootstrap"
+import { FC, useEffect, useState } from "react"
+import { Row, Col } from "react-bootstrap"
 
-// import { AdminSectionProps } from "../../../../types/admin-section-props"
-// import {
-//   CompanyBenefitResponse,
-//   CompanyBenefitsSectionResponse,
-// } from "../../../../types/company-benefits-section"
-// import { BenefitModal } from "./benefit-modal"
+import { companyBenefitsApi } from "../../../../api/company-benefits-api"
+import { Edit } from "./edit"
+import { View } from "./view"
+import { SectionMode } from "../../../../const/admin"
+import { CompanyBenefitsSectionResponse } from "../../../../types/company-benefits-section"
 
-// const BenefitsSection: FC = (
-//   props
-// ) => {
-//   const [header, setHeader] = useState<string>(props.header)
-//   const [companyBenefits, setCompanyBenefits] = useState<
-//     CompanyBenefitResponse[]
-//   >([...props.companyBenefits])
+const BenefitsSection: FC = () => {
+  const [data, setData] = useState<CompanyBenefitsSectionResponse>(null)
+  const [mode, setMode] = useState<SectionMode>(SectionMode.view)
 
-//   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-//   const [benefitToEditIndex, setBenefitToEditIndex] = useState<number>(-1)
+  const fetchData = async () => {
+    const data = await companyBenefitsApi.get()
+    setData(data)
+  }
 
-//   const onModalConfirm = (companyBenefit: CompanyBenefitResponse) => {
-//     if (benefitToEditIndex !== null) {
-//       const newExamples = [...companyBenefits]
-//       newExamples.splice(benefitToEditIndex, 1, companyBenefit)
-//       setCompanyBenefits(newExamples)
-//     } else {
-//       setCompanyBenefits([...companyBenefits, companyBenefit])
-//     }
-//     setIsModalOpen(false)
-//     setBenefitToEditIndex(-1)
-//   }
+  useEffect(() => {
+    fetchData()
+  }, [])
 
-//   const deleteBenefitByIndex = (indexToDelete: number) => {
-//     setCompanyBenefits(
-//       companyBenefits.filter((_, index) => index !== indexToDelete)
-//     )
-//   }
+  const renderContent = () => {
+    switch (mode) {
+      case SectionMode.view:
+        return <View data={data} setMode={setMode} />
+      case SectionMode.edit:
+        return <Edit data={data} setMode={setMode} />
+      default:
+        return null
+    }
+  }
 
-//   return (
-//     <>
-//       <Row className="flex-column gy-3">
-//         <Col>
-//           <InputGroup>
-//             <InputGroup.Text className="w-25 text-center text-wrap">
-//               Текст заголовка
-//             </InputGroup.Text>
+  return (
+    <Row className="flex-column gy-3">
+      <Col>{renderContent()}</Col>
+    </Row>
+  )
+}
 
-//             <FormControl
-//               as="textarea"
-//               value={header}
-//               onChange={(event) => {
-//                 setHeader(event.target.value)
-//               }}
-//             />
-//           </InputGroup>
-//         </Col>
-
-//         <Col>
-//           <h4>Преимущества</h4>
-
-//           <ListGroup className="mb-3">
-//             {companyBenefits.map((benefit, index) => (
-//               <ListGroup.Item>
-//                 <Row className="flex-nowrap">
-//                   <Col className="flex-fill">{benefit.title}</Col>
-//                   <Col>
-//                     <ButtonGroup size="sm">
-//                       <Button
-//                         onClick={() => {
-//                           setBenefitToEditIndex(index)
-//                           setIsModalOpen(true)
-//                         }}
-//                       >
-//                         Редактировать
-//                       </Button>
-//                       <Button
-//                         variant="danger"
-//                         onClick={() => {
-//                           deleteBenefitByIndex(index)
-//                         }}
-//                       >
-//                         Удалить
-//                       </Button>
-//                     </ButtonGroup>
-//                   </Col>
-//                 </Row>
-//               </ListGroup.Item>
-//             ))}
-//           </ListGroup>
-
-//           <Button
-//             variant="outline-primary"
-//             onClick={() => {
-//               setBenefitToEditIndex(-1)
-//               setIsModalOpen(true)
-//             }}
-//           >
-//             Создать
-//           </Button>
-//         </Col>
-
-//         <Col>
-//           <Button
-//             size="lg"
-//             onClick={() => {
-//               props.onChange({ header, companyBenefits })
-//             }}
-//           >
-//             Применить
-//           </Button>
-//         </Col>
-//       </Row>
-
-//       <BenefitModal
-//         show={isModalOpen}
-//         benefitToEditIndex={benefitToEditIndex}
-//         benefits={companyBenefits}
-//         onConfirm={onModalConfirm}
-//         onCancel={() => {
-//           setIsModalOpen(false)
-//         }}
-//       />
-//     </>
-//   )
-// }
-
-// export { BenefitsSection }
+export { BenefitsSection }

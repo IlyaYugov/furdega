@@ -4,7 +4,7 @@ import { CompanyBenefitsSectionResponse } from "../types/company-benefits-sectio
 
 const BASE_URL = "/api/company-benefits-section"
 
-const companyBenefitsSectionApi = {
+const companyBenefitsApi = {
   get: async (): Promise<CompanyBenefitsSectionResponse> => {
     const response = await axios.get<CompanyBenefitsSectionResponse>(BASE_URL)
     return response.data
@@ -19,4 +19,4 @@ const companyBenefitsSectionApi = {
   // },
 }
 
-export { companyBenefitsSectionApi }
+export { companyBenefitsApi }
