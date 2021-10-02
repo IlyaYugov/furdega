@@ -1,17 +1,17 @@
 import { FC, useEffect, useState } from "react"
 import { Modal, Button, Form } from "react-bootstrap"
 
-import { CompanyBenefit } from "../../../../types/home"
+import { CompanyBenefitResponse } from "../../../../types/company-benefits-section"
 
 type BenefitModalProps = {
   show: boolean
   benefitToEditIndex: number
-  benefits: CompanyBenefit[]
+  benefits: CompanyBenefitResponse[]
   onCancel: () => void
-  onConfirm: (benefit: CompanyBenefit) => void
+  onConfirm: (benefit: CompanyBenefitResponse) => void
 }
 
-const benefitDefault: CompanyBenefit = {
+const benefitDefault: CompanyBenefitResponse = {
   title: "",
   description: "",
   imageUrl: "",
@@ -28,7 +28,7 @@ const BenefitModal: FC<BenefitModalProps> = ({
 
   const defaultBenefit = isEdit ? benefits[benefitToEditIndex] : benefitDefault
 
-  const [benefit, setBenefit] = useState<CompanyBenefit>({
+  const [benefit, setBenefit] = useState<CompanyBenefitResponse>({
     ...defaultBenefit,
   })
 

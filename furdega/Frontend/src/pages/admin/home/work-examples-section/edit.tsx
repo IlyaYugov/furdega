@@ -10,7 +10,7 @@ import {
 } from "../../../../types/work-examples-section"
 import { WorkExampleEdit } from "./work-example-edit"
 import { SectionMode } from "../../../../const/admin"
-import { HomeSectionBase } from "../../../../types/home/home-section-base"
+import { HomeSectionBase } from "../../../../types/home-section-base"
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 import { workExamplesSectionApi } from "../../../../api/work-examples-section-api"
 import { FormInputEvent } from "../../../../types/utils"

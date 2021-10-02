@@ -4,9 +4,9 @@ import LazyLoad from "react-lazyload"
 
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
 import { RoundedButton } from "../../../components/rounded-button"
-import { IssueSolution } from "../../../types/home"
+import { IssueSolutionResponse } from "../../../types/issue-solutions-section"
 
-const SolutionBlock: FC<IssueSolution & { leftAligned?: boolean }> = ({
+const SolutionBlock: FC<IssueSolutionResponse & { leftAligned?: boolean }> = ({
   title,
   imageUrl,
   description,

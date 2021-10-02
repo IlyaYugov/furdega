@@ -1,21 +1,21 @@
 import { FC, useEffect, useState } from "react"
 import { Row, Col, InputGroup, FormControl, Button } from "react-bootstrap"
 
-import { homeApi } from "../../../../api/home-api"
-import { AboutSection as AboutSectionType } from "../../../../types/home"
+import { aboutSectionApi } from "../../../../api/about-section-api"
+import { AboutSectionRequest } from "../../../../types/about-section"
 
 const AboutSection: FC = () => {
   const [header, setHeader] = useState<string>("")
   const [text, setText] = useState<string>("")
 
   const fetchContent = async () => {
-    const response = await homeApi.getAboutSection()
+    const response = await aboutSectionApi.get()
     setHeader(response.header)
     setText(response.text)
   }
 
-  const submit = async (request: AboutSectionType) => {
-    await homeApi.createOrUpdateAboutSection(request)
+  const submit = async (request: AboutSectionRequest) => {
+    await aboutSectionApi.createOrUpdate(request)
     fetchContent()
   }
 

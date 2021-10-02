@@ -1,9 +1,9 @@
 import { FC } from "react"
 import { Col, Row } from "react-bootstrap"
 
-import { AboutSection } from "../../../types/home"
+import { AboutSectionResponse } from "../../../types/about-section"
 
-const About: FC<AboutSection> = ({ header, text }) => {
+const About: FC<AboutSectionResponse> = ({ header, text }) => {
   return (
     <>
       <h2 className="block-title">{header}</h2>

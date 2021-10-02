@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from "react"
 import { Row, Col, InputGroup, FormControl, Button } from "react-bootstrap"
 
-import { homeApi } from "../../../../api/home-api"
-import { WorkingProcessSection } from "../../../../types/home"
+import { workingProcessSectionApi } from "../../../../api/working-process-section-api"
+import { WorkingProcessSectionResponse } from "../../../../types/working-process-section"
 
 const ProcessSection: FC = () => {
   const [header, setHeader] = useState<string>("")
@@ -12,7 +12,7 @@ const ProcessSection: FC = () => {
   const [finalStage, setFinalStage] = useState<string>("")
 
   const fetchContent = async () => {
-    const response = await homeApi.getProcessSection()
+    const response = await workingProcessSectionApi.get()
     setHeader(response.header)
     setFirstStage(response.firstStage)
     setSecondStage(response.secondStage)
@@ -20,8 +20,8 @@ const ProcessSection: FC = () => {
     setFinalStage(response.finalStage)
   }
 
-  const submit = async (request: WorkingProcessSection) => {
-    await homeApi.createOrUpdateWorkingProcessSection(request)
+  const submit = async (request: WorkingProcessSectionResponse) => {
+    await workingProcessSectionApi.createOrUpdate(request)
     fetchContent()
   }
 

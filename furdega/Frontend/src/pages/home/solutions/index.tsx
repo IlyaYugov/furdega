@@ -2,10 +2,16 @@ import { FC } from "react"
 import { Row, Col } from "react-bootstrap"
 
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
-import { IssueSolutionsSection } from "../../../types/home"
+import { IssueSolutionsSectionResponse } from "../../../types/issue-solutions-section"
 import { SolutionBlock } from "./solution-block"
 
-const Solutions: FC<IssueSolutionsSection> = ({ header, issueSolutions }) => {
+const Solutions: FC<IssueSolutionsSectionResponse> = ({
+  header,
+  issueSolution1,
+  issueSolution2,
+  issueSolution3,
+  issueSolution4,
+}) => {
   return (
     <>
       <Row className="g-0 justify-content-center">
@@ -21,9 +27,10 @@ const Solutions: FC<IssueSolutionsSection> = ({ header, issueSolutions }) => {
         <Col md={4}></Col>
       </Row>
 
-      {issueSolutions.map((issueSolution, index) => (
-        <SolutionBlock leftAligned={index % 2 === 0} {...issueSolution} />
-      ))}
+      <SolutionBlock {...issueSolution1} />
+      <SolutionBlock {...issueSolution2} />
+      <SolutionBlock {...issueSolution3} />
+      <SolutionBlock {...issueSolution4} />
     </>
   )
 }

@@ -1,39 +1,14 @@
 import { FC, useState } from "react"
 import { Tab, Row, Col, Nav } from "react-bootstrap"
 
-import { homeApi } from "../../../api/home-api"
 import { scrollspyAnchorsMap } from "../../../const/home"
-import {
-  CompanyBenefitsSection,
-  IssueSolutionsSection,
-  StaffSection as StaffSectionType,
-} from "../../../types/home"
 import { AboutSection } from "./about-section"
-import { BenefitsSection } from "./benefits-section"
 import { MainHomeSection } from "./main-home-section"
 import { ProcessSection } from "./process-section"
-import { SolutionsSection } from "./solutions-section"
-import { StaffSection } from "./staff-section"
 import { WorkExamplesSection } from "./work-examples-section"
 
 const Home: FC = () => {
   const [activeKey, setActiveKey] = useState<string>("main")
-
-  const onCompanyBenefitsSectionContentChange = (
-    section: CompanyBenefitsSection
-  ) => {
-    homeApi.createOrUpdateCompanyBenefitsSection(section)
-  }
-
-  const onIssueSolutionsSectionContentChange = (
-    section: IssueSolutionsSection
-  ) => {
-    homeApi.createOrUpdateIssueSolutionsSection(section)
-  }
-
-  const onStaffSectionContentChange = (section: StaffSectionType) => {
-    homeApi.createOrUpdateStaffSection(section)
-  }
 
   return (
     <Tab.Container>

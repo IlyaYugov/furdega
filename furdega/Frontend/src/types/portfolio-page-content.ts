@@ -1,3 +1,3 @@
-export type ProtfolioPageContent = {
+export type PortfolioPageContent = {
   header: string
 }

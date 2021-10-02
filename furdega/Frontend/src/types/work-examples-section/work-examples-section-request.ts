@@ -1,4 +1,4 @@
-import { HomeSectionBase } from "../home/home-section-base"
+import { HomeSectionBase } from "../home-section-base"
 import { WorkExampleRequest } from "./work-example-request"
 
 export type WorkExamplesSectionRequest = HomeSectionBase & {

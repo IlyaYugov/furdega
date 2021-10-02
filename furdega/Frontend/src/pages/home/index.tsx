@@ -5,20 +5,25 @@ import { useInView } from "react-intersection-observer"
 
 import { Scrollspy } from "../../components/scrollspy"
 import { useMobileScreen } from "../../utils/useMobileScreen"
-import { scrollspyAnchors, scrollspyAnchorsMap } from "../../const/home"
+import {
+  defaultHomePageContent,
+  scrollspyAnchors,
+  scrollspyAnchorsMap,
+} from "../../const/home"
 import { homeApi } from "../../api/home-api"
-import { HomePageContent } from "../../types/home"
-
-import styles from "./home.module.scss"
+import { HomePageContent } from "../../types/home-page-content"
 import { About } from "./about"
 import { WorkExamples } from "./work-examples"
 import { Benefits } from "./benefits"
 import { Solutions } from "./solutions"
 import { Process } from "./process"
 import { Staff } from "./staff"
+import styles from "./home.module.scss"
 
 const Home: FC = () => {
-  const [content, setContent] = useState<HomePageContent | null>(null)
+  const [content, setContent] = useState<HomePageContent>(
+    defaultHomePageContent
+  )
   const [topScrollspyRef, isTopScrollspyVisible] = useInView()
   const [bottomScrollspyRef, isBottomScrollspyVisible] = useInView()
   const isMobile = useMobileScreen()
@@ -31,9 +36,6 @@ const Home: FC = () => {
   useEffect(() => {
     fetchContent()
   }, [])
-
-  // TODO add skeleton or default content
-  if (!content) return null
 
   return (
     <Container fluid className="g-0">
@@ -53,6 +55,7 @@ const Home: FC = () => {
 
       <Container className={`g-0 ${styles["banner"]}`}>
         <LazyLoad height={550}>
+          {/* TODO подогнать контейнер по высоте пока грузится картинка */}
           <img
             className="img-fluid w-100"
             src={content.mainHomeSection.imageUrl}

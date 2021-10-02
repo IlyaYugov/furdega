@@ -2,9 +2,9 @@ import { FC } from "react"
 import { Row, Col } from "react-bootstrap"
 
 import { EmployeeCard } from "./employee-card"
-import { StaffSection } from "../../../types/home"
+import { StaffSectionResponse } from "../../../types/staff-section"
 
-const Staff: FC<StaffSection> = ({ header, employees }) => {
+const Staff: FC<StaffSectionResponse> = ({ header, employees }) => {
   return (
     <>
       <h2 className="block-title">{header}</h2>

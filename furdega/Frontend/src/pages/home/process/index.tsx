@@ -2,11 +2,11 @@ import { FC } from "react"
 import { Row, Col } from "react-bootstrap"
 import LazyLoad from "react-lazyload"
 
-import { WorkingProcessSection } from "../../../types/home"
+import { WorkingProcessSectionResponse } from "../../../types/working-process-section"
 
 import styles from "./process.module.scss"
 
-const Process: FC<WorkingProcessSection> = ({
+const Process: FC<WorkingProcessSectionResponse> = ({
   header,
   firstStage,
   secondStage,
