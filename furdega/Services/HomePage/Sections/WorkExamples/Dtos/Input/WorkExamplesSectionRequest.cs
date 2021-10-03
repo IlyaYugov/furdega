@@ -4,7 +4,7 @@ using Furdega.Services.FileManagers;
 
 namespace Furdega.Services.HomePage.Sections.WorkExamples.Dtos.Input
 {
-    public class WorkExamplesSectionRequest: HomeSectionModelBase, ISectionRequestWithImage
+    public class WorkExamplesSectionRequest: HomeSectionModelBase, IRequestWithImage
     {
         public WorkExampleRequest WorkExample1 { get; set; }
         public WorkExampleRequest WorkExample2 { get; set; }

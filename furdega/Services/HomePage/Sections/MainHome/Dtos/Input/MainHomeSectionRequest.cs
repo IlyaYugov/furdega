@@ -2,7 +2,7 @@
 
 namespace Furdega.Services.HomePage.Sections.MainHome.Dtos.Input
 {
-    public class MainHomeSectionRequest: HomeSectionModelBase, ISectionRequestWithImage
+    public class MainHomeSectionRequest: HomeSectionModelBase, IRequestWithImage
     {
         public Image Image { get; set; }
 

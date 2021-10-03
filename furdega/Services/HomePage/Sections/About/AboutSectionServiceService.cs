@@ -9,7 +9,7 @@ using Furdega.Services.HomePage.Sections.About.Dtos.Output;
 
 namespace Furdega.Services.HomePage.Sections.About
 {
-    public class AboutSectionService : HomePageSectionServiceBase<AboutSectionRequest, AboutSectionResponse>
+    public class AboutSectionService: HomePageSectionServiceBase<AboutSectionRequest, AboutSectionResponse>
     {
         public AboutSectionService(
             IRepositoryBase<HomePageSection> homePageSectionRepository, 

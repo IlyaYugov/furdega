@@ -1,6 +1,6 @@
 ﻿namespace Furdega.Services.HomePage.Sections
 {
-    public interface ISectionRequestWithImage
+    public interface IRequestWithImage
     {
         public bool IsFilesExtensionCorrect();
 

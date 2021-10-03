@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Furdega.Services.FileManagers;
+using Furdega.Services.HomePage.Sections;
 using Furdega.Services.Staff;
 using Furdega.Services.Staff.Dtos.Input;
 using Furdega.Services.Staff.Dtos.Output;
@@ -31,15 +33,32 @@ namespace Furdega.Controllers
         }
 
         [HttpPost]
-        public async Task<int> Create([FromBody] EmployeeRequest employee)
+        public async Task<ActionResult> Create([FromBody] EmployeeRequest employee)
         {
-            return await _employeeService.Create(employee);
+            if (!employee.IsAllBase64ImagesExist())
+            {
+                return BadRequest(HomeSectionModelBase.ImagesExistingError);
+            }
+
+            if (!employee.IsFilesExtensionCorrect())
+            {
+                return BadRequest(Image.FileFormatError);
+            }
+
+            return Ok(await _employeeService.Create(employee));
         }
 
         [HttpPut("{id:int}")]
-        public async Task Update(int id, [FromBody] EmployeeRequest employee)
+        public async Task<ActionResult> Update(int id, [FromBody] EmployeeRequest employee)
         {
+            if (!employee.IsFilesExtensionCorrect())
+            {
+                return BadRequest(Image.FileFormatError);
+            }
+
             await _employeeService.Update(id, employee);
+
+            return Ok();
         }
 
         [HttpDelete("{id:int}")]

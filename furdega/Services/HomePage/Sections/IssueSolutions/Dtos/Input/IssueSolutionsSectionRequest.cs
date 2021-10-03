@@ -3,7 +3,7 @@ using Furdega.Services.FileManagers;
 
 namespace Furdega.Services.HomePage.Sections.IssueSolutions.Dtos.Input
 {
-    public class IssueSolutionsSectionRequest : HomeSectionModelBase, ISectionRequestWithImage
+    public class IssueSolutionsSectionRequest : HomeSectionModelBase, IRequestWithImage
     {
         public IssueSolutionRequest IssueSolution1 { get; set; }
         public IssueSolutionRequest IssueSolution2 { get; set; }

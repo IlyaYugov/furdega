@@ -3,7 +3,7 @@ using Furdega.Services.FileManagers;
 
 namespace Furdega.Services.HomePage.Sections.CompanyBenefits.Dtos.Input
 {
-    public class CompanyBenefitsSectionRequest: HomeSectionModelBase, ISectionRequestWithImage
+    public class CompanyBenefitsSectionRequest: HomeSectionModelBase, IRequestWithImage
     {
         public CompanyBenefitRequest CompanyBenefit1 { get; set; }
         public CompanyBenefitRequest CompanyBenefit2 { get; set; }

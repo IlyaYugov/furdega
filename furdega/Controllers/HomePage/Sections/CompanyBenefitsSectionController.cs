@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Furdega.Services.FileManagers;
 using Furdega.Services.HomePage.Sections;
 using Furdega.Services.HomePage.Sections.CompanyBenefits.Dtos.Input;
 using Furdega.Services.HomePage.Sections.CompanyBenefits.Dtos.Output;
@@ -26,6 +27,16 @@ namespace Furdega.Controllers.HomePage.Sections
         [HttpPost]
         public async Task<ActionResult> Create(CompanyBenefitsSectionRequest section)
         {
+            if (!section.IsAllBase64ImagesExist())
+            {
+                return BadRequest(HomeSectionModelBase.ImagesExistingError);
+            }
+
+            if (!section.IsFilesExtensionCorrect())
+            {
+                return BadRequest(Image.FileFormatError);
+            }
+
             await _homePageService.CreateSection(section);
 
             return Ok();
@@ -34,6 +45,16 @@ namespace Furdega.Controllers.HomePage.Sections
         [HttpPut]
         public async Task<ActionResult> Update(CompanyBenefitsSectionRequest section)
         {
+            if (!section.IsAllBase64ImagesExist())
+            {
+                return BadRequest(HomeSectionModelBase.ImagesExistingError);
+            }
+
+            if (!section.IsFilesExtensionCorrect())
+            {
+                return BadRequest(Image.FileFormatError);
+            }
+
             await _homePageService.UpdateSection(section);
 
             return Ok();

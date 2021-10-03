@@ -1,6 +1,6 @@
 ﻿namespace Furdega.Services.HomePage.Sections.WorkingProcess.Dtos.Input
 {
-    public class WorkingProcessSectionRequest: HomeSectionModelBase, ISectionRequestWithImage
+    public class WorkingProcessSectionRequest: HomeSectionModelBase, IRequestWithImage
     {
         public string FirstStage { get; set; }
         public string SecondStage { get; set; }

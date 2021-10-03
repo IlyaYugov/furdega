@@ -9,6 +9,8 @@ using Furdega.Services.HomePage.Sections.IssueSolutions.Dtos.Input;
 using Furdega.Services.HomePage.Sections.IssueSolutions.Dtos.Output;
 using Furdega.Services.HomePage.Sections.MainHome.Dtos.Input;
 using Furdega.Services.HomePage.Sections.MainHome.Dtos.Output;
+using Furdega.Services.HomePage.Sections.Staff.Dtos.Input;
+using Furdega.Services.HomePage.Sections.Staff.Dtos.Output;
 using Furdega.Services.HomePage.Sections.WorkExamples.Dtos.Input;
 using Furdega.Services.HomePage.Sections.WorkExamples.Dtos.Output;
 using Furdega.Services.HomePage.Sections.WorkingProcess.Dtos.Input;
@@ -26,7 +28,7 @@ namespace Furdega.Services.HomePage
         private readonly IHomePageSectionService<MainHomeSectionRequest, MainHomeSectionResponse> _mainPageService;
         private readonly IHomePageSectionService<WorkExamplesSectionRequest, WorkExamplesSectionResponse> _workExamplesService;
         private readonly IHomePageSectionService<WorkingProcessSectionRequest, WorkingProcessSectionResponse> _workingProcessService;
-        private readonly IEmployeeService _employeeService;
+        private readonly IHomePageSectionService<StaffRequest, StaffResponse> _staffService;
 
         public HomePageService(
             IHomePageSectionService<AboutSectionRequest, AboutSectionResponse> aboutService, 
@@ -34,8 +36,8 @@ namespace Furdega.Services.HomePage
             IHomePageSectionService<IssueSolutionsSectionRequest, IssueSolutionsSectionResponse> issueSolutionsService, 
             IHomePageSectionService<MainHomeSectionRequest, MainHomeSectionResponse> mainPageService, 
             IHomePageSectionService<WorkExamplesSectionRequest, WorkExamplesSectionResponse> workExamplesService, 
-            IHomePageSectionService<WorkingProcessSectionRequest, WorkingProcessSectionResponse> workingProcessService, 
-            IEmployeeService employeeService)
+            IHomePageSectionService<WorkingProcessSectionRequest, WorkingProcessSectionResponse> workingProcessService,
+            IHomePageSectionService<StaffRequest, StaffResponse> staffService)
         {
             _aboutService = aboutService;
             _companyBenefitsService = companyBenefitsService;
@@ -43,12 +45,11 @@ namespace Furdega.Services.HomePage
             _mainPageService = mainPageService;
             _workExamplesService = workExamplesService;
             _workingProcessService = workingProcessService;
-            _employeeService = employeeService;
+            _staffService = staffService;
         }
 
         public async Task<HomePageContent> GetFullPage()
         {
-            //var staff = new StaffResponse{ }
 
             return new HomePageContent
             {
@@ -58,7 +59,7 @@ namespace Furdega.Services.HomePage
                 MainHomeSection = await _mainPageService.GetSection(),
                 WorkExamplesSection = await _workExamplesService.GetSection(),
                 WorkingProcessSection = await _workingProcessService.GetSection(),
-                //Staff = await _employeeService.GetAll()
+                Staff = await _staffService.GetSection()
             };
         }
     }
