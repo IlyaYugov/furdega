@@ -9,14 +9,13 @@ using Furdega.Services.HomePage.Sections.IssueSolutions.Dtos.Output;
 
 namespace Furdega.Services.HomePage.Sections.IssueSolutions
 {
-    public class IssueSolutionsSectionService: HomePageSectionServiceBase<IssueSolutionsSectionRequest, IssueSolutionsSectionResponse>
+    public class IssueSolutionsSectionService: HomePageSectionServiceBase<IssueSolutionsSectionRequest, IssueSolutionsSectionResponse>, IIssueSolutionsSectionService
     {
         public IssueSolutionsSectionService(
             IRepositoryBase<HomePageSection> homePageSectionRepository, 
             IImageManager fileManager, 
-            IMapper mapper, 
-            HomePageSectionType sectionType) 
-            : base(homePageSectionRepository, fileManager, mapper, sectionType)
+            IMapper mapper) 
+            : base(homePageSectionRepository, fileManager, mapper, HomePageSectionType.IssueSolutionsSection)
         {
         }
 

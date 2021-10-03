@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Furdega.Services.FileManagers;
 using Furdega.Services.HomePage.Sections;
+using Furdega.Services.HomePage.Sections.WorkExamples;
 using Furdega.Services.HomePage.Sections.WorkExamples.Dtos.Input;
 using Furdega.Services.HomePage.Sections.WorkExamples.Dtos.Output;
 using Microsoft.AspNetCore.Mvc;
@@ -11,17 +12,17 @@ namespace Furdega.Controllers.HomePage.Sections
     [ApiController]
     public class WorkExamplesSectionController : ControllerBase
     {
-        private readonly IHomePageSectionService<WorkExamplesSectionRequest, WorkExamplesSectionResponse> _homePageService;
+        private readonly IWorkExamplesSectionService _sectionService;
 
-        public WorkExamplesSectionController(IHomePageSectionService<WorkExamplesSectionRequest, WorkExamplesSectionResponse> homePageService)
+        public WorkExamplesSectionController(IWorkExamplesSectionService sectionService)
         {
-            _homePageService = homePageService;
+            _sectionService = sectionService;
         }
 
         [HttpGet]
         public async Task<WorkExamplesSectionResponse> Get()
         {
-            return await _homePageService.GetSection();
+            return await _sectionService.GetSection();
         }
 
         [HttpPost]
@@ -37,7 +38,7 @@ namespace Furdega.Controllers.HomePage.Sections
                 return BadRequest(Image.FileFormatError);
             }
 
-            await _homePageService.CreateSection(section);
+            await _sectionService.CreateSection(section);
 
             return Ok();
         }
@@ -50,7 +51,7 @@ namespace Furdega.Controllers.HomePage.Sections
                 return BadRequest(Image.FileFormatError);
             }
 
-            await _homePageService.UpdateSection(section);
+            await _sectionService.UpdateSection(section);
 
             return Ok();
         }

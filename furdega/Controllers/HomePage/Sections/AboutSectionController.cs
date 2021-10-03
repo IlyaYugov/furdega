@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Furdega.Services.HomePage.Sections;
+using Furdega.Services.HomePage.Sections.About;
 using Furdega.Services.HomePage.Sections.About.Dtos.Input;
 using Furdega.Services.HomePage.Sections.About.Dtos.Output;
 using Microsoft.AspNetCore.Mvc;
@@ -10,23 +10,23 @@ namespace Furdega.Controllers.HomePage.Sections
     [ApiController]
     public class AboutSectionController : ControllerBase
     {
-        private readonly IHomePageSectionService<AboutSectionRequest, AboutSectionResponse> _homePageService;
+        private readonly IAboutSectionService _sectionService;
 
-        public AboutSectionController(IHomePageSectionService<AboutSectionRequest, AboutSectionResponse> homePageService)
+        public AboutSectionController(IAboutSectionService sectionService)
         {
-            _homePageService = homePageService;
+            _sectionService = sectionService;
         }
 
         [HttpGet]
         public async Task<AboutSectionResponse> Get()
         {
-            return await _homePageService.GetSection();
+            return await _sectionService.GetSection();
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(AboutSectionRequest section)
         {
-            await _homePageService.CreateSection(section);
+            await _sectionService.CreateSection(section);
 
             return Ok();
         }
@@ -34,7 +34,7 @@ namespace Furdega.Controllers.HomePage.Sections
         [HttpPut]
         public async Task<ActionResult> Update(AboutSectionRequest section)
         {
-            await _homePageService.UpdateSection(section);
+            await _sectionService.UpdateSection(section);
 
             return Ok();
         }

@@ -7,7 +7,13 @@ using Furdega.Services.FileManagers;
 using Furdega.Services.FurnitureTypes;
 using Furdega.Services.FurnitureTypes.Mapping;
 using Furdega.Services.HomePage;
-using Furdega.Services.HomePage.Sections;
+using Furdega.Services.HomePage.Sections.About;
+using Furdega.Services.HomePage.Sections.CompanyBenefits;
+using Furdega.Services.HomePage.Sections.IssueSolutions;
+using Furdega.Services.HomePage.Sections.MainHome;
+using Furdega.Services.HomePage.Sections.Staff;
+using Furdega.Services.HomePage.Sections.WorkExamples;
+using Furdega.Services.HomePage.Sections.WorkingProcess;
 using Furdega.Services.MaterialTypes;
 using Furdega.Services.Staff;
 using Microsoft.AspNetCore.Builder;
@@ -99,8 +105,16 @@ namespace Furdega
             services.AddScoped<IMaterialTypeService, MaterialTypeService>();
             services.AddScoped<IHomePageService, HomePageService>();
             services.AddScoped<IImageManager, ImageManager>();
-            services.AddScoped(typeof(IHomePageSectionService<,>), typeof(HomePageSectionServiceBase<,>));
             services.AddScoped<IEmployeeService, EmployeeService>();
+
+            services.AddScoped<IHomePageService, HomePageService>();
+            services.AddScoped<IAboutSectionService, AboutSectionService>(); 
+            services.AddScoped<ICompanyBenefitsSectionService, CompanyBenefitsSectionService>();
+            services.AddScoped<IIssueSolutionsSectionService, IssueSolutionsSectionService>();
+            services.AddScoped<IMainHomeSectionService, MainHomeSectionService>(); 
+            services.AddScoped<IStaffSectionService, StaffSectionService>(); 
+            services.AddScoped<IWorkExamplesSectionService, WorkExamplesSectionService>();
+            services.AddScoped<IWorkingProcessSectionService, WorkingProcessSectionService>();
 
             services.AddAutoMapper(typeof(FurnitureTypeProfile));
         }

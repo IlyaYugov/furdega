@@ -1,6 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Furdega.DataAccess.Models.Enums;
-using Furdega.Services.FileManagers;
 using Furdega.Services.HomePage;
 using Furdega.Services.HomePage.Dtos.Output;
 using Microsoft.AspNetCore.Mvc;

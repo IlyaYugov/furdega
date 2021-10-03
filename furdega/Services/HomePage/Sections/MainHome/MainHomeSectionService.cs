@@ -9,9 +9,13 @@ using Furdega.Services.HomePage.Sections.MainHome.Dtos.Output;
 
 namespace Furdega.Services.HomePage.Sections.MainHome
 {
-    public class MainHomeSectionService: HomePageSectionServiceBase<MainHomeSectionRequest, MainHomeSectionResponse>
+    public class MainHomeSectionService: HomePageSectionServiceBase<MainHomeSectionRequest, MainHomeSectionResponse>, IMainHomeSectionService
     {
-        public MainHomeSectionService(IRepositoryBase<HomePageSection> homePageSectionRepository, IImageManager fileManager, IMapper mapper, HomePageSectionType sectionType) : base(homePageSectionRepository, fileManager, mapper, sectionType)
+        public MainHomeSectionService(
+            IRepositoryBase<HomePageSection> homePageSectionRepository, 
+            IImageManager fileManager, 
+            IMapper mapper) 
+            : base(homePageSectionRepository, fileManager, mapper, HomePageSectionType.MainHomeSection)
         {
         }
 

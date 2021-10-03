@@ -31,9 +31,21 @@ namespace Furdega.Services.HomePage.Sections
             SectionType = sectionType;
         }
 
-        public abstract Task CreateSection(TSectionRequest sectionRequest);
+        public virtual async Task CreateSection(TSectionRequest sectionRequest)
+        {
+            var mappedSection = Mapper.Map<TSectionResponse>(sectionRequest);
 
-        public abstract Task UpdateSection(TSectionRequest sectionRequest);
+            await CreateSection(mappedSection);
+        }
+
+        public virtual async Task UpdateSection(TSectionRequest sectionRequest)
+        {
+            var section = await GetSection();
+
+            Mapper.Map(sectionRequest, section);
+
+            await UpdateSection(section);
+        }
 
         public async Task<TSectionResponse> GetSection()
         {

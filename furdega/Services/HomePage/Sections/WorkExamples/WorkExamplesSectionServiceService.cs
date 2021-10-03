@@ -9,7 +9,7 @@ using Furdega.Services.HomePage.Sections.WorkExamples.Dtos.Output;
 
 namespace Furdega.Services.HomePage.Sections.WorkExamples
 {
-    public class WorkExamplesSectionService: HomePageSectionServiceBase<WorkExamplesSectionRequest, WorkExamplesSectionResponse>
+    public class WorkExamplesSectionService: HomePageSectionServiceBase<WorkExamplesSectionRequest, WorkExamplesSectionResponse>, IWorkExamplesSectionService
     {
         public WorkExamplesSectionService(
             IRepositoryBase<HomePageSection> homePageSectionRepository,
@@ -17,7 +17,6 @@ namespace Furdega.Services.HomePage.Sections.WorkExamples
             IMapper mapper) 
             : base(homePageSectionRepository, fileManager, mapper, HomePageSectionType.WorkExamplesSection)
         {
-
         }
 
         public override async Task CreateSection(WorkExamplesSectionRequest sectionRequest)

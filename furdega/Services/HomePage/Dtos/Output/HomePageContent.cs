@@ -5,7 +5,6 @@ using Furdega.Services.HomePage.Sections.MainHome.Dtos.Output;
 using Furdega.Services.HomePage.Sections.Staff.Dtos.Output;
 using Furdega.Services.HomePage.Sections.WorkExamples.Dtos.Output;
 using Furdega.Services.HomePage.Sections.WorkingProcess.Dtos.Output;
-using Furdega.Services.Staff.Dtos.Output;
 
 namespace Furdega.Services.HomePage.Dtos.Output
 {

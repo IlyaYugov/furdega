@@ -9,14 +9,13 @@ using Furdega.Services.HomePage.Sections.CompanyBenefits.Dtos.Output;
 
 namespace Furdega.Services.HomePage.Sections.CompanyBenefits
 {
-    public class CompanyBenefitsSectionService: HomePageSectionServiceBase<CompanyBenefitsSectionRequest, CompanyBenefitsSectionResponse>
+    public class CompanyBenefitsSectionService: HomePageSectionServiceBase<CompanyBenefitsSectionRequest, CompanyBenefitsSectionResponse>, ICompanyBenefitsSectionService
     {
         public CompanyBenefitsSectionService(
             IRepositoryBase<HomePageSection> homePageSectionRepository,
             IImageManager fileManager, 
-            IMapper mapper, 
-            HomePageSectionType sectionType) 
-            : base(homePageSectionRepository, fileManager, mapper, sectionType)
+            IMapper mapper) 
+            : base(homePageSectionRepository, fileManager, mapper, HomePageSectionType.CompanyBenefitsSection)
         {
         }
 

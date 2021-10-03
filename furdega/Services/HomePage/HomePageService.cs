@@ -1,43 +1,33 @@
 ﻿using System.Threading.Tasks;
 using Furdega.Services.HomePage.Dtos.Output;
-using Furdega.Services.HomePage.Sections;
-using Furdega.Services.HomePage.Sections.About.Dtos.Input;
-using Furdega.Services.HomePage.Sections.About.Dtos.Output;
-using Furdega.Services.HomePage.Sections.CompanyBenefits.Dtos.Input;
-using Furdega.Services.HomePage.Sections.CompanyBenefits.Dtos.Output;
-using Furdega.Services.HomePage.Sections.IssueSolutions.Dtos.Input;
-using Furdega.Services.HomePage.Sections.IssueSolutions.Dtos.Output;
-using Furdega.Services.HomePage.Sections.MainHome.Dtos.Input;
-using Furdega.Services.HomePage.Sections.MainHome.Dtos.Output;
-using Furdega.Services.HomePage.Sections.Staff.Dtos.Input;
-using Furdega.Services.HomePage.Sections.Staff.Dtos.Output;
-using Furdega.Services.HomePage.Sections.WorkExamples.Dtos.Input;
-using Furdega.Services.HomePage.Sections.WorkExamples.Dtos.Output;
-using Furdega.Services.HomePage.Sections.WorkingProcess.Dtos.Input;
-using Furdega.Services.HomePage.Sections.WorkingProcess.Dtos.Output;
-using Furdega.Services.Staff;
-using Furdega.Services.Staff.Dtos.Output;
+using Furdega.Services.HomePage.Sections.About;
+using Furdega.Services.HomePage.Sections.CompanyBenefits;
+using Furdega.Services.HomePage.Sections.IssueSolutions;
+using Furdega.Services.HomePage.Sections.MainHome;
+using Furdega.Services.HomePage.Sections.Staff;
+using Furdega.Services.HomePage.Sections.WorkExamples;
+using Furdega.Services.HomePage.Sections.WorkingProcess;
 
 namespace Furdega.Services.HomePage
 {
     public class HomePageService: IHomePageService
     {
-        private readonly IHomePageSectionService<AboutSectionRequest, AboutSectionResponse> _aboutService;
-        private readonly IHomePageSectionService<CompanyBenefitsSectionRequest, CompanyBenefitsSectionResponse> _companyBenefitsService;
-        private readonly IHomePageSectionService<IssueSolutionsSectionRequest, IssueSolutionsSectionResponse> _issueSolutionsService;
-        private readonly IHomePageSectionService<MainHomeSectionRequest, MainHomeSectionResponse> _mainPageService;
-        private readonly IHomePageSectionService<WorkExamplesSectionRequest, WorkExamplesSectionResponse> _workExamplesService;
-        private readonly IHomePageSectionService<WorkingProcessSectionRequest, WorkingProcessSectionResponse> _workingProcessService;
-        private readonly IHomePageSectionService<StaffRequest, StaffResponse> _staffService;
+        private readonly IAboutSectionService _aboutService;
+        private readonly ICompanyBenefitsSectionService _companyBenefitsService;
+        private readonly IIssueSolutionsSectionService _issueSolutionsService;
+        private readonly IMainHomeSectionService _mainPageService;
+        private readonly IWorkExamplesSectionService _workExamplesService;
+        private readonly IWorkingProcessSectionService _workingProcessService;
+        private readonly IStaffSectionService _staffService;
 
         public HomePageService(
-            IHomePageSectionService<AboutSectionRequest, AboutSectionResponse> aboutService, 
-            IHomePageSectionService<CompanyBenefitsSectionRequest, CompanyBenefitsSectionResponse> companyBenefitsService, 
-            IHomePageSectionService<IssueSolutionsSectionRequest, IssueSolutionsSectionResponse> issueSolutionsService, 
-            IHomePageSectionService<MainHomeSectionRequest, MainHomeSectionResponse> mainPageService, 
-            IHomePageSectionService<WorkExamplesSectionRequest, WorkExamplesSectionResponse> workExamplesService, 
-            IHomePageSectionService<WorkingProcessSectionRequest, WorkingProcessSectionResponse> workingProcessService,
-            IHomePageSectionService<StaffRequest, StaffResponse> staffService)
+            IAboutSectionService aboutService,
+            ICompanyBenefitsSectionService companyBenefitsService,
+            IIssueSolutionsSectionService issueSolutionsService,
+            IMainHomeSectionService mainPageService,
+            IWorkExamplesSectionService workExamplesService,
+            IWorkingProcessSectionService workingProcessService,
+            IStaffSectionService staffService)
         {
             _aboutService = aboutService;
             _companyBenefitsService = companyBenefitsService;
@@ -51,7 +41,7 @@ namespace Furdega.Services.HomePage
         public async Task<HomePageContent> GetFullPage()
         {
 
-            return new HomePageContent
+            return new()
             {
                 AboutSection = await _aboutService.GetSection(),
                 CompanyBenefitsSection = await _companyBenefitsService.GetSection(),
