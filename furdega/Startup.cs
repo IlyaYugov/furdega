@@ -4,6 +4,7 @@ using Furdega.DataAccess;
 using Furdega.Repositories;
 using Furdega.Repositories.RepositoryBase;
 using Furdega.Services.FileManagers;
+using Furdega.Services.Furnitures;
 using Furdega.Services.FurnitureTypes;
 using Furdega.Services.FurnitureTypes.Mapping;
 using Furdega.Services.HomePage;
@@ -106,6 +107,7 @@ namespace Furdega
             services.AddScoped<IHomePageService, HomePageService>();
             services.AddScoped<IImageManager, ImageManager>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IFurnitureService, FurnitureService>();
 
             services.AddScoped<IHomePageService, HomePageService>();
             services.AddScoped<IAboutSectionService, AboutSectionService>(); 

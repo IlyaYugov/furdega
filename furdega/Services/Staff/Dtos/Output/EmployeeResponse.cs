@@ -4,7 +4,8 @@ namespace Furdega.Services.Staff.Dtos.Output
 {
     public class EmployeeResponse
     {
-        public string Title { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public ImageResponse Image { get; set; }
         public string Description { get; set; }
     }

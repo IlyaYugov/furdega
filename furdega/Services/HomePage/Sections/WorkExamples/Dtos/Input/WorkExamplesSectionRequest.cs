@@ -21,8 +21,8 @@ namespace Furdega.Services.HomePage.Sections.WorkExamples.Dtos.Input
         }
 
         public bool IsAllBase64ImagesExist() =>
-            WorkExample1.GetAllImages.All(s => s != null) &&
-            WorkExample2.GetAllImages.All(s => s != null) &&
-            WorkExample3.GetAllImages.All(s => s != null);
+            WorkExample1.GetAllImages.All(s => !string.IsNullOrEmpty(s?.Base64ImageString)) &&
+            WorkExample2.GetAllImages.All(s => !string.IsNullOrEmpty(s?.Base64ImageString)) &&
+            WorkExample3.GetAllImages.All(s => !string.IsNullOrEmpty(s?.Base64ImageString));
     }
 }

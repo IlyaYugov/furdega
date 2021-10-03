@@ -17,17 +17,14 @@ namespace Furdega.Services.HomePage.Sections.CompanyBenefits.Dtos.Input
             return !images.Any() || images.Any() && images.All(s => s.IsFileExtensionCorrect());
         }
 
-        public bool IsAllBase64ImagesExist()
-        {
-            throw new System.NotImplementedException();
-        }
+        public bool IsAllBase64ImagesExist() => AllImages.All(s => !string.IsNullOrEmpty(s?.Base64ImageString));
 
         private Image[] AllImages => new[]
         {
-            CompanyBenefit1?.Image,
-            CompanyBenefit2?.Image,
-            CompanyBenefit3?.Image,
-            CompanyBenefit4?.Image
+            CompanyBenefit1.Image,
+            CompanyBenefit2.Image,
+            CompanyBenefit3.Image,
+            CompanyBenefit4.Image
         };
     }
 }

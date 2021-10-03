@@ -12,6 +12,7 @@ namespace Furdega.DataAccess
         public DbSet<FurnitureType> FurnitureTypes { get; set; }
         public DbSet<HomePageSection> HomePageSections { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Furniture> Furniture { get; set; }
 
         public FurdegaDbContext(DbContextOptions<FurdegaDbContext> options) : base(options)
         {

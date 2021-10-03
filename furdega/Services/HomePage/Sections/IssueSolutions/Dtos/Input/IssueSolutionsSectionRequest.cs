@@ -17,7 +17,7 @@ namespace Furdega.Services.HomePage.Sections.IssueSolutions.Dtos.Input
             return !images.Any() || images.Any() && images.All(s => s.IsFileExtensionCorrect());
         }
 
-        public bool IsAllBase64ImagesExist() => AllImages.All(s => s != null);
+        public bool IsAllBase64ImagesExist() => AllImages.All(s => !string.IsNullOrEmpty(s?.Base64ImageString));
 
         private Image[] AllImages => new[]
             {

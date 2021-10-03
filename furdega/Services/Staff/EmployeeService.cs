@@ -48,7 +48,9 @@ namespace Furdega.Services.Staff
 
         public async Task Update(int id, EmployeeRequest employeeRequest)
         {
-            var employee = _mapper.Map<Employee>(employeeRequest);
+            var employee = await _employeeRepository.GetById(id);
+
+            _mapper.Map(employeeRequest, employee);
 
             await _employeeRepository.Update(employee);
         }
