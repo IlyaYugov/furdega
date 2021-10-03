@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Furdega.DataAccess.Models;
-using Furdega.Dtos.MaterialTypes.Input;
-using Furdega.Dtos.MaterialTypes.Output;
 using Furdega.Repositories.RepositoryBase;
+using Furdega.Services.MaterialTypes.Dtos.Input;
+using Furdega.Services.MaterialTypes.Dtos.Output;
 
 namespace Furdega.Services.MaterialTypes
 {

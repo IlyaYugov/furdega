@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Furdega.Dtos.Materials.Input;
-using Furdega.Dtos.Materials.Output;
+using Furdega.Services.Materials.Dtos.Input;
+using Furdega.Services.Materials.Dtos.Output;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers
 {

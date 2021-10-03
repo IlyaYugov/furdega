@@ -7,7 +7,9 @@ using Furdega.Services.FileManagers;
 using Furdega.Services.FurnitureTypes;
 using Furdega.Services.FurnitureTypes.Mapping;
 using Furdega.Services.HomePage;
+using Furdega.Services.HomePage.Sections;
 using Furdega.Services.MaterialTypes;
+using Furdega.Services.Staff;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -97,6 +99,8 @@ namespace Furdega
             services.AddScoped<IMaterialTypeService, MaterialTypeService>();
             services.AddScoped<IHomePageService, HomePageService>();
             services.AddScoped<IImageManager, ImageManager>();
+            services.AddScoped(typeof(IHomePageSectionService<,>), typeof(HomePageSectionServiceBase<,>));
+            services.AddScoped<IEmployeeService, EmployeeService>();
 
             services.AddAutoMapper(typeof(FurnitureTypeProfile));
         }

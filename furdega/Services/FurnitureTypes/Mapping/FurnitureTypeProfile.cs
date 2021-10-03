@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Furdega.DataAccess.Models;
-using Furdega.Dtos.Furnitures.Input;
-using Furdega.Dtos.Furnitures.Output;
+using Furdega.Services.FurnitureTypes.Dtos.Input;
+using Furdega.Services.FurnitureTypes.Dtos.Output;
 
 namespace Furdega.Services.FurnitureTypes.Mapping
 {

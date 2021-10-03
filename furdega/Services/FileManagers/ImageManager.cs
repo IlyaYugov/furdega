@@ -15,7 +15,7 @@ namespace Furdega.Services.FileManagers
             _projectSettings = projectSettings.Value;
         }
 
-        public async Task<string> LoadImage(Image image)
+        public async Task<ImageResponse> LoadImage(Image image)
         {
             if (image.Base64ImageString == null)
             {
@@ -25,7 +25,11 @@ namespace Furdega.Services.FileManagers
             var fileUrl = Path.Combine("/", _projectSettings.ImagesDirectoryName, image.GetImageName);
             await LoadFileAsync(image.Base64ImageString, fileUrl);
 
-            return fileUrl;
+            return new ImageResponse
+            {
+                Id = image.Id,
+                ImageUrl = fileUrl
+            };
         }
 
         private async Task LoadFileAsync(string base64Image, string fileUrl)

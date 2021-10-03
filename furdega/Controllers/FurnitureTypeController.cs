@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Furdega.Dtos.Furnitures.Input;
-using Furdega.Dtos.Furnitures.Output;
 using Furdega.Services.FurnitureTypes;
+using Furdega.Services.FurnitureTypes.Dtos.Input;
+using Furdega.Services.FurnitureTypes.Dtos.Output;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Furdega.Dtos.MaterialTypes.Input;
-using Furdega.Dtos.MaterialTypes.Output;
+using Furdega.Services.MaterialTypes.Dtos.Input;
+using Furdega.Services.MaterialTypes.Dtos.Output;
 
 namespace Furdega.Services.MaterialTypes
 {
