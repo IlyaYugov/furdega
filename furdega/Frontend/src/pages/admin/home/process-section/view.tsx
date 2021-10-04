@@ -2,10 +2,10 @@ import { Dispatch, FC, SetStateAction } from "react"
 import { Col, Row, Button } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../../const/admin"
-import { WorkExamplesSectionResponse } from "../../../../types/work-examples-section"
+import { WorkingProcessSectionResponse } from "../../../../types/working-process-section"
 
 type ViewProps = {
-  data: WorkExamplesSectionResponse | null
+  data: WorkingProcessSectionResponse | null
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
@@ -22,7 +22,7 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
       </Button>
     )
 
-  const { header, workExample1, workExample2, workExample3 } = data
+  const { header, firstStage, secondStage, thirdStage, finalStage } = data
 
   return (
     <Row className="flex-column gy-3">
@@ -31,12 +31,25 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
         <div>{header}</div>
       </Col>
 
-      {/* TODO add view */}
-      <Col>{workExample1}</Col>
+      <Col>
+        <h5>Этап 1</h5>
+        <div>{firstStage}</div>
+      </Col>
 
-      <Col>{workExample2}</Col>
+      <Col>
+        <h5>Этап 2</h5>
+        <div>{secondStage}</div>
+      </Col>
 
-      <Col>{workExample3}</Col>
+      <Col>
+        <h5>Этап 3</h5>
+        <div>{thirdStage}</div>
+      </Col>
+
+      <Col>
+        <h5>Заключительный этап</h5>
+        <div>{finalStage}</div>
+      </Col>
 
       <Col className="d-flex justify-content-end">
         <Button

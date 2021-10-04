@@ -1,2 +1,2 @@
 export type { StaffSectionResponse } from "./staff-section-response"
-export type { EmployeeResponse } from "./employee-response"
+export type { StaffSectionRequest } from "./staff-section-request"

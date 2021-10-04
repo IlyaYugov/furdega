@@ -1,15 +1,15 @@
 import { FC, useEffect, useState } from "react"
 import { Row, Col } from "react-bootstrap"
 
-import { workExamplesSectionApi } from "../../../../api/work-examples-section-api"
 import { WorkExamplesSectionResponse } from "../../../../types/work-examples-section"
 import { Edit } from "./edit"
 import { View } from "./view"
-import { SectionMode } from "../../../../const/admin"
+import { AdminSectionMode } from "../../../../const/admin"
+import { workExamplesSectionApi } from "../../../../api/home/work-examples-section-api"
 
 const WorkExamplesSection: FC = () => {
-  const [data, setData] = useState<WorkExamplesSectionResponse>(null)
-  const [mode, setMode] = useState<SectionMode>(SectionMode.view)
+  const [data, setData] = useState<WorkExamplesSectionResponse | null>(null)
+  const [mode, setMode] = useState<AdminSectionMode>(AdminSectionMode.view)
 
   const fetchData = async () => {
     const data = await workExamplesSectionApi.get()
@@ -22,9 +22,9 @@ const WorkExamplesSection: FC = () => {
 
   const renderContent = () => {
     switch (mode) {
-      case SectionMode.view:
+      case AdminSectionMode.view:
         return <View data={data} setMode={setMode} />
-      case SectionMode.edit:
+      case AdminSectionMode.edit:
         return <Edit data={data} setMode={setMode} />
       default:
         return null

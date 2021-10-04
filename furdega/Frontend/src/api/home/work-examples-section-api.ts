@@ -3,9 +3,9 @@ import axios from "axios"
 import {
   WorkExamplesSectionResponse,
   WorkExamplesSectionRequest,
-} from "../types/work-examples-section"
+} from "../../types/work-examples-section"
 
-const BASE_URL = "/api/work-examples-section"
+const BASE_URL = "/api/home/work-examples"
 
 const workExamplesSectionApi = {
   get: async (): Promise<WorkExamplesSectionResponse> => {

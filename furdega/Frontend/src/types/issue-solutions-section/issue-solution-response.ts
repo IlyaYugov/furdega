@@ -1,5 +1,7 @@
+import { ImageResponse } from "../image-response";
+
 export type IssueSolutionResponse = {
   title: string
-  imageUrl: string
+  image: ImageResponse
   description: string
 }

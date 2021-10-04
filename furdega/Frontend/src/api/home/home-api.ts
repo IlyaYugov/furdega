@@ -1,6 +1,6 @@
 import axios from "axios"
 
-import { HomePageContent } from "../types/home-page-content"
+import { HomePageContent } from "../../types/home-page-content"
 
 const BASE_URL = "/api/home"
 

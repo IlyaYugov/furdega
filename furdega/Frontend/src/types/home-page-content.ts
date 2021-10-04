@@ -13,5 +13,5 @@ export type HomePageContent = {
   companyBenefitsSection: CompanyBenefitsSectionResponse
   issueSolutionsSection: IssueSolutionsSectionResponse
   workingProcessSection: WorkingProcessSectionResponse
-  staffSection: StaffSectionResponse
+  staff: StaffSectionResponse
 }

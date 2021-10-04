@@ -6,7 +6,7 @@ import { CompanyBenefitResponse } from "../../../types/company-benefits-section"
 
 const BenefitCard: FC<CompanyBenefitResponse & { leftAligned?: boolean }> = ({
   title,
-  imageUrl,
+  image,
   description,
   leftAligned = false,
 }) => {
@@ -14,7 +14,11 @@ const BenefitCard: FC<CompanyBenefitResponse & { leftAligned?: boolean }> = ({
     <Row>
       <Col xs={6}>
         <LazyLoad height={512}>
-          <img className="img-fluid w-100" src={imageUrl} alt={imageUrl} />
+          <img
+            className="img-fluid w-100"
+            src={image.imageUrl}
+            alt={image.imageUrl}
+          />
         </LazyLoad>
 
         <div className="mt-2 mt-md-5">

@@ -3,8 +3,10 @@ import { Tab, Row, Col, Nav } from "react-bootstrap"
 
 import { scrollspyAnchorsMap } from "../../../const/home"
 import { AboutSection } from "./about-section"
+import { BenefitsSection } from "./benefits-section"
 import { MainHomeSection } from "./main-home-section"
 import { ProcessSection } from "./process-section"
+import { SolutionsSection } from "./solutions-section"
 import { WorkExamplesSection } from "./work-examples-section"
 
 const Home: FC = () => {
@@ -113,19 +115,17 @@ const Home: FC = () => {
             </Tab.Pane>
           )}
 
-          {/* <Tab.Pane eventKey="benefits">
-              <BenefitsSection
-                {...content.companyBenefitsSection}
-                onChange={onCompanyBenefitsSectionContentChange}
-              />
-            </Tab.Pane> */}
+          {activeKey === "benefits" && (
+            <Tab.Pane>
+              <BenefitsSection />
+            </Tab.Pane>
+          )}
 
-          {/* <Tab.Pane eventKey="solutions">
-              <SolutionsSection
-                {...content.issueSolutionsSection}
-                onChange={onIssueSolutionsSectionContentChange}
-              />
-            </Tab.Pane> */}
+          {activeKey === "solutions" && (
+            <Tab.Pane>
+              <SolutionsSection />
+            </Tab.Pane>
+          )}
 
           {activeKey === "process" && (
             <Tab.Pane>

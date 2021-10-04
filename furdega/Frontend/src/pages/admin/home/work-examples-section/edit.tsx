@@ -9,17 +9,22 @@ import {
   WorkExamplesSectionResponse,
 } from "../../../../types/work-examples-section"
 import { WorkExampleEdit } from "./work-example-edit"
-import { SectionMode } from "../../../../const/admin"
-import { HomeSectionBase } from "../../../../types/home-section-base"
+import { AdminSectionMode } from "../../../../const/admin"
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
-import { workExamplesSectionApi } from "../../../../api/work-examples-section-api"
 import { FormInputEvent } from "../../../../types/utils"
 import { ImageRequest } from "../../../../types/image-request"
+import { workExamplesSectionApi } from "../../../../api/home/work-examples-section-api"
+import { ImageResponse } from "../../../../types/image-response"
 
 type EditProps = {
-  data: WorkExamplesSectionResponse
-  setMode: Dispatch<SetStateAction<SectionMode>>
+  data: WorkExamplesSectionResponse | null
+  setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
+
+const getNewImage = (): ImageResponse => ({
+  id: uuidv4(),
+  imageUrl: "",
+})
 
 const getNewWorkExample = (): WorkExampleResponse => ({
   title: "",
@@ -27,37 +32,13 @@ const getNewWorkExample = (): WorkExampleResponse => ({
   furnitureType: "",
   duration: "",
   description: "",
-  beforeImage1: {
-    id: uuidv4(),
-    imageUrl: "",
-  },
-  beforeImage2: {
-    id: uuidv4(),
-    imageUrl: "",
-  },
-  beforeImage3: {
-    id: uuidv4(),
-    imageUrl: "",
-  },
-  afterImage1: {
-    id: uuidv4(),
-    imageUrl: "",
-  },
-  afterImage2: {
-    id: uuidv4(),
-    imageUrl: "",
-  },
-  afterImage3: {
-    id: uuidv4(),
-    imageUrl: "",
-  },
+  beforeImage1: getNewImage(),
+  beforeImage2: getNewImage(),
+  beforeImage3: getNewImage(),
+  afterImage1: getNewImage(),
+  afterImage2: getNewImage(),
+  afterImage3: getNewImage(),
 })
-
-type ResponseData = HomeSectionBase & {
-  workExample1: WorkExampleResponse
-  workExample2: WorkExampleResponse
-  workExample3: WorkExampleResponse
-}
 
 export type ImagesChangeEvent = {
   afterImage1?: ImageRequest
@@ -68,7 +49,7 @@ export type ImagesChangeEvent = {
   beforeImage3?: ImageRequest
 }
 
-const getDefaultResponseData = (): ResponseData => ({
+const getDefaultResponseData = (): WorkExamplesSectionResponse => ({
   header: "",
   workExample1: getNewWorkExample(),
   workExample2: getNewWorkExample(),
@@ -80,7 +61,7 @@ const getDefaultRequestData = ({
   workExample1,
   workExample2,
   workExample3,
-}: ResponseData): WorkExamplesSectionRequest => ({
+}: WorkExamplesSectionResponse): WorkExamplesSectionRequest => ({
   header,
   workExample1: {
     title: workExample1.title,
@@ -247,7 +228,7 @@ const Edit: FC<EditProps> = (props) => {
               size="lg"
               variant="secondary"
               onClick={() => {
-                props.setMode(SectionMode.view)
+                props.setMode(AdminSectionMode.view)
               }}
             >
               Отмена

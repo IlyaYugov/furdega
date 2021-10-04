@@ -1,4 +1,4 @@
-export enum SectionMode {
+export enum AdminSectionMode {
   view,
   edit,
 }

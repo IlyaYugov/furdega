@@ -2,11 +2,12 @@ import { FC } from "react"
 import LazyLoad from "react-lazyload"
 import { Row, Col } from "react-bootstrap"
 
-import { EmployeeResponse } from "../../../types/staff-section"
+import { EmployeeResponse } from "../../../types/staff"
 
 const EmployeeCard: FC<EmployeeResponse & { reverse?: boolean }> = ({
-  title,
-  imageUrl,
+  firstName,
+  lastName,
+  image,
   description,
   reverse = false,
 }) => {
@@ -16,11 +17,15 @@ const EmployeeCard: FC<EmployeeResponse & { reverse?: boolean }> = ({
     >
       <Col xs={5}>
         <LazyLoad height={479}>
-          <img className="img-fluid w-100" src={imageUrl} alt={imageUrl} />
+          <img
+            className="img-fluid w-100"
+            src={image.imageUrl}
+            alt={image.imageUrl}
+          />
         </LazyLoad>
       </Col>
       <Col xs={5} className="d-flex flex-column justify-content-end">
-        <h4 className="fw-bold">{title}</h4>
+        <h4 className="fw-bold">{`${firstName} ${lastName}`}</h4>
         <small className="d-block mt-3">{description}</small>
       </Col>
     </Row>

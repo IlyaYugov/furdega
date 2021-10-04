@@ -8,7 +8,7 @@ import { IssueSolutionResponse } from "../../../types/issue-solutions-section"
 
 const SolutionBlock: FC<IssueSolutionResponse & { leftAligned?: boolean }> = ({
   title,
-  imageUrl,
+  image,
   description,
   leftAligned = false,
 }) => {
@@ -23,7 +23,11 @@ const SolutionBlock: FC<IssueSolutionResponse & { leftAligned?: boolean }> = ({
 
       <div className="mt-5">
         <LazyLoad height={500}>
-          <img className="img-fluid w-100" src={imageUrl} alt={imageUrl} />
+          <img
+            className="img-fluid w-100"
+            src={image.imageUrl}
+            alt={image.imageUrl}
+          />
         </LazyLoad>
       </div>
 

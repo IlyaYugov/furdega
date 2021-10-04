@@ -2,10 +2,10 @@ import { Dispatch, FC, SetStateAction } from "react"
 import { Col, Row, Button } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../../const/admin"
-import { WorkExamplesSectionResponse } from "../../../../types/work-examples-section"
+import { MainHomeSectionResponse } from "../../../../types/main-home-section"
 
 type ViewProps = {
-  data: WorkExamplesSectionResponse | null
+  data: MainHomeSectionResponse | null
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
@@ -22,7 +22,7 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
       </Button>
     )
 
-  const { header, workExample1, workExample2, workExample3 } = data
+  const { header, image } = data
 
   return (
     <Row className="flex-column gy-3">
@@ -31,12 +31,14 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
         <div>{header}</div>
       </Col>
 
-      {/* TODO add view */}
-      <Col>{workExample1}</Col>
-
-      <Col>{workExample2}</Col>
-
-      <Col>{workExample3}</Col>
+      <Col>
+        <h5>Изображение</h5>
+        <img
+          src={image.imageUrl}
+          alt={image.imageUrl}
+          className="img-fluid w-100"
+        />
+      </Col>
 
       <Col className="d-flex justify-content-end">
         <Button

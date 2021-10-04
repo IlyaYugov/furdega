@@ -6,20 +6,20 @@ import { v4 as uuidv4 } from "uuid"
 import { AdminSectionMode } from "../../../../const/admin"
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 import { FormInputEvent } from "../../../../types/utils"
-import { BenefitEdit } from "./benefit-edit"
-import {
-  CompanyBenefitResponse,
-  CompanyBenefitsSectionRequest,
-  CompanyBenefitsSectionResponse,
-} from "../../../../types/company-benefits-section"
 import { ImageRequest } from "../../../../types/image-request"
+import {
+  IssueSolutionResponse,
+  IssueSolutionsSectionRequest,
+  IssueSolutionsSectionResponse,
+} from "../../../../types/issue-solutions-section"
+import { SolutionEdit } from "./solution-edit"
 
 type EditProps = {
-  data: CompanyBenefitsSectionResponse | null
+  data: IssueSolutionsSectionResponse | null
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
-const getNewBenefit = (): CompanyBenefitResponse => ({
+const getNewSolution = (): IssueSolutionResponse => ({
   title: "",
   image: {
     id: uuidv4(),
@@ -28,37 +28,37 @@ const getNewBenefit = (): CompanyBenefitResponse => ({
   description: "",
 })
 
-const getDefaultResponseData = (): CompanyBenefitsSectionResponse => ({
+const getDefaultResponseData = (): IssueSolutionsSectionResponse => ({
   header: "",
-  companyBenefit1: getNewBenefit(),
-  companyBenefit2: getNewBenefit(),
-  companyBenefit3: getNewBenefit(),
-  companyBenefit4: getNewBenefit(),
+  issueSolution1: getNewSolution(),
+  issueSolution2: getNewSolution(),
+  issueSolution3: getNewSolution(),
+  issueSolution4: getNewSolution(),
 })
 
 const getDefaultRequestData = ({
   header,
-  companyBenefit1,
-  companyBenefit2,
-  companyBenefit3,
-  companyBenefit4,
-}: CompanyBenefitsSectionResponse): CompanyBenefitsSectionRequest => ({
+  issueSolution1,
+  issueSolution2,
+  issueSolution3,
+  issueSolution4,
+}: IssueSolutionsSectionResponse): IssueSolutionsSectionRequest => ({
   header,
-  companyBenefit1: {
-    title: companyBenefit1.title,
-    description: companyBenefit1.description,
+  issueSolution1: {
+    title: issueSolution1.title,
+    description: issueSolution1.description,
   },
-  companyBenefit2: {
-    title: companyBenefit2.title,
-    description: companyBenefit2.description,
+  issueSolution2: {
+    title: issueSolution2.title,
+    description: issueSolution2.description,
   },
-  companyBenefit3: {
-    title: companyBenefit3.title,
-    description: companyBenefit3.description,
+  issueSolution3: {
+    title: issueSolution3.title,
+    description: issueSolution3.description,
   },
-  companyBenefit4: {
-    title: companyBenefit4.title,
-    description: companyBenefit4.description,
+  issueSolution4: {
+    title: issueSolution4.title,
+    description: issueSolution4.description,
   },
 })
 
@@ -67,21 +67,21 @@ const Edit: FC<EditProps> = (props) => {
 
   const data = props.data || getDefaultResponseData()
 
-  const [requestData, setRequestData] = useState<CompanyBenefitsSectionRequest>(
+  const [requestData, setRequestData] = useState<IssueSolutionsSectionRequest>(
     getDefaultRequestData(data)
   )
   const [header, setHeader] = useState<string>(data.header)
-  const [benefit1, setBenefit1] = useState<CompanyBenefitResponse>(
-    clone(data.companyBenefit1)
+  const [solution1, setSolution1] = useState<IssueSolutionResponse>(
+    clone(data.issueSolution1)
   )
-  const [benefit2, setBenefit2] = useState<CompanyBenefitResponse>(
-    clone(data.companyBenefit2)
+  const [solution2, setSolution2] = useState<IssueSolutionResponse>(
+    clone(data.issueSolution2)
   )
-  const [benefit3, setBenefit3] = useState<CompanyBenefitResponse>(
-    clone(data.companyBenefit3)
+  const [solution3, setSolution3] = useState<IssueSolutionResponse>(
+    clone(data.issueSolution3)
   )
-  const [benefit4, setBenefit4] = useState<CompanyBenefitResponse>(
-    clone(data.companyBenefit3)
+  const [solution4, setSolution4] = useState<IssueSolutionResponse>(
+    clone(data.issueSolution4)
   )
 
   const save = async () => {
@@ -94,66 +94,66 @@ const Edit: FC<EditProps> = (props) => {
     setRequestData({ ...requestData, header: value })
   }
 
-  const onBenefit1Change = (
-    benefit1: CompanyBenefitResponse,
+  const onSolution1Change = (
+    solution1: IssueSolutionResponse,
     newImage?: ImageRequest
   ) => {
-    setBenefit1(benefit1)
+    setSolution1(solution1)
 
     if (newImage) {
       setRequestData({
         ...requestData,
-        companyBenefit1: {
-          ...requestData.companyBenefit1,
+        issueSolution1: {
+          ...requestData.issueSolution1,
           image: newImage,
         },
       })
     }
   }
 
-  const onBenefit2Change = (
-    benefit2: CompanyBenefitResponse,
+  const onSolution2Change = (
+    solution2: IssueSolutionResponse,
     newImage?: ImageRequest
   ) => {
-    setBenefit2(benefit2)
+    setSolution2(solution2)
 
     if (newImage) {
       setRequestData({
         ...requestData,
-        companyBenefit2: {
-          ...requestData.companyBenefit2,
+        issueSolution2: {
+          ...requestData.issueSolution2,
           image: newImage,
         },
       })
     }
   }
-  const onBenefit3Change = (
-    benefit3: CompanyBenefitResponse,
+  const onSolution3Change = (
+    solution3: IssueSolutionResponse,
     newImage?: ImageRequest
   ) => {
-    setBenefit3(benefit3)
+    setSolution3(solution3)
 
     if (newImage) {
       setRequestData({
         ...requestData,
-        companyBenefit3: {
-          ...requestData.companyBenefit3,
+        issueSolution3: {
+          ...requestData.issueSolution3,
           image: newImage,
         },
       })
     }
   }
-  const onBenefit4Change = (
-    benefit4: CompanyBenefitResponse,
+  const onSolution4Change = (
+    solution4: IssueSolutionResponse,
     newImage?: ImageRequest
   ) => {
-    setBenefit4(benefit4)
+    setSolution4(solution4)
 
     if (newImage) {
       setRequestData({
         ...requestData,
-        companyBenefit4: {
-          ...requestData.companyBenefit4,
+        issueSolution4: {
+          ...requestData.issueSolution4,
           image: newImage,
         },
       })
@@ -183,8 +183,8 @@ const Edit: FC<EditProps> = (props) => {
       </Col>
 
       <Col>
-        <h5>Преимущество 1</h5>
-        <BenefitEdit value={benefit1} onChange={onBenefit1Change} />
+        <h5>Решение 1</h5>
+        <SolutionEdit value={solution1} onChange={onSolution1Change} />
       </Col>
 
       <Col>
@@ -192,8 +192,8 @@ const Edit: FC<EditProps> = (props) => {
       </Col>
 
       <Col>
-        <h5>Преимущество 2</h5>
-        <BenefitEdit value={benefit2} onChange={onBenefit2Change} />
+        <h5>Решение 2</h5>
+        <SolutionEdit value={solution2} onChange={onSolution2Change} />
       </Col>
 
       <Col>
@@ -201,8 +201,8 @@ const Edit: FC<EditProps> = (props) => {
       </Col>
 
       <Col>
-        <h5>Преимущество 3</h5>
-        <BenefitEdit value={benefit3} onChange={onBenefit3Change} />
+        <h5>Решение 3</h5>
+        <SolutionEdit value={solution3} onChange={onSolution3Change} />
       </Col>
 
       <Col>
@@ -210,8 +210,8 @@ const Edit: FC<EditProps> = (props) => {
       </Col>
 
       <Col>
-        <h5>Преимущество 4</h5>
-        <BenefitEdit value={benefit4} onChange={onBenefit4Change} />
+        <h5>Решение 4</h5>
+        <SolutionEdit value={solution4} onChange={onSolution4Change} />
       </Col>
 
       <Col className="d-flex justify-content-end">

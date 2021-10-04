@@ -14,8 +14,10 @@ import {
 } from "../types/company-benefits-section"
 import { AboutSectionResponse } from "../types/about-section"
 import { WorkingProcessSectionResponse } from "../types/working-process-section"
-import { EmployeeResponse, StaffSectionResponse } from "../types/staff-section"
+import { StaffSectionResponse } from "../types/staff-section"
 import { HomePageContent } from "../types/home-page-content"
+import { ImageResponse } from "../types/image-response"
+import { EmployeeResponse } from "../types/staff"
 
 const scrollspyAnchorsMap: Record<string, ScrollspyAnchor> = {
   about: {
@@ -46,9 +48,14 @@ const scrollspyAnchorsMap: Record<string, ScrollspyAnchor> = {
 
 const scrollspyAnchors: ScrollspyAnchor[] = Object.values(scrollspyAnchorsMap)
 
+const defaultImageResponse: ImageResponse = {
+  id: "",
+  imageUrl: "",
+}
+
 const defaultMainHomeSection: MainHomeSectionResponse = {
   header: "",
-  imageUrl: "",
+  image: defaultImageResponse,
 }
 
 const defaultAboutSection: AboutSectionResponse = {
@@ -106,7 +113,7 @@ const defaultWorkingProcessSection: WorkingProcessSectionResponse = {
 const defaultIssueSolution: IssueSolutionResponse = {
   title: "",
   description: "",
-  imageUrl: "",
+  image: defaultImageResponse,
 }
 
 const defaultIssueSolutionsSection: IssueSolutionsSectionResponse = {
@@ -118,20 +125,20 @@ const defaultIssueSolutionsSection: IssueSolutionsSectionResponse = {
 }
 
 const defaultEmployee: EmployeeResponse = {
-  title: "",
-  imageUrl: "",
+  firstName: "",
+  lastName: "",
+  image: defaultImageResponse,
   description: "",
 }
 
 const defaultStaffSection: StaffSectionResponse = {
   header: "",
-  employees: [],
 }
 
 const defaultCompanyBenefit: CompanyBenefitResponse = {
   title: "",
   description: "",
-  imageUrl: "",
+  image: defaultImageResponse,
 }
 
 const defaultCompanyBenefitsSection: CompanyBenefitsSectionResponse = {
@@ -149,7 +156,13 @@ const defaultHomePageContent: HomePageContent = {
   workingProcessSection: defaultWorkingProcessSection,
   issueSolutionsSection: defaultIssueSolutionsSection,
   companyBenefitsSection: defaultCompanyBenefitsSection,
-  staffSection: defaultStaffSection,
+  staff: defaultStaffSection,
 }
 
-export { scrollspyAnchorsMap, scrollspyAnchors, defaultHomePageContent }
+export {
+  scrollspyAnchorsMap,
+  scrollspyAnchors,
+  defaultAboutSection,
+  defaultWorkingProcessSection,
+  defaultHomePageContent,
+}

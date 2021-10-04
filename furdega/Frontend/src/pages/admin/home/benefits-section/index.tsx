@@ -1,15 +1,15 @@
 import { FC, useEffect, useState } from "react"
 import { Row, Col } from "react-bootstrap"
 
-import { companyBenefitsApi } from "../../../../api/company-benefits-api"
+import { companyBenefitsApi } from "../../../../api/home/company-benefits-api"
 import { Edit } from "./edit"
 import { View } from "./view"
-import { SectionMode } from "../../../../const/admin"
+import { AdminSectionMode } from "../../../../const/admin"
 import { CompanyBenefitsSectionResponse } from "../../../../types/company-benefits-section"
 
 const BenefitsSection: FC = () => {
-  const [data, setData] = useState<CompanyBenefitsSectionResponse>(null)
-  const [mode, setMode] = useState<SectionMode>(SectionMode.view)
+  const [data, setData] = useState<CompanyBenefitsSectionResponse | null>(null)
+  const [mode, setMode] = useState<AdminSectionMode>(AdminSectionMode.view)
 
   const fetchData = async () => {
     const data = await companyBenefitsApi.get()
@@ -22,9 +22,9 @@ const BenefitsSection: FC = () => {
 
   const renderContent = () => {
     switch (mode) {
-      case SectionMode.view:
+      case AdminSectionMode.view:
         return <View data={data} setMode={setMode} />
-      case SectionMode.edit:
+      case AdminSectionMode.edit:
         return <Edit data={data} setMode={setMode} />
       default:
         return null

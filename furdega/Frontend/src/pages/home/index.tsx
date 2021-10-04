@@ -10,7 +10,7 @@ import {
   scrollspyAnchors,
   scrollspyAnchorsMap,
 } from "../../const/home"
-import { homeApi } from "../../api/home-api"
+import { homeApi } from "../../api/home/home-api"
 import { HomePageContent } from "../../types/home-page-content"
 import { About } from "./about"
 import { WorkExamples } from "./work-examples"
@@ -55,11 +55,10 @@ const Home: FC = () => {
 
       <Container className={`g-0 ${styles["banner"]}`}>
         <LazyLoad height={550}>
-          {/* TODO подогнать контейнер по высоте пока грузится картинка */}
           <img
             className="img-fluid w-100"
-            src={content.mainHomeSection.imageUrl}
-            alt={content.mainHomeSection.imageUrl}
+            src={content.mainHomeSection.image.imageUrl}
+            alt={content.mainHomeSection.image.imageUrl}
           />
         </LazyLoad>
       </Container>
@@ -129,7 +128,7 @@ const Home: FC = () => {
             </div>
 
             <div className="block" id={scrollspyAnchorsMap["staff"].id}>
-              <Staff {...content.staffSection} />
+              <Staff {...content.staff} />
             </div>
           </Col>
         </Row>

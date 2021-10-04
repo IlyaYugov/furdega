@@ -1,5 +1,6 @@
 import { HomeSectionBase } from "../home-section-base"
+import { ImageResponse } from "../image-response"
 
 export type MainHomeSectionResponse = HomeSectionBase & {
-  imageUrl: string
+  image: ImageResponse
 }

@@ -1,3 +1,3 @@
 import { HomeSectionBase } from "../home-section-base"
 
-export type StaffSectionResponse = HomeSectionBase
+export type StaffSectionRequest = HomeSectionBase

@@ -1,139 +1,39 @@
 import { FC, useEffect, useState } from "react"
-import { Row, Col, InputGroup, FormControl, Button } from "react-bootstrap"
+import { Row, Col } from "react-bootstrap"
 
-import { workingProcessSectionApi } from "../../../../api/working-process-section-api"
+import { Edit } from "./edit"
+import { View } from "./view"
+import { AdminSectionMode } from "../../../../const/admin"
 import { WorkingProcessSectionResponse } from "../../../../types/working-process-section"
+import { workingProcessSectionApi } from "../../../../api/home/working-process-section-api"
 
 const ProcessSection: FC = () => {
-  const [header, setHeader] = useState<string>("")
-  const [firstStage, setFirstStage] = useState<string>("")
-  const [secondStage, setSecondStage] = useState<string>("")
-  const [thirdStage, setThirdStage] = useState<string>("")
-  const [finalStage, setFinalStage] = useState<string>("")
+  const [data, setData] = useState<WorkingProcessSectionResponse | null>(null)
+  const [mode, setMode] = useState<AdminSectionMode>(AdminSectionMode.view)
 
-  const fetchContent = async () => {
-    const response = await workingProcessSectionApi.get()
-    setHeader(response.header)
-    setFirstStage(response.firstStage)
-    setSecondStage(response.secondStage)
-    setThirdStage(response.thirdStage)
-    setFinalStage(response.finalStage)
-  }
-
-  const submit = async (request: WorkingProcessSectionResponse) => {
-    await workingProcessSectionApi.createOrUpdate(request)
-    fetchContent()
-  }
-
-  const reset = () => {
-    fetchContent()
+  const fetchData = async () => {
+    const data = await workingProcessSectionApi.get()
+    setData(data)
   }
 
   useEffect(() => {
-    fetchContent()
+    fetchData()
   }, [])
+
+  const renderContent = () => {
+    switch (mode) {
+      case AdminSectionMode.view:
+        return <View data={data} setMode={setMode} />
+      case AdminSectionMode.edit:
+        return <Edit data={data} setMode={setMode} />
+      default:
+        return null
+    }
+  }
 
   return (
     <Row className="flex-column gy-3">
-      <Col>
-        <InputGroup>
-          <InputGroup.Text className="w-25 text-center text-wrap">
-            Текст заголовка
-          </InputGroup.Text>
-
-          <FormControl
-            as="textarea"
-            value={header}
-            onChange={(event) => {
-              setHeader(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
-      <Col>
-        <InputGroup>
-          <InputGroup.Text className="w-25">Первый этап</InputGroup.Text>
-          <FormControl
-            as="textarea"
-            value={firstStage}
-            onChange={(event) => {
-              setFirstStage(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
-      <Col>
-        <InputGroup>
-          <InputGroup.Text className="w-25">Второй этап</InputGroup.Text>
-          <FormControl
-            as="textarea"
-            value={secondStage}
-            onChange={(event) => {
-              setSecondStage(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
-      <Col>
-        <InputGroup>
-          <InputGroup.Text className="w-25">Третий этап</InputGroup.Text>
-          <FormControl
-            as="textarea"
-            value={thirdStage}
-            onChange={(event) => {
-              setThirdStage(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
-      <Col>
-        <InputGroup>
-          <InputGroup.Text className="w-25">Конечный этап</InputGroup.Text>
-          <FormControl
-            as="textarea"
-            value={finalStage}
-            onChange={(event) => {
-              setFinalStage(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
-      <Col className="d-flex justify-content-end">
-        <Row>
-          <Col>
-            <Button
-              size="lg"
-              onClick={() => {
-                submit({
-                  header,
-                  firstStage,
-                  secondStage,
-                  thirdStage,
-                  finalStage,
-                })
-              }}
-            >
-              Применить
-            </Button>
-          </Col>
-          <Col>
-            <Button
-              size="lg"
-              variant="secondary"
-              onClick={() => {
-                reset()
-              }}
-            >
-              Сбросить
-            </Button>
-          </Col>
-        </Row>
-      </Col>
+      <Col>{renderContent()}</Col>
     </Row>
   )
 }

@@ -11,4 +11,4 @@ const fileToBase64 = async (file: File): Promise<string> => {
   return raw64.replace("data:", "").replace(/^.+,/, "")
 }
 
-export { fileToBase64, fileToBase64Raw }
+export { fileToBase64 }

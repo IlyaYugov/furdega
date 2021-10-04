@@ -1,12 +1,13 @@
 import { Dispatch, FC, SetStateAction } from "react"
 import { Col, Row, Button } from "react-bootstrap"
 
-import { SectionMode } from "../../../../const/admin"
+import { AdminSectionMode } from "../../../../const/admin"
 import { CompanyBenefitsSectionResponse } from "../../../../types/company-benefits-section"
+import { BenefitView } from "./benefit-view"
 
 type ViewProps = {
-  data: CompanyBenefitsSectionResponse
-  setMode: Dispatch<SetStateAction<SectionMode>>
+  data: CompanyBenefitsSectionResponse | null
+  setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
 const View: FC<ViewProps> = ({ data, setMode }) => {
@@ -15,7 +16,7 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
       <Button
         size="lg"
         onClick={() => {
-          setMode(SectionMode.edit)
+          setMode(AdminSectionMode.edit)
         }}
       >
         Создать
@@ -37,20 +38,27 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
         <div>{header}</div>
       </Col>
 
-      {/* TODO add view */}
-      <Col>{companyBenefit1}</Col>
+      <Col>
+        <BenefitView {...companyBenefit1} />
+      </Col>
 
-      <Col>{companyBenefit2}</Col>
+      <Col>
+        <BenefitView {...companyBenefit2} />
+      </Col>
 
-      <Col>{companyBenefit3}</Col>
+      <Col>
+        <BenefitView {...companyBenefit3} />
+      </Col>
 
-      <Col>{companyBenefit4}</Col>
+      <Col>
+        <BenefitView {...companyBenefit4} />
+      </Col>
 
       <Col className="d-flex justify-content-end">
         <Button
           size="lg"
           onClick={() => {
-            setMode(SectionMode.edit)
+            setMode(AdminSectionMode.edit)
           }}
         >
           Редактировать

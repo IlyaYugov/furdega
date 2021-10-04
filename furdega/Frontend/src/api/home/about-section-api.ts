@@ -3,9 +3,9 @@ import axios from "axios"
 import {
   AboutSectionRequest,
   AboutSectionResponse,
-} from "../types/about-section"
+} from "../../types/about-section"
 
-const BASE_URL = "/api/about-section"
+const BASE_URL = "/api/home/about"
 
 const aboutSectionApi = {
   get: async (): Promise<AboutSectionResponse> => {
@@ -13,8 +13,12 @@ const aboutSectionApi = {
     return response.data
   },
 
-  createOrUpdate: async (request: AboutSectionRequest): Promise<void> => {
+  create: async (request: AboutSectionRequest): Promise<void> => {
     await axios.post(BASE_URL, request)
+  },
+
+  update: async (request: AboutSectionRequest): Promise<void> => {
+    await axios.put(BASE_URL, request)
   },
 }
 
