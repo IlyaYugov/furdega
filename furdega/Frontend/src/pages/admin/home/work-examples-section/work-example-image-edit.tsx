@@ -28,8 +28,8 @@ const WorkExampleImageEdit: FC<WorkExampleImageEditProps> = ({
     <Row className="flex-column gy-2">
       <Col>
         <img
-          src={image.imageUrl}
-          alt={image.imageUrl}
+          src={image?.imageUrl}
+          alt={image?.imageUrl}
           className="img-fluid w-100"
         />
       </Col>

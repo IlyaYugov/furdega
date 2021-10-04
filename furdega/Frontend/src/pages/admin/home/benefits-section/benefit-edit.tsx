@@ -79,8 +79,8 @@ const BenefitEdit: FC<BenefitEditProps> = ({ value, onChange }) => {
           <Row className="flex-column gy-2">
             <Col>
               <img
-                src={value.image.imageUrl}
-                alt={value.image.imageUrl}
+                src={value.image?.imageUrl}
+                alt={value.image?.imageUrl}
                 className="img-fluid w-100"
               />
             </Col>

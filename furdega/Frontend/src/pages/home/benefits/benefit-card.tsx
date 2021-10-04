@@ -16,8 +16,8 @@ const BenefitCard: FC<CompanyBenefitResponse & { leftAligned?: boolean }> = ({
         <LazyLoad height={512}>
           <img
             className="img-fluid w-100"
-            src={image.imageUrl}
-            alt={image.imageUrl}
+            src={image?.imageUrl}
+            alt={image?.imageUrl}
           />
         </LazyLoad>
 

@@ -26,8 +26,8 @@ const WorkExampleImageBlock: FC<WorkExampleImageBlockProps> = ({
               <LazyLoad height={512}>
                 <img
                   className="img-fluid w-100"
-                  src={image1.imageUrl}
-                  alt={image1.imageUrl}
+                  src={image1?.imageUrl}
+                  alt={image1?.imageUrl}
                 />
               </LazyLoad>
             </Col>
@@ -49,8 +49,8 @@ const WorkExampleImageBlock: FC<WorkExampleImageBlockProps> = ({
               <LazyLoad height={512}>
                 <img
                   className="img-fluid w-100"
-                  src={image2.imageUrl}
-                  alt={image2.imageUrl}
+                  src={image2?.imageUrl}
+                  alt={image2?.imageUrl}
                 />
               </LazyLoad>
             </Col>
@@ -59,8 +59,8 @@ const WorkExampleImageBlock: FC<WorkExampleImageBlockProps> = ({
               <LazyLoad height={512}>
                 <img
                   className="img-fluid w-100"
-                  src={image3.imageUrl}
-                  alt={image3.imageUrl}
+                  src={image3?.imageUrl}
+                  alt={image3?.imageUrl}
                 />
               </LazyLoad>
             </Col>

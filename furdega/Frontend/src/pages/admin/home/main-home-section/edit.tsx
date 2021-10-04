@@ -13,7 +13,7 @@ import { FormInputEvent } from "../../../../types/utils"
 import { fileToBase64 } from "../../../../utils/fileToBase64"
 
 type EditProps = {
-  data: MainHomeSectionResponse | null
+  data: MainHomeSectionResponse
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
@@ -26,7 +26,7 @@ const getDefaultResponseData = (): MainHomeSectionResponse => ({
 })
 
 const Edit: FC<EditProps> = (props) => {
-  const isCreate = !props.data
+  const isEmpty = !Object.values(props.data).some((val) => val)
 
   const data = props.data || getDefaultResponseData()
 
@@ -58,11 +58,13 @@ const Edit: FC<EditProps> = (props) => {
       }
     }
 
-    if (isCreate) {
+    if (isEmpty) {
       await mainHomeSectionApi.create(request)
     } else {
       await mainHomeSectionApi.update(request)
     }
+
+    props.setMode(AdminSectionMode.view)
   }
 
   return (
@@ -75,7 +77,7 @@ const Edit: FC<EditProps> = (props) => {
 
           <Form.Control
             as="textarea"
-            value={data.header}
+            value={header}
             onChange={(event) => {
               setHeader(event.target.value)
             }}
@@ -86,11 +88,7 @@ const Edit: FC<EditProps> = (props) => {
       <Col>
         <Row className="flex-column gy-2">
           <Col>
-            <img
-              src={image.imageUrl}
-              alt={image.imageUrl}
-              className="img-fluid w-100"
-            />
+            <img src={image?.imageUrl} alt="" className="img-fluid w-100" />
           </Col>
 
           <Col>

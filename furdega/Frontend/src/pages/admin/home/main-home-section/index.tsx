@@ -18,9 +18,12 @@ const MainHomeSection: FC = () => {
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [mode])
 
   const renderContent = () => {
+    // TODO spinner
+    if (!data) return null
+
     switch (mode) {
       case AdminSectionMode.view:
         return <View data={data} setMode={setMode} />

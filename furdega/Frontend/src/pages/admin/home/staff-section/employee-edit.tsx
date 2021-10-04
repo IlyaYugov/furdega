@@ -150,8 +150,8 @@ const EmployeeEdit: FC<EmployeeEditProps> = ({
               <Row className="flex-column gy-2">
                 <Col>
                   <img
-                    src={employee.image.imageUrl}
-                    alt={employee.image.imageUrl}
+                    src={employee.image?.imageUrl}
+                    alt={employee.image?.imageUrl}
                     className="img-fluid w-100"
                   />
                 </Col>

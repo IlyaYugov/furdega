@@ -25,8 +25,8 @@ const SolutionBlock: FC<IssueSolutionResponse & { leftAligned?: boolean }> = ({
         <LazyLoad height={500}>
           <img
             className="img-fluid w-100"
-            src={image.imageUrl}
-            alt={image.imageUrl}
+            src={image?.imageUrl}
+            alt={image?.imageUrl}
           />
         </LazyLoad>
       </div>

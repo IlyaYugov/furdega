@@ -57,8 +57,8 @@ const Home: FC = () => {
         <LazyLoad height={550}>
           <img
             className="img-fluid w-100"
-            src={content.mainHomeSection.image.imageUrl}
-            alt={content.mainHomeSection.image.imageUrl}
+            src={content.mainHomeSection.image?.imageUrl}
+            alt={content.mainHomeSection.image?.imageUrl}
           />
         </LazyLoad>
       </Container>

@@ -19,8 +19,8 @@ const EmployeeCard: FC<EmployeeResponse & { reverse?: boolean }> = ({
         <LazyLoad height={479}>
           <img
             className="img-fluid w-100"
-            src={image.imageUrl}
-            alt={image.imageUrl}
+            src={image?.imageUrl}
+            alt={image?.imageUrl}
           />
         </LazyLoad>
       </Col>

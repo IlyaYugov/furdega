@@ -17,7 +17,7 @@ namespace Furdega.Services.FileManagers
 
         public async Task<ImageResponse> LoadImage(Image image)
         {
-            if (image.Base64ImageString == null)
+            if (image?.Base64ImageString == null)
             {
                 return null;
             }

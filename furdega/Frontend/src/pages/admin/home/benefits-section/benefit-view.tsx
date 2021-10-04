@@ -21,8 +21,8 @@ const BenefitView: FC<BenefitViewProps> = ({ title, image, description }) => {
       <Col>
         <h5>Изображение</h5>
         <img
-          src={image.imageUrl}
-          alt={image.imageUrl}
+          src={image?.imageUrl}
+          alt={image?.imageUrl}
           className="img-fluid w-100"
         />
       </Col>

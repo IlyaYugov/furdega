@@ -5,12 +5,14 @@ import { AdminSectionMode } from "../../../../const/admin"
 import { MainHomeSectionResponse } from "../../../../types/main-home-section"
 
 type ViewProps = {
-  data: MainHomeSectionResponse | null
+  data: MainHomeSectionResponse
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
 const View: FC<ViewProps> = ({ data, setMode }) => {
-  if (!data)
+  const isEmpty = !Object.values(data).some((val) => val)
+
+  if (isEmpty)
     return (
       <Button
         size="lg"
@@ -33,11 +35,7 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
 
       <Col>
         <h5>Изображение</h5>
-        <img
-          src={image.imageUrl}
-          alt={image.imageUrl}
-          className="img-fluid w-100"
-        />
+        <img src={image?.imageUrl} alt="" className="img-fluid w-100" />
       </Col>
 
       <Col className="d-flex justify-content-end">

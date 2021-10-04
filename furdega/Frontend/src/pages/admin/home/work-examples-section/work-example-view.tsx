@@ -54,22 +54,22 @@ const WorkExampleView: FC<WorkExampleViewProps> = ({
         <Row>
           <Col>
             <img
-              src={beforeImage1.imageUrl}
-              alt={beforeImage1.imageUrl}
+              src={beforeImage1?.imageUrl}
+              alt={beforeImage1?.imageUrl}
               className="img-fluid w-100"
             />
           </Col>
           <Col>
             <img
-              src={beforeImage2.imageUrl}
-              alt={beforeImage2.imageUrl}
+              src={beforeImage2?.imageUrl}
+              alt={beforeImage2?.imageUrl}
               className="img-fluid w-100"
             />
           </Col>
           <Col>
             <img
-              src={beforeImage3.imageUrl}
-              alt={beforeImage3.imageUrl}
+              src={beforeImage3?.imageUrl}
+              alt={beforeImage3?.imageUrl}
               className="img-fluid w-100"
             />
           </Col>
@@ -82,22 +82,22 @@ const WorkExampleView: FC<WorkExampleViewProps> = ({
         <Row>
           <Col>
             <img
-              src={afterImage1.imageUrl}
-              alt={afterImage1.imageUrl}
+              src={afterImage1?.imageUrl}
+              alt={afterImage1?.imageUrl}
               className="img-fluid w-100"
             />
           </Col>
           <Col>
             <img
-              src={afterImage2.imageUrl}
-              alt={afterImage2.imageUrl}
+              src={afterImage2?.imageUrl}
+              alt={afterImage2?.imageUrl}
               className="img-fluid w-100"
             />
           </Col>
           <Col>
             <img
-              src={afterImage3.imageUrl}
-              alt={afterImage3.imageUrl}
+              src={afterImage3?.imageUrl}
+              alt={afterImage3?.imageUrl}
               className="img-fluid w-100"
             />
           </Col>
