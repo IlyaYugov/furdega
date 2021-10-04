@@ -51,7 +51,7 @@ namespace Furdega.Services.HomePage.Sections
         {
             var section = await HomePageSectionRepository.FirstOrDefault(s => s.SectionTypeId == (int)SectionType);
 
-            return JsonSerializer.Deserialize<TSectionResponse>(section.SectionContent ?? "{}");
+            return JsonSerializer.Deserialize<TSectionResponse>(section?.SectionContent ?? "{}");
         }
 
         protected async Task CreateSection(TSectionResponse sectionContent)
@@ -81,7 +81,7 @@ namespace Furdega.Services.HomePage.Sections
 
             section.SectionContent = JsonSerializer.Serialize(sectionContent);
 
-            await HomePageSectionRepository.Create(section);
+            await HomePageSectionRepository.Update(section);
         }
     }
 }

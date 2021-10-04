@@ -46,10 +46,6 @@ namespace Furdega.Controllers.HomePage.Sections
         [HttpPut]
         public async Task<ActionResult> Update(CompanyBenefitsSectionRequest section)
         {
-            if (!section.IsAllBase64ImagesExist())
-            {
-                return BadRequest(HomeSectionModelBase.ImagesExistingError);
-            }
 
             if (!section.IsFilesExtensionCorrect())
             {

@@ -5,6 +5,7 @@ namespace Furdega.Services.Staff.Dtos.Input
 {
     public class EmployeeRequest: IRequestWithImage
     {
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Image Image { get; set; }
