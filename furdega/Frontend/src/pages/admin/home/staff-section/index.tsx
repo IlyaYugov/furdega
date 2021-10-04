@@ -1,130 +1,53 @@
-import { FC, useState } from "react"
-// import {
-//   Row,
-//   Col,
-//   InputGroup,
-//   FormControl,
-//   Button,
-//   ListGroup,
-//   ButtonGroup,
-// } from "react-bootstrap"
+import { FC, useEffect, useState } from "react"
+import { Row, Col } from "react-bootstrap"
 
-// import { AdminSectionProps } from "../../../../types/admin-section-props"
-// import {
-//   StaffSection as StaffSectionType,
-//   Employee,
-// } from "../../../../types/staff-section"
-// import { EmployeeModal } from "./employee-modal"
+import { Edit } from "./edit"
+import { View } from "./view"
+import { AdminSectionMode } from "../../../../const/admin"
+import { StaffSectionResponse } from "../../../../types/staff-section"
+import { EmployeeResponse } from "../../../../types/staff"
+import { staffSectionApi } from "../../../../api/home/staff-section-api"
+import { staffApi } from "../../../../api/staff-api"
 
-// const StaffSection: FC<AdminSectionProps<StaffSectionType>> = (props) => {
-//   const [header, setHeader] = useState<string>(props.header)
-//   const [employees, setEmployees] = useState<Employee[]>([...props.employees])
+export type ResponseData = StaffSectionResponse & {
+  employees: EmployeeResponse[]
+}
 
-//   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-//   const [employeeToEditIndex, setEmployeeToEditIndex] = useState<number>(-1)
+const StaffSection: FC = () => {
+  const [data, setData] = useState<ResponseData | null>(null)
+  const [mode, setMode] = useState<AdminSectionMode>(AdminSectionMode.view)
 
-//   const onModalConfirm = (employee: Employee) => {
-//     if (employeeToEditIndex !== null) {
-//       const newExamples = [...employees]
-//       newExamples.splice(employeeToEditIndex, 1, employee)
-//       setEmployees(newExamples)
-//     } else {
-//       setEmployees([...employees, employee])
-//     }
-//     setIsModalOpen(false)
-//     setEmployeeToEditIndex(-1)
-//   }
+  const fetchData = async () => {
+    const sectionData = await staffSectionApi.get()
+    if (!sectionData) {
+      setData(null)
+      return
+    }
 
-//   const deleteBenefitByIndex = (indexToDelete: number) => {
-//     setEmployees(employees.filter((_, index) => index !== indexToDelete))
-//   }
+    const employees = await staffApi.getAll()
+    setData({ ...sectionData, employees })
+  }
 
-//   return (
-//     <>
-//       <Row className="flex-column gy-3">
-//         <Col>
-//           <InputGroup>
-//             <InputGroup.Text className="w-25 text-center text-wrap">
-//               Текст заголовка
-//             </InputGroup.Text>
+  useEffect(() => {
+    fetchData()
+  }, [])
 
-//             <FormControl
-//               as="textarea"
-//               value={header}
-//               onChange={(event) => {
-//                 setHeader(event.target.value)
-//               }}
-//             />
-//           </InputGroup>
-//         </Col>
+  const renderContent = () => {
+    switch (mode) {
+      case AdminSectionMode.view:
+        return <View data={data} setMode={setMode} />
+      case AdminSectionMode.edit:
+        return <Edit data={data} setMode={setMode} />
+      default:
+        return null
+    }
+  }
 
-//         <Col>
-//           <h4>Персонал</h4>
+  return (
+    <Row className="flex-column gy-3">
+      <Col>{renderContent()}</Col>
+    </Row>
+  )
+}
 
-//           <ListGroup className="mb-3">
-//             {employees.map((benefit, index) => (
-//               <ListGroup.Item>
-//                 <Row className="flex-nowrap">
-//                   <Col className="flex-fill">{benefit.title}</Col>
-//                   <Col>
-//                     <ButtonGroup size="sm">
-//                       <Button
-//                         onClick={() => {
-//                           setEmployeeToEditIndex(index)
-//                           setIsModalOpen(true)
-//                         }}
-//                       >
-//                         Редактировать
-//                       </Button>
-//                       <Button
-//                         variant="danger"
-//                         onClick={() => {
-//                           deleteBenefitByIndex(index)
-//                         }}
-//                       >
-//                         Удалить
-//                       </Button>
-//                     </ButtonGroup>
-//                   </Col>
-//                 </Row>
-//               </ListGroup.Item>
-//             ))}
-//           </ListGroup>
-
-//           <Button
-//             variant="outline-primary"
-//             onClick={() => {
-//               setEmployeeToEditIndex(-1)
-//               setIsModalOpen(true)
-//             }}
-//           >
-//             Создать
-//           </Button>
-//         </Col>
-
-//         <Col>
-//           <Button
-//             size="lg"
-//             onClick={() => {
-//               props.onChange({ header, employees })
-//             }}
-//           >
-//             Применить
-//           </Button>
-//         </Col>
-//       </Row>
-
-//       <EmployeeModal
-//         show={isModalOpen}
-//         employeeToEditIndex={employeeToEditIndex}
-//         employees={employees}
-//         onConfirm={onModalConfirm}
-//         onCancel={() => {
-//           setIsModalOpen(false)
-//         }}
-//       />
-//     </>
-//   )
-// }
-
-// export { StaffSection }
+export { StaffSection }

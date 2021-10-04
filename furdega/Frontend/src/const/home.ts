@@ -125,6 +125,7 @@ const defaultIssueSolutionsSection: IssueSolutionsSectionResponse = {
 }
 
 const defaultEmployee: EmployeeResponse = {
+  id: -1,
   firstName: "",
   lastName: "",
   image: defaultImageResponse,

@@ -13,6 +13,7 @@ type EditProps = {
   data: WorkingProcessSectionResponse | null
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
+
 const Edit: FC<EditProps> = (props) => {
   const isCreate = !props.data
 

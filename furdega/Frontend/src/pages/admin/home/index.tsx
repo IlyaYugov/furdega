@@ -7,6 +7,7 @@ import { BenefitsSection } from "./benefits-section"
 import { MainHomeSection } from "./main-home-section"
 import { ProcessSection } from "./process-section"
 import { SolutionsSection } from "./solutions-section"
+import { StaffSection } from "./staff-section"
 import { WorkExamplesSection } from "./work-examples-section"
 
 const Home: FC = () => {
@@ -133,12 +134,11 @@ const Home: FC = () => {
             </Tab.Pane>
           )}
 
-          {/* <Tab.Pane eventKey="staff">
-              <StaffSection
-                {...content.staffSection}
-                onChange={onStaffSectionContentChange}
-              />
-            </Tab.Pane> */}
+          {activeKey === "staff" && (
+            <Tab.Pane>
+              <StaffSection />
+            </Tab.Pane>
+          )}
         </Col>
       </Row>
     </Tab.Container>
