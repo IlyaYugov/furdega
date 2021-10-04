@@ -29,8 +29,6 @@ namespace Furdega
 {
     public class Startup
     {
-        private const string ProjectSettingsSectionName = "ProjectSettings";
-
         private readonly IConfiguration _configuration;
 
         public Startup(IConfiguration configuration)
@@ -98,7 +96,8 @@ namespace Furdega
             services.AddDbContext<FurdegaDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.Configure<ProjectSettings>(options => _configuration.GetSection(ProjectSettingsSectionName).Bind(options));
+            services.Configure<ProjectSettings>(options => _configuration.GetSection(nameof(ProjectSettings)).Bind(options));
+            services.Configure<AuthOptions>(options => _configuration.GetSection(nameof(AuthOptions)).Bind(options));
 
             services.AddScoped(typeof(IRepositoryBase<>), typeof(FurdegaRepository<>));
 
@@ -123,7 +122,7 @@ namespace Furdega
 
         private void InitializeImagesFolder(IApplicationBuilder app)
         {
-            var projectSettings = _configuration.GetSection(ProjectSettingsSectionName).Get<ProjectSettings>();
+            var projectSettings = _configuration.GetSection(nameof(ProjectSettings)).Get<ProjectSettings>();
 
             Directory.CreateDirectory(projectSettings.GetImageDirectoryPath);
 
