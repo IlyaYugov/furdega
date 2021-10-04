@@ -113,6 +113,32 @@ namespace Furdega.Migrations
                     b.ToTable("HomePageSections");
                 });
 
+            modelBuilder.Entity("Furdega.DataAccess.Models.Material", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("ImageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MaterialTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaterialTypeId");
+
+                    b.ToTable("Materials");
+                });
+
             modelBuilder.Entity("Furdega.DataAccess.Models.MaterialType", b =>
                 {
                     b.Property<int>("Id")
@@ -143,6 +169,15 @@ namespace Furdega.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Furdega.DataAccess.Models.Material", b =>
+                {
+                    b.HasOne("Furdega.DataAccess.Models.MaterialType", null)
+                        .WithMany("Materials")
+                        .HasForeignKey("MaterialTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Furdega.DataAccess.Models.FurnitureType", b =>
                 {
                     b.Navigation("Furniture");
@@ -151,6 +186,8 @@ namespace Furdega.Migrations
             modelBuilder.Entity("Furdega.DataAccess.Models.MaterialType", b =>
                 {
                     b.Navigation("Furniture");
+
+                    b.Navigation("Materials");
                 });
 #pragma warning restore 612, 618
         }

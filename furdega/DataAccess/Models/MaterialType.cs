@@ -8,5 +8,7 @@ namespace Furdega.DataAccess.Models
         public string Title { get; set; }
 
         public List<Furniture> Furniture { get; set; }
+
+        public List<Material> Materials { get; set; }
     }
 }

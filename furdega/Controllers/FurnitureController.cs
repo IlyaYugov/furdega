@@ -5,9 +5,6 @@ using Furdega.Services.Furnitures;
 using Furdega.Services.Furnitures.Dtos.Input;
 using Furdega.Services.Furnitures.Dtos.Output;
 using Furdega.Services.HomePage.Sections;
-using Furdega.Services.Staff;
-using Furdega.Services.Staff.Dtos.Input;
-using Furdega.Services.Staff.Dtos.Output;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers
@@ -24,13 +21,13 @@ namespace Furdega.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<FurnitureResponse>> Get(int? furnitureTypeId, int? materialTypeId)
+        public async Task<IEnumerable<FurnitureResponse>> GetEmployees(int? furnitureTypeId, int? materialTypeId)
         {
             return await _furnitureService.GetFiltered(furnitureTypeId, materialTypeId);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<FurnitureResponse> GetEmployees(int id)
+        public async Task<FurnitureResponse> Get(int id)
         {
             return await _furnitureService.Get(id);
         }

@@ -5,7 +5,6 @@ using Furdega.DataAccess.Models;
 using Furdega.Repositories.RepositoryBase;
 using Furdega.Services.Furnitures.Dtos.Input;
 using Furdega.Services.Furnitures.Dtos.Output;
-using Furdega.Services.Staff.Dtos.Input;
 
 namespace Furdega.Services.Furnitures
 {
