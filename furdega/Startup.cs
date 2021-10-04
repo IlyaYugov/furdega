@@ -3,6 +3,7 @@ using Furdega.Configuration;
 using Furdega.DataAccess;
 using Furdega.Repositories;
 using Furdega.Repositories.RepositoryBase;
+using Furdega.Services.Accounts;
 using Furdega.Services.FileManagers;
 using Furdega.Services.Furnitures;
 using Furdega.Services.FurnitureTypes;
@@ -15,6 +16,7 @@ using Furdega.Services.HomePage.Sections.MainHome;
 using Furdega.Services.HomePage.Sections.Staff;
 using Furdega.Services.HomePage.Sections.WorkExamples;
 using Furdega.Services.HomePage.Sections.WorkingProcess;
+using Furdega.Services.Materials;
 using Furdega.Services.MaterialTypes;
 using Furdega.Services.Staff;
 using Microsoft.AspNetCore.Builder;
@@ -107,6 +109,8 @@ namespace Furdega
             services.AddScoped<IImageManager, ImageManager>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IFurnitureService, FurnitureService>();
+            services.AddScoped<IMaterialService, MaterialService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             services.AddScoped<IHomePageService, HomePageService>();
             services.AddScoped<IAboutSectionService, AboutSectionService>(); 
