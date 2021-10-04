@@ -1,4 +1,5 @@
-﻿using Furdega.DataAccess.Models;
+﻿using System.Collections.Generic;
+using Furdega.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Furdega.DataAccess
@@ -34,6 +35,32 @@ namespace Furdega.DataAccess
 
                 _isInitialized = true;
             }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            AddDefaultValues(modelBuilder);
+        }
+
+        private static void AddDefaultValues(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                        .HasData(GetDefaultUser());
+        }
+
+        private static List<User> GetDefaultUser()
+        {
+            return new List<User>
+            {
+                new User
+                {
+                    Id = 1,
+                    Login = "admin",
+                    Password = "QwErTy!@#$%^&*(QaZwSx"
+                },
+            };
         }
     }
 }
