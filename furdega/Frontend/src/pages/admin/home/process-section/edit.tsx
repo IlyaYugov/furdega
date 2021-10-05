@@ -33,6 +33,8 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
     } else {
       await workingProcessSectionApi.update(request)
     }
+
+    setMode(AdminSectionMode.view)
   }
 
   return (
