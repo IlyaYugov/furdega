@@ -1,0 +1,7 @@
+@use "../../../styles/mixins";
+
+.card {
+  @include mixins.responsive(60%, 40%, 30%, 20%) using ($d) {
+    margin-top: -$d;
+  }
+}
