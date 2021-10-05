@@ -19,6 +19,8 @@ using Furdega.Services.HomePage.Sections.WorkingProcess;
 using Furdega.Services.Materials;
 using Furdega.Services.MaterialTypes;
 using Furdega.Services.Staff;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +28,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Furdega
 {
@@ -52,7 +55,12 @@ namespace Furdega
                 configuration.RootPath = "Frontend/build";
             });
 
-            InitializeServices(services);
+            services.AddAutoMapper(typeof(FurnitureTypeProfile));
+
+            ConfigureProjectSettings(services);
+            ConfigureDatabase(services);
+            ConfigureDependences(services);
+            ConfigureAuth(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,9 +79,12 @@ namespace Furdega
 
             app.UseHttpsRedirection();
 
-            InitializeImagesFolder(app);
+            ConfigureImageStore(app);
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -93,14 +104,8 @@ namespace Furdega
             });
         }
 
-        private void InitializeServices(IServiceCollection services)
+        private void ConfigureDependences(IServiceCollection services)
         {
-            services.AddDbContext<FurdegaDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.Configure<ProjectSettings>(options => _configuration.GetSection(nameof(ProjectSettings)).Bind(options));
-            services.Configure<AuthOptions>(options => _configuration.GetSection(nameof(AuthOptions)).Bind(options));
-
             services.AddScoped(typeof(IRepositoryBase<>), typeof(FurdegaRepository<>));
 
             services.AddScoped<IFurnitureTypeService, FurnitureTypeService>();
@@ -120,11 +125,9 @@ namespace Furdega
             services.AddScoped<IStaffSectionService, StaffSectionService>(); 
             services.AddScoped<IWorkExamplesSectionService, WorkExamplesSectionService>();
             services.AddScoped<IWorkingProcessSectionService, WorkingProcessSectionService>();
-
-            services.AddAutoMapper(typeof(FurnitureTypeProfile));
         }
 
-        private void InitializeImagesFolder(IApplicationBuilder app)
+        private void ConfigureImageStore(IApplicationBuilder app)
         {
             var projectSettings = _configuration.GetSection(nameof(ProjectSettings)).Get<ProjectSettings>();
 
@@ -137,6 +140,46 @@ namespace Furdega
             });
 
             app.UseSpaStaticFiles();
+        }
+
+        private void ConfigureAuth(IServiceCollection services)
+        {
+            var authOptions = _configuration.GetSection(nameof(AuthOptions)).Get<AuthOptions>();
+
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser()
+                    .Build();
+            });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = authOptions.Issuer,
+                        ValidateAudience = true,
+                        ValidAudience = authOptions.Audience,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = authOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
+        }
+
+        private void ConfigureDatabase(IServiceCollection services)
+        {
+            services.AddDbContext<FurdegaDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        }
+
+        private void ConfigureProjectSettings(IServiceCollection services)
+        {
+            services.Configure<ProjectSettings>(options => _configuration.GetSection(nameof(ProjectSettings)).Bind(options));
+            services.Configure<AuthOptions>(options => _configuration.GetSection(nameof(AuthOptions)).Bind(options));
         }
     }
 }

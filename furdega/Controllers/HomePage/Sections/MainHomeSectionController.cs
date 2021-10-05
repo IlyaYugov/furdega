@@ -4,10 +4,12 @@ using Furdega.Services.HomePage.Sections;
 using Furdega.Services.HomePage.Sections.MainHome;
 using Furdega.Services.HomePage.Sections.MainHome.Dtos.Input;
 using Furdega.Services.HomePage.Sections.MainHome.Dtos.Output;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers.HomePage.Sections
 {
+    [Authorize]
     [Route("api/home/main")]
     [ApiController]
     public class MainHomeSectionController : ControllerBase
@@ -19,6 +21,7 @@ namespace Furdega.Controllers.HomePage.Sections
             _sectionService = sectionService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<MainHomeSectionResponse> Get()
         {
