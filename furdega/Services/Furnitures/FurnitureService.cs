@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Furdega.DataAccess.Models;
 using Furdega.Repositories.RepositoryBase;
+using Furdega.Services.FileManagers;
 using Furdega.Services.Furnitures.Dtos.Input;
 using Furdega.Services.Furnitures.Dtos.Output;
 
@@ -12,11 +13,13 @@ namespace Furdega.Services.Furnitures
     {
         private readonly IRepositoryBase<Furniture> _furnitureRepository;
         private readonly IMapper _mapper;
+        private readonly IImageManager _imageManager;
 
-        public FurnitureService(IRepositoryBase<Furniture> furnitureRepository, IMapper mapper)
+        public FurnitureService(IRepositoryBase<Furniture> furnitureRepository, IMapper mapper, IImageManager imageManager)
         {
             _furnitureRepository = furnitureRepository;
             _mapper = mapper;
+            _imageManager = imageManager;
         }
 
         public async Task<IEnumerable<FurnitureResponse>> GetFiltered(int? furnitureTypeId, int? materialTypeId)
@@ -44,6 +47,9 @@ namespace Furdega.Services.Furnitures
         {
             var furniture = _mapper.Map<Furniture>(furnitureRequest);
 
+            furniture.AfterImageUrl = (await _imageManager.LoadImage(furnitureRequest.AfterImage))?.ImageUrl;
+            furniture.BeforeImageUrl = (await _imageManager.LoadImage(furnitureRequest.BeforeImage))?.ImageUrl;
+
             var createdEmployee = await _furnitureRepository.Create(furniture);
 
             return createdEmployee.Id;
@@ -54,6 +60,10 @@ namespace Furdega.Services.Furnitures
             var furniture = await _furnitureRepository.GetById(id);
 
             _mapper.Map(furnitureRequest, furniture);
+            furniture.Id = id;
+
+            await _imageManager.LoadImage(furnitureRequest.AfterImage);
+            await _imageManager.LoadImage(furnitureRequest.BeforeImage);
 
             await _furnitureRepository.Update(furniture);
         }

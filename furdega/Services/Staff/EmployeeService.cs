@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Furdega.DataAccess.Models;
 using Furdega.Repositories.RepositoryBase;
+using Furdega.Services.FileManagers;
 using Furdega.Services.Staff.Dtos.Input;
 using Furdega.Services.Staff.Dtos.Output;
 
@@ -12,11 +13,13 @@ namespace Furdega.Services.Staff
     {
         private readonly IRepositoryBase<Employee> _employeeRepository;
         private readonly IMapper _mapper;
+        private readonly IImageManager _imageManager;
 
-        public EmployeeService(IRepositoryBase<Employee> employeeRepository, IMapper mapper)
+        public EmployeeService(IRepositoryBase<Employee> employeeRepository, IMapper mapper, IImageManager imageManager)
         {
             _employeeRepository = employeeRepository;
             _mapper = mapper;
+            _imageManager = imageManager;
         }
 
         public async Task<List<EmployeeResponse>> GetAll()
@@ -41,6 +44,8 @@ namespace Furdega.Services.Staff
         {
             var employee = _mapper.Map<Employee>(employeeRequest);
 
+            employee.ImageUrl = (await _imageManager.LoadImage(employeeRequest.Image))?.ImageUrl;
+
             var createdEmployee = await _employeeRepository.Create(employee);
 
             return createdEmployee.Id;
@@ -51,6 +56,9 @@ namespace Furdega.Services.Staff
             var employee = await _employeeRepository.GetById(id);
 
             _mapper.Map(employeeRequest, employee);
+            employee.Id = id;
+
+            await _imageManager.LoadImage(employeeRequest.Image);
 
             await _employeeRepository.Update(employee);
         }

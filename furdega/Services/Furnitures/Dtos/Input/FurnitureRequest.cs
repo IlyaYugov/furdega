@@ -6,7 +6,6 @@ namespace Furdega.Services.Furnitures.Dtos.Input
 {
     public class FurnitureRequest: IRequestWithImage
     {
-        public int Id { get; set; }
         public Image BeforeImage { get; set; }
         public Image AfterImage { get; set; }
         public int FurnitureTypeId { get; set; }

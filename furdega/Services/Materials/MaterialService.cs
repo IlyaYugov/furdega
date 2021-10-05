@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Furdega.DataAccess.Models;
 using Furdega.Repositories.RepositoryBase;
+using Furdega.Services.FileManagers;
 using Furdega.Services.Materials.Dtos.Input;
 using Furdega.Services.Materials.Dtos.Output;
 
@@ -12,11 +13,13 @@ namespace Furdega.Services.Materials
     {
         private readonly IRepositoryBase<Material> _materialRepository;
         private readonly IMapper _mapper;
+        private readonly IImageManager _imageManager;
 
-        public MaterialService(IRepositoryBase<Material> materialRepository, IMapper mapper)
+        public MaterialService(IRepositoryBase<Material> materialRepository, IMapper mapper, IImageManager imageManager)
         {
             _materialRepository = materialRepository;
             _mapper = mapper;
+            _imageManager = imageManager;
         }
 
         public async Task<IEnumerable<MaterialResponse>> GetFiltered(int? materialTypeId)
@@ -43,6 +46,8 @@ namespace Furdega.Services.Materials
         {
             var material = _mapper.Map<Material>(materialRequest);
 
+            material.ImageUrl = (await _imageManager.LoadImage(materialRequest.Image))?.ImageUrl;
+
             var createdMaterial = await _materialRepository.Create(material);
 
             return createdMaterial.Id;
@@ -53,6 +58,9 @@ namespace Furdega.Services.Materials
             var material = await _materialRepository.GetById(id);
 
             _mapper.Map(materialRequest, material);
+            material.Id = id;
+
+            await _imageManager.LoadImage(materialRequest.Image);
 
             await _materialRepository.Update(material);
         }
