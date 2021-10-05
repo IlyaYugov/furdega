@@ -362,56 +362,10 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
 
   return (
     <Row className="flex-column gy-3">
-      <Col>
-        <h5>Название секции</h5>
-
-        <InputGroup>
-          <InputGroup.Text className="w-25 text-center text-wrap">
-            Название
-          </InputGroup.Text>
-
-          <Form.Control
-            as="textarea"
-            value={header}
-            onChange={(event) => {
-              setHeader(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
-      <Col>
-        <YellowSnakeIcon />
-      </Col>
-
-      <Col>
-        <h5>Работа 1</h5>
-        <WorkExampleEdit value={example1} onChange={onExample1Change} />
-      </Col>
-
-      <Col>
-        <YellowSnakeIcon />
-      </Col>
-
-      <Col>
-        <h5>Работа 2</h5>
-        <WorkExampleEdit value={example2} onChange={onExample2Change} />
-      </Col>
-
-      <Col>
-        <YellowSnakeIcon />
-      </Col>
-
-      <Col>
-        <h5>Работа 3</h5>
-        <WorkExampleEdit value={example3} onChange={onExample3Change} />
-      </Col>
-
       <Col className="d-flex justify-content-end">
         <Row>
           <Col>
             <Button
-              size="lg"
               className="text-nowrap"
               onClick={() => {
                 save()
@@ -422,7 +376,6 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
           </Col>
           <Col>
             <Button
-              size="lg"
               variant="secondary"
               onClick={() => {
                 setMode(AdminSectionMode.view)
@@ -432,6 +385,44 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
             </Button>
           </Col>
         </Row>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Заголовок секции</h4>
+        <Form.Control
+          as="input"
+          value={header}
+          onChange={(event) => {
+            setHeader(event.target.value)
+          }}
+        />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Пример 1</h4>
+        <WorkExampleEdit value={example1} onChange={onExample1Change} />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Пример 2</h4>
+        <WorkExampleEdit value={example2} onChange={onExample2Change} />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Пример 3</h4>
+        <WorkExampleEdit value={example3} onChange={onExample3Change} />
       </Col>
     </Row>
   )

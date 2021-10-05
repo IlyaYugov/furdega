@@ -51,7 +51,7 @@ const SolutionEdit: FC<SolutionEditProps> = ({ value, onChange }) => {
           <Form.Group className="mb-3">
             <Form.Label>Описание</Form.Label>
             <Form.Control
-              type="textarea"
+              type="input"
               value={value.description}
               onChange={(e) => {
                 onChange({

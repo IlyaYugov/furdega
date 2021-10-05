@@ -32,63 +32,61 @@ const BenefitEdit: FC<BenefitEditProps> = ({ value, onChange }) => {
   }
 
   return (
-    <Form>
-      <Row className="flex-column gy-3">
-        <Col>
-          <Form.Group className="mb-3">
-            <Form.Label>Заголовок</Form.Label>
-            <Form.Control
-              type="text"
-              value={value.title}
-              onChange={(e) => {
-                onChange({
-                  ...value,
-                  title: e.target.value,
-                })
-              }}
+    <Row className="flex-column gy-3">
+      <Col>
+        <Form.Group>
+          <Form.Label>Заголовок</Form.Label>
+          <Form.Control
+            type="text"
+            value={value.title}
+            onChange={(e) => {
+              onChange({
+                ...value,
+                title: e.target.value,
+              })
+            }}
+          />
+        </Form.Group>
+      </Col>
+
+      <Col>
+        <Form.Group>
+          <Form.Label>Описание</Form.Label>
+          <Form.Control
+            type="input"
+            value={value.description}
+            onChange={(e) => {
+              onChange({
+                ...value,
+                description: e.target.value,
+              })
+            }}
+          />
+        </Form.Group>
+      </Col>
+
+      <Col>
+        <Form.Label>Изображение</Form.Label>
+
+        <Row className="flex-column gy-2">
+          <Col>
+            <img
+              src={value.image?.imageUrl}
+              alt=""
+              className="img-fluid w-100"
             />
-          </Form.Group>
-        </Col>
+          </Col>
 
-        <Col>
-          <Form.Group className="mb-3">
-            <Form.Label>Описание</Form.Label>
+          <Col>
             <Form.Control
-              type="textarea"
-              value={value.description}
-              onChange={(e) => {
-                onChange({
-                  ...value,
-                  description: e.target.value,
-                })
-              }}
+              type="file"
+              accept=".jpeg, .jpg, .png"
+              onChange={onImageChange}
             />
-          </Form.Group>
-        </Col>
-
-        <Col>
-          <Form.Label>Изображение</Form.Label>
-
-          <Row className="flex-column gy-2">
-            <Col>
-              <img
-                src={value.image?.imageUrl}
-                alt=""
-                className="img-fluid w-100"
-              />
-            </Col>
-
-            <Col>
-              <Form.Control
-                type="file"
-                accept=".jpeg, .jpg, .png"
-                onChange={onImageChange}
-              />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-    </Form>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
   )
 }
 

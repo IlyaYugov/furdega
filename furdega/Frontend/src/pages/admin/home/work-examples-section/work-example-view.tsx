@@ -27,36 +27,36 @@ const WorkExampleView: FC<WorkExampleViewProps> = ({ data }) => {
   return (
     <Row className="flex-column gy-3">
       <Col>
-        <h5>Заголовок</h5>
+        <div className="fw-bold">Заголовок</div>
         <div>{title}</div>
       </Col>
 
       <Col>
         <Row className="gx-3">
           <Col>
-            <h5>Тип мебели</h5>
+            <div className="fw-bold">Тип мебели</div>
             <div>{furnitureType}</div>
           </Col>
 
           <Col>
-            <h5>Сроки</h5>
+            <div className="fw-bold">Сроки</div>
             <div>{duration}</div>
           </Col>
 
           <Col>
-            <h5>Тип работы</h5>
+            <div className="fw-bold">Тип работы</div>
             <div>{workType}</div>
           </Col>
         </Row>
       </Col>
 
       <Col>
-        <h5>Описание</h5>
+        <div className="fw-bold">Описание</div>
         <div>{description}</div>
       </Col>
 
       <Col>
-        <h4>Изображения До</h4>
+        <div className="fw-bold">Изображения До</div>
 
         <Row>
           <Col>
@@ -84,7 +84,7 @@ const WorkExampleView: FC<WorkExampleViewProps> = ({ data }) => {
       </Col>
 
       <Col>
-        <h4>Изображения После</h4>
+        <div className="fw-bold">Изображения После</div>
 
         <Row>
           <Col>

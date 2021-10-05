@@ -75,43 +75,10 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
 
   return (
     <Row className="flex-column gy-3">
-      <Col>
-        <InputGroup>
-          <InputGroup.Text className="w-25 text-center text-wrap">
-            Текст заголовка
-          </InputGroup.Text>
-
-          <Form.Control
-            as="textarea"
-            value={header}
-            onChange={(event) => {
-              setHeader(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
-      <Col>
-        <Row className="flex-column gy-2">
-          <Col>
-            <img src={image?.imageUrl} alt="" className="img-fluid w-100" />
-          </Col>
-
-          <Col>
-            <Form.Control
-              type="file"
-              accept=".jpeg, .jpg, .png"
-              onChange={onImageChange}
-            />
-          </Col>
-        </Row>
-      </Col>
-
       <Col className="d-flex justify-content-end">
         <Row>
           <Col>
             <Button
-              size="lg"
               className="text-nowrap"
               onClick={() => {
                 save()
@@ -122,7 +89,6 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
           </Col>
           <Col>
             <Button
-              size="lg"
               variant="secondary"
               onClick={() => {
                 setMode(AdminSectionMode.view)
@@ -130,6 +96,35 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
             >
               Отмена
             </Button>
+          </Col>
+        </Row>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Заголовок секции</h4>
+        <Form.Control
+          as="input"
+          value={header}
+          onChange={(event) => {
+            setHeader(event.target.value)
+          }}
+        />
+      </Col>
+
+      <Col>
+        <Row className="flex-column gy-2">
+          <h4 className="fw-bold">Изображение</h4>
+
+          <Col>
+            <img src={image?.imageUrl} alt="" className="img-fluid w-100" />
+          </Col>
+
+          <Col>
+            <Form.Control
+              type="file"
+              accept=".jpeg, .jpg, .png"
+              onChange={onImageChange}
+            />
           </Col>
         </Row>
       </Col>

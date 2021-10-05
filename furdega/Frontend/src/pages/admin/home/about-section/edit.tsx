@@ -34,40 +34,10 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
 
   return (
     <Row className="flex-column gy-3">
-      <Col>
-        <InputGroup>
-          <InputGroup.Text className="w-25 text-center text-wrap">
-            Текст заголовка
-          </InputGroup.Text>
-
-          <Form.Control
-            as="textarea"
-            value={header}
-            onChange={(event) => {
-              setHeader(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
-      <Col>
-        <InputGroup>
-          <InputGroup.Text className="w-25">Текст</InputGroup.Text>
-          <Form.Control
-            as="textarea"
-            value={text}
-            onChange={(event) => {
-              setText(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
       <Col className="d-flex justify-content-end">
         <Row>
           <Col>
             <Button
-              size="lg"
               className="text-nowrap"
               onClick={() => {
                 save()
@@ -78,7 +48,6 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
           </Col>
           <Col>
             <Button
-              size="lg"
               variant="secondary"
               onClick={() => {
                 setMode(AdminSectionMode.view)
@@ -88,6 +57,28 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
             </Button>
           </Col>
         </Row>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Заголовок секции</h4>
+        <Form.Control
+          as="input"
+          value={header}
+          onChange={(event) => {
+            setHeader(event.target.value)
+          }}
+        />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Контент</h4>
+        <Form.Control
+          as="input"
+          value={text}
+          onChange={(event) => {
+            setText(event.target.value)
+          }}
+        />
       </Col>
     </Row>
   )

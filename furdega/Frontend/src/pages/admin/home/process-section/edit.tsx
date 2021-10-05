@@ -46,7 +46,7 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
           </InputGroup.Text>
 
           <Form.Control
-            as="textarea"
+            as="input"
             value={header}
             onChange={(event) => {
               setHeader(event.target.value)
@@ -59,7 +59,7 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
         <InputGroup>
           <InputGroup.Text className="w-25">Первый этап</InputGroup.Text>
           <Form.Control
-            as="textarea"
+            as="input"
             value={firstStage}
             onChange={(event) => {
               setFirstStage(event.target.value)
@@ -72,7 +72,7 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
         <InputGroup>
           <InputGroup.Text className="w-25">Второй этап</InputGroup.Text>
           <Form.Control
-            as="textarea"
+            as="input"
             value={secondStage}
             onChange={(event) => {
               setSecondStage(event.target.value)
@@ -85,7 +85,7 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
         <InputGroup>
           <InputGroup.Text className="w-25">Третий этап</InputGroup.Text>
           <Form.Control
-            as="textarea"
+            as="input"
             value={thirdStage}
             onChange={(event) => {
               setThirdStage(event.target.value)
@@ -98,7 +98,7 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
         <InputGroup>
           <InputGroup.Text className="w-25">Конечный этап</InputGroup.Text>
           <Form.Control
-            as="textarea"
+            as="input"
             value={finalStage}
             onChange={(event) => {
               setFinalStage(event.target.value)

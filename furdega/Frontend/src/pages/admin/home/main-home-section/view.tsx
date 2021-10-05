@@ -28,25 +28,24 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
 
   return (
     <Row className="flex-column gy-3">
-      <Col>
-        <h5>Заголовок</h5>
-        <div>{header}</div>
-      </Col>
-
-      <Col>
-        <h5>Изображение</h5>
-        <img src={image?.imageUrl} alt="" className="img-fluid w-100" />
-      </Col>
-
       <Col className="d-flex justify-content-end">
         <Button
-          size="lg"
           onClick={() => {
             setMode(AdminSectionMode.edit)
           }}
         >
           Редактировать
         </Button>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Заголовок секции</h4>
+        <div>{header}</div>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Изображение</h4>
+        <img src={image?.imageUrl} alt="" className="img-fluid w-100" />
       </Col>
     </Row>
   )

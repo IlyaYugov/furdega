@@ -4,6 +4,7 @@ import { Col, Row, Button } from "react-bootstrap"
 import { AdminSectionMode } from "../../../../const/admin"
 import { CompanyBenefitsSectionResponse } from "../../../../types/home/benefits"
 import { BenefitView } from "./benefit-view"
+import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 
 type ViewProps = {
   data: CompanyBenefitsSectionResponse
@@ -35,36 +36,55 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
 
   return (
     <Row className="flex-column gy-3">
-      <Col>
-        <h5>Заголовок</h5>
-        <div>{header}</div>
-      </Col>
-
-      <Col>
-        <BenefitView data={companyBenefit1} />
-      </Col>
-
-      <Col>
-        <BenefitView data={companyBenefit2} />
-      </Col>
-
-      <Col>
-        <BenefitView data={companyBenefit3} />
-      </Col>
-
-      <Col>
-        <BenefitView data={companyBenefit4} />
-      </Col>
-
       <Col className="d-flex justify-content-end">
         <Button
-          size="lg"
           onClick={() => {
             setMode(AdminSectionMode.edit)
           }}
         >
           Редактировать
         </Button>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Заголовок секции</h4>
+        <div>{header}</div>
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Преимущество 1</h4>
+        <BenefitView data={companyBenefit1} />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Преимущество 2</h4>
+        <BenefitView data={companyBenefit2} />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Преимущество 3</h4>
+        <BenefitView data={companyBenefit3} />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Преимущество 4</h4>
+        <BenefitView data={companyBenefit4} />
       </Col>
     </Row>
   )

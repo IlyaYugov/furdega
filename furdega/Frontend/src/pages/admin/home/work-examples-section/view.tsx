@@ -4,6 +4,7 @@ import { Col, Row, Button } from "react-bootstrap"
 import { AdminSectionMode } from "../../../../const/admin"
 import { WorkExamplesSectionResponse } from "../../../../types/home/examples"
 import { WorkExampleView } from "./work-example-view"
+import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 
 type ViewProps = {
   data: WorkExamplesSectionResponse
@@ -29,24 +30,46 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
 
   return (
     <Row className="flex-column gy-3">
-      <Col>
-        <h5>Заголовок</h5>
-        <div>{header}</div>
-      </Col>
-
-      <WorkExampleView data={workExample1} />
-      <WorkExampleView data={workExample2} />
-      <WorkExampleView data={workExample3} />
-
       <Col className="d-flex justify-content-end">
         <Button
-          size="lg"
           onClick={() => {
             setMode(AdminSectionMode.edit)
           }}
         >
           Редактировать
         </Button>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Заголовок секции</h4>
+        <div>{header}</div>
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Пример 1</h4>
+        <WorkExampleView data={workExample1} />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Пример 1</h4>
+        <WorkExampleView data={workExample2} />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Пример 3</h4>
+        <WorkExampleView data={workExample3} />
       </Col>
     </Row>
   )

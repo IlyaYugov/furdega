@@ -197,65 +197,10 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
 
   return (
     <Row className="flex-column gy-3">
-      <Col>
-        <h5>Название секции</h5>
-
-        <InputGroup>
-          <InputGroup.Text className="w-25 text-center text-wrap">
-            Название
-          </InputGroup.Text>
-
-          <Form.Control
-            as="textarea"
-            value={header}
-            onChange={(event) => {
-              setHeader(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
-      <Col>
-        <YellowSnakeIcon />
-      </Col>
-
-      <Col>
-        <h5>Преимущество 1</h5>
-        <BenefitEdit value={benefit1} onChange={onBenefit1Change} />
-      </Col>
-
-      <Col>
-        <YellowSnakeIcon />
-      </Col>
-
-      <Col>
-        <h5>Преимущество 2</h5>
-        <BenefitEdit value={benefit2} onChange={onBenefit2Change} />
-      </Col>
-
-      <Col>
-        <YellowSnakeIcon />
-      </Col>
-
-      <Col>
-        <h5>Преимущество 3</h5>
-        <BenefitEdit value={benefit3} onChange={onBenefit3Change} />
-      </Col>
-
-      <Col>
-        <YellowSnakeIcon />
-      </Col>
-
-      <Col>
-        <h5>Преимущество 4</h5>
-        <BenefitEdit value={benefit4} onChange={onBenefit4Change} />
-      </Col>
-
       <Col className="d-flex justify-content-end">
         <Row>
           <Col>
             <Button
-              size="lg"
               className="text-nowrap"
               onClick={() => {
                 save()
@@ -266,7 +211,6 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
           </Col>
           <Col>
             <Button
-              size="lg"
               variant="secondary"
               onClick={() => {
                 setMode(AdminSectionMode.view)
@@ -276,6 +220,53 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
             </Button>
           </Col>
         </Row>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Заголовок секции</h4>
+        <Form.Control
+          as="input"
+          value={header}
+          onChange={(event) => {
+            setHeader(event.target.value)
+          }}
+        />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Преимущество 1</h4>
+        <BenefitEdit value={benefit1} onChange={onBenefit1Change} />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Преимущество 2</h4>
+        <BenefitEdit value={benefit2} onChange={onBenefit2Change} />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Преимущество 3</h4>
+        <BenefitEdit value={benefit3} onChange={onBenefit3Change} />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Преимущество 4</h4>
+        <BenefitEdit value={benefit4} onChange={onBenefit4Change} />
       </Col>
     </Row>
   )

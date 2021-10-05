@@ -204,7 +204,7 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
           </InputGroup.Text>
 
           <Form.Control
-            as="textarea"
+            as="input"
             value={header}
             onChange={(event) => {
               setHeader(event.target.value)

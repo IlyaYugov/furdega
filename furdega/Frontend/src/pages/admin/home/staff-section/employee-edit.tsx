@@ -144,7 +144,7 @@ const EmployeeEdit: FC<EmployeeEditProps> = ({ show, employeeId, close }) => {
             <Form.Group className="mb-3">
               <Form.Label>Описание</Form.Label>
               <Form.Control
-                type="textarea"
+                type="input"
                 value={employee.description}
                 onChange={(e) => {
                   setEmployee({

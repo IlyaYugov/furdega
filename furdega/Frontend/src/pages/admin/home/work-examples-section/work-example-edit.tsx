@@ -145,7 +145,7 @@ const WorkExampleEdit: FC<WorkExampleEditProps> = ({ value, onChange }) => {
           <Form.Group>
             <Form.Label>Заголовок</Form.Label>
             <Form.Control
-              as="textarea"
+              as="input"
               value={value.title}
               onChange={(e) => {
                 onChange({
@@ -163,7 +163,7 @@ const WorkExampleEdit: FC<WorkExampleEditProps> = ({ value, onChange }) => {
               <Form.Group>
                 <Form.Label>Тип мебели</Form.Label>
                 <Form.Control
-                  as="textarea"
+                  as="input"
                   value={value.furnitureType}
                   onChange={(e) => {
                     onChange({
@@ -179,7 +179,7 @@ const WorkExampleEdit: FC<WorkExampleEditProps> = ({ value, onChange }) => {
               <Form.Group>
                 <Form.Label>Сроки</Form.Label>
                 <Form.Control
-                  as="textarea"
+                  as="input"
                   value={value.duration}
                   onChange={(e) => {
                     onChange({
@@ -195,7 +195,7 @@ const WorkExampleEdit: FC<WorkExampleEditProps> = ({ value, onChange }) => {
               <Form.Group>
                 <Form.Label>Тип работы</Form.Label>
                 <Form.Control
-                  as="textarea"
+                  as="input"
                   value={value.workType}
                   onChange={(e) => {
                     onChange({
@@ -213,7 +213,7 @@ const WorkExampleEdit: FC<WorkExampleEditProps> = ({ value, onChange }) => {
           <Form.Group>
             <Form.Label>Описание</Form.Label>
             <Form.Control
-              as="textarea"
+              as="input"
               value={value.description}
               onChange={(e) => {
                 onChange({
