@@ -3,6 +3,7 @@ import { Col, Row, Button } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../../const/admin"
 import { WorkExamplesSectionResponse } from "../../../../types/home/examples"
+import { WorkExampleView } from "./work-example-view"
 
 type ViewProps = {
   data: WorkExamplesSectionResponse
@@ -33,12 +34,9 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
         <div>{header}</div>
       </Col>
 
-      {/* TODO add view */}
-      <Col>{workExample1}</Col>
-
-      <Col>{workExample2}</Col>
-
-      <Col>{workExample3}</Col>
+      <WorkExampleView data={workExample1} />
+      <WorkExampleView data={workExample2} />
+      <WorkExampleView data={workExample3} />
 
       <Col className="d-flex justify-content-end">
         <Button

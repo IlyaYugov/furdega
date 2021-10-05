@@ -3,21 +3,27 @@ import { Col, Row } from "react-bootstrap"
 
 import { WorkExampleResponse } from "../../../../types/home/examples"
 
-type WorkExampleViewProps = WorkExampleResponse
+type WorkExampleViewProps = {
+  data: WorkExampleResponse | null
+}
 
-const WorkExampleView: FC<WorkExampleViewProps> = ({
-  title,
-  workType,
-  furnitureType,
-  description,
-  duration,
-  beforeImage1,
-  beforeImage2,
-  beforeImage3,
-  afterImage1,
-  afterImage2,
-  afterImage3,
-}) => {
+const WorkExampleView: FC<WorkExampleViewProps> = ({ data }) => {
+  if (!data) return null
+
+  const {
+    title,
+    workType,
+    furnitureType,
+    description,
+    duration,
+    beforeImage1,
+    beforeImage2,
+    beforeImage3,
+    afterImage1,
+    afterImage2,
+    afterImage3,
+  } = data
+
   return (
     <Row className="flex-column gy-3">
       <Col>

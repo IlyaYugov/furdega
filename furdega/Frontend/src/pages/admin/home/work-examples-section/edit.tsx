@@ -9,7 +9,9 @@ import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow
 import { workExamplesSectionApi } from "../../../../api/home/work-examples-section-api"
 import {
   WorkExampleResponse,
+  WorkExamplesSectionCreateRequest,
   WorkExamplesSectionResponse,
+  WorkExamplesSectionUpdateRequest,
 } from "../../../../types/home/examples"
 import { ImageResponse } from "../../../../types/image"
 
@@ -72,10 +74,236 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
   )
 
   const save = async () => {
+    const {
+      afterImage1: example1AfterImage1,
+      afterImage2: example1AfterImage2,
+      afterImage3: example1AfterImage3,
+      beforeImage1: example1BeforeImage1,
+      beforeImage2: example1BeforeImage2,
+      beforeImage3: example1BeforeImage3,
+    } = newImagesBase64.example1
+
+    const {
+      afterImage1: example2AfterImage1,
+      afterImage2: example2AfterImage2,
+      afterImage3: example2AfterImage3,
+      beforeImage1: example2BeforeImage1,
+      beforeImage2: example2BeforeImage2,
+      beforeImage3: example2BeforeImage3,
+    } = newImagesBase64.example2
+
+    const {
+      afterImage1: example3AfterImage1,
+      afterImage2: example3AfterImage2,
+      afterImage3: example3AfterImage3,
+      beforeImage1: example3BeforeImage1,
+      beforeImage2: example3BeforeImage2,
+      beforeImage3: example3BeforeImage3,
+    } = newImagesBase64.example3
+
     if (isDataEmpty) {
-      // await workExamplesSectionApi.create(requestData)
+      if (
+        !(
+          example1AfterImage1 &&
+          example1AfterImage2 &&
+          example1AfterImage3 &&
+          example1BeforeImage1 &&
+          example1BeforeImage2 &&
+          example1BeforeImage3
+        ) ||
+        !(
+          example2AfterImage1 &&
+          example2AfterImage2 &&
+          example2AfterImage3 &&
+          example2BeforeImage1 &&
+          example2BeforeImage2 &&
+          example2BeforeImage3
+        ) ||
+        !(
+          example3AfterImage1 &&
+          example3AfterImage2 &&
+          example3AfterImage3 &&
+          example3BeforeImage1 &&
+          example3BeforeImage2 &&
+          example3BeforeImage3
+        )
+      ) {
+        return
+      }
+
+      const request: WorkExamplesSectionCreateRequest = {
+        header,
+        workExample1: {
+          ...example1,
+          beforeImage1: {
+            id: example1.beforeImage1.id,
+            base64ImageString: example1BeforeImage1,
+          },
+          beforeImage2: {
+            id: example1.beforeImage2.id,
+            base64ImageString: example1BeforeImage2,
+          },
+          beforeImage3: {
+            id: example1.beforeImage3.id,
+            base64ImageString: example1BeforeImage3,
+          },
+          afterImage1: {
+            id: example1.afterImage1.id,
+            base64ImageString: example1AfterImage1,
+          },
+          afterImage2: {
+            id: example1.afterImage2.id,
+            base64ImageString: example1AfterImage2,
+          },
+          afterImage3: {
+            id: example1.afterImage3.id,
+            base64ImageString: example1AfterImage3,
+          },
+        },
+        workExample2: {
+          ...example2,
+          beforeImage1: {
+            id: example2.beforeImage1.id,
+            base64ImageString: example2BeforeImage1,
+          },
+          beforeImage2: {
+            id: example2.beforeImage2.id,
+            base64ImageString: example2BeforeImage2,
+          },
+          beforeImage3: {
+            id: example2.beforeImage3.id,
+            base64ImageString: example2BeforeImage3,
+          },
+          afterImage1: {
+            id: example2.afterImage1.id,
+            base64ImageString: example2AfterImage1,
+          },
+          afterImage2: {
+            id: example2.afterImage2.id,
+            base64ImageString: example2AfterImage2,
+          },
+          afterImage3: {
+            id: example2.afterImage3.id,
+            base64ImageString: example2AfterImage3,
+          },
+        },
+        workExample3: {
+          ...example3,
+          beforeImage1: {
+            id: example3.beforeImage1.id,
+            base64ImageString: example3BeforeImage1,
+          },
+          beforeImage2: {
+            id: example3.beforeImage2.id,
+            base64ImageString: example3BeforeImage2,
+          },
+          beforeImage3: {
+            id: example3.beforeImage3.id,
+            base64ImageString: example3BeforeImage3,
+          },
+          afterImage1: {
+            id: example3.afterImage1.id,
+            base64ImageString: example3AfterImage1,
+          },
+          afterImage2: {
+            id: example3.afterImage2.id,
+            base64ImageString: example3AfterImage2,
+          },
+          afterImage3: {
+            id: example3.afterImage3.id,
+            base64ImageString: example3AfterImage3,
+          },
+        },
+      }
+
+      await workExamplesSectionApi.create(request)
     } else {
-      // await workExamplesSectionApi.update(requestData)
+      const request: WorkExamplesSectionUpdateRequest = {
+        header,
+        workExample1: {
+          ...example1,
+          beforeImage1: {
+            id: example1.beforeImage1.id,
+            base64ImageString: example1BeforeImage1 || null,
+          },
+          beforeImage2: {
+            id: example1.beforeImage2.id,
+            base64ImageString: example1BeforeImage2 || null,
+          },
+          beforeImage3: {
+            id: example1.beforeImage3.id,
+            base64ImageString: example1BeforeImage3 || null,
+          },
+          afterImage1: {
+            id: example1.afterImage1.id,
+            base64ImageString: example1AfterImage1 || null,
+          },
+          afterImage2: {
+            id: example1.afterImage2.id,
+            base64ImageString: example1AfterImage2 || null,
+          },
+          afterImage3: {
+            id: example1.afterImage3.id,
+            base64ImageString: example1AfterImage3 || null,
+          },
+        },
+        workExample2: {
+          ...example2,
+          beforeImage1: {
+            id: example2.beforeImage1.id,
+            base64ImageString: example2BeforeImage1 || null,
+          },
+          beforeImage2: {
+            id: example2.beforeImage2.id,
+            base64ImageString: example2BeforeImage2 || null,
+          },
+          beforeImage3: {
+            id: example2.beforeImage3.id,
+            base64ImageString: example2BeforeImage3 || null,
+          },
+          afterImage1: {
+            id: example2.afterImage1.id,
+            base64ImageString: example2AfterImage1 || null,
+          },
+          afterImage2: {
+            id: example2.afterImage2.id,
+            base64ImageString: example2AfterImage2 || null,
+          },
+          afterImage3: {
+            id: example2.afterImage3.id,
+            base64ImageString: example2AfterImage3 || null,
+          },
+        },
+        workExample3: {
+          ...example3,
+          beforeImage1: {
+            id: example3.beforeImage1.id,
+            base64ImageString: example3BeforeImage1 || null,
+          },
+          beforeImage2: {
+            id: example3.beforeImage2.id,
+            base64ImageString: example3BeforeImage2 || null,
+          },
+          beforeImage3: {
+            id: example3.beforeImage3.id,
+            base64ImageString: example3BeforeImage3 || null,
+          },
+          afterImage1: {
+            id: example3.afterImage1.id,
+            base64ImageString: example3AfterImage1 || null,
+          },
+          afterImage2: {
+            id: example3.afterImage2.id,
+            base64ImageString: example3AfterImage2 || null,
+          },
+          afterImage3: {
+            id: example3.afterImage3.id,
+            base64ImageString: example3AfterImage3 || null,
+          },
+        },
+      }
+
+      await workExamplesSectionApi.update(request)
     }
 
     setMode(AdminSectionMode.view)
