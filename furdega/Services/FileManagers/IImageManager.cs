@@ -4,6 +4,7 @@ namespace Furdega.Services.FileManagers
 {
     public interface IImageManager
     {
-        Task<ImageResponse> LoadImage(Image image);
+        Task<ImageResponse> UpdateImage(Image image, string oldImageUrl);
+        Task<ImageResponse> CreateImage(Image image);
     }
 }

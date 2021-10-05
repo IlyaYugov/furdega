@@ -46,7 +46,8 @@ namespace Furdega.Services.Materials
         {
             var material = _mapper.Map<Material>(materialRequest);
 
-            material.ImageUrl = (await _imageManager.LoadImage(materialRequest.Image))?.ImageUrl;
+            var newImage = await _imageManager.CreateImage(materialRequest.Image);
+            material.ImageUrl = newImage?.ImageUrl;
 
             var createdMaterial = await _materialRepository.Create(material);
 
@@ -60,7 +61,11 @@ namespace Furdega.Services.Materials
             _mapper.Map(materialRequest, material);
             material.Id = id;
 
-            await _imageManager.LoadImage(materialRequest.Image);
+            if (!string.IsNullOrEmpty(materialRequest.Image?.Base64ImageString))
+            {
+                var newImage = await _imageManager.UpdateImage(materialRequest.Image, material.ImageUrl);
+                material.ImageUrl = newImage?.ImageUrl;
+            }
 
             await _materialRepository.Update(material);
         }

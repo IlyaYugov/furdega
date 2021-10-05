@@ -23,7 +23,7 @@ namespace Furdega.Services.HomePage.Sections.MainHome
         {
             var mappedSection = Mapper.Map<MainHomeSectionResponse>(sectionRequest);
 
-            mappedSection.Image = await FileManager.LoadImage(sectionRequest.Image);
+            mappedSection.Image = await FileManager.CreateImage(sectionRequest.Image);
 
             await CreateSection(mappedSection);
         }
@@ -34,7 +34,8 @@ namespace Furdega.Services.HomePage.Sections.MainHome
 
             Mapper.Map(sectionRequest, section);
 
-            await FileManager.LoadImage(sectionRequest?.Image);
+            if(!string.IsNullOrEmpty(sectionRequest.Image?.Base64ImageString))
+                section.Image = await FileManager.UpdateImage(sectionRequest.Image, section.Image.ImageUrl);
 
             await UpdateSection(section);
         }

@@ -23,10 +23,10 @@ namespace Furdega.Services.HomePage.Sections.CompanyBenefits
         {
             var mappedSection = Mapper.Map<CompanyBenefitsSectionResponse>(sectionRequest);
 
-            mappedSection.CompanyBenefit1.Image = await FileManager.LoadImage(sectionRequest.CompanyBenefit1.Image);
-            mappedSection.CompanyBenefit2.Image = await FileManager.LoadImage(sectionRequest.CompanyBenefit2.Image);
-            mappedSection.CompanyBenefit3.Image = await FileManager.LoadImage(sectionRequest.CompanyBenefit3.Image);
-            mappedSection.CompanyBenefit4.Image = await FileManager.LoadImage(sectionRequest.CompanyBenefit4.Image);
+            mappedSection.CompanyBenefit1.Image = await FileManager.CreateImage(sectionRequest.CompanyBenefit1.Image);
+            mappedSection.CompanyBenefit2.Image = await FileManager.CreateImage(sectionRequest.CompanyBenefit2.Image);
+            mappedSection.CompanyBenefit3.Image = await FileManager.CreateImage(sectionRequest.CompanyBenefit3.Image);
+            mappedSection.CompanyBenefit4.Image = await FileManager.CreateImage(sectionRequest.CompanyBenefit4.Image);
 
             await CreateSection(mappedSection);
         }
@@ -37,10 +37,18 @@ namespace Furdega.Services.HomePage.Sections.CompanyBenefits
 
             Mapper.Map(sectionRequest, section);
 
-            await FileManager.LoadImage(sectionRequest.CompanyBenefit1?.Image);
-            await FileManager.LoadImage(sectionRequest.CompanyBenefit2?.Image);
-            await FileManager.LoadImage(sectionRequest.CompanyBenefit3?.Image);
-            await FileManager.LoadImage(sectionRequest.CompanyBenefit4?.Image);
+
+            if(!string.IsNullOrEmpty(sectionRequest.CompanyBenefit1.Image?.Base64ImageString))
+                section.CompanyBenefit1.Image = await FileManager.UpdateImage(sectionRequest.CompanyBenefit1.Image, section.CompanyBenefit1.Image.ImageUrl);
+
+            if (!string.IsNullOrEmpty(sectionRequest.CompanyBenefit2.Image?.Base64ImageString))
+                section.CompanyBenefit2.Image = await FileManager.UpdateImage(sectionRequest.CompanyBenefit2.Image, section.CompanyBenefit2.Image.ImageUrl);
+
+            if (!string.IsNullOrEmpty(sectionRequest.CompanyBenefit3.Image?.Base64ImageString))
+                section.CompanyBenefit3.Image = await FileManager.UpdateImage(sectionRequest.CompanyBenefit3.Image, section.CompanyBenefit3.Image.ImageUrl);
+
+            if (!string.IsNullOrEmpty(sectionRequest.CompanyBenefit4.Image?.Base64ImageString))
+                section.CompanyBenefit4.Image = await FileManager.UpdateImage(sectionRequest.CompanyBenefit4.Image, section.CompanyBenefit4.Image.ImageUrl);
 
             await UpdateSection(section);
         }

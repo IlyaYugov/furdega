@@ -44,7 +44,8 @@ namespace Furdega.Services.Staff
         {
             var employee = _mapper.Map<Employee>(employeeRequest);
 
-            employee.ImageUrl = (await _imageManager.LoadImage(employeeRequest.Image))?.ImageUrl;
+            var newImage = await _imageManager.CreateImage(employeeRequest.Image);
+            employee.ImageUrl = newImage?.ImageUrl;
 
             var createdEmployee = await _employeeRepository.Create(employee);
 
@@ -58,7 +59,11 @@ namespace Furdega.Services.Staff
             _mapper.Map(employeeRequest, employee);
             employee.Id = id;
 
-            await _imageManager.LoadImage(employeeRequest.Image);
+            if (!string.IsNullOrEmpty(employeeRequest.Image?.Base64ImageString))
+            {
+                var newImage = await _imageManager.UpdateImage(employeeRequest.Image, employee.ImageUrl);
+                employee.ImageUrl = newImage?.ImageUrl;
+            }
 
             await _employeeRepository.Update(employee);
         }

@@ -47,8 +47,11 @@ namespace Furdega.Services.Furnitures
         {
             var furniture = _mapper.Map<Furniture>(furnitureRequest);
 
-            furniture.AfterImageUrl = (await _imageManager.LoadImage(furnitureRequest.AfterImage))?.ImageUrl;
-            furniture.BeforeImageUrl = (await _imageManager.LoadImage(furnitureRequest.BeforeImage))?.ImageUrl;
+            var newAfterImage = await _imageManager.CreateImage(furnitureRequest.AfterImage);
+            furniture.AfterImageUrl = newAfterImage?.ImageUrl;
+
+            var newBeforeImage = await _imageManager.CreateImage(furnitureRequest.BeforeImage);
+            furniture.BeforeImageUrl = newBeforeImage?.ImageUrl;
 
             var createdEmployee = await _furnitureRepository.Create(furniture);
 
@@ -62,8 +65,17 @@ namespace Furdega.Services.Furnitures
             _mapper.Map(furnitureRequest, furniture);
             furniture.Id = id;
 
-            await _imageManager.LoadImage(furnitureRequest.AfterImage);
-            await _imageManager.LoadImage(furnitureRequest.BeforeImage);
+            if (!string.IsNullOrEmpty(furnitureRequest?.AfterImage?.Base64ImageString))
+            {
+                var newImage = await _imageManager.UpdateImage(furnitureRequest.AfterImage, furniture.AfterImageUrl);
+                furniture.AfterImageUrl = newImage?.ImageUrl;
+            }
+
+            if (!string.IsNullOrEmpty(furnitureRequest?.BeforeImage?.Base64ImageString))
+            {
+                var newImage = await _imageManager.UpdateImage(furnitureRequest.BeforeImage, furniture.BeforeImageUrl);
+                furniture.BeforeImageUrl = newImage?.ImageUrl;
+            }
 
             await _furnitureRepository.Update(furniture);
         }
