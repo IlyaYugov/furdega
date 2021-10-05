@@ -29,7 +29,6 @@ $wrapper-small-translate: calc(-100% - #{variables.$content-sm-padding});
 @mixin wrapper {
   position: sticky;
   background-color: #fff;
-  z-index: 1020; // bootstrap z-index sticky
   top: 32px;
 
   @media screen and (max-width: 576px) {
@@ -47,6 +46,7 @@ $wrapper-small-translate: calc(-100% - #{variables.$content-sm-padding});
 
 .wrapper-shown {
   @include wrapper;
+  z-index: 1020; // bootstrap z-index sticky
   @media screen and (max-width: 576px) {
     transform: translateX(-#{variables.$content-sm-padding});
   }
