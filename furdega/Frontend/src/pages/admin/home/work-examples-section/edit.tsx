@@ -3,21 +3,18 @@ import { Col, Form, InputGroup, Row, Button } from "react-bootstrap"
 import clone from "just-clone"
 import { v4 as uuidv4 } from "uuid"
 
-import {
-  WorkExampleResponse,
-  WorkExamplesSectionRequest,
-  WorkExamplesSectionResponse,
-} from "../../../../types/work-examples-section"
 import { WorkExampleEdit } from "./work-example-edit"
 import { AdminSectionMode } from "../../../../const/admin"
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
-import { FormInputEvent } from "../../../../types/utils"
-import { ImageRequest } from "../../../../types/image-request"
 import { workExamplesSectionApi } from "../../../../api/home/work-examples-section-api"
-import { ImageResponse } from "../../../../types/image-response"
+import {
+  WorkExampleResponse,
+  WorkExamplesSectionResponse,
+} from "../../../../types/home/examples"
+import { ImageResponse } from "../../../../types/image"
 
 type EditProps = {
-  data: WorkExamplesSectionResponse | null
+  data: WorkExamplesSectionResponse
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
@@ -26,7 +23,7 @@ const getNewImage = (): ImageResponse => ({
   imageUrl: "",
 })
 
-const getNewWorkExample = (): WorkExampleResponse => ({
+const getDefaultWorkExample = (): WorkExampleResponse => ({
   title: "",
   workType: "",
   furnitureType: "",
@@ -40,92 +37,62 @@ const getNewWorkExample = (): WorkExampleResponse => ({
   afterImage3: getNewImage(),
 })
 
-export type ImagesChangeEvent = {
-  afterImage1?: ImageRequest
-  afterImage2?: ImageRequest
-  afterImage3?: ImageRequest
-  beforeImage1?: ImageRequest
-  beforeImage2?: ImageRequest
-  beforeImage3?: ImageRequest
+export type WorkExampleNewImagesBase64 = {
+  afterImage1?: string
+  afterImage2?: string
+  afterImage3?: string
+  beforeImage1?: string
+  beforeImage2?: string
+  beforeImage3?: string
 }
 
-const getDefaultResponseData = (): WorkExamplesSectionResponse => ({
-  header: "",
-  workExample1: getNewWorkExample(),
-  workExample2: getNewWorkExample(),
-  workExample3: getNewWorkExample(),
-})
+export type NewImagesBase64 = {
+  example1: WorkExampleNewImagesBase64
+  example2: WorkExampleNewImagesBase64
+  example3: WorkExampleNewImagesBase64
+}
 
-const getDefaultRequestData = ({
-  header,
-  workExample1,
-  workExample2,
-  workExample3,
-}: WorkExamplesSectionResponse): WorkExamplesSectionRequest => ({
-  header,
-  workExample1: {
-    title: workExample1.title,
-    furnitureType: workExample1.furnitureType,
-    duration: workExample1.duration,
-    workType: workExample1.workType,
-    description: workExample1.description,
-  },
-  workExample2: {
-    title: workExample2.title,
-    furnitureType: workExample2.furnitureType,
-    duration: workExample2.duration,
-    workType: workExample2.workType,
-    description: workExample2.description,
-  },
-  workExample3: {
-    title: workExample3.title,
-    furnitureType: workExample3.furnitureType,
-    duration: workExample3.duration,
-    workType: workExample3.workType,
-    description: workExample3.description,
-  },
-})
+const Edit: FC<EditProps> = ({ data, setMode }) => {
+  const isDataEmpty = Object.values(data).every((val) => val === null)
 
-const Edit: FC<EditProps> = (props) => {
-  const data = props.data || getDefaultResponseData()
-
-  const [requestData, setRequestData] = useState<WorkExamplesSectionRequest>(
-    getDefaultRequestData(data)
-  )
-  const [header, setHeader] = useState<string>(data.header)
+  const [newImagesBase64, setNewImagesBase64] = useState<NewImagesBase64>({
+    example1: {},
+    example2: {},
+    example3: {},
+  })
+  const [header, setHeader] = useState<string>(data.header || "")
   const [example1, setExample1] = useState<WorkExampleResponse>(
-    clone(data.workExample1)
+    clone(data.workExample1 || getDefaultWorkExample())
   )
   const [example2, setExample2] = useState<WorkExampleResponse>(
-    clone(data.workExample2)
+    clone(data.workExample2 || getDefaultWorkExample())
   )
   const [example3, setExample3] = useState<WorkExampleResponse>(
-    clone(data.workExample3)
+    clone(data.workExample3 || getDefaultWorkExample())
   )
 
   const save = async () => {
-    console.log(requestData)
-    await workExamplesSectionApi.update(requestData)
-  }
+    if (isDataEmpty) {
+      // await workExamplesSectionApi.create(requestData)
+    } else {
+      // await workExamplesSectionApi.update(requestData)
+    }
 
-  const onHeaderChange = (event: FormInputEvent) => {
-    const value = (event.target as HTMLInputElement).value
-    setHeader(value)
-    setRequestData({ ...requestData, header: value })
+    setMode(AdminSectionMode.view)
   }
 
   const onExample1Change = (
     newExample1: WorkExampleResponse,
-    imagesChangeEvent?: ImagesChangeEvent
+    newImagesBase64Event?: WorkExampleNewImagesBase64
   ) => {
     setExample1(newExample1)
 
-    if (imagesChangeEvent) {
-      setRequestData({
-        ...requestData,
-        workExample1: {
-          ...requestData.workExample1,
-          ...imagesChangeEvent,
+    if (newImagesBase64Event) {
+      setNewImagesBase64({
+        ...newImagesBase64,
+        example1: {
+          ...newImagesBase64.example1,
+          ...newImagesBase64Event,
         },
       })
     }
@@ -133,16 +100,16 @@ const Edit: FC<EditProps> = (props) => {
 
   const onExample2Change = (
     newExample2: WorkExampleResponse,
-    imagesChangeEvent?: ImagesChangeEvent
+    newImagesBase64Event?: WorkExampleNewImagesBase64
   ) => {
     setExample2(newExample2)
 
-    if (imagesChangeEvent) {
-      setRequestData({
-        ...requestData,
-        workExample2: {
-          ...requestData.workExample2,
-          ...imagesChangeEvent,
+    if (newImagesBase64Event) {
+      setNewImagesBase64({
+        ...newImagesBase64,
+        example2: {
+          ...newImagesBase64.example2,
+          ...newImagesBase64Event,
         },
       })
     }
@@ -150,16 +117,16 @@ const Edit: FC<EditProps> = (props) => {
 
   const onExample3Change = (
     newExample3: WorkExampleResponse,
-    imagesChangeEvent?: ImagesChangeEvent
+    newImagesBase64Event?: WorkExampleNewImagesBase64
   ) => {
     setExample3(newExample3)
 
-    if (imagesChangeEvent) {
-      setRequestData({
-        ...requestData,
-        workExample3: {
-          ...requestData.workExample3,
-          ...imagesChangeEvent,
+    if (newImagesBase64Event) {
+      setNewImagesBase64({
+        ...newImagesBase64,
+        example3: {
+          ...newImagesBase64.example3,
+          ...newImagesBase64Event,
         },
       })
     }
@@ -178,7 +145,9 @@ const Edit: FC<EditProps> = (props) => {
           <Form.Control
             as="textarea"
             value={header}
-            onChange={onHeaderChange}
+            onChange={(event) => {
+              setHeader(event.target.value)
+            }}
           />
         </InputGroup>
       </Col>
@@ -228,7 +197,7 @@ const Edit: FC<EditProps> = (props) => {
               size="lg"
               variant="secondary"
               onClick={() => {
-                props.setMode(AdminSectionMode.view)
+                setMode(AdminSectionMode.view)
               }}
             >
               Отмена

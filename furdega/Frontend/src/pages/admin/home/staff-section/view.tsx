@@ -5,17 +5,14 @@ import { ResponseData } from "."
 import { AdminSectionMode } from "../../../../const/admin"
 
 type ViewProps = {
-  data: ResponseData | null
+  data: ResponseData
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
-const defaultResponseData: ResponseData = {
-  header: "",
-  employees: [],
-}
-
 const View: FC<ViewProps> = ({ data, setMode }) => {
-  if (!data)
+  const isDataEmpty = Object.values(data).every((val) => val === null)
+
+  if (isDataEmpty)
     return (
       <Button
         size="lg"

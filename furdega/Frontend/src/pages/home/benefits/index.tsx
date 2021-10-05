@@ -1,8 +1,8 @@
 import { FC } from "react"
 import { Row, Col } from "react-bootstrap"
 
+import { CompanyBenefitsSectionResponse } from "../../../types/home/benefits"
 import { BenefitCard } from "./benefit-card"
-import { CompanyBenefitsSectionResponse } from "../../../types/company-benefits-section"
 
 const Benefits: FC<CompanyBenefitsSectionResponse> = ({
   header,
@@ -18,16 +18,16 @@ const Benefits: FC<CompanyBenefitsSectionResponse> = ({
       <div>
         <Row className="g-0 flex-nowrap justify-content-evenly flex-column flex-md-row">
           <Col xs={12}>
-            <BenefitCard {...companyBenefit1} />
+            <BenefitCard data={companyBenefit1} />
           </Col>
           <Col xs={12}>
-            <BenefitCard {...companyBenefit2} />
+            <BenefitCard data={companyBenefit2} />
           </Col>
           <Col xs={12}>
-            <BenefitCard {...companyBenefit3} />
+            <BenefitCard data={companyBenefit3} />
           </Col>
           <Col xs={12}>
-            <BenefitCard {...companyBenefit4} />
+            <BenefitCard data={companyBenefit4} />
           </Col>
         </Row>
       </div>

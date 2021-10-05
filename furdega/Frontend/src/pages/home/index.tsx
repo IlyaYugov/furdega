@@ -11,7 +11,6 @@ import {
   scrollspyAnchorsMap,
 } from "../../const/home"
 import { homeApi } from "../../api/home/home-api"
-import { HomePageContent } from "../../types/home-page-content"
 import { About } from "./about"
 import { WorkExamples } from "./work-examples"
 import { Benefits } from "./benefits"
@@ -19,6 +18,7 @@ import { Solutions } from "./solutions"
 import { Process } from "./process"
 import { Staff } from "./staff"
 import styles from "./home.module.scss"
+import { HomePageContent } from "../../types/home/content"
 
 const Home: FC = () => {
   const [content, setContent] = useState<HomePageContent>(
@@ -58,7 +58,7 @@ const Home: FC = () => {
           <img
             className="img-fluid w-100"
             src={content.mainHomeSection.image?.imageUrl}
-            alt={content.mainHomeSection.image?.imageUrl}
+            alt=""
           />
         </LazyLoad>
       </Container>

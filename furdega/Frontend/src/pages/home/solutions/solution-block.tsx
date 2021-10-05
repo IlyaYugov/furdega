@@ -4,30 +4,25 @@ import LazyLoad from "react-lazyload"
 
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
 import { RoundedButton } from "../../../components/rounded-button"
-import { IssueSolutionResponse } from "../../../types/issue-solutions-section"
+import { IssueSolutionResponse } from "../../../types/home/solutions"
 
-const SolutionBlock: FC<IssueSolutionResponse & { leftAligned?: boolean }> = ({
-  title,
-  image,
-  description,
-  leftAligned = false,
-}) => {
+type SolutionBlockProps = {
+  data: IssueSolutionResponse | null
+}
+
+const SolutionBlock: FC<SolutionBlockProps> = ({ data }) => {
   return (
     <>
       <Row className="g-0">
         <Col md={4}></Col>
         <Col md={8}>
-          <h3 className="text-primary">{title}</h3>
+          <h3 className="text-primary">{data?.title || ""}</h3>
         </Col>
       </Row>
 
       <div className="mt-5">
         <LazyLoad height={500}>
-          <img
-            className="img-fluid w-100"
-            src={image?.imageUrl}
-            alt={image?.imageUrl}
-          />
+          <img className="img-fluid w-100" src={data?.image?.imageUrl} alt="" />
         </LazyLoad>
       </div>
 
@@ -35,7 +30,7 @@ const SolutionBlock: FC<IssueSolutionResponse & { leftAligned?: boolean }> = ({
         <Col xs={0} lg={4}></Col>
         <Col xs={12} lg={8}>
           <Row className="g-4 flex-column flex-sm-row flex-nowrap">
-            <Col className="text-white">{description}</Col>
+            <Col className="text-white">{data?.description || ""}</Col>
             <Col>
               <RoundedButton>бесплатная консультация</RoundedButton>
             </Col>

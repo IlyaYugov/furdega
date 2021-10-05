@@ -4,8 +4,8 @@ import { Row, Col } from "react-bootstrap"
 import { Edit } from "./edit"
 import { View } from "./view"
 import { AdminSectionMode } from "../../../../const/admin"
-import { WorkingProcessSectionResponse } from "../../../../types/working-process-section"
 import { workingProcessSectionApi } from "../../../../api/home/working-process-section-api"
+import { WorkingProcessSectionResponse } from "../../../../types/home/process"
 
 const ProcessSection: FC = () => {
   const [data, setData] = useState<WorkingProcessSectionResponse | null>(null)
@@ -18,9 +18,11 @@ const ProcessSection: FC = () => {
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [mode])
 
   const renderContent = () => {
+    if (!data) return null
+
     switch (mode) {
       case AdminSectionMode.view:
         return <View data={data} setMode={setMode} />

@@ -1,9 +1,10 @@
 import axios from "axios"
 
 import {
-  WorkingProcessSectionRequest,
+  WorkingProcessSectionUpdateRequest,
+  WorkingProcessSectionCreateRequest,
   WorkingProcessSectionResponse,
-} from "../../types/working-process-section"
+} from "../../types/home/process"
 
 const BASE_URL = "/api/home/working-process"
 
@@ -14,13 +15,13 @@ const workingProcessSectionApi = {
   },
 
   create: async (
-    request: WorkingProcessSectionRequest
+    request: WorkingProcessSectionCreateRequest
   ): Promise<void> => {
     await axios.post(BASE_URL, request)
   },
 
   update: async (
-    request: WorkingProcessSectionRequest
+    request: WorkingProcessSectionUpdateRequest
   ): Promise<void> => {
     await axios.put(BASE_URL, request)
   },

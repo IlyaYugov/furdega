@@ -2,15 +2,17 @@ import { Dispatch, FC, SetStateAction } from "react"
 import { Col, Row, Button } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../../const/admin"
-import { WorkExamplesSectionResponse } from "../../../../types/work-examples-section"
+import { WorkExamplesSectionResponse } from "../../../../types/home/examples"
 
 type ViewProps = {
-  data: WorkExamplesSectionResponse | null
+  data: WorkExamplesSectionResponse
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
 const View: FC<ViewProps> = ({ data, setMode }) => {
-  if (!data)
+  const isDataEmpty = Object.values(data).every((val) => val === null)
+
+  if (isDataEmpty)
     return (
       <Button
         size="lg"

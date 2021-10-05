@@ -3,30 +3,24 @@ import { Row, Col, InputGroup, Button, Form } from "react-bootstrap"
 
 import { workingProcessSectionApi } from "../../../../api/home/working-process-section-api"
 import { AdminSectionMode } from "../../../../const/admin"
-import { defaultWorkingProcessSection } from "../../../../const/home"
-import {
-  WorkingProcessSectionRequest,
-  WorkingProcessSectionResponse,
-} from "../../../../types/working-process-section"
+import { WorkingProcessSectionResponse } from "../../../../types/home/process"
 
 type EditProps = {
-  data: WorkingProcessSectionResponse | null
+  data: WorkingProcessSectionResponse
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
-const Edit: FC<EditProps> = (props) => {
-  const isCreate = !props.data
+const Edit: FC<EditProps> = ({ data, setMode }) => {
+  const isDataEmpty = Object.values(data).every((val) => val === null)
 
-  const data = props.data || defaultWorkingProcessSection
-
-  const [header, setHeader] = useState<string>(data.header)
-  const [firstStage, setFirstStage] = useState<string>(data.firstStage)
-  const [secondStage, setSecondStage] = useState<string>(data.secondStage)
-  const [thirdStage, setThirdStage] = useState<string>(data.thirdStage)
-  const [finalStage, setFinalStage] = useState<string>(data.finalStage)
+  const [header, setHeader] = useState<string>(data.header || "")
+  const [firstStage, setFirstStage] = useState<string>(data.firstStage || "")
+  const [secondStage, setSecondStage] = useState<string>(data.secondStage || "")
+  const [thirdStage, setThirdStage] = useState<string>(data.thirdStage || "")
+  const [finalStage, setFinalStage] = useState<string>(data.finalStage || "")
 
   const save = async () => {
-    const request: WorkingProcessSectionRequest = {
+    const request = {
       header,
       firstStage,
       secondStage,
@@ -34,7 +28,7 @@ const Edit: FC<EditProps> = (props) => {
       finalStage,
     }
 
-    if (isCreate) {
+    if (isDataEmpty) {
       await workingProcessSectionApi.create(request)
     } else {
       await workingProcessSectionApi.update(request)
@@ -129,7 +123,7 @@ const Edit: FC<EditProps> = (props) => {
               size="lg"
               variant="secondary"
               onClick={() => {
-                props.setMode(AdminSectionMode.view)
+                setMode(AdminSectionMode.view)
               }}
             >
               Отмена

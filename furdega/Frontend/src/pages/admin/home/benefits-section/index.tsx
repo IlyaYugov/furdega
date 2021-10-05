@@ -5,7 +5,7 @@ import { companyBenefitsApi } from "../../../../api/home/company-benefits-api"
 import { Edit } from "./edit"
 import { View } from "./view"
 import { AdminSectionMode } from "../../../../const/admin"
-import { CompanyBenefitsSectionResponse } from "../../../../types/company-benefits-section"
+import { CompanyBenefitsSectionResponse } from "../../../../types/home/benefits"
 
 const BenefitsSection: FC = () => {
   const [data, setData] = useState<CompanyBenefitsSectionResponse | null>(null)
@@ -18,9 +18,11 @@ const BenefitsSection: FC = () => {
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [mode])
 
   const renderContent = () => {
+    if (!data) return null
+
     switch (mode) {
       case AdminSectionMode.view:
         return <View data={data} setMode={setMode} />

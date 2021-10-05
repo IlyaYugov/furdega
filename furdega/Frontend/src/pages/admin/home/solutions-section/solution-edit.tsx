@@ -1,24 +1,14 @@
 import { FC } from "react"
 import { Col, Form, Row } from "react-bootstrap"
-import { v4 as uuidv4 } from "uuid"
 
-import { ImageRequest } from "../../../../types/image-request"
-import { IssueSolutionResponse } from "../../../../types/issue-solutions-section"
+import { IssueSolutionResponse } from "../../../../types/home/solutions"
 import { FormInputEvent } from "../../../../types/utils"
 import { fileToBase64 } from "../../../../utils/fileToBase64"
 
 type SolutionEditProps = {
   value: IssueSolutionResponse
-  onChange: (
-    newBenefit: IssueSolutionResponse,
-    imageChangeEvent?: ImageRequest
-  ) => void
+  onChange: (newBenefit: IssueSolutionResponse, base64?: string) => void
 }
-
-const getNewImageRequest = (base64: string): ImageRequest => ({
-  id: uuidv4(),
-  base64ImageString: base64,
-})
 
 const SolutionEdit: FC<SolutionEditProps> = ({ value, onChange }) => {
   const onImageChange = async (event: FormInputEvent) => {
@@ -34,7 +24,7 @@ const SolutionEdit: FC<SolutionEditProps> = ({ value, onChange }) => {
         ...value,
         image: { ...value.image, imageUrl: fileUrl },
       },
-      getNewImageRequest(base64)
+      base64
     )
   }
 
@@ -80,7 +70,7 @@ const SolutionEdit: FC<SolutionEditProps> = ({ value, onChange }) => {
             <Col>
               <img
                 src={value.image?.imageUrl}
-                alt={value.image?.imageUrl}
+                alt=""
                 className="img-fluid w-100"
               />
             </Col>

@@ -1,6 +1,7 @@
 import { FC } from "react"
 import { Col, Row } from "react-bootstrap"
-import { WorkExampleResponse } from "../../../../types/work-examples-section"
+
+import { WorkExampleResponse } from "../../../../types/home/examples"
 
 type WorkExampleViewProps = WorkExampleResponse
 
@@ -55,21 +56,21 @@ const WorkExampleView: FC<WorkExampleViewProps> = ({
           <Col>
             <img
               src={beforeImage1?.imageUrl}
-              alt={beforeImage1?.imageUrl}
+              alt=""
               className="img-fluid w-100"
             />
           </Col>
           <Col>
             <img
               src={beforeImage2?.imageUrl}
-              alt={beforeImage2?.imageUrl}
+              alt=""
               className="img-fluid w-100"
             />
           </Col>
           <Col>
             <img
               src={beforeImage3?.imageUrl}
-              alt={beforeImage3?.imageUrl}
+              alt=""
               className="img-fluid w-100"
             />
           </Col>
@@ -83,21 +84,21 @@ const WorkExampleView: FC<WorkExampleViewProps> = ({
           <Col>
             <img
               src={afterImage1?.imageUrl}
-              alt={afterImage1?.imageUrl}
+              alt=""
               className="img-fluid w-100"
             />
           </Col>
           <Col>
             <img
               src={afterImage2?.imageUrl}
-              alt={afterImage2?.imageUrl}
+              alt=""
               className="img-fluid w-100"
             />
           </Col>
           <Col>
             <img
               src={afterImage3?.imageUrl}
-              alt={afterImage3?.imageUrl}
+              alt=""
               className="img-fluid w-100"
             />
           </Col>

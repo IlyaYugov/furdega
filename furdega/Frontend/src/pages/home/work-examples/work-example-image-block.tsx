@@ -1,14 +1,13 @@
 import { FC } from "react"
 import { Col, Row, Button } from "react-bootstrap"
 import LazyLoad from "react-lazyload"
-
-import { ImageResponse } from "../../../types/image-response"
+import { ImageResponse } from "../../../types/image"
 
 type WorkExampleImageBlockProps = {
   before?: boolean
-  image1: ImageResponse
-  image2: ImageResponse
-  image3: ImageResponse
+  image1: ImageResponse | null
+  image2: ImageResponse | null
+  image3: ImageResponse | null
 }
 
 const WorkExampleImageBlock: FC<WorkExampleImageBlockProps> = ({

@@ -4,11 +4,11 @@ import { v4 as uuidv4 } from "uuid"
 
 import { mainHomeSectionApi } from "../../../../api/home/main-home-section-api"
 import { AdminSectionMode } from "../../../../const/admin"
-import { ImageResponse } from "../../../../types/image-response"
 import {
-  MainHomeSectionRequest,
+  MainHomeSectionCreateRequest,
   MainHomeSectionResponse,
-} from "../../../../types/main-home-section"
+} from "../../../../types/home/main"
+import { ImageResponse, ImageUpdateRequest } from "../../../../types/image"
 import { FormInputEvent } from "../../../../types/utils"
 import { fileToBase64 } from "../../../../utils/fileToBase64"
 
@@ -17,21 +17,18 @@ type EditProps = {
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
-const getDefaultResponseData = (): MainHomeSectionResponse => ({
-  header: "",
-  image: {
-    id: uuidv4(),
-    imageUrl: "",
-  },
+const getDefaultImage = (): ImageResponse => ({
+  id: uuidv4(),
+  imageUrl: "",
 })
 
-const Edit: FC<EditProps> = (props) => {
-  const isEmpty = !Object.values(props.data).some((val) => val)
+const Edit: FC<EditProps> = ({ data, setMode }) => {
+  const isDataEmpty = Object.values(data).every((val) => val === null)
 
-  const data = props.data || getDefaultResponseData()
-
-  const [header, setHeader] = useState<string>(data.header)
-  const [image, setImage] = useState<ImageResponse>(data.image)
+  const [header, setHeader] = useState<string>(data.header || "")
+  const [image, setImage] = useState<ImageResponse>(
+    data.image || getDefaultImage()
+  )
   const [newImageBase64, setNewImageBase64] = useState<string>("")
 
   const onImageChange = async (event: FormInputEvent) => {
@@ -47,24 +44,33 @@ const Edit: FC<EditProps> = (props) => {
   }
 
   const save = async () => {
-    const request: MainHomeSectionRequest = {
-      header,
-    }
+    if (isDataEmpty) {
+      if (!newImageBase64) return
 
-    if (newImageBase64) {
-      request.image = {
-        id: image.id,
-        base64ImageString: newImageBase64,
+      const request: MainHomeSectionCreateRequest = {
+        header,
+        image: {
+          id: image.id,
+          base64ImageString: newImageBase64,
+        },
       }
-    }
 
-    if (isEmpty) {
       await mainHomeSectionApi.create(request)
     } else {
-      await mainHomeSectionApi.update(request)
+      const imageRequest: ImageUpdateRequest = {
+        id: image.id,
+        base64ImageString: null,
+      }
+
+      if (newImageBase64) imageRequest.base64ImageString = newImageBase64
+
+      await mainHomeSectionApi.update({
+        header,
+        image: imageRequest,
+      })
     }
 
-    props.setMode(AdminSectionMode.view)
+    setMode(AdminSectionMode.view)
   }
 
   return (
@@ -119,7 +125,7 @@ const Edit: FC<EditProps> = (props) => {
               size="lg"
               variant="secondary"
               onClick={() => {
-                props.setMode(AdminSectionMode.view)
+                setMode(AdminSectionMode.view)
               }}
             >
               Отмена

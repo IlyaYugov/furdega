@@ -1,6 +1,9 @@
 import axios from "axios"
-
-import { IssueSolutionsSectionRequest, IssueSolutionsSectionResponse } from "../../types/issue-solutions-section"
+import {
+  IssueSolutionsSectionCreateRequest,
+  IssueSolutionsSectionResponse,
+  IssueSolutionsSectionUpdateRequest,
+} from "../../types/home/solutions"
 
 const BASE_URL = "/api/home/issue-solutions"
 
@@ -10,11 +13,15 @@ const issueSolutionsSectionApi = {
     return response.data
   },
 
-  create: async (request: IssueSolutionsSectionRequest): Promise<void> => {
+  create: async (
+    request: IssueSolutionsSectionCreateRequest
+  ): Promise<void> => {
     await axios.post(BASE_URL, request)
   },
 
-  update: async (request: IssueSolutionsSectionRequest): Promise<void> => {
+  update: async (
+    request: IssueSolutionsSectionUpdateRequest
+  ): Promise<void> => {
     await axios.put(BASE_URL, request)
   },
 }

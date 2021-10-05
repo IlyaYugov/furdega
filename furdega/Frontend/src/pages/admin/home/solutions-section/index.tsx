@@ -4,8 +4,8 @@ import { Row, Col } from "react-bootstrap"
 import { Edit } from "./edit"
 import { View } from "./view"
 import { AdminSectionMode } from "../../../../const/admin"
-import { IssueSolutionsSectionResponse } from "../../../../types/issue-solutions-section"
 import { issueSolutionsSectionApi } from "../../../../api/home/issue-solutions-section-api"
+import { IssueSolutionsSectionResponse } from "../../../../types/home/solutions"
 
 const SolutionsSection: FC = () => {
   const [data, setData] = useState<IssueSolutionsSectionResponse | null>(null)
@@ -18,9 +18,11 @@ const SolutionsSection: FC = () => {
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [mode])
 
   const renderContent = () => {
+    if (!data) return null
+
     switch (mode) {
       case AdminSectionMode.view:
         return <View data={data} setMode={setMode} />

@@ -1,34 +1,35 @@
 import { Dispatch, FC, SetStateAction, useState } from "react"
 import { Row, Col, InputGroup, Form, Button } from "react-bootstrap"
-import clone from "just-clone"
 
 import { aboutSectionApi } from "../../../../api/home/about-section-api"
 import { AdminSectionMode } from "../../../../const/admin"
-import { defaultAboutSection } from "../../../../const/home"
 import {
-  AboutSectionRequest,
+  AboutSectionCreateRequest,
   AboutSectionResponse,
-} from "../../../../types/about-section"
+  AboutSectionUpdateRequest,
+} from "../../../../types/home/about"
 
 type EditProps = {
-  data: AboutSectionResponse | null
+  data: AboutSectionResponse
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
-const Edit: FC<EditProps> = (props) => {
-  const isCreate = !props.data
+const Edit: FC<EditProps> = ({ data, setMode }) => {
+  const isDataEmpty = Object.values(data).every((val) => val === null)
 
-  const [data, setData] = useState<AboutSectionResponse>(
-    clone(props.data || defaultAboutSection)
-  )
+  const [header, setHeader] = useState<string>(data.header || "")
+  const [text, setText] = useState<string>(data.text || "")
 
   const save = async () => {
-    const request: AboutSectionRequest = { ...data }
-    if (isCreate) {
+    if (isDataEmpty) {
+      const request: AboutSectionCreateRequest = { header, text }
       await aboutSectionApi.create(request)
     } else {
+      const request: AboutSectionUpdateRequest = { header, text }
       await aboutSectionApi.update(request)
     }
+
+    setMode(AdminSectionMode.view)
   }
 
   return (
@@ -41,9 +42,9 @@ const Edit: FC<EditProps> = (props) => {
 
           <Form.Control
             as="textarea"
-            value={data.header}
+            value={header}
             onChange={(event) => {
-              setData({ ...data, header: event.target.value })
+              setHeader(event.target.value)
             }}
           />
         </InputGroup>
@@ -54,9 +55,9 @@ const Edit: FC<EditProps> = (props) => {
           <InputGroup.Text className="w-25">Текст</InputGroup.Text>
           <Form.Control
             as="textarea"
-            value={data.text}
+            value={text}
             onChange={(event) => {
-              setData({ ...data, text: event.target.value })
+              setText(event.target.value)
             }}
           />
         </InputGroup>
@@ -80,7 +81,7 @@ const Edit: FC<EditProps> = (props) => {
               size="lg"
               variant="secondary"
               onClick={() => {
-                props.setMode(AdminSectionMode.view)
+                setMode(AdminSectionMode.view)
               }}
             >
               Отмена

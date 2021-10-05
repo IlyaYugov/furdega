@@ -1,9 +1,9 @@
 import axios from "axios"
-
 import {
+  MainHomeSectionCreateRequest,
   MainHomeSectionResponse,
-  MainHomeSectionRequest,
-} from "../../types/main-home-section"
+  MainHomeSectionUpdateRequest,
+} from "../../types/home/main"
 
 const BASE_URL = "/api/home/main"
 
@@ -13,11 +13,11 @@ const mainHomeSectionApi = {
     return response.data
   },
 
-  create: async (request: MainHomeSectionRequest): Promise<void> => {
+  create: async (request: MainHomeSectionCreateRequest): Promise<void> => {
     await axios.post(BASE_URL, request)
   },
 
-  update: async (request: MainHomeSectionRequest): Promise<void> => {
+  update: async (request: MainHomeSectionUpdateRequest): Promise<void> => {
     await axios.put(BASE_URL, request)
   },
 }

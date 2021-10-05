@@ -2,7 +2,7 @@ import { Dispatch, FC, SetStateAction } from "react"
 import { Col, Row, Button } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../../const/admin"
-import { MainHomeSectionResponse } from "../../../../types/main-home-section"
+import { MainHomeSectionResponse } from "../../../../types/home/main"
 
 type ViewProps = {
   data: MainHomeSectionResponse
@@ -10,9 +10,9 @@ type ViewProps = {
 }
 
 const View: FC<ViewProps> = ({ data, setMode }) => {
-  const isEmpty = !Object.values(data).some((val) => val)
+  const isDataEmpty = Object.values(data).every((val) => val === null)
 
-  if (isEmpty)
+  if (isDataEmpty)
     return (
       <Button
         size="lg"

@@ -2,9 +2,9 @@ import { FC, useEffect, useState } from "react"
 import { Row, Col } from "react-bootstrap"
 
 import { EmployeeCard } from "./employee-card"
-import { StaffSectionResponse } from "../../../types/staff-section"
-import { EmployeeResponse } from "../../../types/staff"
 import { staffApi } from "../../../api/staff-api"
+import { EmployeeResponse } from "../../../types/home/employee"
+import { StaffSectionResponse } from "../../../types/home/staff"
 
 const Staff: FC<StaffSectionResponse> = ({ header }) => {
   const [employees, setEmployees] = useState<EmployeeResponse[]>([])

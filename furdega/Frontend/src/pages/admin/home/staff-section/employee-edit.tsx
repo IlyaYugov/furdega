@@ -1,9 +1,13 @@
 import { FC, useEffect, useState } from "react"
 import { Modal, Button, Form, Row, Col } from "react-bootstrap"
 import { v4 as uuidv4 } from "uuid"
-import { staffApi } from "../../../../api/staff-api"
 
-import { EmployeeRequest, EmployeeResponse } from "../../../../types/staff"
+import { staffApi } from "../../../../api/staff-api"
+import {
+  EmployeeCreateRequest,
+  EmployeeResponse,
+  EmployeeUpdateRequest,
+} from "../../../../types/home/employee"
 import { FormInputEvent } from "../../../../types/utils"
 import { fileToBase64 } from "../../../../utils/fileToBase64"
 
@@ -34,7 +38,7 @@ const EmployeeEdit: FC<EmployeeEditProps> = ({
   const isCreate = employeeId === NEW_EMPLOYEE_ID
 
   const [employee, setEmployee] = useState<EmployeeResponse | null>(null)
-  const [newImageBase64, setNewImageBase64] = useState<string>("")
+  const [newImageBase64, setNewImageBase64] = useState<string | null>(null)
 
   const fetchData = async () => {
     if (isCreate) {
@@ -69,22 +73,31 @@ const EmployeeEdit: FC<EmployeeEditProps> = ({
   const onSubmitClick = async () => {
     if (!employee) return
 
-    const request: EmployeeRequest = {
-      firstName: employee.firstName,
-      lastName: employee.lastName,
-      description: employee.description,
-    }
-
-    if (newImageBase64) {
-      request.image = {
-        id: employee.image.id,
-        base64ImageString: newImageBase64,
-      }
-    }
-
     if (isCreate) {
+      if (!newImageBase64) return
+
+      const request: EmployeeCreateRequest = {
+        firstName: employee.firstName,
+        lastName: employee.lastName,
+        description: employee.description,
+        image: {
+          id: employee.image.id,
+          base64ImageString: newImageBase64,
+        },
+      }
+
       await staffApi.create(request)
     } else {
+      const request: EmployeeUpdateRequest = {
+        firstName: employee.firstName,
+        lastName: employee.lastName,
+        description: employee.description,
+        image: {
+          id: employee.image.id,
+          base64ImageString: newImageBase64 || null,
+        },
+      }
+
       await staffApi.update(employeeId, request)
     }
   }
@@ -151,7 +164,7 @@ const EmployeeEdit: FC<EmployeeEditProps> = ({
                 <Col>
                   <img
                     src={employee.image?.imageUrl}
-                    alt={employee.image?.imageUrl}
+                    alt=""
                     className="img-fluid w-100"
                   />
                 </Col>

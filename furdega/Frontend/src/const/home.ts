@@ -1,23 +1,22 @@
-import { MainHomeSectionResponse } from "../types/main-home-section"
-import { ScrollspyAnchor } from "../types/scrollspy-anchor"
-import {
-  WorkExampleResponse,
-  WorkExamplesSectionResponse,
-} from "../types/work-examples-section"
-import {
-  IssueSolutionResponse,
-  IssueSolutionsSectionResponse,
-} from "../types/issue-solutions-section"
+import { AboutSectionResponse } from "../types/home/about"
 import {
   CompanyBenefitResponse,
   CompanyBenefitsSectionResponse,
-} from "../types/company-benefits-section"
-import { AboutSectionResponse } from "../types/about-section"
-import { WorkingProcessSectionResponse } from "../types/working-process-section"
-import { StaffSectionResponse } from "../types/staff-section"
-import { HomePageContent } from "../types/home-page-content"
-import { ImageResponse } from "../types/image-response"
-import { EmployeeResponse } from "../types/staff"
+} from "../types/home/benefits"
+import { HomePageContent } from "../types/home/content"
+import {
+  WorkExampleResponse,
+  WorkExamplesSectionResponse,
+} from "../types/home/examples"
+import { MainHomeSectionResponse } from "../types/home/main"
+import { WorkingProcessSectionResponse } from "../types/home/process"
+import {
+  IssueSolutionResponse,
+  IssueSolutionsSectionResponse,
+} from "../types/home/solutions"
+import { StaffSectionResponse } from "../types/home/staff"
+import { ImageResponse } from "../types/image"
+import { ScrollspyAnchor } from "../types/scrollspy-anchor"
 
 const scrollspyAnchorsMap: Record<string, ScrollspyAnchor> = {
   about: {
@@ -122,14 +121,6 @@ const defaultIssueSolutionsSection: IssueSolutionsSectionResponse = {
   issueSolution2: defaultIssueSolution,
   issueSolution3: defaultIssueSolution,
   issueSolution4: defaultIssueSolution,
-}
-
-const defaultEmployee: EmployeeResponse = {
-  id: -1,
-  firstName: "",
-  lastName: "",
-  image: defaultImageResponse,
-  description: "",
 }
 
 const defaultStaffSection: StaffSectionResponse = {

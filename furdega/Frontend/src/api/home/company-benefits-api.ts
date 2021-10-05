@@ -1,6 +1,9 @@
 import axios from "axios"
-
-import { CompanyBenefitsSectionRequest, CompanyBenefitsSectionResponse } from "../../types/company-benefits-section"
+import {
+  CompanyBenefitsSectionCreateRequest,
+  CompanyBenefitsSectionResponse,
+  CompanyBenefitsSectionUpdateRequest,
+} from "../../types/home/benefits"
 
 const BASE_URL = "/api/home/company-benefits"
 
@@ -10,11 +13,15 @@ const companyBenefitsApi = {
     return response.data
   },
 
-  create: async (request: CompanyBenefitsSectionRequest): Promise<void> => {
+  create: async (
+    request: CompanyBenefitsSectionCreateRequest
+  ): Promise<void> => {
     await axios.post(BASE_URL, request)
   },
 
-  update: async (request: CompanyBenefitsSectionRequest): Promise<void> => {
+  update: async (
+    request: CompanyBenefitsSectionUpdateRequest
+  ): Promise<void> => {
     await axios.put(BASE_URL, request)
   },
 }

@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { Col, Form, Row } from "react-bootstrap"
-import { ImageResponse } from "../../../../types/image-response"
+import { ImageResponse } from "../../../../types/image"
 import { FormInputEvent } from "../../../../types/utils"
 import { fileToBase64 } from "../../../../utils/fileToBase64"
 
@@ -27,11 +27,7 @@ const WorkExampleImageEdit: FC<WorkExampleImageEditProps> = ({
   return (
     <Row className="flex-column gy-2">
       <Col>
-        <img
-          src={image?.imageUrl}
-          alt={image?.imageUrl}
-          className="img-fluid w-100"
-        />
+        <img src={image?.imageUrl} alt="" className="img-fluid w-100" />
       </Col>
 
       <Col>

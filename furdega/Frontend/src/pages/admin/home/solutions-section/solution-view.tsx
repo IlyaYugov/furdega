@@ -1,11 +1,16 @@
 import { FC } from "react"
 import { Col, Row } from "react-bootstrap"
+import { IssueSolutionResponse } from "../../../../types/home/solutions"
 
-import { IssueSolutionResponse } from "../../../../types/issue-solutions-section"
+type SolutionViewProps = {
+  data: IssueSolutionResponse | null
+}
 
-type SolutionViewProps = IssueSolutionResponse
+const SolutionView: FC<SolutionViewProps> = ({ data }) => {
+  if (!data) return null
 
-const SolutionView: FC<SolutionViewProps> = ({ title, image, description }) => {
+  const { title, image, description } = data
+
   return (
     <Row className="flex-column gy-3">
       <Col>
@@ -20,11 +25,7 @@ const SolutionView: FC<SolutionViewProps> = ({ title, image, description }) => {
 
       <Col>
         <h5>Изображение</h5>
-        <img
-          src={image?.imageUrl}
-          alt={image?.imageUrl}
-          className="img-fluid w-100"
-        />
+        <img src={image?.imageUrl} alt="" className="img-fluid w-100" />
       </Col>
     </Row>
   )

@@ -1,137 +1,141 @@
 import { FC, useState } from "react"
 import { Col, Form, Row } from "react-bootstrap"
-import { v4 as uuidv4 } from "uuid"
+import { WorkExampleResponse } from "../../../../types/home/examples"
+import { ImageResponse } from "../../../../types/image"
 
-import { ImageRequest } from "../../../../types/image-request"
-import { ImageResponse } from "../../../../types/image-response"
-import { WorkExampleResponse } from "../../../../types/work-examples-section"
-import { ImagesChangeEvent } from "./edit"
+import { WorkExampleNewImagesBase64 } from "./edit"
 import { WorkExampleImageEdit } from "./work-example-image-edit"
 
 type WorkExampleEditProps = {
   value: WorkExampleResponse
   onChange: (
     newExample: WorkExampleResponse,
-    imagesChangeEvent?: ImagesChangeEvent
+    newImagesBase64Event?: WorkExampleNewImagesBase64
   ) => void
 }
 
-const getNewImageRequest = (base64: string): ImageRequest => ({
-  id: uuidv4(),
-  base64ImageString: base64,
-})
-
 const WorkExampleEdit: FC<WorkExampleEditProps> = ({ value, onChange }) => {
-  const [imagesChangeEvent, setImagesChangeEvent] = useState<ImagesChangeEvent>(
-    {}
-  )
+  const [newImagesBase64Event, setNewImagesBase64Event] =
+    useState<WorkExampleNewImagesBase64>({})
 
   const onBeforeImage1Change = (
     newImage: ImageResponse,
     newImageBase64: string
   ) => {
-    const newImagesChangeEvent = {
-      ...imagesChangeEvent,
-      beforeImage1: getNewImageRequest(newImageBase64),
+    const newNewImagesChangeEvent: WorkExampleNewImagesBase64 = {
+      ...newImagesBase64Event,
+      beforeImage1: newImageBase64,
     }
+
     onChange(
       {
         ...value,
         beforeImage1: newImage,
       },
-      newImagesChangeEvent
+      newNewImagesChangeEvent
     )
-    setImagesChangeEvent(newImagesChangeEvent)
+
+    setNewImagesBase64Event(newNewImagesChangeEvent)
   }
 
   const onBeforeImage2Change = (
     newImage: ImageResponse,
     newImageBase64: string
   ) => {
-    const newImagesChangeEvent = {
-      ...imagesChangeEvent,
-      beforeImage2: getNewImageRequest(newImageBase64),
+    const newNewImagesChangeEvent: WorkExampleNewImagesBase64 = {
+      ...newImagesBase64Event,
+      beforeImage2: newImageBase64,
     }
+
     onChange(
       {
         ...value,
         beforeImage2: newImage,
       },
-      newImagesChangeEvent
+      newNewImagesChangeEvent
     )
-    setImagesChangeEvent(newImagesChangeEvent)
+
+    setNewImagesBase64Event(newNewImagesChangeEvent)
   }
 
   const onBeforeImage3Change = (
     newImage: ImageResponse,
     newImageBase64: string
   ) => {
-    const newImagesChangeEvent = {
-      ...imagesChangeEvent,
-      beforeImage3: getNewImageRequest(newImageBase64),
+    const newNewImagesChangeEvent: WorkExampleNewImagesBase64 = {
+      ...newImagesBase64Event,
+      beforeImage3: newImageBase64,
     }
+
     onChange(
       {
         ...value,
         beforeImage3: newImage,
       },
-      newImagesChangeEvent
+      newNewImagesChangeEvent
     )
-    setImagesChangeEvent(newImagesChangeEvent)
+
+    setNewImagesBase64Event(newNewImagesChangeEvent)
   }
 
   const onAfterImage1Change = (
     newImage: ImageResponse,
     newImageBase64: string
   ) => {
-    const newImagesChangeEvent = {
-      ...imagesChangeEvent,
-      afterImage1: getNewImageRequest(newImageBase64),
+    const newNewImagesChangeEvent: WorkExampleNewImagesBase64 = {
+      ...newImagesBase64Event,
+      afterImage1: newImageBase64,
     }
+
     onChange(
       {
         ...value,
         afterImage1: newImage,
       },
-      newImagesChangeEvent
+      newNewImagesChangeEvent
     )
-    setImagesChangeEvent(newImagesChangeEvent)
+
+    setNewImagesBase64Event(newNewImagesChangeEvent)
   }
 
   const onAfterImage2Change = (
     newImage: ImageResponse,
     newImageBase64: string
   ) => {
-    const newImagesChangeEvent = {
-      ...imagesChangeEvent,
-      afterImage2: getNewImageRequest(newImageBase64),
+    const newNewImagesChangeEvent: WorkExampleNewImagesBase64 = {
+      ...newImagesBase64Event,
+      afterImage2: newImageBase64,
     }
+
     onChange(
       {
         ...value,
         afterImage2: newImage,
       },
-      newImagesChangeEvent
+      newNewImagesChangeEvent
     )
-    setImagesChangeEvent(newImagesChangeEvent)
+
+    setNewImagesBase64Event(newNewImagesChangeEvent)
   }
 
   const onAfterImage3Change = (
     newImage: ImageResponse,
     newImageBase64: string
   ) => {
-    const newImagesChangeEvent = {
-      ...imagesChangeEvent,
-      afterImage3: getNewImageRequest(newImageBase64),
+    const newNewImagesChangeEvent: WorkExampleNewImagesBase64 = {
+      ...newImagesBase64Event,
+      afterImage3: newImageBase64,
     }
+
     onChange(
       {
         ...value,
         afterImage3: newImage,
       },
-      newImagesChangeEvent
+      newNewImagesChangeEvent
     )
-    setImagesChangeEvent(newImagesChangeEvent)
+
+    setNewImagesBase64Event(newNewImagesChangeEvent)
   }
 
   return (

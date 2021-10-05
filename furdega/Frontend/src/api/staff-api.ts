@@ -1,6 +1,9 @@
 import axios from "axios"
-
-import { EmployeeRequest, EmployeeResponse } from "../types/staff"
+import {
+  EmployeeCreateRequest,
+  EmployeeResponse,
+  EmployeeUpdateRequest,
+} from "../types/home/employee"
 
 const BASE_URL = "/api/staff"
 
@@ -15,11 +18,11 @@ const staffApi = {
     return response.data
   },
 
-  create: async (request: EmployeeRequest): Promise<void> => {
+  create: async (request: EmployeeCreateRequest): Promise<void> => {
     await axios.post(BASE_URL, request)
   },
 
-  update: async (id: number, request: EmployeeRequest): Promise<void> => {
+  update: async (id: number, request: EmployeeUpdateRequest): Promise<void> => {
     await axios.put(`${BASE_URL}/${id}`, request)
   },
 

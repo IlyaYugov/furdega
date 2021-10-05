@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from "react"
 import { Row, Col } from "react-bootstrap"
 
-import { WorkExamplesSectionResponse } from "../../../../types/work-examples-section"
 import { Edit } from "./edit"
 import { View } from "./view"
 import { AdminSectionMode } from "../../../../const/admin"
 import { workExamplesSectionApi } from "../../../../api/home/work-examples-section-api"
+import { WorkExamplesSectionResponse } from "../../../../types/home/examples"
 
 const WorkExamplesSection: FC = () => {
   const [data, setData] = useState<WorkExamplesSectionResponse | null>(null)
@@ -18,9 +18,11 @@ const WorkExamplesSection: FC = () => {
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [mode])
 
   const renderContent = () => {
+    if (!data) return null
+
     switch (mode) {
       case AdminSectionMode.view:
         return <View data={data} setMode={setMode} />

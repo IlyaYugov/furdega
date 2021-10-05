@@ -1,9 +1,7 @@
 import { FC } from "react"
 import { Col, Form, Row } from "react-bootstrap"
-import { v4 as uuidv4 } from "uuid"
 
-import { CompanyBenefitResponse } from "../../../../types/company-benefits-section"
-import { ImageRequest } from "../../../../types/image-request"
+import { CompanyBenefitResponse } from "../../../../types/home/benefits"
 import { FormInputEvent } from "../../../../types/utils"
 import { fileToBase64 } from "../../../../utils/fileToBase64"
 
@@ -11,14 +9,9 @@ type BenefitEditProps = {
   value: CompanyBenefitResponse
   onChange: (
     newBenefit: CompanyBenefitResponse,
-    imageChangeEvent?: ImageRequest
+    newImageBase64?: string
   ) => void
 }
-
-const getNewImageRequest = (base64: string): ImageRequest => ({
-  id: uuidv4(),
-  base64ImageString: base64,
-})
 
 const BenefitEdit: FC<BenefitEditProps> = ({ value, onChange }) => {
   const onImageChange = async (event: FormInputEvent) => {
@@ -34,7 +27,7 @@ const BenefitEdit: FC<BenefitEditProps> = ({ value, onChange }) => {
         ...value,
         image: { ...value.image, imageUrl: fileUrl },
       },
-      getNewImageRequest(base64)
+      base64
     )
   }
 
@@ -80,7 +73,7 @@ const BenefitEdit: FC<BenefitEditProps> = ({ value, onChange }) => {
             <Col>
               <img
                 src={value.image?.imageUrl}
-                alt={value.image?.imageUrl}
+                alt=""
                 className="img-fluid w-100"
               />
             </Col>

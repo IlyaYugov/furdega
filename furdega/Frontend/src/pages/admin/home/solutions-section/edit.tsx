@@ -6,20 +6,18 @@ import { v4 as uuidv4 } from "uuid"
 import { AdminSectionMode } from "../../../../const/admin"
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 import { FormInputEvent } from "../../../../types/utils"
-import { ImageRequest } from "../../../../types/image-request"
+import { SolutionEdit } from "./solution-edit"
 import {
   IssueSolutionResponse,
-  IssueSolutionsSectionRequest,
   IssueSolutionsSectionResponse,
-} from "../../../../types/issue-solutions-section"
-import { SolutionEdit } from "./solution-edit"
+} from "../../../../types/home/solutions"
 
 type EditProps = {
-  data: IssueSolutionsSectionResponse | null
+  data: IssueSolutionsSectionResponse
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
-const getNewSolution = (): IssueSolutionResponse => ({
+const getDefaultSolution = (): IssueSolutionResponse => ({
   title: "",
   image: {
     id: uuidv4(),
@@ -28,134 +26,88 @@ const getNewSolution = (): IssueSolutionResponse => ({
   description: "",
 })
 
-const getDefaultResponseData = (): IssueSolutionsSectionResponse => ({
-  header: "",
-  issueSolution1: getNewSolution(),
-  issueSolution2: getNewSolution(),
-  issueSolution3: getNewSolution(),
-  issueSolution4: getNewSolution(),
-})
+type NewImagesBase64 = {
+  solution1?: string
+  solution2?: string
+  solution3?: string
+  solution4?: string
+}
 
-const getDefaultRequestData = ({
-  header,
-  issueSolution1,
-  issueSolution2,
-  issueSolution3,
-  issueSolution4,
-}: IssueSolutionsSectionResponse): IssueSolutionsSectionRequest => ({
-  header,
-  issueSolution1: {
-    title: issueSolution1.title,
-    description: issueSolution1.description,
-  },
-  issueSolution2: {
-    title: issueSolution2.title,
-    description: issueSolution2.description,
-  },
-  issueSolution3: {
-    title: issueSolution3.title,
-    description: issueSolution3.description,
-  },
-  issueSolution4: {
-    title: issueSolution4.title,
-    description: issueSolution4.description,
-  },
-})
+const Edit: FC<EditProps> = ({ data, setMode }) => {
+  const isDataEmpty = Object.values(data).every((val) => val === null)
 
-const Edit: FC<EditProps> = (props) => {
-  const isCreate = !props.data
-
-  const data = props.data || getDefaultResponseData()
-
-  const [requestData, setRequestData] = useState<IssueSolutionsSectionRequest>(
-    getDefaultRequestData(data)
-  )
-  const [header, setHeader] = useState<string>(data.header)
+  const [newImagesBase64, setNewImagesBase64] = useState<NewImagesBase64>({})
+  const [header, setHeader] = useState<string>(data.header || "")
   const [solution1, setSolution1] = useState<IssueSolutionResponse>(
-    clone(data.issueSolution1)
+    clone(data.issueSolution1 || getDefaultSolution())
   )
   const [solution2, setSolution2] = useState<IssueSolutionResponse>(
-    clone(data.issueSolution2)
+    clone(data.issueSolution2 || getDefaultSolution())
   )
   const [solution3, setSolution3] = useState<IssueSolutionResponse>(
-    clone(data.issueSolution3)
+    clone(data.issueSolution3 || getDefaultSolution())
   )
   const [solution4, setSolution4] = useState<IssueSolutionResponse>(
-    clone(data.issueSolution4)
+    clone(data.issueSolution4 || getDefaultSolution())
   )
 
   const save = async () => {
-    console.log(requestData)
-  }
-
-  const onHeaderChange = (event: FormInputEvent) => {
-    const value = (event.target as HTMLInputElement).value
-    setHeader(value)
-    setRequestData({ ...requestData, header: value })
+    // isDataEmpty
+    console.log()
   }
 
   const onSolution1Change = (
     solution1: IssueSolutionResponse,
-    newImage?: ImageRequest
+    newImageBase64?: string
   ) => {
     setSolution1(solution1)
 
-    if (newImage) {
-      setRequestData({
-        ...requestData,
-        issueSolution1: {
-          ...requestData.issueSolution1,
-          image: newImage,
-        },
+    if (newImageBase64) {
+      setNewImagesBase64({
+        ...newImagesBase64,
+        solution1: newImageBase64,
       })
     }
   }
 
   const onSolution2Change = (
     solution2: IssueSolutionResponse,
-    newImage?: ImageRequest
+    newImageBase64?: string
   ) => {
     setSolution2(solution2)
 
-    if (newImage) {
-      setRequestData({
-        ...requestData,
-        issueSolution2: {
-          ...requestData.issueSolution2,
-          image: newImage,
-        },
+    if (newImageBase64) {
+      setNewImagesBase64({
+        ...newImagesBase64,
+        solution2: newImageBase64,
       })
     }
   }
+
   const onSolution3Change = (
     solution3: IssueSolutionResponse,
-    newImage?: ImageRequest
+    newImageBase64?: string
   ) => {
     setSolution3(solution3)
 
-    if (newImage) {
-      setRequestData({
-        ...requestData,
-        issueSolution3: {
-          ...requestData.issueSolution3,
-          image: newImage,
-        },
+    if (newImageBase64) {
+      setNewImagesBase64({
+        ...newImagesBase64,
+        solution3: newImageBase64,
       })
     }
   }
+
   const onSolution4Change = (
     solution4: IssueSolutionResponse,
-    newImage?: ImageRequest
+    newImageBase64?: string
   ) => {
     setSolution4(solution4)
 
-    if (newImage) {
-      setRequestData({
-        ...requestData,
-        issueSolution4: {
-          ...requestData.issueSolution4,
-          image: newImage,
-        },
+    if (newImageBase64) {
+      setNewImagesBase64({
+        ...newImagesBase64,
+        solution4: newImageBase64,
       })
     }
   }
@@ -173,7 +125,9 @@ const Edit: FC<EditProps> = (props) => {
           <Form.Control
             as="textarea"
             value={header}
-            onChange={onHeaderChange}
+            onChange={(event) => {
+              setHeader(event.target.value)
+            }}
           />
         </InputGroup>
       </Col>
@@ -232,7 +186,7 @@ const Edit: FC<EditProps> = (props) => {
               size="lg"
               variant="secondary"
               onClick={() => {
-                props.setMode(AdminSectionMode.view)
+                setMode(AdminSectionMode.view)
               }}
             >
               Отмена

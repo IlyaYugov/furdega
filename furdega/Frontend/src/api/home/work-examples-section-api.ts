@@ -1,9 +1,10 @@
 import axios from "axios"
 
 import {
+  WorkExamplesSectionCreateRequest,
   WorkExamplesSectionResponse,
-  WorkExamplesSectionRequest,
-} from "../../types/work-examples-section"
+  WorkExamplesSectionUpdateRequest,
+} from "../../types/home/examples"
 
 const BASE_URL = "/api/home/work-examples"
 
@@ -13,11 +14,11 @@ const workExamplesSectionApi = {
     return response.data
   },
 
-  create: async (request: WorkExamplesSectionRequest): Promise<void> => {
+  create: async (request: WorkExamplesSectionCreateRequest): Promise<void> => {
     await axios.post(BASE_URL, request)
   },
 
-  update: async (request: WorkExamplesSectionRequest): Promise<void> => {
+  update: async (request: WorkExamplesSectionUpdateRequest): Promise<void> => {
     await axios.put(BASE_URL, request)
   },
 }

@@ -2,7 +2,7 @@ import { FC } from "react"
 import { Row, Col } from "react-bootstrap"
 
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
-import { IssueSolutionsSectionResponse } from "../../../types/issue-solutions-section"
+import { IssueSolutionsSectionResponse } from "../../../types/home/solutions"
 import { SolutionBlock } from "./solution-block"
 
 const Solutions: FC<IssueSolutionsSectionResponse> = ({
@@ -27,10 +27,10 @@ const Solutions: FC<IssueSolutionsSectionResponse> = ({
         <Col md={4}></Col>
       </Row>
 
-      <SolutionBlock {...issueSolution1} />
-      <SolutionBlock {...issueSolution2} />
-      <SolutionBlock {...issueSolution3} />
-      <SolutionBlock {...issueSolution4} />
+      <SolutionBlock data={issueSolution1} />
+      <SolutionBlock data={issueSolution2} />
+      <SolutionBlock data={issueSolution3} />
+      <SolutionBlock data={issueSolution4} />
     </>
   )
 }

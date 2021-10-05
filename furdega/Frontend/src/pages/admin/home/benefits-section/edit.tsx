@@ -5,21 +5,21 @@ import { v4 as uuidv4 } from "uuid"
 
 import { AdminSectionMode } from "../../../../const/admin"
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
-import { FormInputEvent } from "../../../../types/utils"
 import { BenefitEdit } from "./benefit-edit"
 import {
   CompanyBenefitResponse,
-  CompanyBenefitsSectionRequest,
   CompanyBenefitsSectionResponse,
-} from "../../../../types/company-benefits-section"
-import { ImageRequest } from "../../../../types/image-request"
+  CompanyBenefitsSectionCreateRequest,
+  CompanyBenefitsSectionUpdateRequest,
+} from "../../../../types/home/benefits"
+import { companyBenefitsApi } from "../../../../api/home/company-benefits-api"
 
 type EditProps = {
-  data: CompanyBenefitsSectionResponse | null
+  data: CompanyBenefitsSectionResponse
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
-const getNewBenefit = (): CompanyBenefitResponse => ({
+const getDefaultBenefit = (): CompanyBenefitResponse => ({
   title: "",
   image: {
     id: uuidv4(),
@@ -28,134 +28,141 @@ const getNewBenefit = (): CompanyBenefitResponse => ({
   description: "",
 })
 
-const getDefaultResponseData = (): CompanyBenefitsSectionResponse => ({
-  header: "",
-  companyBenefit1: getNewBenefit(),
-  companyBenefit2: getNewBenefit(),
-  companyBenefit3: getNewBenefit(),
-  companyBenefit4: getNewBenefit(),
-})
+type NewImagesBase64 = {
+  benefit1?: string
+  benefit2?: string
+  benefit3?: string
+  benefit4?: string
+}
 
-const getDefaultRequestData = ({
-  header,
-  companyBenefit1,
-  companyBenefit2,
-  companyBenefit3,
-  companyBenefit4,
-}: CompanyBenefitsSectionResponse): CompanyBenefitsSectionRequest => ({
-  header,
-  companyBenefit1: {
-    title: companyBenefit1.title,
-    description: companyBenefit1.description,
-  },
-  companyBenefit2: {
-    title: companyBenefit2.title,
-    description: companyBenefit2.description,
-  },
-  companyBenefit3: {
-    title: companyBenefit3.title,
-    description: companyBenefit3.description,
-  },
-  companyBenefit4: {
-    title: companyBenefit4.title,
-    description: companyBenefit4.description,
-  },
-})
+const Edit: FC<EditProps> = ({ data, setMode }) => {
+  const isDataEmpty = Object.values(data).every((val) => val === null)
 
-const Edit: FC<EditProps> = (props) => {
-  const isCreate = !props.data
-
-  const data = props.data || getDefaultResponseData()
-
-  const [requestData, setRequestData] = useState<CompanyBenefitsSectionRequest>(
-    getDefaultRequestData(data)
-  )
-  const [header, setHeader] = useState<string>(data.header)
+  const [newImagesBase64, setNewImagesBase64] = useState<NewImagesBase64>({})
+  const [header, setHeader] = useState<string>(data.header || "")
   const [benefit1, setBenefit1] = useState<CompanyBenefitResponse>(
-    clone(data.companyBenefit1)
+    clone(data.companyBenefit1 || getDefaultBenefit())
   )
   const [benefit2, setBenefit2] = useState<CompanyBenefitResponse>(
-    clone(data.companyBenefit2)
+    clone(data.companyBenefit2 || getDefaultBenefit())
   )
   const [benefit3, setBenefit3] = useState<CompanyBenefitResponse>(
-    clone(data.companyBenefit3)
+    clone(data.companyBenefit3 || getDefaultBenefit())
   )
   const [benefit4, setBenefit4] = useState<CompanyBenefitResponse>(
-    clone(data.companyBenefit3)
+    clone(data.companyBenefit3 || getDefaultBenefit())
   )
 
   const save = async () => {
-    console.log(requestData)
-  }
+    const request = {
+      header,
+      companyBenefit1: {
+        ...benefit1,
+        image: {
+          id: benefit1.image.id,
+          base64ImageString: newImagesBase64.benefit1 || null,
+        },
+      },
+      companyBenefit2: {
+        ...benefit2,
+        image: {
+          id: benefit2.image.id,
+          base64ImageString: newImagesBase64.benefit2 || null,
+        },
+      },
+      companyBenefit3: {
+        ...benefit3,
+        image: {
+          id: benefit3.image.id,
+          base64ImageString: newImagesBase64.benefit3 || null,
+        },
+      },
+      companyBenefit4: {
+        ...benefit4,
+        image: {
+          id: benefit4.image.id,
+          base64ImageString: newImagesBase64.benefit4 || null,
+        },
+      },
+    }
 
-  const onHeaderChange = (event: FormInputEvent) => {
-    const value = (event.target as HTMLInputElement).value
-    setHeader(value)
-    setRequestData({ ...requestData, header: value })
+    if (isDataEmpty) {
+      if (
+        !(
+          request.companyBenefit1.image.base64ImageString &&
+          request.companyBenefit2.image.base64ImageString &&
+          request.companyBenefit3.image.base64ImageString &&
+          request.companyBenefit4.image.base64ImageString
+        )
+      ) {
+        // TODO предупреждение
+        return
+      }
+
+      await companyBenefitsApi.create(
+        request as CompanyBenefitsSectionCreateRequest
+      )
+    } else {
+      await companyBenefitsApi.update(
+        request as CompanyBenefitsSectionUpdateRequest
+      )
+    }
+
+    setMode(AdminSectionMode.view)
   }
 
   const onBenefit1Change = (
     benefit1: CompanyBenefitResponse,
-    newImage?: ImageRequest
+    newImageBase64?: string
   ) => {
     setBenefit1(benefit1)
 
-    if (newImage) {
-      setRequestData({
-        ...requestData,
-        companyBenefit1: {
-          ...requestData.companyBenefit1,
-          image: newImage,
-        },
+    if (newImageBase64) {
+      setNewImagesBase64({
+        ...newImagesBase64,
+        benefit1: newImageBase64,
       })
     }
   }
 
   const onBenefit2Change = (
     benefit2: CompanyBenefitResponse,
-    newImage?: ImageRequest
+    newImageBase64?: string
   ) => {
     setBenefit2(benefit2)
 
-    if (newImage) {
-      setRequestData({
-        ...requestData,
-        companyBenefit2: {
-          ...requestData.companyBenefit2,
-          image: newImage,
-        },
+    if (newImageBase64) {
+      setNewImagesBase64({
+        ...newImagesBase64,
+        benefit2: newImageBase64,
       })
     }
   }
+
   const onBenefit3Change = (
     benefit3: CompanyBenefitResponse,
-    newImage?: ImageRequest
+    newImageBase64?: string
   ) => {
     setBenefit3(benefit3)
 
-    if (newImage) {
-      setRequestData({
-        ...requestData,
-        companyBenefit3: {
-          ...requestData.companyBenefit3,
-          image: newImage,
-        },
+    if (newImageBase64) {
+      setNewImagesBase64({
+        ...newImagesBase64,
+        benefit3: newImageBase64,
       })
     }
   }
+
   const onBenefit4Change = (
     benefit4: CompanyBenefitResponse,
-    newImage?: ImageRequest
+    newImageBase64?: string
   ) => {
     setBenefit4(benefit4)
 
-    if (newImage) {
-      setRequestData({
-        ...requestData,
-        companyBenefit4: {
-          ...requestData.companyBenefit4,
-          image: newImage,
-        },
+    if (newImageBase64) {
+      setNewImagesBase64({
+        ...newImagesBase64,
+        benefit4: newImageBase64,
       })
     }
   }
@@ -173,7 +180,9 @@ const Edit: FC<EditProps> = (props) => {
           <Form.Control
             as="textarea"
             value={header}
-            onChange={onHeaderChange}
+            onChange={(event) => {
+              setHeader(event.target.value)
+            }}
           />
         </InputGroup>
       </Col>
@@ -232,7 +241,7 @@ const Edit: FC<EditProps> = (props) => {
               size="lg"
               variant="secondary"
               onClick={() => {
-                props.setMode(AdminSectionMode.view)
+                setMode(AdminSectionMode.view)
               }}
             >
               Отмена

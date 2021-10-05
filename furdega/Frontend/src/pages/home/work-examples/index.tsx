@@ -2,13 +2,11 @@ import { FC } from "react"
 
 import { WorkExample } from "./work-example"
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
-import { WorkExamplesSectionResponse } from "../../../types/work-examples-section"
+import { WorkExamplesSectionResponse } from "../../../types/home/examples"
 
 type WorkExamplesProps = { data: WorkExamplesSectionResponse }
 
 const WorkExamples: FC<WorkExamplesProps> = ({ data }) => {
-  if (!data) return null
-
   const { header, workExample1, workExample2, workExample3 } = data
 
   return (
@@ -17,17 +15,17 @@ const WorkExamples: FC<WorkExamplesProps> = ({ data }) => {
 
       <div className="block-content">
         <div className="mb-5">
-          <WorkExample {...workExample1} />
+          <WorkExample data={workExample1} />
           <YellowSnakeIcon className="mt-5" />
         </div>
 
         <div className="mb-5">
-          <WorkExample {...workExample2} />
+          <WorkExample data={workExample2} />
           <YellowSnakeIcon className="mt-5" />
         </div>
 
         <div className="mb-5">
-          <WorkExample {...workExample3} />
+          <WorkExample data={workExample3} />
           <YellowSnakeIcon className="mt-5" />
         </div>
       </div>

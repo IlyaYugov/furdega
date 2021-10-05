@@ -2,16 +2,18 @@ import { Dispatch, FC, SetStateAction } from "react"
 import { Col, Row, Button } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../../const/admin"
-import { CompanyBenefitsSectionResponse } from "../../../../types/company-benefits-section"
+import { CompanyBenefitsSectionResponse } from "../../../../types/home/benefits"
 import { BenefitView } from "./benefit-view"
 
 type ViewProps = {
-  data: CompanyBenefitsSectionResponse | null
+  data: CompanyBenefitsSectionResponse
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
 const View: FC<ViewProps> = ({ data, setMode }) => {
-  if (!data)
+  const isDataEmpty = Object.values(data).every((val) => val === null)
+
+  if (isDataEmpty)
     return (
       <Button
         size="lg"
@@ -39,19 +41,19 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
       </Col>
 
       <Col>
-        <BenefitView {...companyBenefit1} />
+        <BenefitView data={companyBenefit1} />
       </Col>
 
       <Col>
-        <BenefitView {...companyBenefit2} />
+        <BenefitView data={companyBenefit2} />
       </Col>
 
       <Col>
-        <BenefitView {...companyBenefit3} />
+        <BenefitView data={companyBenefit3} />
       </Col>
 
       <Col>
-        <BenefitView {...companyBenefit4} />
+        <BenefitView data={companyBenefit4} />
       </Col>
 
       <Col className="d-flex justify-content-end">

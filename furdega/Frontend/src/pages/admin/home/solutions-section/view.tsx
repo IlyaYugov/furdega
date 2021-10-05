@@ -2,16 +2,18 @@ import { Dispatch, FC, SetStateAction } from "react"
 import { Col, Row, Button } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../../const/admin"
-import { IssueSolutionsSectionResponse } from "../../../../types/issue-solutions-section"
+import { IssueSolutionsSectionResponse } from "../../../../types/home/solutions"
 import { SolutionView } from "./solution-view"
 
 type ViewProps = {
-  data: IssueSolutionsSectionResponse | null
+  data: IssueSolutionsSectionResponse
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
 const View: FC<ViewProps> = ({ data, setMode }) => {
-  if (!data)
+  const isDataEmpty = Object.values(data).every((val) => val === null)
+
+  if (isDataEmpty)
     return (
       <Button
         size="lg"
@@ -39,19 +41,19 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
       </Col>
 
       <Col>
-        <SolutionView {...issueSolution1} />
+        <SolutionView data={issueSolution1} />
       </Col>
 
       <Col>
-        <SolutionView {...issueSolution2} />
+        <SolutionView data={issueSolution2} />
       </Col>
 
       <Col>
-        <SolutionView {...issueSolution3} />
+        <SolutionView data={issueSolution3} />
       </Col>
 
       <Col>
-        <SolutionView {...issueSolution4} />
+        <SolutionView data={issueSolution4} />
       </Col>
 
       <Col className="d-flex justify-content-end">

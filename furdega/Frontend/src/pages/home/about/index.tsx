@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Col, Row } from "react-bootstrap"
 
-import { AboutSectionResponse } from "../../../types/about-section"
+import { AboutSectionResponse } from "../../../types/home/about"
 
 const About: FC<AboutSectionResponse> = ({ header, text }) => {
   return (

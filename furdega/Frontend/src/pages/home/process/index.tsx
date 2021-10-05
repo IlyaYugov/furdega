@@ -2,8 +2,7 @@ import { FC } from "react"
 import { Row, Col } from "react-bootstrap"
 import LazyLoad from "react-lazyload"
 
-import { WorkingProcessSectionResponse } from "../../../types/working-process-section"
-
+import { WorkingProcessSectionResponse } from "../../../types/home/process"
 import styles from "./process.module.scss"
 
 const Process: FC<WorkingProcessSectionResponse> = ({

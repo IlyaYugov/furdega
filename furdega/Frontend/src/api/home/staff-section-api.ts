@@ -1,6 +1,9 @@
 import axios from "axios"
-
-import { StaffSectionRequest, StaffSectionResponse } from "../../types/staff-section"
+import {
+  StaffSectionUpdateRequest,
+  StaffSectionCreateRequest,
+  StaffSectionResponse,
+} from "../../types/home/staff"
 
 const BASE_URL = "/api/home/staff"
 
@@ -10,13 +13,13 @@ const staffSectionApi = {
     return response.data
   },
 
-  create: async (request: StaffSectionRequest): Promise<void> => {
+  create: async (request: StaffSectionCreateRequest): Promise<void> => {
     await axios.post(BASE_URL, request)
   },
 
-  update: async (request: StaffSectionRequest): Promise<void> => {
+  update: async (request: StaffSectionUpdateRequest): Promise<void> => {
     await axios.put(BASE_URL, request)
-  }
+  },
 }
 
 export { staffSectionApi }

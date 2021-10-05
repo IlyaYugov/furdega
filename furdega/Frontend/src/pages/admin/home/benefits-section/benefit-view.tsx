@@ -1,11 +1,17 @@
 import { FC } from "react"
 import { Col, Row } from "react-bootstrap"
 
-import { CompanyBenefitResponse } from "../../../../types/company-benefits-section"
+import { CompanyBenefitResponse } from "../../../../types/home/benefits"
 
-type BenefitViewProps = CompanyBenefitResponse
+type BenefitViewProps = {
+  data: CompanyBenefitResponse | null
+}
 
-const BenefitView: FC<BenefitViewProps> = ({ title, image, description }) => {
+const BenefitView: FC<BenefitViewProps> = ({ data }) => {
+  if (!data) return null
+
+  const { title, image, description } = data
+
   return (
     <Row className="flex-column gy-3">
       <Col>
@@ -20,11 +26,7 @@ const BenefitView: FC<BenefitViewProps> = ({ title, image, description }) => {
 
       <Col>
         <h5>Изображение</h5>
-        <img
-          src={image?.imageUrl}
-          alt={image?.imageUrl}
-          className="img-fluid w-100"
-        />
+        <img src={image?.imageUrl} alt="" className="img-fluid w-100" />
       </Col>
     </Row>
   )

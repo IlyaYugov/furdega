@@ -4,10 +4,10 @@ import { Row, Col } from "react-bootstrap"
 import { Edit } from "./edit"
 import { View } from "./view"
 import { AdminSectionMode } from "../../../../const/admin"
-import { StaffSectionResponse } from "../../../../types/staff-section"
-import { EmployeeResponse } from "../../../../types/staff"
 import { staffSectionApi } from "../../../../api/home/staff-section-api"
 import { staffApi } from "../../../../api/staff-api"
+import { StaffSectionResponse } from "../../../../types/home/staff"
+import { EmployeeResponse } from "../../../../types/home/employee"
 
 export type ResponseData = StaffSectionResponse & {
   employees: EmployeeResponse[]
@@ -30,9 +30,11 @@ const StaffSection: FC = () => {
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [mode])
 
   const renderContent = () => {
+    if (!data) return null
+
     switch (mode) {
       case AdminSectionMode.view:
         return <View data={data} setMode={setMode} />

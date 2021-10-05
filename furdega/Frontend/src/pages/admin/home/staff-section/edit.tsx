@@ -12,29 +12,22 @@ import clone from "just-clone"
 
 import { ResponseData } from "."
 import { AdminSectionMode } from "../../../../const/admin"
-import { EmployeeResponse } from "../../../../types/staff"
 import { EmployeeEdit, NEW_EMPLOYEE_ID } from "./employee-edit"
 import { staffApi } from "../../../../api/staff-api"
 import { staffSectionApi } from "../../../../api/home/staff-section-api"
+import { EmployeeResponse } from "../../../../types/home/employee"
 
 type EditProps = {
-  data: ResponseData | null
+  data: ResponseData
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
-const defaultResponseData: ResponseData = {
-  header: "",
-  employees: [],
-}
+const Edit: FC<EditProps> = ({ data, setMode }) => {
+  const isDataEmpty = Object.values(data).every((val) => val === null)
 
-const Edit: FC<EditProps> = (props) => {
-  const isCreate = !props.data
-
-  const data = props.data || defaultResponseData
-
-  const [header, setHeader] = useState<string>(data.header)
+  const [header, setHeader] = useState<string>(data.header || "")
   const [employees, setEmployees] = useState<EmployeeResponse[]>(
-    clone(data.employees)
+    clone(data.employees || [])
   )
   const [isEmployeeEditOpen, setIsEmployeeEditOpen] = useState<boolean>(false)
   const [employeeEditId, setEmployeeEditId] = useState<number>(NEW_EMPLOYEE_ID)
@@ -44,7 +37,7 @@ const Edit: FC<EditProps> = (props) => {
   }
 
   const save = async () => {
-    if (isCreate) {
+    if (isDataEmpty) {
       await staffSectionApi.create({ header })
     } else {
       await staffSectionApi.update({ header })
@@ -135,7 +128,7 @@ const Edit: FC<EditProps> = (props) => {
                 size="lg"
                 variant="secondary"
                 onClick={() => {
-                  props.setMode(AdminSectionMode.view)
+                  setMode(AdminSectionMode.view)
                 }}
               >
                 Отмена

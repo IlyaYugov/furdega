@@ -4,8 +4,8 @@ import { Row, Col } from "react-bootstrap"
 import { Edit } from "./edit"
 import { View } from "./view"
 import { AdminSectionMode } from "../../../../const/admin"
-import { MainHomeSectionResponse } from "../../../../types/main-home-section"
 import { mainHomeSectionApi } from "../../../../api/home/main-home-section-api"
+import { MainHomeSectionResponse } from "../../../../types/home/main"
 
 const MainHomeSection: FC = () => {
   const [data, setData] = useState<MainHomeSectionResponse | null>(null)
@@ -21,7 +21,6 @@ const MainHomeSection: FC = () => {
   }, [mode])
 
   const renderContent = () => {
-    // TODO spinner
     if (!data) return null
 
     switch (mode) {
