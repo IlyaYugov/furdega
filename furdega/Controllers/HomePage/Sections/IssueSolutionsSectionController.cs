@@ -4,10 +4,12 @@ using Furdega.Services.HomePage.Sections;
 using Furdega.Services.HomePage.Sections.IssueSolutions;
 using Furdega.Services.HomePage.Sections.IssueSolutions.Dtos.Input;
 using Furdega.Services.HomePage.Sections.IssueSolutions.Dtos.Output;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers.HomePage.Sections
 {
+    [Authorize]
     [Route("api/home/issue-solutions")]
     [ApiController]
     public class IssueSolutionsSectionController : ControllerBase
@@ -19,6 +21,7 @@ namespace Furdega.Controllers.HomePage.Sections
             _sectionService = sectionService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IssueSolutionsSectionResponse> Get()
         {

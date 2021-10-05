@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 using Furdega.Services.MaterialTypes;
 using Furdega.Services.MaterialTypes.Dtos.Input;
 using Furdega.Services.MaterialTypes.Dtos.Output;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Furdega.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MaterialTypeController : ControllerBase
@@ -18,6 +20,7 @@ namespace Furdega.Controllers
             _materialTypeService = materialTypeService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<MaterialTypeResponse>> GetTypes()
         {

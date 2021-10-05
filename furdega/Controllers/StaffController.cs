@@ -6,9 +6,11 @@ using Furdega.Services.HomePage.Sections;
 using Furdega.Services.Staff;
 using Furdega.Services.Staff.Dtos.Input;
 using Furdega.Services.Staff.Dtos.Output;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Furdega.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class StaffController : ControllerBase
@@ -20,12 +22,14 @@ namespace Furdega.Controllers
             _employeeService = employeeService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<EmployeeResponse>> GetEmployees()
         {
             return await _employeeService.GetAll();
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:int}")]
         public async Task<EmployeeResponse> GetEmployees(int id)
         {

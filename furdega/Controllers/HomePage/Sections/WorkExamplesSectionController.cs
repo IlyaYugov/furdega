@@ -4,10 +4,12 @@ using Furdega.Services.HomePage.Sections;
 using Furdega.Services.HomePage.Sections.WorkExamples;
 using Furdega.Services.HomePage.Sections.WorkExamples.Dtos.Input;
 using Furdega.Services.HomePage.Sections.WorkExamples.Dtos.Output;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers.HomePage.Sections
 {
+    [Authorize]
     [Route("api/home/work-examples")]
     [ApiController]
     public class WorkExamplesSectionController : ControllerBase
@@ -19,6 +21,7 @@ namespace Furdega.Controllers.HomePage.Sections
             _sectionService = sectionService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<WorkExamplesSectionResponse> Get()
         {

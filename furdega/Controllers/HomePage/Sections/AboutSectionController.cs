@@ -2,10 +2,12 @@
 using Furdega.Services.HomePage.Sections.About;
 using Furdega.Services.HomePage.Sections.About.Dtos.Input;
 using Furdega.Services.HomePage.Sections.About.Dtos.Output;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers.HomePage.Sections
 {
+    [Authorize]
     [Route("api/home/about")]
     [ApiController]
     public class AboutSectionController : ControllerBase
@@ -17,6 +19,7 @@ namespace Furdega.Controllers.HomePage.Sections
             _sectionService = sectionService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<AboutSectionResponse> Get()
         {

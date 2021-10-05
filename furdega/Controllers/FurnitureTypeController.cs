@@ -3,10 +3,12 @@ using System.Threading.Tasks;
 using Furdega.Services.FurnitureTypes;
 using Furdega.Services.FurnitureTypes.Dtos.Input;
 using Furdega.Services.FurnitureTypes.Dtos.Output;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FurnitureTypeController : ControllerBase
@@ -18,6 +20,7 @@ namespace Furdega.Controllers
             _furnitureTypeService = furnitureTypeService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<FurnitureTypeResponse>> GetTypes()
         {
