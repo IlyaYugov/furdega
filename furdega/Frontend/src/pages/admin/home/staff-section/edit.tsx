@@ -1,19 +1,12 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react"
-import {
-  Row,
-  Col,
-  InputGroup,
-  Form,
-  Button,
-  ListGroup,
-  ButtonGroup,
-} from "react-bootstrap"
+import { Row, Col, Form, Button, ListGroup, ButtonGroup } from "react-bootstrap"
 
 import { ResponseData } from "."
 import { AdminSectionMode } from "../../../../const/admin"
 import { EmployeeEdit, NEW_EMPLOYEE_ID } from "./employee-edit"
 import { staffApi } from "../../../../api/staff-api"
 import { staffSectionApi } from "../../../../api/home/staff-section-api"
+import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 
 type EditProps = {
   data: ResponseData
@@ -22,9 +15,8 @@ type EditProps = {
 }
 
 const Edit: FC<EditProps> = ({ data, setMode, fetchData }) => {
-  const isDataEmpty = Object.values(data).every(
-    (val) => (Array.isArray(val) && val.length === 0) || val === null
-  )
+  const isSectionEmpty = data.header === null
+
   const [header, setHeader] = useState<string>(data.header || "")
   const [isEmployeeEditOpen, setIsEmployeeEditOpen] = useState<boolean>(false)
   const [employeeEditId, setEmployeeEditId] = useState<number>(NEW_EMPLOYEE_ID)
@@ -34,7 +26,7 @@ const Edit: FC<EditProps> = ({ data, setMode, fetchData }) => {
   }
 
   const save = async () => {
-    if (isDataEmpty) {
+    if (isSectionEmpty) {
       await staffSectionApi.create({ header })
     } else {
       await staffSectionApi.update({ header })
@@ -43,6 +35,7 @@ const Edit: FC<EditProps> = ({ data, setMode, fetchData }) => {
 
   useEffect(() => {
     if (!isEmployeeEditOpen) {
+      // TODO fix double data fetching
       fetchData()
     }
   }, [isEmployeeEditOpen])
@@ -51,23 +44,22 @@ const Edit: FC<EditProps> = ({ data, setMode, fetchData }) => {
     <>
       <Row className="flex-column gy-3">
         <Col>
-          <InputGroup>
-            <InputGroup.Text className="w-25 text-center text-wrap">
-              Текст заголовка
-            </InputGroup.Text>
-
-            <Form.Control
-              as="input"
-              value={header}
-              onChange={(event) => {
-                setHeader(event.target.value)
-              }}
-            />
-          </InputGroup>
+          <h4 className="fw-bold">Заголовок секции</h4>
+          <Form.Control
+            as="input"
+            value={header}
+            onChange={(event) => {
+              setHeader(event.target.value)
+            }}
+          />
         </Col>
 
         <Col>
-          <h4>Персонал</h4>
+          <YellowSnakeIcon />
+        </Col>
+
+        <Col>
+          <h4 className="fw-bold">Сотрудники</h4>
 
           <ListGroup className="mb-3">
             {data.employees.map((employee) => (
@@ -88,7 +80,7 @@ const Edit: FC<EditProps> = ({ data, setMode, fetchData }) => {
                         Редактировать
                       </Button>
                       <Button
-                        variant="danger"
+                        variant="outline-dark"
                         onClick={() => {
                           deleteEmployeeById(employee.id)
                         }}
@@ -103,7 +95,7 @@ const Edit: FC<EditProps> = ({ data, setMode, fetchData }) => {
           </ListGroup>
 
           <Button
-            variant="outline-primary"
+            variant="outline-dark"
             onClick={() => {
               setEmployeeEditId(NEW_EMPLOYEE_ID)
               setIsEmployeeEditOpen(true)

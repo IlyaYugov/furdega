@@ -1,8 +1,9 @@
 import { Dispatch, FC, SetStateAction } from "react"
-import { Row, Col, Button, ListGroup } from "react-bootstrap"
+import { Row, Col, Button } from "react-bootstrap"
 
 import { ResponseData } from "."
 import { AdminSectionMode } from "../../../../const/admin"
+import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 
 type ViewProps = {
   data: ResponseData
@@ -30,36 +31,35 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
 
   return (
     <Row className="flex-column gy-3">
-      <Col>
-        <h5>Заголовок</h5>
-        <div>{header}</div>
-      </Col>
-
-      <Col>
-        <h4>Персонал</h4>
-
-        <ListGroup className="mb-3">
-          {employees.map((employee) => (
-            <ListGroup.Item>
-              <Row className="flex-nowrap">
-                <Col className="flex-fill">
-                  {employee.firstName}&nbsp;{employee.lastName}
-                </Col>
-              </Row>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      </Col>
-
       <Col className="d-flex justify-content-end">
         <Button
-          size="lg"
           onClick={() => {
             setMode(AdminSectionMode.edit)
           }}
         >
           Редактировать
         </Button>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Заголовок секции</h4>
+        <div>{header}</div>
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Сотрудники</h4>
+
+        <Row className="flex-column gy-3">
+          {employees.map((employee) => (
+            <Col>
+              {employee.firstName}&nbsp;{employee.lastName}
+            </Col>
+          ))}
+        </Row>
       </Col>
     </Row>
   )
