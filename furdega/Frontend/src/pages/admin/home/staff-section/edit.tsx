@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from "react"
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react"
 import {
   Row,
   Col,
@@ -8,27 +8,24 @@ import {
   ListGroup,
   ButtonGroup,
 } from "react-bootstrap"
-import clone from "just-clone"
 
 import { ResponseData } from "."
 import { AdminSectionMode } from "../../../../const/admin"
 import { EmployeeEdit, NEW_EMPLOYEE_ID } from "./employee-edit"
 import { staffApi } from "../../../../api/staff-api"
 import { staffSectionApi } from "../../../../api/home/staff-section-api"
-import { EmployeeResponse } from "../../../../types/home/employee"
 
 type EditProps = {
   data: ResponseData
+  fetchData: () => Promise<void>
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
-const Edit: FC<EditProps> = ({ data, setMode }) => {
-  const isDataEmpty = Object.values(data).every((val) => val === null)
-
-  const [header, setHeader] = useState<string>(data.header || "")
-  const [employees, setEmployees] = useState<EmployeeResponse[]>(
-    clone(data.employees || [])
+const Edit: FC<EditProps> = ({ data, setMode, fetchData }) => {
+  const isDataEmpty = Object.values(data).every(
+    (val) => (Array.isArray(val) && val.length === 0) || val === null
   )
+  const [header, setHeader] = useState<string>(data.header || "")
   const [isEmployeeEditOpen, setIsEmployeeEditOpen] = useState<boolean>(false)
   const [employeeEditId, setEmployeeEditId] = useState<number>(NEW_EMPLOYEE_ID)
 
@@ -43,6 +40,12 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
       await staffSectionApi.update({ header })
     }
   }
+
+  useEffect(() => {
+    if (!isEmployeeEditOpen) {
+      fetchData()
+    }
+  }, [isEmployeeEditOpen])
 
   return (
     <>
@@ -67,7 +70,7 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
           <h4>Персонал</h4>
 
           <ListGroup className="mb-3">
-            {employees.map((employee) => (
+            {data.employees.map((employee) => (
               <ListGroup.Item>
                 <Row className="flex-nowrap">
                   <Col className="flex-fill">
@@ -141,7 +144,7 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
       <EmployeeEdit
         show={isEmployeeEditOpen}
         employeeId={employeeEditId}
-        onCancel={() => {
+        close={() => {
           setIsEmployeeEditOpen(false)
         }}
       />

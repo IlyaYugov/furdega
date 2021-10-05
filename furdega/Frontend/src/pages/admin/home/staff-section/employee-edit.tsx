@@ -14,7 +14,7 @@ import { fileToBase64 } from "../../../../utils/fileToBase64"
 type EmployeeEditProps = {
   show: boolean
   employeeId: number
-  onCancel: () => void
+  close: () => void
 }
 
 export const NEW_EMPLOYEE_ID = -1
@@ -30,11 +30,7 @@ const getDefaultEmployeeResponse = (): EmployeeResponse => ({
   },
 })
 
-const EmployeeEdit: FC<EmployeeEditProps> = ({
-  show,
-  employeeId,
-  onCancel,
-}) => {
+const EmployeeEdit: FC<EmployeeEditProps> = ({ show, employeeId, close }) => {
   const isCreate = employeeId === NEW_EMPLOYEE_ID
 
   const [employee, setEmployee] = useState<EmployeeResponse | null>(null)
@@ -50,8 +46,8 @@ const EmployeeEdit: FC<EmployeeEditProps> = ({
   }
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    if (show) fetchData()
+  }, [show])
 
   const onImageChange = async (event: FormInputEvent) => {
     const files = (event.currentTarget as HTMLInputElement).files
@@ -100,10 +96,12 @@ const EmployeeEdit: FC<EmployeeEditProps> = ({
 
       await staffApi.update(employeeId, request)
     }
+
+    close()
   }
 
   return (
-    <Modal show={show} onHide={onCancel}>
+    <Modal show={show} onHide={close}>
       <Modal.Header closeButton>
         <Modal.Title>
           {isCreate
@@ -184,7 +182,7 @@ const EmployeeEdit: FC<EmployeeEditProps> = ({
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="secondary" onClick={onCancel}>
+        <Button variant="secondary" onClick={close}>
           Отмена
         </Button>
         <Button variant="primary" onClick={onSubmitClick}>

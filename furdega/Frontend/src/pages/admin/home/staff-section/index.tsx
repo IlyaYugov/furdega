@@ -39,7 +39,7 @@ const StaffSection: FC = () => {
       case AdminSectionMode.view:
         return <View data={data} setMode={setMode} />
       case AdminSectionMode.edit:
-        return <Edit data={data} setMode={setMode} />
+        return <Edit data={data} fetchData={fetchData} setMode={setMode} />
       default:
         return null
     }

@@ -10,7 +10,9 @@ type ViewProps = {
 }
 
 const View: FC<ViewProps> = ({ data, setMode }) => {
-  const isDataEmpty = Object.values(data).every((val) => val === null)
+  const isDataEmpty = Object.values(data).every(
+    (val) => (Array.isArray(val) && val.length === 0) || val === null
+  )
 
   if (isDataEmpty)
     return (
