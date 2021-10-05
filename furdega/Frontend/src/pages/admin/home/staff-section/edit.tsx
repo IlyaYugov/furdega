@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react"
+import { Dispatch, FC, SetStateAction, useState } from "react"
 import { Row, Col, Form, Button, ListGroup, ButtonGroup } from "react-bootstrap"
 
 import { ResponseData } from "."
@@ -7,6 +7,11 @@ import { EmployeeEdit, NEW_EMPLOYEE_ID } from "./employee-edit"
 import { staffApi } from "../../../../api/staff-api"
 import { staffSectionApi } from "../../../../api/home/staff-section-api"
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
+import {
+  EmployeeCreateRequest,
+  EmployeeResponse,
+  EmployeeUpdateRequest,
+} from "../../../../types/home/employee"
 
 type EditProps = {
   data: ResponseData
@@ -23,6 +28,7 @@ const Edit: FC<EditProps> = ({ data, setMode, fetchData }) => {
 
   const deleteEmployeeById = async (id: number) => {
     await staffApi.delete(id)
+    fetchData()
   }
 
   const save = async () => {
@@ -31,18 +37,77 @@ const Edit: FC<EditProps> = ({ data, setMode, fetchData }) => {
     } else {
       await staffSectionApi.update({ header })
     }
+
+    setMode(AdminSectionMode.view)
   }
 
-  useEffect(() => {
-    if (!isEmployeeEditOpen) {
-      // TODO fix double data fetching
-      fetchData()
+  const onEmployeeEditSubmit = async (
+    employee: EmployeeResponse,
+    newImageBase64: string | null
+  ) => {
+    const isCreate = employeeEditId === NEW_EMPLOYEE_ID
+
+    if (isCreate) {
+      if (!newImageBase64) return
+
+      const request: EmployeeCreateRequest = {
+        firstName: employee.firstName,
+        lastName: employee.lastName,
+        description: employee.description,
+        image: {
+          id: employee.image.id,
+          base64ImageString: newImageBase64,
+        },
+      }
+
+      await staffApi.create(request)
+    } else {
+      const request: EmployeeUpdateRequest = {
+        firstName: employee.firstName,
+        lastName: employee.lastName,
+        description: employee.description,
+        image: {
+          id: employee.image.id,
+          base64ImageString: newImageBase64 || null,
+        },
+      }
+
+      await staffApi.update(employeeEditId, request)
     }
-  }, [isEmployeeEditOpen])
+
+    setIsEmployeeEditOpen(false)
+
+    fetchData()
+  }
 
   return (
     <>
       <Row className="flex-column gy-3">
+        <Col className="d-flex justify-content-end">
+          <Row>
+            <Col>
+              <Button
+                className="text-nowrap"
+                onClick={() => {
+                  save()
+                }}
+              >
+                Сохранить изменения
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setMode(AdminSectionMode.view)
+                }}
+              >
+                Отмена
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+
         <Col>
           <h4 className="fw-bold">Заголовок секции</h4>
           <Form.Control
@@ -104,38 +169,12 @@ const Edit: FC<EditProps> = ({ data, setMode, fetchData }) => {
             Добавить сотрудника
           </Button>
         </Col>
-
-        <Col className="d-flex justify-content-end">
-          <Row>
-            <Col>
-              <Button
-                size="lg"
-                className="text-nowrap"
-                onClick={() => {
-                  save()
-                }}
-              >
-                Сохранить изменения
-              </Button>
-            </Col>
-            <Col>
-              <Button
-                size="lg"
-                variant="secondary"
-                onClick={() => {
-                  setMode(AdminSectionMode.view)
-                }}
-              >
-                Отмена
-              </Button>
-            </Col>
-          </Row>
-        </Col>
       </Row>
 
       <EmployeeEdit
         show={isEmployeeEditOpen}
         employeeId={employeeEditId}
+        submit={onEmployeeEditSubmit}
         close={() => {
           setIsEmployeeEditOpen(false)
         }}

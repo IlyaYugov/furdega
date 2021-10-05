@@ -3,17 +3,14 @@ import { Modal, Button, Form, Row, Col } from "react-bootstrap"
 import { v4 as uuidv4 } from "uuid"
 
 import { staffApi } from "../../../../api/staff-api"
-import {
-  EmployeeCreateRequest,
-  EmployeeResponse,
-  EmployeeUpdateRequest,
-} from "../../../../types/home/employee"
+import { EmployeeResponse } from "../../../../types/home/employee"
 import { FormInputEvent } from "../../../../types/utils"
 import { fileToBase64 } from "../../../../utils/fileToBase64"
 
 type EmployeeEditProps = {
   show: boolean
   employeeId: number
+  submit: (employee: EmployeeResponse, newImageBase64: string | null) => void
   close: () => void
 }
 
@@ -30,7 +27,12 @@ const getDefaultEmployeeResponse = (): EmployeeResponse => ({
   },
 })
 
-const EmployeeEdit: FC<EmployeeEditProps> = ({ show, employeeId, close }) => {
+const EmployeeEdit: FC<EmployeeEditProps> = ({
+  show,
+  employeeId,
+  submit,
+  close,
+}) => {
   const isCreate = employeeId === NEW_EMPLOYEE_ID
 
   const [employee, setEmployee] = useState<EmployeeResponse | null>(null)
@@ -68,36 +70,7 @@ const EmployeeEdit: FC<EmployeeEditProps> = ({ show, employeeId, close }) => {
 
   const onSubmitClick = async () => {
     if (!employee) return
-
-    if (isCreate) {
-      if (!newImageBase64) return
-
-      const request: EmployeeCreateRequest = {
-        firstName: employee.firstName,
-        lastName: employee.lastName,
-        description: employee.description,
-        image: {
-          id: employee.image.id,
-          base64ImageString: newImageBase64,
-        },
-      }
-
-      await staffApi.create(request)
-    } else {
-      const request: EmployeeUpdateRequest = {
-        firstName: employee.firstName,
-        lastName: employee.lastName,
-        description: employee.description,
-        image: {
-          id: employee.image.id,
-          base64ImageString: newImageBase64 || null,
-        },
-      }
-
-      await staffApi.update(employeeId, request)
-    }
-
-    close()
+    submit(employee, newImageBase64)
   }
 
   return (
