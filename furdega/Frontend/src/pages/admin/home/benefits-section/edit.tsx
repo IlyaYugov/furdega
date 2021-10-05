@@ -54,58 +54,86 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
   )
 
   const save = async () => {
-    const request = {
-      header,
-      companyBenefit1: {
-        ...benefit1,
-        image: {
-          id: benefit1.image.id,
-          base64ImageString: newImagesBase64.benefit1 || null,
-        },
-      },
-      companyBenefit2: {
-        ...benefit2,
-        image: {
-          id: benefit2.image.id,
-          base64ImageString: newImagesBase64.benefit2 || null,
-        },
-      },
-      companyBenefit3: {
-        ...benefit3,
-        image: {
-          id: benefit3.image.id,
-          base64ImageString: newImagesBase64.benefit3 || null,
-        },
-      },
-      companyBenefit4: {
-        ...benefit4,
-        image: {
-          id: benefit4.image.id,
-          base64ImageString: newImagesBase64.benefit4 || null,
-        },
-      },
-    }
-
     if (isDataEmpty) {
       if (
         !(
-          request.companyBenefit1.image.base64ImageString &&
-          request.companyBenefit2.image.base64ImageString &&
-          request.companyBenefit3.image.base64ImageString &&
-          request.companyBenefit4.image.base64ImageString
+          newImagesBase64.benefit1 &&
+          newImagesBase64.benefit2 &&
+          newImagesBase64.benefit3 &&
+          newImagesBase64.benefit4
         )
       ) {
         // TODO предупреждение
         return
       }
 
-      await companyBenefitsApi.create(
-        request as CompanyBenefitsSectionCreateRequest
-      )
+      const request: CompanyBenefitsSectionCreateRequest = {
+        header,
+        companyBenefit1: {
+          ...benefit1,
+          image: {
+            id: benefit1.image.id,
+            base64ImageString: newImagesBase64.benefit1,
+          },
+        },
+        companyBenefit2: {
+          ...benefit2,
+          image: {
+            id: benefit2.image.id,
+            base64ImageString: newImagesBase64.benefit2,
+          },
+        },
+        companyBenefit3: {
+          ...benefit3,
+          image: {
+            id: benefit3.image.id,
+            base64ImageString: newImagesBase64.benefit3,
+          },
+        },
+        companyBenefit4: {
+          ...benefit4,
+          image: {
+            id: benefit4.image.id,
+            base64ImageString: newImagesBase64.benefit4,
+          },
+        },
+      }
+
+      await companyBenefitsApi.create(request)
     } else {
-      await companyBenefitsApi.update(
-        request as CompanyBenefitsSectionUpdateRequest
-      )
+      const request: CompanyBenefitsSectionUpdateRequest = {
+        header,
+        companyBenefit1: {
+          ...benefit1,
+          image: {
+            id: benefit1.image.id,
+            base64ImageString: newImagesBase64.benefit1 || null,
+          },
+        },
+        companyBenefit2: {
+          ...benefit2,
+          image: {
+            id: benefit2.image.id,
+            base64ImageString: newImagesBase64.benefit2 || null,
+          },
+        },
+        companyBenefit3: {
+          ...benefit3,
+          image: {
+            id: benefit3.image.id,
+            base64ImageString: newImagesBase64.benefit3 || null,
+          },
+        },
+        companyBenefit4: {
+          ...benefit4,
+          image: {
+            id: benefit4.image.id,
+            base64ImageString: newImagesBase64.benefit4 || null,
+          },
+        },
+      }
+
+      await companyBenefitsApi.update(request)
     }
 
     setMode(AdminSectionMode.view)
