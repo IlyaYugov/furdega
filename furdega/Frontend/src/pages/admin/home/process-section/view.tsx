@@ -3,6 +3,7 @@ import { Col, Row, Button } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../../const/admin"
 import { WorkingProcessSectionResponse } from "../../../../types/home/process"
+import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 
 type ViewProps = {
   data: WorkingProcessSectionResponse
@@ -28,40 +29,43 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
 
   return (
     <Row className="flex-column gy-3">
-      <Col>
-        <h5>Заголовок</h5>
-        <div>{header}</div>
-      </Col>
-
-      <Col>
-        <h5>Этап 1</h5>
-        <div>{firstStage}</div>
-      </Col>
-
-      <Col>
-        <h5>Этап 2</h5>
-        <div>{secondStage}</div>
-      </Col>
-
-      <Col>
-        <h5>Этап 3</h5>
-        <div>{thirdStage}</div>
-      </Col>
-
-      <Col>
-        <h5>Заключительный этап</h5>
-        <div>{finalStage}</div>
-      </Col>
-
       <Col className="d-flex justify-content-end">
         <Button
-          size="lg"
           onClick={() => {
             setMode(AdminSectionMode.edit)
           }}
         >
           Редактировать
         </Button>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Заголовок секции</h4>
+        <div>{header}</div>
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Первый этап</h4>
+        <div>{firstStage}</div>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Второй этап</h4>
+        <div>{secondStage}</div>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Третий этап</h4>
+        <div>{thirdStage}</div>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Конечный этап</h4>
+        <div>{finalStage}</div>
       </Col>
     </Row>
   )

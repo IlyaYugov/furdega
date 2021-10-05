@@ -3,6 +3,7 @@ import { Col, Row, Button } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../../const/admin"
 import { AboutSectionResponse } from "../../../../types/home/about"
+import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 
 type ViewProps = {
   data: AboutSectionResponse
@@ -41,6 +42,10 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
       <Col>
         <h4 className="fw-bold">Заголовок секции</h4>
         <div>{header}</div>
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
       </Col>
 
       <Col>

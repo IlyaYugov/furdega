@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction, useState } from "react"
-import { Row, Col, InputGroup, Button, Form } from "react-bootstrap"
+import { Row, Col, Button, Form } from "react-bootstrap"
 import { v4 as uuidv4 } from "uuid"
 
 import { mainHomeSectionApi } from "../../../../api/home/main-home-section-api"
@@ -11,6 +11,7 @@ import {
 import { ImageResponse, ImageUpdateRequest } from "../../../../types/image"
 import { FormInputEvent } from "../../../../types/utils"
 import { fileToBase64 } from "../../../../utils/fileToBase64"
+import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 
 type EditProps = {
   data: MainHomeSectionResponse
@@ -109,6 +110,10 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
             setHeader(event.target.value)
           }}
         />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
       </Col>
 
       <Col>

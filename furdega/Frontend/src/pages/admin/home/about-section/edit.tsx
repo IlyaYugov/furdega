@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction, useState } from "react"
-import { Row, Col, InputGroup, Form, Button } from "react-bootstrap"
+import { Row, Col, Form, Button } from "react-bootstrap"
 
 import { aboutSectionApi } from "../../../../api/home/about-section-api"
 import { AdminSectionMode } from "../../../../const/admin"
@@ -8,6 +8,7 @@ import {
   AboutSectionResponse,
   AboutSectionUpdateRequest,
 } from "../../../../types/home/about"
+import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 
 type EditProps = {
   data: AboutSectionResponse
@@ -68,6 +69,10 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
             setHeader(event.target.value)
           }}
         />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
       </Col>
 
       <Col>

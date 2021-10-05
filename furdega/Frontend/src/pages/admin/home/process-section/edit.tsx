@@ -1,9 +1,10 @@
 import { Dispatch, FC, SetStateAction, useState } from "react"
-import { Row, Col, InputGroup, Button, Form } from "react-bootstrap"
+import { Row, Col, Button, Form } from "react-bootstrap"
 
 import { workingProcessSectionApi } from "../../../../api/home/working-process-section-api"
 import { AdminSectionMode } from "../../../../const/admin"
 import { WorkingProcessSectionResponse } from "../../../../types/home/process"
+import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 
 type EditProps = {
   data: WorkingProcessSectionResponse
@@ -39,79 +40,10 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
 
   return (
     <Row className="flex-column gy-3">
-      <Col>
-        <InputGroup>
-          <InputGroup.Text className="w-25 text-center text-wrap">
-            Текст заголовка
-          </InputGroup.Text>
-
-          <Form.Control
-            as="input"
-            value={header}
-            onChange={(event) => {
-              setHeader(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
-      <Col>
-        <InputGroup>
-          <InputGroup.Text className="w-25">Первый этап</InputGroup.Text>
-          <Form.Control
-            as="input"
-            value={firstStage}
-            onChange={(event) => {
-              setFirstStage(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
-      <Col>
-        <InputGroup>
-          <InputGroup.Text className="w-25">Второй этап</InputGroup.Text>
-          <Form.Control
-            as="input"
-            value={secondStage}
-            onChange={(event) => {
-              setSecondStage(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
-      <Col>
-        <InputGroup>
-          <InputGroup.Text className="w-25">Третий этап</InputGroup.Text>
-          <Form.Control
-            as="input"
-            value={thirdStage}
-            onChange={(event) => {
-              setThirdStage(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
-      <Col>
-        <InputGroup>
-          <InputGroup.Text className="w-25">Конечный этап</InputGroup.Text>
-          <Form.Control
-            as="input"
-            value={finalStage}
-            onChange={(event) => {
-              setFinalStage(event.target.value)
-            }}
-          />
-        </InputGroup>
-      </Col>
-
       <Col className="d-flex justify-content-end">
         <Row>
           <Col>
             <Button
-              size="lg"
               className="text-nowrap"
               onClick={() => {
                 save()
@@ -122,7 +54,6 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
           </Col>
           <Col>
             <Button
-              size="lg"
               variant="secondary"
               onClick={() => {
                 setMode(AdminSectionMode.view)
@@ -132,6 +63,65 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
             </Button>
           </Col>
         </Row>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Заголовок секции</h4>
+        <Form.Control
+          as="input"
+          value={header}
+          onChange={(event) => {
+            setHeader(event.target.value)
+          }}
+        />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Первый этап</h4>
+        <Form.Control
+          as="input"
+          value={firstStage}
+          onChange={(event) => {
+            setFirstStage(event.target.value)
+          }}
+        />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Второй этап</h4>
+        <Form.Control
+          as="input"
+          value={secondStage}
+          onChange={(event) => {
+            setSecondStage(event.target.value)
+          }}
+        />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Третий этап</h4>
+        <Form.Control
+          as="input"
+          value={thirdStage}
+          onChange={(event) => {
+            setThirdStage(event.target.value)
+          }}
+        />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Конечный этап</h4>
+        <Form.Control
+          as="input"
+          value={finalStage}
+          onChange={(event) => {
+            setFinalStage(event.target.value)
+          }}
+        />
       </Col>
     </Row>
   )

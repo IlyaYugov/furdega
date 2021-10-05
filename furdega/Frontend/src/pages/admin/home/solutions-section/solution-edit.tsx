@@ -32,7 +32,7 @@ const SolutionEdit: FC<SolutionEditProps> = ({ value, onChange }) => {
     <Form>
       <Row className="flex-column gy-3">
         <Col>
-          <Form.Group className="mb-3">
+          <Form.Group>
             <Form.Label>Заголовок</Form.Label>
             <Form.Control
               type="text"
@@ -48,7 +48,7 @@ const SolutionEdit: FC<SolutionEditProps> = ({ value, onChange }) => {
         </Col>
 
         <Col>
-          <Form.Group className="mb-3">
+          <Form.Group>
             <Form.Label>Описание</Form.Label>
             <Form.Control
               type="input"

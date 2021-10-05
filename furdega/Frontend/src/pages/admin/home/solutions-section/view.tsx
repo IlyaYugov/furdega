@@ -4,6 +4,7 @@ import { Col, Row, Button } from "react-bootstrap"
 import { AdminSectionMode } from "../../../../const/admin"
 import { IssueSolutionsSectionResponse } from "../../../../types/home/solutions"
 import { SolutionView } from "./solution-view"
+import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 
 type ViewProps = {
   data: IssueSolutionsSectionResponse
@@ -35,36 +36,55 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
 
   return (
     <Row className="flex-column gy-3">
-      <Col>
-        <h5>Заголовок</h5>
-        <div>{header}</div>
-      </Col>
-
-      <Col>
-        <SolutionView data={issueSolution1} />
-      </Col>
-
-      <Col>
-        <SolutionView data={issueSolution2} />
-      </Col>
-
-      <Col>
-        <SolutionView data={issueSolution3} />
-      </Col>
-
-      <Col>
-        <SolutionView data={issueSolution4} />
-      </Col>
-
       <Col className="d-flex justify-content-end">
         <Button
-          size="lg"
           onClick={() => {
             setMode(AdminSectionMode.edit)
           }}
         >
           Редактировать
         </Button>
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Заголовок секции</h4>
+        <div>{header}</div>
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Решение 1</h4>
+        <SolutionView data={issueSolution1} />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Решение 2</h4>
+        <SolutionView data={issueSolution2} />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Решение 3</h4>
+        <SolutionView data={issueSolution3} />
+      </Col>
+
+      <Col>
+        <YellowSnakeIcon />
+      </Col>
+
+      <Col>
+        <h4 className="fw-bold">Решение 4</h4>
+        <SolutionView data={issueSolution4} />
       </Col>
     </Row>
   )
