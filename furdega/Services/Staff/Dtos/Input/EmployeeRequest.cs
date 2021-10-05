@@ -11,11 +11,8 @@ namespace Furdega.Services.Staff.Dtos.Input
         public Image Image { get; set; }
         public string Description { get; set; }
 
-        public bool IsFilesExtensionCorrect()
-        {
-            return Image == null || Image != null && Image.IsFileExtensionCorrect();
-        }
-
-        public bool IsAllBase64ImagesExist() => Image?.Base64ImageString != null;
+        public bool IsFilesExtensionCorrect() => string.IsNullOrEmpty(Image?.Base64ImageString) ||
+                                                 !string.IsNullOrEmpty(Image?.Base64ImageString) && Image.IsFileExtensionCorrect();
+        public bool IsAllBase64ImagesExist() => !string.IsNullOrEmpty(Image?.Base64ImageString);
     }
 }

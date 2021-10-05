@@ -12,14 +12,8 @@ namespace Furdega.Services.Materials.Dtos.Input
 
         public int MaterialTypeId { get; set; }
 
-        public bool IsFilesExtensionCorrect()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool IsAllBase64ImagesExist()
-        {
-            throw new System.NotImplementedException();
-        }
+        public bool IsFilesExtensionCorrect() => string.IsNullOrEmpty(Image?.Base64ImageString) ||
+                                                 !string.IsNullOrEmpty(Image?.Base64ImageString) && Image.IsFileExtensionCorrect();
+        public bool IsAllBase64ImagesExist() => !string.IsNullOrEmpty(Image?.Base64ImageString);
     }
 }

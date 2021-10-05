@@ -13,7 +13,7 @@ namespace Furdega.Services.FileManagers
 
         public string GetImageExtension()
         {
-            var extensionCode = Base64ImageString.Substring(0, 5).ToUpper();
+            var extensionCode = Base64ImageString?.Substring(0, 5).ToUpper();
 
             switch (extensionCode)
             {

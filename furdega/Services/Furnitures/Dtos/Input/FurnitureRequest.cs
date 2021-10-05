@@ -13,7 +13,7 @@ namespace Furdega.Services.Furnitures.Dtos.Input
         public int MaterialTypeId { get; set; }
         public bool IsFilesExtensionCorrect()
         {
-            var images = AllImages.Where(s => s != null);
+            var images = AllImages.Where(s => !string.IsNullOrEmpty(s?.Base64ImageString));
 
             return !images.Any() || images.Any() && images.All(s => s.IsFileExtensionCorrect());
         }

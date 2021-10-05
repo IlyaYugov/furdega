@@ -13,9 +13,9 @@ namespace Furdega.Services.HomePage.Sections.WorkExamples.Dtos.Input
         public bool IsFilesExtensionCorrect()
         {
             var images =
-                WorkExample1?.GetAllImages.Where(s=> s != null) ?? Array.Empty<Image>()
-                    .Union(WorkExample2?.GetAllImages.Where(s => s != null) ?? Array.Empty<Image>())
-                    .Union(WorkExample3?.GetAllImages.Where(s => s != null) ?? Array.Empty<Image>());
+                WorkExample1?.GetAllImages.Where(s=> !string.IsNullOrEmpty(s?.Base64ImageString)) ?? Array.Empty<Image>()
+                    .Union(WorkExample2?.GetAllImages.Where(s => !string.IsNullOrEmpty(s?.Base64ImageString)) ?? Array.Empty<Image>())
+                    .Union(WorkExample3?.GetAllImages.Where(s => !string.IsNullOrEmpty(s?.Base64ImageString)) ?? Array.Empty<Image>());
 
             return !images.Any() || images.Any() && images.All(s=> s.IsFileExtensionCorrect());
         }
