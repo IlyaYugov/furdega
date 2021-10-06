@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -13,12 +14,15 @@ namespace Furdega.Services.MaterialBrands
     public class MaterialBrandService: IMaterialBrandService
     {
         private readonly IRepositoryBase<MaterialBrand> _materialBrandRepository;
+        private readonly IImageManager _imageManager;
+
         private readonly IMapper _mapper;
 
-        public MaterialBrandService(IRepositoryBase<MaterialBrand> materialBrandRepository, IMapper mapper)
+        public MaterialBrandService(IRepositoryBase<MaterialBrand> materialBrandRepository, IMapper mapper, IImageManager imageManager)
         {
             _materialBrandRepository = materialBrandRepository;
             _mapper = mapper;
+            _imageManager = imageManager;
         }
 
         public async Task<MaterialBrandResponse> Get(int id)
@@ -39,6 +43,18 @@ namespace Furdega.Services.MaterialBrands
         {
             var brand = _mapper.Map<MaterialBrand>(brandRequest);
 
+            var mainImage = await _imageManager.CreateImage(brandRequest.MainImage);
+            brand.MainImageUrl = mainImage.ImageUrl;
+
+            var imageResponses = new List<ImageResponse>();
+            foreach (var image in brandRequest.Images)
+            {
+                var imageResponse = await _imageManager.CreateImage(image);
+                imageResponses.Add(imageResponse);
+            }
+
+            brand.Images = SerializeImages(imageResponses);
+
             var createdType = await _materialBrandRepository.Create(brand);
 
             return createdType.Id;
@@ -46,14 +62,40 @@ namespace Furdega.Services.MaterialBrands
 
         public async Task Update(int id, MaterialBrandRequest brandRequest)
         {
-            var brand = await _materialBrandRepository.GetById(id);
+            var brandFromDb = await _materialBrandRepository.GetById(id);
 
-            _mapper.Map(brandRequest, brand);
-            brand.Id = id;
+            _mapper.Map(brandRequest, brandFromDb);
+            brandFromDb.Id = id;
 
+            if (!string.IsNullOrEmpty(brandRequest.MainImage?.Base64ImageString))
+            {
+                var mainImage = await _imageManager.CreateImage(brandRequest.MainImage);
+                brandFromDb.MainImageUrl = mainImage.ImageUrl;
+            }
 
+            var actualImages = GetActualImagesByRequestModel(brandFromDb, brandRequest);
+            foreach (var requestedImage in brandRequest.Images)
+            {
+                if(string.IsNullOrEmpty(requestedImage.Base64ImageString))
+                    continue;
 
-            await _materialBrandRepository.Update(brand);
+                var imageResponse = await _imageManager.CreateImage(requestedImage);
+
+                var image = actualImages.FirstOrDefault(s => s.Id == imageResponse.Id);
+
+                if (image == null)
+                {
+                    actualImages.Add(imageResponse);
+                }
+                else
+                {
+                    image.ImageUrl = imageResponse.ImageUrl;
+                }
+            }
+
+            brandFromDb.Images = SerializeImages(actualImages);
+
+            await _materialBrandRepository.Update(brandFromDb);
         }
 
         public async Task Delete(int id)
@@ -64,6 +106,7 @@ namespace Furdega.Services.MaterialBrands
         }
 
         private ImageResponse[] DeserializeImages(string images) => JsonSerializer.Deserialize<ImageResponse[]>(images ?? "{}");
+        private string SerializeImages(List<ImageResponse> images) => JsonSerializer.Serialize(images);
 
         private IEnumerable<MaterialBrandResponse> ConvertBrandsToBrandResponses(List<MaterialBrand> brands)
         {
@@ -71,7 +114,6 @@ namespace Furdega.Services.MaterialBrands
 
             foreach (var brand in brands)
             {
-
                 brandResponses.Add(ConvertBrandToBrandResponse(brand));
             }
 
@@ -85,6 +127,16 @@ namespace Furdega.Services.MaterialBrands
             brandResponse.Images = DeserializeImages(brand.Images);
 
             return brandResponse;
+        }
+
+        private List<ImageResponse> GetActualImagesByRequestModel(MaterialBrand brandFromDb, MaterialBrandRequest brandRequest)
+        {
+            var existingImagesIds = brandRequest.Images.Select(s => s.Id);
+            var actualImages = DeserializeImages(brandFromDb.Images)
+                .Where(s => existingImagesIds.Contains(s.Id))
+                .ToList();
+
+            return actualImages;
         }
     }
 }
