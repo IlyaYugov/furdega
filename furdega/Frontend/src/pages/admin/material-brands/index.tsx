@@ -103,6 +103,7 @@ const MaterialBrands: FC = () => {
 
           <Create
             show={mode === AdminSectionMode.create}
+            materialId={Number(materialId)}
             submit={async (request) => {
               await createNewBrand(request)
               setMode(AdminSectionMode.view)

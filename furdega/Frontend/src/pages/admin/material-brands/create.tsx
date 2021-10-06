@@ -10,20 +10,21 @@ import { BrandData } from "."
 
 type CreateProps = {
   show: boolean
+  materialId: number
   submit: (request: MaterialBrandCreateRequest) => Promise<void>
   close: () => void
 }
 
-const getCreateBrandData = (): BrandData => ({
+const getCreateBrandData = (materialId: number): BrandData => ({
   id: -1,
-  materialId: -1,
+  materialId,
   title: "",
   mainImage: getDefaultImage(),
   previewImage: getDefaultImage(),
   images: [],
 })
 
-const Create: FC<CreateProps> = ({ show, submit, close }) => {
+const Create: FC<CreateProps> = ({ show, materialId, submit, close }) => {
   const [title, setTitle] = useState<string>("")
   const [previewImage, setPreviewImage] = useState(getDefaultImage())
   const [mainImage, setMainImage] = useState(getDefaultImage())
@@ -34,7 +35,7 @@ const Create: FC<CreateProps> = ({ show, submit, close }) => {
   const [mainImageBase64, setMainImageBase64] = useState<string | null>(null)
 
   useEffect(() => {
-    const data = getCreateBrandData()
+    const data = getCreateBrandData(materialId)
     setTitle(data.title)
     setPreviewImage(data.previewImage)
     setMainImage(data.mainImage)
@@ -71,7 +72,7 @@ const Create: FC<CreateProps> = ({ show, submit, close }) => {
 
     const request: MaterialBrandCreateRequest = {
       title,
-      materialId: -1, // TODO
+      materialId,
       mainImage: {
         id: mainImage.id,
         base64ImageString: mainImageBase64,
