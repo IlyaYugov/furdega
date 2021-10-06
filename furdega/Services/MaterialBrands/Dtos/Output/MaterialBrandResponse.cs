@@ -7,8 +7,6 @@ namespace Furdega.Services.MaterialBrands.Dtos.Output
         public int Id { get; set; }
         public string Title { get; set; }
 
-        public string Description { get; set; }
-
         public int MaterialId { get; set; }
 
         public ImageResponse MainImage { get; set; }

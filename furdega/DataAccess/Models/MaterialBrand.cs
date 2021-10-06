@@ -7,8 +7,6 @@ namespace Furdega.DataAccess.Models
     {
         public string Title { get; set; }
 
-        public string Description { get; set; }
-
         public int MaterialId { get; set; }
 
         public Guid MainImageId { get; set; }

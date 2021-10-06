@@ -8,6 +8,8 @@ namespace Furdega.Services.Materials.Dtos.Input
     {
         public string Title { get; set; }
 
+        public string Description { get; set; }
+
         public Image MainImage { get; set; }
 
         public Image PreviewImage { get; set; }
