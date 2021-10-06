@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Furdega.Migrations
 {
     [DbContext(typeof(FurdegaDbContext))]
-    [Migration("20211003201321_CreateFurnitureTable")]
-    partial class CreateFurnitureTable
+    [Migration("20211006201251_InitDb")]
+    partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,8 +77,6 @@ namespace Furdega.Migrations
 
                     b.HasIndex("FurnitureTypeId");
 
-                    b.HasIndex("MaterialTypeId");
-
                     b.ToTable("Furniture");
                 });
 
@@ -115,19 +113,89 @@ namespace Furdega.Migrations
                     b.ToTable("HomePageSections");
                 });
 
-            modelBuilder.Entity("Furdega.DataAccess.Models.MaterialType", b =>
+            modelBuilder.Entity("Furdega.DataAccess.Models.Material", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid>("MainImageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MainImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PreviewImageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PreviewImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("MaterialTypes");
+                    b.ToTable("Materials");
+                });
+
+            modelBuilder.Entity("Furdega.DataAccess.Models.MaterialBrand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Images")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("MainImageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MainImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MaterialId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaterialId");
+
+                    b.ToTable("MaterialBrands");
+                });
+
+            modelBuilder.Entity("Furdega.DataAccess.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Login = "admin",
+                            Password = "QwErTy!@#$%^&*(QaZwSx"
+                        });
                 });
 
             modelBuilder.Entity("Furdega.DataAccess.Models.Furniture", b =>
@@ -137,10 +205,13 @@ namespace Furdega.Migrations
                         .HasForeignKey("FurnitureTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("Furdega.DataAccess.Models.MaterialType", null)
-                        .WithMany("Furniture")
-                        .HasForeignKey("MaterialTypeId")
+            modelBuilder.Entity("Furdega.DataAccess.Models.MaterialBrand", b =>
+                {
+                    b.HasOne("Furdega.DataAccess.Models.Material", null)
+                        .WithMany("MaterialBrands")
+                        .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -150,9 +221,9 @@ namespace Furdega.Migrations
                     b.Navigation("Furniture");
                 });
 
-            modelBuilder.Entity("Furdega.DataAccess.Models.MaterialType", b =>
+            modelBuilder.Entity("Furdega.DataAccess.Models.Material", b =>
                 {
-                    b.Navigation("Furniture");
+                    b.Navigation("MaterialBrands");
                 });
 #pragma warning restore 612, 618
         }
