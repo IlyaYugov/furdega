@@ -1,11 +1,11 @@
 import { Dispatch, FC, SetStateAction, useState } from "react"
 import { Row, Col, Button, Form } from "react-bootstrap"
 
-import { mainHomeSectionApi } from "../../../../api/home/main-home-section-api"
+import { mainSectionApi } from "../../../../api/sections/main-section-api"
 import { AdminSectionMode } from "../../../../const/admin"
 import {
   MainHomeSectionCreateRequest,
-  MainHomeSectionResponse,
+  MainSectionResponse,
 } from "../../../../types/home/main"
 import { ImageResponse, ImageUpdateRequest } from "../../../../types/image"
 import { FormInputEvent } from "../../../../types/utils"
@@ -14,7 +14,7 @@ import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow
 import { getDefaultImage } from "../../../../utils/get-default-image"
 
 type EditProps = {
-  data: MainHomeSectionResponse
+  data: MainSectionResponse
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
@@ -51,7 +51,7 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
         },
       }
 
-      await mainHomeSectionApi.create(request)
+      await mainSectionApi.create(request)
     } else {
       const imageRequest: ImageUpdateRequest = {
         id: image.id,
@@ -60,7 +60,7 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
 
       if (newImageBase64) imageRequest.base64ImageString = newImageBase64
 
-      await mainHomeSectionApi.update({
+      await mainSectionApi.update({
         header,
         image: imageRequest,
       })

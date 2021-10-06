@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react"
 import { Row, Col } from "react-bootstrap"
 
 import { EmployeeCard } from "./employee-card"
-import { staffApi } from "../../../api/staff-api"
+import { employeesApi } from "../../../api/employees-api"
 import { EmployeeResponse } from "../../../types/home/employee"
 import { StaffSectionResponse } from "../../../types/home/staff"
 
@@ -10,7 +10,7 @@ const Staff: FC<StaffSectionResponse> = ({ header }) => {
   const [employees, setEmployees] = useState<EmployeeResponse[]>([])
 
   const fetchData = async () => {
-    const data = await staffApi.getAll()
+    const data = await employeesApi.getAll()
     setEmployees(data)
   }
 

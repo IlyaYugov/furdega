@@ -5,7 +5,7 @@ import {
   StaffSectionResponse,
 } from "../../types/home/staff"
 
-const BASE_URL = "/api/home/staff"
+const BASE_URL = "/api/sections/staff"
 
 const staffSectionApi = {
   get: async (): Promise<StaffSectionResponse> => {

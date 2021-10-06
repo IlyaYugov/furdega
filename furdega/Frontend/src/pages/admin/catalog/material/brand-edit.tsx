@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react"
 // import { Modal, Button, Form, Row, Col } from "react-bootstrap"
 
-// import { staffApi } from "../../../../api/staff-api"
+// import { employeesApi } from "../../../../api/staff-api"
 // import { EmployeeResponse } from "../../../../types/home/employee"
 // import { FormInputEvent } from "../../../../types/utils"
 // import { fileToBase64 } from "../../../../utils/file-to-base64"
@@ -39,7 +39,7 @@ import { FC, useEffect, useState } from "react"
 //     if (isCreate) {
 //       setEmployee(getDefaultEmployeeResponse())
 //     } else {
-//       const data = await staffApi.get(employeeId)
+//       const data = await employeesApi.get(employeeId)
 //       setEmployee(data)
 //     }
 //   }

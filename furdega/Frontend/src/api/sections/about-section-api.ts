@@ -5,7 +5,7 @@ import {
   AboutSectionUpdateRequest,
 } from "../../types/home/about"
 
-const BASE_URL = "/api/home/about"
+const BASE_URL = "/api/sections/about"
 
 const aboutSectionApi = {
   get: async (): Promise<AboutSectionResponse> => {

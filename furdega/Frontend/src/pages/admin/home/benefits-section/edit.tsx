@@ -12,7 +12,7 @@ import {
   CompanyBenefitsSectionCreateRequest,
   CompanyBenefitsSectionUpdateRequest,
 } from "../../../../types/home/benefits"
-import { companyBenefitsApi } from "../../../../api/home/company-benefits-api"
+import { companyBenefitsApi } from "../../../../api/sections/company-benefits-api"
 
 type EditProps = {
   data: CompanyBenefitsSectionResponse

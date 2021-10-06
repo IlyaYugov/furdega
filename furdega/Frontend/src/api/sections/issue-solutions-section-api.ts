@@ -5,7 +5,7 @@ import {
   IssueSolutionsSectionUpdateRequest,
 } from "../../types/home/solutions"
 
-const BASE_URL = "/api/home/issue-solutions"
+const BASE_URL = "/api/sections/issue-solutions"
 
 const issueSolutionsSectionApi = {
   get: async (): Promise<IssueSolutionsSectionResponse> => {

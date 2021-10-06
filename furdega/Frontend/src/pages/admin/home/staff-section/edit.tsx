@@ -4,8 +4,8 @@ import { Row, Col, Form, Button, ListGroup, ButtonGroup } from "react-bootstrap"
 import { ResponseData } from "."
 import { AdminSectionMode } from "../../../../const/admin"
 import { EmployeeEdit, NEW_EMPLOYEE_ID } from "./employee-edit"
-import { staffApi } from "../../../../api/staff-api"
-import { staffSectionApi } from "../../../../api/home/staff-section-api"
+import { employeesApi } from "../../../../api/employees-api"
+import { staffSectionApi } from "../../../../api/sections/staff-section-api"
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
 import {
   EmployeeCreateRequest,
@@ -27,7 +27,7 @@ const Edit: FC<EditProps> = ({ data, setMode, fetchData }) => {
   const [employeeEditId, setEmployeeEditId] = useState<number>(NEW_EMPLOYEE_ID)
 
   const deleteEmployeeById = async (id: number) => {
-    await staffApi.delete(id)
+    await employeesApi.delete(id)
     fetchData()
   }
 
@@ -60,7 +60,7 @@ const Edit: FC<EditProps> = ({ data, setMode, fetchData }) => {
         },
       }
 
-      await staffApi.create(request)
+      await employeesApi.create(request)
     } else {
       const request: EmployeeUpdateRequest = {
         firstName: employee.firstName,
@@ -72,7 +72,7 @@ const Edit: FC<EditProps> = ({ data, setMode, fetchData }) => {
         },
       }
 
-      await staffApi.update(employeeEditId, request)
+      await employeesApi.update(employeeEditId, request)
     }
 
     setIsEmployeeEditOpen(false)

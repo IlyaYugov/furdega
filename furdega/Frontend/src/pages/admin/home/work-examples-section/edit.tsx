@@ -1,12 +1,12 @@
 import { Dispatch, FC, SetStateAction, useState } from "react"
-import { Col, Form, InputGroup, Row, Button } from "react-bootstrap"
+import { Col, Form, Row, Button } from "react-bootstrap"
 import clone from "just-clone"
 import { v4 as uuidv4 } from "uuid"
 
 import { WorkExampleEdit } from "./work-example-edit"
 import { AdminSectionMode } from "../../../../const/admin"
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
-import { workExamplesSectionApi } from "../../../../api/home/work-examples-section-api"
+import { workExamplesSectionApi } from "../../../../api/sections/work-examples-section-api"
 import {
   WorkExampleResponse,
   WorkExamplesSectionCreateRequest,

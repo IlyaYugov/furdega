@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap"
 import { Edit } from "./edit"
 import { View } from "./view"
 import { AdminSectionMode } from "../../../../const/admin"
-import { workExamplesSectionApi } from "../../../../api/home/work-examples-section-api"
+import { workExamplesSectionApi } from "../../../../api/sections/work-examples-section-api"
 import { WorkExamplesSectionResponse } from "../../../../types/home/examples"
 
 const WorkExamplesSection: FC = () => {

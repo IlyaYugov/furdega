@@ -6,7 +6,7 @@ import {
   WorkExamplesSectionUpdateRequest,
 } from "../../types/home/examples"
 
-const BASE_URL = "/api/home/work-examples"
+const BASE_URL = "/api/sections/work-examples"
 
 const workExamplesSectionApi = {
   get: async (): Promise<WorkExamplesSectionResponse> => {

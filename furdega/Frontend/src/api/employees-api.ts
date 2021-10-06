@@ -5,9 +5,9 @@ import {
   EmployeeUpdateRequest,
 } from "../types/home/employee"
 
-const BASE_URL = "/api/staff"
+const BASE_URL = "/api/employees"
 
-const staffApi = {
+const employeesApi = {
   getAll: async (): Promise<EmployeeResponse[]> => {
     const response = await axios.get<EmployeeResponse[]>(BASE_URL)
     return response.data
@@ -31,4 +31,4 @@ const staffApi = {
   },
 }
 
-export { staffApi }
+export { employeesApi }

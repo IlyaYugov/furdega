@@ -6,7 +6,7 @@ import {
   WorkingProcessSectionResponse,
 } from "../../types/home/process"
 
-const BASE_URL = "/api/home/working-process"
+const BASE_URL = "/api/sections/working-process"
 
 const workingProcessSectionApi = {
   get: async (): Promise<WorkingProcessSectionResponse> => {

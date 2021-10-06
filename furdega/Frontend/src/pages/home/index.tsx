@@ -6,11 +6,11 @@ import { useInView } from "react-intersection-observer"
 import { Scrollspy } from "../../components/scrollspy"
 import { useMobileScreen } from "../../utils/use-mobile-screen"
 import {
-  defaultHomePageContent,
+  defaultSectionsResponse,
   scrollspyAnchors,
   scrollspyAnchorsMap,
 } from "../../const/home"
-import { homeApi } from "../../api/home/home-api"
+import { sectionsApi } from "../../api/sections/sections-api"
 import { About } from "./about"
 import { WorkExamples } from "./work-examples"
 import { Benefits } from "./benefits"
@@ -18,18 +18,18 @@ import { Solutions } from "./solutions"
 import { Process } from "./process"
 import { Staff } from "./staff"
 import styles from "./home.module.scss"
-import { HomePageContent } from "../../types/home/content"
+import { SectionsResponse } from "../../types/home/content"
 
 const Home: FC = () => {
-  const [content, setContent] = useState<HomePageContent>(
-    defaultHomePageContent
+  const [content, setContent] = useState<SectionsResponse>(
+    defaultSectionsResponse
   )
   const [topScrollspyRef, isTopScrollspyVisible] = useInView()
   const [bottomScrollspyRef, isBottomScrollspyVisible] = useInView()
   const isMobile = useMobileScreen()
 
   const fetchContent = async () => {
-    const data = await homeApi.getContent()
+    const data = await sectionsApi.get()
     setContent(data)
   }
 

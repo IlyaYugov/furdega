@@ -3,12 +3,12 @@ import {
   CompanyBenefitResponse,
   CompanyBenefitsSectionResponse,
 } from "../types/home/benefits"
-import { HomePageContent } from "../types/home/content"
+import { SectionsResponse } from "../types/home/content"
 import {
   WorkExampleResponse,
   WorkExamplesSectionResponse,
 } from "../types/home/examples"
-import { MainHomeSectionResponse } from "../types/home/main"
+import { MainSectionResponse } from "../types/home/main"
 import { WorkingProcessSectionResponse } from "../types/home/process"
 import {
   IssueSolutionResponse,
@@ -52,7 +52,7 @@ const defaultImageResponse: ImageResponse = {
   imageUrl: "",
 }
 
-const defaultMainHomeSection: MainHomeSectionResponse = {
+const defaultMainHomeSection: MainSectionResponse = {
   header: "",
   image: defaultImageResponse,
 }
@@ -141,7 +141,7 @@ const defaultCompanyBenefitsSection: CompanyBenefitsSectionResponse = {
   companyBenefit4: defaultCompanyBenefit,
 }
 
-const defaultHomePageContent: HomePageContent = {
+const defaultSectionsResponse: SectionsResponse = {
   mainHomeSection: defaultMainHomeSection,
   aboutSection: defaultAboutSection,
   workExamplesSection: defaultWorkExamplesSection,
@@ -156,5 +156,5 @@ export {
   scrollspyAnchors,
   defaultAboutSection,
   defaultWorkingProcessSection,
-  defaultHomePageContent,
+  defaultSectionsResponse,
 }

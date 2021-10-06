@@ -4,8 +4,8 @@ import { Row, Col } from "react-bootstrap"
 import { Edit } from "./edit"
 import { View } from "./view"
 import { AdminSectionMode } from "../../../../const/admin"
-import { staffSectionApi } from "../../../../api/home/staff-section-api"
-import { staffApi } from "../../../../api/staff-api"
+import { staffSectionApi } from "../../../../api/sections/staff-section-api"
+import { employeesApi } from "../../../../api/employees-api"
 import { StaffSectionResponse } from "../../../../types/home/staff"
 import { EmployeeResponse } from "../../../../types/home/employee"
 
@@ -24,7 +24,7 @@ const StaffSection: FC = () => {
       return
     }
 
-    const employees = await staffApi.getAll()
+    const employees = await employeesApi.getAll()
     setData({ ...sectionData, employees })
   }
 

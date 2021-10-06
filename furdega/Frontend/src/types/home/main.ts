@@ -5,7 +5,7 @@ export type MainHomeSectionUpdateRequest = HomeSectionBaseRequest & {
   image: ImageUpdateRequest
 }
 
-export type MainHomeSectionResponse = HomeSectionBaseResponse & {
+export type MainSectionResponse = HomeSectionBaseResponse & {
   image: ImageResponse | null
 }
 
