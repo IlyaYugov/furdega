@@ -1,9 +1,4 @@
-import {
-  ImageResponse,
-  ImageWithPositionResponse,
-  ImageCreateRequest,
-  ImageUpdateRequest,
-} from "./image"
+import { ImageResponse, ImageCreateRequest, ImageUpdateRequest } from "./image"
 
 export type MaterialSimple = {
   id: number
@@ -16,21 +11,6 @@ export type Material = {
   title: string
   mainImage: ImageResponse
   description: string
-}
-
-export type MaterialBrandSimple = {
-  id: number
-  title: string
-  materialId: number
-  previewImage: ImageResponse
-}
-
-export type MaterialBrand = {
-  id: number
-  title: string
-  materialId: number
-  mainImage: ImageResponse
-  images: ImageWithPositionResponse[]
 }
 
 export type MaterialCreateRequest = {

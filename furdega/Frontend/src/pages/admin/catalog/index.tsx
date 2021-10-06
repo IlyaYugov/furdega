@@ -3,16 +3,17 @@ import { Col, Nav, Row, Tab, Button } from "react-bootstrap"
 
 import { materialsApi } from "../../../api/materials-api"
 import {
-  Material as MaterialType,
+  Material,
   MaterialCreateRequest,
   MaterialSimple,
 } from "../../../types/material"
 import { Edit } from "./edit"
-import { View } from "./view"
+import { View } from "../material-brands/view"
 import { AdminSectionMode } from "../../../const/admin"
 import { Create } from "./create"
 
-export type MaterialData = MaterialType & Pick<MaterialSimple, "previewImage">
+export type MaterialData = MaterialSimple &
+  Pick<Material, "description" | "mainImage">
 
 const Catalog: FC = () => {
   const [mode, setMode] = useState<AdminSectionMode>(AdminSectionMode.view)
@@ -26,7 +27,7 @@ const Catalog: FC = () => {
     return data
   }
 
-  const getMaterialById = async (id: number): Promise<MaterialType> => {
+  const getMaterialById = async (id: number): Promise<Material> => {
     const data = await materialsApi.getById(id)
     return data
   }

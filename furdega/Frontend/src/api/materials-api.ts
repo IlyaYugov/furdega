@@ -1,10 +1,12 @@
 import axios from "axios"
+
 import {
   MaterialSimple,
   MaterialCreateRequest,
   MaterialUpdateRequest,
   Material,
 } from "../types/material"
+import { MaterialBrandSimple } from "../types/material-brand"
 
 const BASE_URL = "/api/materials"
 
@@ -16,6 +18,13 @@ const materialsApi = {
 
   getById: async (id: number): Promise<Material> => {
     const response = await axios.get<Material>(`${BASE_URL}/${id}`)
+    return response.data
+  },
+
+  getBrandsById: async (id: number): Promise<MaterialBrandSimple[]> => {
+    const response = await axios.get<MaterialBrandSimple[]>(
+      `${BASE_URL}/${id}/brands`
+    )
     return response.data
   },
 

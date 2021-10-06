@@ -3,32 +3,34 @@ import { Row, Col, Form, Button, Image } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../const/admin"
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
-import { MaterialData } from "."
+import { BrandData } from "."
 import { FormInputEvent } from "../../../types/utils"
 import { fileToBase64 } from "../../../utils/file-to-base64"
 import { MaterialUpdateRequest } from "../../../types/material"
 import { Link } from "react-router-dom"
 import { materialsApi } from "../../../api/materials-api"
+import { MaterialBrandUpdateRequest } from "../../../types/material-brand"
+import { materialBrandsApi } from "../../../api/material-brands-api"
 
 type EditProps = {
-  data: MaterialData
+  data: BrandData
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
 const Edit: FC<EditProps> = ({ data, setMode }) => {
   const [title, setTitle] = useState<string>(data.title)
-  const [description, setDescription] = useState<string>(data.description)
   const [previewImage, setPreviewImage] = useState(data.previewImage)
   const [mainImage, setMainImage] = useState(data.mainImage)
+  const [images, setImages] = useState(data.images)
   const [previewImageBase64, setPreviewImageBase64] = useState<string | null>(
     null
   )
   const [mainImageBase64, setMainImageBase64] = useState<string | null>(null)
 
   const save = async () => {
-    const request: MaterialUpdateRequest = {
+    const request: MaterialBrandUpdateRequest = {
       title,
-      description,
+      materialId: data.materialId,
       mainImage: {
         id: mainImage.id,
         base64ImageString: mainImageBase64,
@@ -37,9 +39,10 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
         id: previewImage.id,
         base64ImageString: previewImageBase64,
       },
+      images: [],
     }
 
-    await materialsApi.update(data.id, request)
+    await materialBrandsApi.update(data.id, request)
 
     setMode(AdminSectionMode.view)
   }

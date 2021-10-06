@@ -1,25 +1,32 @@
 import axios from "axios"
-
-import { MaterialBrand, MaterialBrandSimple } from "../types/material"
+import {
+  MaterialBrand,
+  MaterialBrandCreateRequest,
+  MaterialBrandUpdateRequest,
+} from "../types/material-brand"
 
 const BASE_URL = "/api/material-brands"
 
 const materialBrandsApi = {
-  getAll: async (materialId: number): Promise<MaterialBrandSimple[]> => {
-    const response = await axios.get<MaterialBrandSimple[]>(
-      `${BASE_URL}/${materialId}/brands`
+  getMaterialBrand: async (
+    materialId: number,
+    brandId: number
+  ): Promise<MaterialBrand> => {
+    const response = await axios.get<MaterialBrand>(
+      `${BASE_URL}/${materialId}/brands/${brandId}`
     )
     return response.data
   },
 
-  get: async (
-    materialId: number,
-    materialBrandId: number
-  ): Promise<MaterialBrand> => {
-    const response = await axios.get<MaterialBrand>(
-      `${BASE_URL}/${materialId}/brands/${materialBrandId}`
-    )
-    return response.data
+  create: async (request: MaterialBrandCreateRequest): Promise<void> => {
+    await axios.post(BASE_URL, request)
+  },
+
+  update: async (
+    brandId: number,
+    request: MaterialBrandUpdateRequest
+  ): Promise<void> => {
+    await axios.put(`${BASE_URL}/${brandId}`, request)
   },
 }
 
