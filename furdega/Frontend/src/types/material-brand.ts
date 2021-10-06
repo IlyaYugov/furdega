@@ -3,7 +3,6 @@ import { ImageCreateRequest, ImageResponse, ImageUpdateRequest } from "./image"
 export type MaterialBrandSimple = {
   id: number
   title: string
-  materialId: number
   previewImage: ImageResponse
 }
 
@@ -12,6 +11,7 @@ export type MaterialBrand = {
   title: string
   materialId: number
   mainImage: ImageResponse
+  previewImage: ImageResponse
   images: ImageResponse[]
 }
 

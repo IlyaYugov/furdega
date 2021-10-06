@@ -15,7 +15,7 @@ import { useParams } from "react-router"
 import { materialBrandsApi } from "../../../api/material-brands-api"
 
 export type BrandData = MaterialBrandSimple &
-  Pick<MaterialBrand, "mainImage" | "images">
+  Pick<MaterialBrand, "mainImage" | "images" | "materialId">
 
 const MaterialBrands: FC = () => {
   const { materialId } = useParams<{ materialId: string }>()
@@ -32,10 +32,7 @@ const MaterialBrands: FC = () => {
   }
 
   const getBrandById = async (brandId: number): Promise<MaterialBrand> => {
-    const data = await materialBrandsApi.getMaterialBrand(
-      Number(materialId),
-      brandId
-    )
+    const data = await materialBrandsApi.getMaterialBrand(brandId)
     return data
   }
 
@@ -95,7 +92,7 @@ const MaterialBrands: FC = () => {
                   setMode(AdminSectionMode.create)
                 }}
               >
-                Добавить материал
+                Добавить бренд
               </Button>
             </Nav.Item>
           </Nav>

@@ -3,15 +3,15 @@ import { Col, Row, Button, Image } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../const/admin"
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
-import { MaterialData } from "../catalog"
+import { BrandData } from "."
 
 type ViewProps = {
-  data: MaterialData
+  data: BrandData
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
 const View: FC<ViewProps> = ({ data, setMode }) => {
-  const { title, description, mainImage, previewImage } = data
+  const { title, mainImage, previewImage, images } = data
 
   return (
     <Row className="flex-column gy-3">
@@ -26,17 +26,12 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
       </Col>
 
       <Col>
-        <h4 className="fw-bold">Название материала</h4>
+        <h4 className="fw-bold">Название бренда</h4>
         <div>{title}</div>
       </Col>
 
       <Col>
         <YellowSnakeIcon />
-      </Col>
-
-      <Col>
-        <h4 className="fw-bold">Описание</h4>
-        <div>{description}</div>
       </Col>
 
       <Col>
@@ -52,6 +47,8 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
           </Col>
         </Row>
       </Col>
+
+      <Col>TODO Images</Col>
     </Row>
   )
 }

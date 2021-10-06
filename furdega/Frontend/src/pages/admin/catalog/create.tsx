@@ -14,8 +14,6 @@ type CreateProps = {
   close: () => void
 }
 
-export const NEW_EMPLOYEE_ID = -1
-
 const getCreateMaterialData = (): MaterialData => ({
   id: -1,
   title: "",

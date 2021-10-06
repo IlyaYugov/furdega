@@ -3,41 +3,39 @@ import { Modal, Button, Form, Row, Col, Image } from "react-bootstrap"
 
 import { FormInputEvent } from "../../../types/utils"
 import { fileToBase64 } from "../../../utils/file-to-base64"
-import { MaterialCreateRequest } from "../../../types/material"
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
 import { getDefaultImage } from "../../../utils/get-default-image"
-import { MaterialData } from "."
+import { MaterialBrandCreateRequest } from "../../../types/material-brand"
+import { BrandData } from "."
 
 type CreateProps = {
   show: boolean
-  submit: (request: MaterialCreateRequest) => Promise<void>
+  submit: (request: MaterialBrandCreateRequest) => Promise<void>
   close: () => void
 }
 
-export const NEW_EMPLOYEE_ID = -1
-
-const getCreateMaterialData = (): MaterialData => ({
+const getCreateBrandData = (): BrandData => ({
   id: -1,
+  materialId: -1,
   title: "",
-  description: "",
   mainImage: getDefaultImage(),
   previewImage: getDefaultImage(),
+  images: [],
 })
 
 const Create: FC<CreateProps> = ({ show, submit, close }) => {
   const [title, setTitle] = useState<string>("")
-  const [description, setDescription] = useState<string>("")
   const [previewImage, setPreviewImage] = useState(getDefaultImage())
   const [mainImage, setMainImage] = useState(getDefaultImage())
+  const [images, setImages] = useState()
   const [previewImageBase64, setPreviewImageBase64] = useState<string | null>(
     null
   )
   const [mainImageBase64, setMainImageBase64] = useState<string | null>(null)
 
   useEffect(() => {
-    const data = getCreateMaterialData()
+    const data = getCreateBrandData()
     setTitle(data.title)
-    setDescription(data.description)
     setPreviewImage(data.previewImage)
     setMainImage(data.mainImage)
     setPreviewImageBase64(null)
@@ -71,9 +69,9 @@ const Create: FC<CreateProps> = ({ show, submit, close }) => {
   const onSubmitClick = async () => {
     if (!(mainImageBase64 && previewImageBase64)) return
 
-    const request: MaterialCreateRequest = {
+    const request: MaterialBrandCreateRequest = {
       title,
-      description,
+      materialId: -1, // TODO
       mainImage: {
         id: mainImage.id,
         base64ImageString: mainImageBase64,
@@ -82,6 +80,7 @@ const Create: FC<CreateProps> = ({ show, submit, close }) => {
         id: previewImage.id,
         base64ImageString: previewImageBase64,
       },
+      images: [],
     }
 
     submit(request)
@@ -90,13 +89,13 @@ const Create: FC<CreateProps> = ({ show, submit, close }) => {
   return (
     <Modal show={show} onHide={close}>
       <Modal.Header closeButton>
-        <Modal.Title>Добавление нового материала</Modal.Title>
+        <Modal.Title>Добавление нового бренда</Modal.Title>
       </Modal.Header>
 
       <Modal.Body className="overflow-hidden">
         <Row className="flex-column gy-3">
           <Col>
-            <div className="fw-bold">Название материала</div>
+            <div className="fw-bold">Название бренда</div>
             <Form.Control
               as="input"
               value={title}
@@ -108,17 +107,6 @@ const Create: FC<CreateProps> = ({ show, submit, close }) => {
 
           <Col>
             <YellowSnakeIcon />
-          </Col>
-
-          <Col>
-            <div className="fw-bold">Описание</div>
-            <Form.Control
-              as="input"
-              value={description}
-              onChange={(event) => {
-                setDescription(event.target.value)
-              }}
-            />
           </Col>
 
           <Col>

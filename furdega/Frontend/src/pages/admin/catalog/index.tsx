@@ -8,7 +8,7 @@ import {
   MaterialSimple,
 } from "../../../types/material"
 import { Edit } from "./edit"
-import { View } from "../material-brands/view"
+import { View } from "./view"
 import { AdminSectionMode } from "../../../const/admin"
 import { Create } from "./create"
 

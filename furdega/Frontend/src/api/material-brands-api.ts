@@ -8,13 +8,8 @@ import {
 const BASE_URL = "/api/material-brands"
 
 const materialBrandsApi = {
-  getMaterialBrand: async (
-    materialId: number,
-    brandId: number
-  ): Promise<MaterialBrand> => {
-    const response = await axios.get<MaterialBrand>(
-      `${BASE_URL}/${materialId}/brands/${brandId}`
-    )
+  getMaterialBrand: async (brandId: number): Promise<MaterialBrand> => {
+    const response = await axios.get<MaterialBrand>(`${BASE_URL}/${brandId}`)
     return response.data
   },
 

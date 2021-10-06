@@ -6,9 +6,6 @@ import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-sn
 import { BrandData } from "."
 import { FormInputEvent } from "../../../types/utils"
 import { fileToBase64 } from "../../../utils/file-to-base64"
-import { MaterialUpdateRequest } from "../../../types/material"
-import { Link } from "react-router-dom"
-import { materialsApi } from "../../../api/materials-api"
 import { MaterialBrandUpdateRequest } from "../../../types/material-brand"
 import { materialBrandsApi } from "../../../api/material-brands-api"
 
@@ -76,13 +73,6 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
       <Col className="d-flex justify-content-end">
         <Row>
           <Col>
-            <Button className="text-nowrap">
-              <Link to={`/admin/catalog/${data.id}/brands`}>
-                Редактировать бренды
-              </Link>
-            </Button>
-          </Col>
-          <Col>
             <Button
               className="text-nowrap"
               onClick={() => {
@@ -104,9 +94,8 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
           </Col>
         </Row>
       </Col>
-
       <Col>
-        <h4 className="fw-bold">Название материала</h4>
+        <h4 className="fw-bold">Название бренда</h4>
         <Form.Control
           as="input"
           value={title}
@@ -115,22 +104,9 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
           }}
         />
       </Col>
-
       <Col>
         <YellowSnakeIcon />
       </Col>
-
-      <Col>
-        <h4 className="fw-bold">Описание</h4>
-        <Form.Control
-          as="input"
-          value={description}
-          onChange={(event) => {
-            setDescription(event.target.value)
-          }}
-        />
-      </Col>
-
       <Col>
         <Row>
           <Col>
@@ -170,6 +146,8 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
           </Col>
         </Row>
       </Col>
+
+      <Col>TODO Images</Col>
     </Row>
   )
 }
