@@ -1,10 +1,10 @@
-import { ImageUpdateRequest, ImageСreateRequest, ImageResponse } from "../image"
+import { ImageUpdateRequest, ImageCreateRequest, ImageResponse } from "../image"
 
 export type EmployeeCreateRequest = {
   firstName: string
   lastName: string
   description: string
-  image: ImageСreateRequest
+  image: ImageCreateRequest
 }
 
 export type EmployeeUpdateRequest = {

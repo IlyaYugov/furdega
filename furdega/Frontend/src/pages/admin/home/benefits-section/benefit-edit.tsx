@@ -3,7 +3,7 @@ import { Col, Form, Row } from "react-bootstrap"
 
 import { CompanyBenefitResponse } from "../../../../types/home/benefits"
 import { FormInputEvent } from "../../../../types/utils"
-import { fileToBase64 } from "../../../../utils/fileToBase64"
+import { fileToBase64 } from "../../../../utils/file-to-base64"
 
 type BenefitEditProps = {
   value: CompanyBenefitResponse

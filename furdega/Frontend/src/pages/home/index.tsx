@@ -4,7 +4,7 @@ import { Row, Col, Container, Button } from "react-bootstrap"
 import { useInView } from "react-intersection-observer"
 
 import { Scrollspy } from "../../components/scrollspy"
-import { useMobileScreen } from "../../utils/useMobileScreen"
+import { useMobileScreen } from "../../utils/use-mobile-screen"
 import {
   defaultHomePageContent,
   scrollspyAnchors,

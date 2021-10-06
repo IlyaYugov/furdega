@@ -1,6 +1,5 @@
 import { Dispatch, FC, SetStateAction, useState } from "react"
 import { Row, Col, Button, Form } from "react-bootstrap"
-import { v4 as uuidv4 } from "uuid"
 
 import { mainHomeSectionApi } from "../../../../api/home/main-home-section-api"
 import { AdminSectionMode } from "../../../../const/admin"
@@ -10,18 +9,14 @@ import {
 } from "../../../../types/home/main"
 import { ImageResponse, ImageUpdateRequest } from "../../../../types/image"
 import { FormInputEvent } from "../../../../types/utils"
-import { fileToBase64 } from "../../../../utils/fileToBase64"
+import { fileToBase64 } from "../../../../utils/file-to-base64"
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
+import { getDefaultImage } from "../../../../utils/get-default-image"
 
 type EditProps = {
   data: MainHomeSectionResponse
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
-
-const getDefaultImage = (): ImageResponse => ({
-  id: uuidv4(),
-  imageUrl: "",
-})
 
 const Edit: FC<EditProps> = ({ data, setMode }) => {
   const isDataEmpty = Object.values(data).every((val) => val === null)

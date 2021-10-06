@@ -1,4 +1,4 @@
-import { ImageUpdateRequest, ImageСreateRequest, ImageResponse } from "../image"
+import { ImageUpdateRequest, ImageCreateRequest, ImageResponse } from "../image"
 import { HomeSectionBaseRequest, HomeSectionBaseResponse } from "./common"
 
 export type WorkExampleUpdateRequest = {
@@ -21,12 +21,12 @@ export type WorkExampleCreateRequest = {
   duration: string
   workType: string
   description: string
-  beforeImage1: ImageСreateRequest
-  beforeImage2: ImageСreateRequest
-  beforeImage3: ImageСreateRequest
-  afterImage1: ImageСreateRequest
-  afterImage2: ImageСreateRequest
-  afterImage3: ImageСreateRequest
+  beforeImage1: ImageCreateRequest
+  beforeImage2: ImageCreateRequest
+  beforeImage3: ImageCreateRequest
+  afterImage1: ImageCreateRequest
+  afterImage2: ImageCreateRequest
+  afterImage3: ImageCreateRequest
 }
 
 export type WorkExampleResponse = {

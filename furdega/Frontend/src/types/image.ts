@@ -8,7 +8,25 @@ export type ImageUpdateRequest = {
   base64ImageString: string | null
 }
 
-export type ImageСreateRequest = {
+export type ImageCreateRequest = {
   id: string
   base64ImageString: string
+}
+
+export type ImageWithPositionResponse = {
+  id: string
+  position: number
+  imageUrl: string
+}
+
+export type ImageWithPositionCreateRequest = {
+  id: string
+  position: number
+  base64ImageString: string
+}
+
+export type ImageWithPositionUpdateRequest = {
+  id: string
+  position: number
+  base64ImageString: string | null
 }

@@ -1,4 +1,4 @@
-import { ImageUpdateRequest, ImageСreateRequest, ImageResponse } from "../image"
+import { ImageUpdateRequest, ImageCreateRequest, ImageResponse } from "../image"
 import { HomeSectionBaseRequest, HomeSectionBaseResponse } from "./common"
 
 export type CompanyBenefitsSectionResponse = HomeSectionBaseResponse & {
@@ -25,7 +25,7 @@ export type CompanyBenefitsSectionUpdateRequest = HomeSectionBaseRequest & {
 export type CompanyBenefitCreateRequest = {
   title: string
   description: string
-  image: ImageСreateRequest
+  image: ImageCreateRequest
 }
 
 export type CompanyBenefitUpdateRequest = {
