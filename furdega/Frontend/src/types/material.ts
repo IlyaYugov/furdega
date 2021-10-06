@@ -2,6 +2,7 @@ import {
   ImageResponse,
   ImageWithPositionResponse,
   ImageCreateRequest,
+  ImageUpdateRequest,
 } from "./image"
 
 export type MaterialSimple = {
@@ -36,5 +37,12 @@ export type MaterialCreateRequest = {
   title: string
   mainImage: ImageCreateRequest
   previewImage: ImageCreateRequest
+  description: string
+}
+
+export type MaterialUpdateRequest = {
+  title: string
+  mainImage: ImageUpdateRequest
+  previewImage: ImageUpdateRequest
   description: string
 }

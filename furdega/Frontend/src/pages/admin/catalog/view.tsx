@@ -1,9 +1,9 @@
 import { Dispatch, FC, SetStateAction } from "react"
 import { Col, Row, Button, Image } from "react-bootstrap"
 
-import { AdminSectionMode } from "../../../../const/admin"
-import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"
-import { MaterialData } from ".."
+import { AdminSectionMode } from "../../../const/admin"
+import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
+import { MaterialData } from "."
 
 type ViewProps = {
   data: MaterialData
@@ -40,13 +40,17 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
       </Col>
 
       <Col>
-        <h4 className="fw-bold">Preview изображение</h4>
-        <Image fluid src={previewImage.imageUrl} />
-      </Col>
+        <Row>
+          <Col>
+            <h4 className="fw-bold">Preview изображение</h4>
+            <Image fluid src={previewImage.imageUrl} />
+          </Col>
 
-      <Col>
-        <h4 className="fw-bold">Главное изображение</h4>
-        <Image fluid src={mainImage.imageUrl} />
+          <Col>
+            <h4 className="fw-bold">Главное изображение</h4>
+            <Image fluid src={mainImage.imageUrl} />
+          </Col>
+        </Row>
       </Col>
     </Row>
   )
