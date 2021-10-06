@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers.HomePage.Sections
 {
-    [Route("api/home/staff")]
+    [Route("api/sections/staff")]
     [ApiController]
     public class StaffSectionController : ControllerBase
     {

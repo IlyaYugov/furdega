@@ -22,11 +22,9 @@ namespace Furdega.Services.Materials
             _imageManager = imageManager;
         }
 
-        public async Task<IEnumerable<MaterialResponse>> GetFiltered(int? materialTypeId)
+        public async Task<IEnumerable<MaterialResponse>> GetAll()
         {
-
-            var material = await _materialRepository
-                .GetItems(s => materialTypeId == null || s.MaterialTypeId == materialTypeId);
+            var material = await _materialRepository.GetItems();
 
             var response = _mapper.Map<List<MaterialResponse>>(material);
 
@@ -46,8 +44,11 @@ namespace Furdega.Services.Materials
         {
             var material = _mapper.Map<Material>(materialRequest);
 
-            var newImage = await _imageManager.CreateImage(materialRequest.Image);
-            material.ImageUrl = newImage?.ImageUrl;
+            var newMainImage = await _imageManager.CreateImage(materialRequest.MainImage);
+            material.MainImageUrl = newMainImage?.ImageUrl;
+
+            var newPreviewImage = await _imageManager.CreateImage(materialRequest.PreviewImage);
+            material.PreviewImageUrl = newPreviewImage?.ImageUrl;
 
             var createdMaterial = await _materialRepository.Create(material);
 
@@ -61,10 +62,16 @@ namespace Furdega.Services.Materials
             _mapper.Map(materialRequest, material);
             material.Id = id;
 
-            if (!string.IsNullOrEmpty(materialRequest.Image?.Base64ImageString))
+            if (!string.IsNullOrEmpty(materialRequest.MainImage?.Base64ImageString))
             {
-                var newImage = await _imageManager.UpdateImage(materialRequest.Image, material.ImageUrl);
-                material.ImageUrl = newImage?.ImageUrl;
+                var newImage = await _imageManager.UpdateImage(materialRequest.MainImage, material.MainImageUrl);
+                material.MainImageUrl = newImage?.ImageUrl;
+            }
+
+            if (!string.IsNullOrEmpty(materialRequest.PreviewImage?.Base64ImageString))
+            {
+                var newImage = await _imageManager.UpdateImage(materialRequest.PreviewImage, material.PreviewImageUrl);
+                material.PreviewImageUrl = newImage?.ImageUrl;
             }
 
             await _materialRepository.Update(material);

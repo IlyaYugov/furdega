@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers.HomePage.Sections
 {
-    [Route("api/home/work-examples")]
+    [Route("api/sections/work-examples")]
     [ApiController]
     public class WorkExamplesSectionController : ControllerBase
     {

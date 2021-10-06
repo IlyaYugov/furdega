@@ -11,11 +11,11 @@ namespace Furdega.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FurnitureController : ControllerBase
+    public class FurnituresController : ControllerBase
     {
         private readonly IFurnitureService _furnitureService;
 
-        public FurnitureController(IFurnitureService furnitureService)
+        public FurnituresController(IFurnitureService furnitureService)
         {
             _furnitureService = furnitureService;
         }

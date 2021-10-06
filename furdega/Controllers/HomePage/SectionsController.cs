@@ -7,17 +7,17 @@ namespace Furdega.Controllers.HomePage
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HomeController : ControllerBase
+    public class SectionsController : ControllerBase
     {
         private readonly IHomePageService _homePageService;
 
-        public HomeController(IHomePageService homePageService)
+        public SectionsController(IHomePageService homePageService)
         {
             _homePageService = homePageService;
         }
 
         [HttpGet]
-        public async Task<HomePageContent> GetHomePageContent()
+        public async Task<HomePageContent> GetSections()
         {
             return await _homePageService.GetFullPage();
         }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Furdega.Services.FileManagers;
 using Furdega.Services.HomePage.Sections;
+using Furdega.Services.MaterialBrands;
+using Furdega.Services.MaterialBrands.Dtos.Output;
 using Furdega.Services.Materials;
 using Furdega.Services.Materials.Dtos.Input;
 using Furdega.Services.Materials.Dtos.Output;
@@ -12,19 +14,27 @@ namespace Furdega.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MaterialController : ControllerBase
+    public class MaterialsController : ControllerBase
     {
         private readonly IMaterialService _materialService;
+        private readonly IMaterialBrandService _materialBrandService;
 
-        public MaterialController(IMaterialService materialService)
+        public MaterialsController(IMaterialService materialService, IMaterialBrandService materialBrandService)
         {
             _materialService = materialService;
+            _materialBrandService = materialBrandService;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<MaterialResponse>> GetMaterials(int? materialTypeId)
+        public async Task<IEnumerable<MaterialResponse>> GetMaterials()
         {
-            return await _materialService.GetFiltered(materialTypeId);
+            return await _materialService.GetAll();
+        }
+
+        [HttpGet("{id:int}/brands")]
+        public async Task<IEnumerable<MaterialBrandResponse>> GetBrands(int id)
+        {
+            return await _materialBrandService.GetBrands(id);
         }
 
         [HttpGet("{id:int}")]

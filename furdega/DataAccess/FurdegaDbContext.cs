@@ -9,7 +9,7 @@ namespace Furdega.DataAccess
         private static volatile bool _isInitialized;
         private static readonly object Mutex = new();
 
-        public DbSet<MaterialType> MaterialTypes { get; set; }
+        public DbSet<MaterialBrand> MaterialBrands { get; set; }
         public DbSet<FurnitureType> FurnitureTypes { get; set; }
         public DbSet<HomePageSection> HomePageSections { get; set; }
         public DbSet<Employee> Employees { get; set; }
