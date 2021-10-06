@@ -114,14 +114,17 @@ namespace Furdega.Services.MaterialBrands
             await _materialBrandRepository.Delete(type);
         }
 
-        private ImageResponse[] DeserializeImages(string images) => JsonSerializer.Deserialize<ImageResponse[]>(images ?? "{}");
+        private ImageResponse[] DeserializeImages(string images) => JsonSerializer.Deserialize<ImageResponse[]>(images ?? "[]");
         private string SerializeImages(List<ImageResponse> images) => JsonSerializer.Serialize(images);
 
         private MaterialBrandResponse ConvertBrandToBrandResponse(MaterialBrand brand)
         {
+            if (brand == null)
+                return null;
+
             var brandResponse = _mapper.Map<MaterialBrandResponse>(brand);
 
-            brandResponse.Images = DeserializeImages(brand?.Images);
+            brandResponse.Images = DeserializeImages(brand.Images);
 
             return brandResponse;
         }
