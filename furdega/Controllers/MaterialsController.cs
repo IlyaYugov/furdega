@@ -26,13 +26,13 @@ namespace Furdega.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<MaterialResponse>> GetMaterials()
+        public async Task<IEnumerable<GetMaterialsResponse>> GetMaterials()
         {
             return await _materialService.GetAll();
         }
 
         [HttpGet("{id:int}/brands")]
-        public async Task<IEnumerable<MaterialBrandResponse>> GetBrands(int id)
+        public async Task<IEnumerable<GetMaterialBrandsResponse>> GetBrands(int id)
         {
             return await _materialBrandService.GetBrands(id);
         }

@@ -7,7 +7,7 @@ namespace Furdega.Services.Materials
 {
     public interface IMaterialService
     {
-        Task<IEnumerable<MaterialResponse>> GetAll();
+        Task<IEnumerable<GetMaterialsResponse>> GetAll();
         Task<MaterialResponse> Get(int id);
         Task<int> Create(MaterialRequest materialRequest);
         Task Update(int id, MaterialRequest materialRequest);

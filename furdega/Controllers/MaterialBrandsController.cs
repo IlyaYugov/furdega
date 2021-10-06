@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Furdega.Services.FileManagers;
 using Furdega.Services.MaterialBrands;
 using Furdega.Services.MaterialBrands.Dtos.Input;
+using Furdega.Services.MaterialBrands.Dtos.Output;
 
 namespace Furdega.Controllers
 {
@@ -15,6 +16,12 @@ namespace Furdega.Controllers
         public MaterialBrandsController(IMaterialBrandService materialBrandService)
         {
             _materialBrandService = materialBrandService;
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<MaterialBrandResponse> Get(int id)
+        {
+            return await _materialBrandService.Get(id);
         }
 
         [HttpPost]

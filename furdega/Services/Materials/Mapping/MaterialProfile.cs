@@ -25,6 +25,13 @@ namespace Furdega.Services.Materials.Mapping
                     Id = source.PreviewImageId,
                     ImageUrl = source.PreviewImageUrl
                 }));
+
+            CreateMap<Material, GetMaterialsResponse>()
+                .ForMember(dest => dest.PreviewImage, s => s.MapFrom(source => new ImageResponse
+                {
+                    Id = source.PreviewImageId,
+                    ImageUrl = source.PreviewImageUrl
+                }));
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Furdega.Services.MaterialBrands
     {
         public Task<MaterialBrandResponse> Get(int id);
 
-        public Task<IEnumerable<MaterialBrandResponse>> GetBrands(int materialId);
+        public Task<IEnumerable<GetMaterialBrandsResponse>> GetBrands(int materialId);
 
         public Task<int> Create(MaterialBrandRequest brandRequest);
 

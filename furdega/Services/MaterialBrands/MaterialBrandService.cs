@@ -32,11 +32,13 @@ namespace Furdega.Services.MaterialBrands
             return ConvertBrandToBrandResponse(brand);
         }
 
-        public async Task<IEnumerable<MaterialBrandResponse>> GetBrands(int materialId)
+        public async Task<IEnumerable<GetMaterialBrandsResponse>> GetBrands(int materialId)
         {
             var brands = await _materialBrandRepository.GetItems(m => m.MaterialId == materialId);
 
-            return ConvertBrandsToBrandResponses(brands);
+            var brandsResponse = _mapper.Map<List<GetMaterialBrandsResponse>>(brands);
+
+            return brandsResponse;
         }
 
         public async Task<int> Create(MaterialBrandRequest brandRequest)
@@ -46,13 +48,15 @@ namespace Furdega.Services.MaterialBrands
             var mainImage = await _imageManager.CreateImage(brandRequest.MainImage);
             brand.MainImageUrl = mainImage.ImageUrl;
 
+            var previewImage = await _imageManager.CreateImage(brandRequest.PreviewImage);
+            brand.PreviewImageUrl = previewImage.ImageUrl;
+
             var imageResponses = new List<ImageResponse>();
             foreach (var image in brandRequest.Images)
             {
                 var imageResponse = await _imageManager.CreateImage(image);
                 imageResponses.Add(imageResponse);
             }
-
             brand.Images = SerializeImages(imageResponses);
 
             var createdType = await _materialBrandRepository.Create(brand);
@@ -71,6 +75,12 @@ namespace Furdega.Services.MaterialBrands
             {
                 var mainImage = await _imageManager.CreateImage(brandRequest.MainImage);
                 brandFromDb.MainImageUrl = mainImage.ImageUrl;
+            }
+
+            if (!string.IsNullOrEmpty(brandRequest.PreviewImage?.Base64ImageString))
+            {
+                var previewImage = await _imageManager.CreateImage(brandRequest.PreviewImage);
+                brandFromDb.PreviewImageUrl = previewImage.ImageUrl;
             }
 
             var actualImages = GetActualImagesByRequestModel(brandFromDb, brandRequest);
@@ -92,7 +102,6 @@ namespace Furdega.Services.MaterialBrands
                     image.ImageUrl = imageResponse.ImageUrl;
                 }
             }
-
             brandFromDb.Images = SerializeImages(actualImages);
 
             await _materialBrandRepository.Update(brandFromDb);
@@ -108,23 +117,11 @@ namespace Furdega.Services.MaterialBrands
         private ImageResponse[] DeserializeImages(string images) => JsonSerializer.Deserialize<ImageResponse[]>(images ?? "{}");
         private string SerializeImages(List<ImageResponse> images) => JsonSerializer.Serialize(images);
 
-        private IEnumerable<MaterialBrandResponse> ConvertBrandsToBrandResponses(List<MaterialBrand> brands)
-        {
-            var brandResponses = new List<MaterialBrandResponse>();
-
-            foreach (var brand in brands)
-            {
-                brandResponses.Add(ConvertBrandToBrandResponse(brand));
-            }
-
-            return brandResponses;
-        }
-
         private MaterialBrandResponse ConvertBrandToBrandResponse(MaterialBrand brand)
         {
             var brandResponse = _mapper.Map<MaterialBrandResponse>(brand);
 
-            brandResponse.Images = DeserializeImages(brand.Images);
+            brandResponse.Images = DeserializeImages(brand?.Images);
 
             return brandResponse;
         }
@@ -132,7 +129,7 @@ namespace Furdega.Services.MaterialBrands
         private List<ImageResponse> GetActualImagesByRequestModel(MaterialBrand brandFromDb, MaterialBrandRequest brandRequest)
         {
             var existingImagesIds = brandRequest.Images.Select(s => s.Id);
-            var actualImages = DeserializeImages(brandFromDb.Images)
+            var actualImages = DeserializeImages(brandFromDb?.Images)
                 .Where(s => existingImagesIds.Contains(s.Id))
                 .ToList();
 

@@ -10,8 +10,10 @@ namespace Furdega.DataAccess.Models
         public int MaterialId { get; set; }
 
         public Guid MainImageId { get; set; }
-
         public string MainImageUrl { get; set; }
+
+        public Guid PreviewImageId { get; set; }
+        public string PreviewImageUrl { get; set; }
 
         //Array of ImageResponse into json - {Id, Url}
         public string Images { get; set; }

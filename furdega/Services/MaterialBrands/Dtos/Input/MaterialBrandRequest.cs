@@ -13,6 +13,8 @@ namespace Furdega.Services.MaterialBrands.Dtos.Input
 
         public Image MainImage { get; set; }
 
+        public Image PreviewImage { get; set; }
+
         public Image[] Images { get; set; }
         public bool IsFilesExtensionCorrect()
         {
@@ -24,6 +26,6 @@ namespace Furdega.Services.MaterialBrands.Dtos.Input
 
         public bool IsAllBase64ImagesExist() => true;
 
-        private IEnumerable<Image> AllImages() => new List<Image>(Images) {MainImage};
+        private IEnumerable<Image> AllImages() => new List<Image>(Images) {MainImage, PreviewImage};
     }
 }

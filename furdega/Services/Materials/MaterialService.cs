@@ -22,11 +22,11 @@ namespace Furdega.Services.Materials
             _imageManager = imageManager;
         }
 
-        public async Task<IEnumerable<MaterialResponse>> GetAll()
+        public async Task<IEnumerable<GetMaterialsResponse>> GetAll()
         {
             var material = await _materialRepository.GetItems();
 
-            var response = _mapper.Map<List<MaterialResponse>>(material);
+            var response = _mapper.Map<List<GetMaterialsResponse>>(material);
 
             return response;
         }
