@@ -1,0 +1,22 @@
+@use "../../styles/mixins";
+
+.title {
+  white-space: nowrap;
+  @include mixins.responsive(30px, 28px, 20px, 18px) using ($d) {
+    margin-right: $d;
+  }
+  @include mixins.responsive(46px, 40px, 32px, 30px) using ($d) {
+    font-size: $d;
+    line-height: $d + 4px;
+  }
+}
+
+.snake {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: auto;
+  @include mixins.responsive(46px, 40px, 32px, 30px) using ($d) {
+    height: $d;
+  }
+}

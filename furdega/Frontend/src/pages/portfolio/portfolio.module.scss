@@ -23,19 +23,3 @@
     font-size: $d;
   }
 }
-
-.content-title {
-  white-space: nowrap;
-  margin-right: 32px;
-  @include mixins.responsive(62px, 48px, 36px, 30px) using ($d) {
-    font-size: $d;
-    line-height: $d + 4px;
-  }
-}
-
-.content-title-spring {
-  width: 100%;
-  @include mixins.responsive(62px, 48px, 36px, 30px) using ($d) {
-    height: $d + 4px;
-  }
-}

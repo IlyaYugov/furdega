@@ -10,6 +10,7 @@ import { materialBrandsApi } from "../../api/material-brands-api"
 import { BrandView } from "./brand-view"
 import { AllView } from "./all-view"
 import { MaterialView } from "./material-view"
+import { Title } from "../../components/title"
 
 export type MaterialData = Material & { brands: MaterialBrandSimple[] }
 
@@ -62,15 +63,29 @@ const Catalog: FC = () => {
   }, [])
 
   const renderContent = () => {
-    if (brand) return <BrandView {...brand} />
+    if (brand)
+      return (
+        <>
+          <Title title={brand.title} />
+          <BrandView {...brand} />
+        </>
+      )
 
     if (activeMaterialId === -1)
       return (
-        <AllView materials={materials} onMaterialClick={onMaterialNavClick} />
+        <>
+          <Title title="Все материалы" />
+          <AllView materials={materials} onMaterialClick={onMaterialNavClick} />
+        </>
       )
 
     if (materialData)
-      return <MaterialView {...materialData} onBrandClick={onBrandNavClick} />
+      return (
+        <>
+          <Title title={materialData.title} />
+          <MaterialView {...materialData} onBrandClick={onBrandNavClick} />
+        </>
+      )
 
     return null
   }

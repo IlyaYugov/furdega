@@ -7,6 +7,7 @@ import { furnitureTypesApi } from "../../api/furniture-types-api"
 import { FurnitureType } from "../../types/furniture"
 import { ScrollspyAnchor } from "../../types/scrollspy-anchor"
 import styles from "./portfolio.module.scss"
+import { Title } from "../../components/title"
 
 const mapFurTypesToScrollspyAnchors = (
   furTypes: FurnitureType[]
@@ -50,14 +51,7 @@ const Portfolio: FC = () => {
           </Col>
 
           <Col xs={12} sm={8} md={8} lg={9} className="px-3 ps-sm-5">
-            <Row xs="auto" className="g-0 mb-5 flex-nowrap">
-              <Col>
-                <span className={styles["content-title"]}>Все материалы</span>
-              </Col>
-              <Col className="position-relative">
-                <YellowSnakeIcon className={styles["content-title-spring"]} />
-              </Col>
-            </Row>
+            <Title title="Все материалы" />
           </Col>
         </Row>
       </Container>
