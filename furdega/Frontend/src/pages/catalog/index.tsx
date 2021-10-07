@@ -2,21 +2,75 @@ import { Col, Container, Row } from "react-bootstrap"
 import { FC, useEffect, useState } from "react"
 
 import { materialsApi } from "../../api/materials-api"
-import { MaterialSimple } from "../../types/material"
+import { Material, MaterialSimple } from "../../types/material"
 import styles from "./catalog.module.scss"
 import { Nav } from "./nav"
+import { MaterialBrand, MaterialBrandSimple } from "../../types/material-brand"
+import { materialBrandsApi } from "../../api/material-brands-api"
+import { BrandView } from "./brand-view"
+import { AllView } from "./all-view"
+import { MaterialView } from "./material-view"
+
+export type MaterialData = Material & { brands: MaterialBrandSimple[] }
 
 const Catalog: FC = () => {
   const [materials, setMaterials] = useState<MaterialSimple[]>([])
+  const [activeMaterialId, setActiveMaterialId] = useState<number>(-1)
+  const [activeBrandId, setActiveBrandId] = useState<number>(-1)
+  const [materialData, setMaterialData] = useState<MaterialData | null>(null)
+  const [brand, setBrand] = useState<MaterialBrand | null>(null)
 
   const fetchMaterials = async () => {
     const data = await materialsApi.getAll()
     setMaterials(data)
+    setActiveMaterialId(data[0]?.id || -1)
   }
+
+  const onMaterialNavClick = async (materialId: number) => {
+    setActiveMaterialId(materialId)
+    setActiveBrandId(-1)
+    setBrand(null)
+  }
+
+  const onBrandNavClick = async (brandId: number) => {
+    setActiveBrandId(brandId)
+  }
+
+  const fetchMaterialDataByMaterialId = async (materialId: number) => {
+    const materialResponse = await materialsApi.getById(materialId)
+    const brandsResponse = await materialsApi.getBrandsById(activeMaterialId)
+
+    setMaterialData({ ...materialResponse, brands: brandsResponse })
+  }
+
+  const fetchBrandByBrandId = async (brandId: number) => {
+    const data = await materialBrandsApi.getMaterialBrand(brandId)
+    setBrand(data)
+  }
+
+  useEffect(() => {
+    if (activeMaterialId === -1) return
+    fetchMaterialDataByMaterialId(activeMaterialId)
+  }, [activeMaterialId])
+
+  useEffect(() => {
+    if (activeBrandId === -1) return
+    fetchBrandByBrandId(activeBrandId)
+  }, [activeBrandId])
 
   useEffect(() => {
     fetchMaterials()
   }, [])
+
+  const renderContent = () => {
+    if (brand) return <BrandView {...brand} />
+
+    if (activeMaterialId === -1) return <AllView materials={materials} />
+
+    if (materialData) return <MaterialView {...materialData} />
+
+    return null
+  }
 
   return (
     <>
@@ -31,10 +85,19 @@ const Catalog: FC = () => {
       <Container className="g-0 content overflow-hidden">
         <Row className="flex-nowrap py-5 g-0 bg-light">
           <Col className="scrollspy-col" sm={4} md={4} lg={3}>
-            <Nav materials={materials} />
+            <Nav
+              activeMaterialId={activeMaterialId}
+              activeBrandId={activeBrandId}
+              materials={materials}
+              brands={materialData?.brands || []}
+              onMaterialClick={onMaterialNavClick}
+              onBrandClick={onBrandNavClick}
+            />
           </Col>
 
-          <Col xs={12} sm={8} md={8} lg={9} className="px-3 ps-sm-5"></Col>
+          <Col xs={12} sm={8} md={8} lg={9} className="px-3 ps-sm-5">
+            {renderContent()}
+          </Col>
         </Row>
       </Container>
     </>

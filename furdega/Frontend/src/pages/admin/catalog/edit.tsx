@@ -3,20 +3,19 @@ import { Row, Col, Form, Button, Image } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../const/admin"
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
-import { MaterialData } from "."
 import { FormInputEvent } from "../../../types/utils"
 import { fileToBase64 } from "../../../utils/file-to-base64"
-import { MaterialUpdateRequest } from "../../../types/material"
+import { Material, MaterialUpdateRequest } from "../../../types/material"
 import { Link } from "react-router-dom"
-import { materialsApi } from "../../../api/materials-api"
 
 type EditProps = {
-  data: MaterialData
+  data: Material
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
   onDelete: (id: number) => Promise<void>
+  onUpdate: (id: number, request: MaterialUpdateRequest) => Promise<void>
 }
 
-const Edit: FC<EditProps> = ({ data, setMode, onDelete }) => {
+const Edit: FC<EditProps> = ({ data, setMode, onDelete, onUpdate }) => {
   const [title, setTitle] = useState<string>(data.title)
   const [description, setDescription] = useState<string>(data.description)
   const [previewImage, setPreviewImage] = useState(data.previewImage)
@@ -40,9 +39,7 @@ const Edit: FC<EditProps> = ({ data, setMode, onDelete }) => {
       },
     }
 
-    await materialsApi.update(data.id, request)
-
-    setMode(AdminSectionMode.view)
+    onUpdate(data.id, request)
   }
 
   const onPreviewImageChange = async (event: FormInputEvent) => {

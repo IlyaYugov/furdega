@@ -10,6 +10,7 @@ export type Material = {
   id: number
   title: string
   mainImage: ImageResponse
+  previewImage: ImageResponse
   description: string
 }
 

@@ -3,10 +3,9 @@ import { Modal, Button, Form, Row, Col, Image } from "react-bootstrap"
 
 import { FormInputEvent } from "../../../types/utils"
 import { fileToBase64 } from "../../../utils/file-to-base64"
-import { MaterialCreateRequest } from "../../../types/material"
+import { Material, MaterialCreateRequest } from "../../../types/material"
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
 import { getDefaultImage } from "../../../utils/get-default-image"
-import { MaterialData } from "."
 
 type CreateProps = {
   show: boolean
@@ -14,7 +13,7 @@ type CreateProps = {
   close: () => void
 }
 
-const getCreateMaterialData = (): MaterialData => ({
+const getCreateMaterial = (): Material => ({
   id: -1,
   title: "",
   description: "",
@@ -33,7 +32,7 @@ const Create: FC<CreateProps> = ({ show, submit, close }) => {
   const [mainImageBase64, setMainImageBase64] = useState<string | null>(null)
 
   useEffect(() => {
-    const data = getCreateMaterialData()
+    const data = getCreateMaterial()
     setTitle(data.title)
     setDescription(data.description)
     setPreviewImage(data.previewImage)

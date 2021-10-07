@@ -3,10 +3,10 @@ import { Col, Row, Button, Image } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../const/admin"
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
-import { MaterialData } from "../catalog"
+import { Material } from "../../../types/material"
 
 type ViewProps = {
-  data: MaterialData
+  data: Material
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 

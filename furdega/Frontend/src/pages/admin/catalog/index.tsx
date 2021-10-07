@@ -6,19 +6,17 @@ import {
   Material,
   MaterialCreateRequest,
   MaterialSimple,
+  MaterialUpdateRequest,
 } from "../../../types/material"
 import { Edit } from "./edit"
 import { View } from "./view"
 import { AdminSectionMode } from "../../../const/admin"
 import { Create } from "./create"
 
-export type MaterialData = MaterialSimple &
-  Pick<Material, "description" | "mainImage">
-
 const Catalog: FC = () => {
   const [mode, setMode] = useState<AdminSectionMode>(AdminSectionMode.view)
 
-  const [materialData, setMaterialData] = useState<MaterialData | null>(null)
+  const [material, setMaterial] = useState<Material | null>(null)
   const [materials, setMaterials] = useState<MaterialSimple[]>([])
 
   const fetchMaterials = async () => {
@@ -27,27 +25,25 @@ const Catalog: FC = () => {
     return data
   }
 
-  const getMaterialById = async (id: number): Promise<Material> => {
-    const data = await materialsApi.getById(id)
-    return data
-  }
-
   const createNewMaterial = async (request: MaterialCreateRequest) => {
     await materialsApi.create(request)
   }
 
-  const fetchMaterialDataByMaterialSimple = async (m: MaterialSimple) => {
-    const material = await getMaterialById(m.id)
+  const updateMaterial = async (id: number, request: MaterialUpdateRequest) => {
+    await materialsApi.update(id, request)
+    fetchMaterialById(id)
+    fetchMaterials()
+    setMode(AdminSectionMode.view)
+  }
 
-    setMaterialData({
-      ...material,
-      previewImage: m.previewImage,
-    })
+  const fetchMaterialById = async (materialId: number) => {
+    const data = await materialsApi.getById(materialId)
+    setMaterial(data)
   }
 
   const onMaterialDelete = async (id: number) => {
     await materialsApi.delete(id)
-    setMaterialData(null)
+    fetchMaterialById(id)
     setMode(AdminSectionMode.view)
     fetchMaterials()
   }
@@ -57,16 +53,17 @@ const Catalog: FC = () => {
   }, [])
 
   const renderContent = () => {
-    if (!materialData) return
+    if (!material) return
 
     switch (mode) {
       case AdminSectionMode.view:
-        return <View data={materialData} setMode={setMode} />
+        return <View data={material} setMode={setMode} />
       case AdminSectionMode.edit:
         return (
           <Edit
-            data={materialData}
+            data={material}
             setMode={setMode}
+            onUpdate={updateMaterial}
             onDelete={onMaterialDelete}
           />
         )
@@ -84,9 +81,9 @@ const Catalog: FC = () => {
             {materials.map((m) => (
               <Nav.Item>
                 <Nav.Link
-                  active={materialData?.id === m.id}
+                  active={material?.id === m.id}
                   onClick={async () => {
-                    fetchMaterialDataByMaterialSimple(m)
+                    fetchMaterialById(m.id)
                   }}
                 >
                   {m.title}
@@ -116,9 +113,7 @@ const Catalog: FC = () => {
               await createNewMaterial(request)
               setMode(AdminSectionMode.view)
               const newMaterials = await fetchMaterials()
-              fetchMaterialDataByMaterialSimple(
-                newMaterials[newMaterials.length - 1]
-              )
+              fetchMaterialById(newMaterials[newMaterials.length - 1].id)
             }}
             close={() => {
               setMode(AdminSectionMode.view)
