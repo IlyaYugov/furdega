@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "react-bootstrap"
+import { Col, Container, Row, Image } from "react-bootstrap"
 import { FC, useEffect, useState } from "react"
 
 import { materialsApi } from "../../api/materials-api"
@@ -23,7 +23,6 @@ const Catalog: FC = () => {
   const fetchMaterials = async () => {
     const data = await materialsApi.getAll()
     setMaterials(data)
-    setActiveMaterialId(data[0]?.id || -1)
   }
 
   const onMaterialNavClick = async (materialId: number) => {
@@ -65,9 +64,13 @@ const Catalog: FC = () => {
   const renderContent = () => {
     if (brand) return <BrandView {...brand} />
 
-    if (activeMaterialId === -1) return <AllView materials={materials} />
+    if (activeMaterialId === -1)
+      return (
+        <AllView materials={materials} onMaterialClick={onMaterialNavClick} />
+      )
 
-    if (materialData) return <MaterialView {...materialData} />
+    if (materialData)
+      return <MaterialView {...materialData} onBrandClick={onBrandNavClick} />
 
     return null
   }
@@ -75,10 +78,11 @@ const Catalog: FC = () => {
   return (
     <>
       <Container className={`g-0 ${styles["title-container"]}`}>
+        <Image src="/assets/catalog-top-pic.png" width="1440" height="460" />
         <div
           className={`d-flex justify-content-sm-start justify-content-center ${styles["title-wrapper"]}`}
         >
-          <h1 className={`text-dark ${styles.title}`}>Каталог</h1>
+          <h1 className={`text-white ${styles.title}`}>Каталог</h1>
         </div>
       </Container>
 

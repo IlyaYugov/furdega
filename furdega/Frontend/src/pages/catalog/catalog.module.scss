@@ -25,7 +25,38 @@
 }
 
 .preview-title {
-  font-size: 22px;
-  line-height: 26px;
   font-family: Anticva;
+  @include mixins.responsive(22px, 20px, 18px, 14px) using ($d) {
+    font-size: $d;
+    line-height: $d + 4px;
+  }
+}
+
+.content-title {
+  white-space: nowrap;
+  margin-right: 32px;
+  @include mixins.responsive(62px, 48px, 36px, 30px) using ($d) {
+    font-size: $d;
+    line-height: $d + 4px;
+  }
+}
+
+.content-title-spring {
+  width: 100%;
+  @include mixins.responsive(62px, 48px, 36px, 30px) using ($d) {
+    height: $d + 4px;
+  }
+}
+
+.item {
+  cursor: pointer;
+  @include mixins.responsive(32px, 28px, 22px, 14px) using ($d) {
+    padding: $d !important;
+  }
+}
+
+.container {
+  @include mixins.responsive(32px, 28px, 22px, 14px) using ($d) {
+    margin: -$d !important;
+  }
 }

@@ -125,6 +125,7 @@ $wrapper-small-translate: calc(-100% - #{variables.$content-sm-padding});
 
 .brands-container {
   @include nav-link-item;
+  margin-bottom: $li-gutter + 16px;
 }
 
 .nav-link-name {
