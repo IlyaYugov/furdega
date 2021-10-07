@@ -78,7 +78,7 @@ const Catalog: FC = () => {
   return (
     <>
       <Container className={`g-0 ${styles["title-container"]}`}>
-        <Image src="/assets/catalog-top-pic.png" width="1440" height="460" />
+        <Image src="/assets/catalog-top-pic.jpg" width="1440" height="460" />
         <div
           className={`d-flex justify-content-sm-start justify-content-center ${styles["title-wrapper"]}`}
         >

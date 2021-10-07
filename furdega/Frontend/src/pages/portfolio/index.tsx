@@ -1,12 +1,11 @@
-import { Col, Container, Row } from "react-bootstrap"
+import { Col, Container, Image, Row } from "react-bootstrap"
 import { FC, useEffect, useState } from "react"
 
-import { PortfolioSection } from "./portfolio-section"
+import { ReactComponent as YellowSnakeIcon } from "../../assets/svg/yellow-snake.svg"
 import { Scrollspy } from "../../components/scrollspy"
-import { furnitureTypeApi } from "../../api/furniture-type-api"
-import { FurnitureType } from "../../types/furniture-type"
+import { furnitureTypesApi } from "../../api/furniture-types-api"
+import { FurnitureType } from "../../types/furniture"
 import { ScrollspyAnchor } from "../../types/scrollspy-anchor"
-
 import styles from "./portfolio.module.scss"
 
 const mapFurTypesToScrollspyAnchors = (
@@ -21,7 +20,7 @@ const Portfolio: FC = () => {
   )
 
   const fetchFurnitureTypes = async () => {
-    const data = await furnitureTypeApi.getTypes()
+    const data = await furnitureTypesApi.get()
     setFurnitureTypes(data)
   }
 
@@ -36,12 +35,7 @@ const Portfolio: FC = () => {
   return (
     <>
       <Container className={`g-0 ${styles["title-container"]}`}>
-        <img
-          src="/assets/portfolio-top-pic.jpg"
-          alt="/assets/portfolio-top-pic.jpg"
-          width="1440"
-          height="460"
-        />
+        <Image src="/assets/portfolio-top-pic.jpg" width="1440" height="460" />
         <div
           className={`d-flex justify-content-sm-start justify-content-center ${styles["title-wrapper"]}`}
         >
@@ -56,7 +50,14 @@ const Portfolio: FC = () => {
           </Col>
 
           <Col xs={12} sm={8} md={8} lg={9} className="px-3 ps-sm-5">
-            <PortfolioSection title={"Все работы"} />
+            <Row xs="auto" className="g-0 mb-5 flex-nowrap">
+              <Col>
+                <span className={styles["content-title"]}>Все материалы</span>
+              </Col>
+              <Col className="position-relative">
+                <YellowSnakeIcon className={styles["content-title-spring"]} />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
