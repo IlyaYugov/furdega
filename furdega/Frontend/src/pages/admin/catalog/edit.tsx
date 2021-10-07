@@ -13,9 +13,10 @@ import { materialsApi } from "../../../api/materials-api"
 type EditProps = {
   data: MaterialData
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
+  onDelete: (id: number) => Promise<void>
 }
 
-const Edit: FC<EditProps> = ({ data, setMode }) => {
+const Edit: FC<EditProps> = ({ data, setMode, onDelete }) => {
   const [title, setTitle] = useState<string>(data.title)
   const [description, setDescription] = useState<string>(data.description)
   const [previewImage, setPreviewImage] = useState(data.previewImage)
@@ -72,6 +73,17 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
     <Row className="flex-column gy-3">
       <Col className="d-flex justify-content-end">
         <Row>
+          <Col>
+            <Button
+              variant="secondary"
+              className="text-nowrap"
+              onClick={() => {
+                onDelete(data.id)
+              }}
+            >
+              Удалить
+            </Button>
+          </Col>
           <Col>
             <Button className="text-nowrap">
               <Link to={`/admin/catalog/${data.id}/brands`}>

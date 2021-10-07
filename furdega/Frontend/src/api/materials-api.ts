@@ -35,6 +35,10 @@ const materialsApi = {
   update: async (id: number, request: MaterialUpdateRequest): Promise<void> => {
     await axios.put(`${BASE_URL}/${id}`, request)
   },
+
+  delete: async (id: number): Promise<void> => {
+    await axios.delete(`${BASE_URL}/${id}`)
+  },
 }
 
 export { materialsApi }

@@ -45,6 +45,13 @@ const Catalog: FC = () => {
     })
   }
 
+  const onMaterialDelete = async (id: number) => {
+    await materialsApi.delete(id)
+    setMaterialData(null)
+    setMode(AdminSectionMode.view)
+    fetchMaterials()
+  }
+
   useEffect(() => {
     fetchMaterials()
   }, [])
@@ -56,7 +63,13 @@ const Catalog: FC = () => {
       case AdminSectionMode.view:
         return <View data={materialData} setMode={setMode} />
       case AdminSectionMode.edit:
-        return <Edit data={materialData} setMode={setMode} />
+        return (
+          <Edit
+            data={materialData}
+            setMode={setMode}
+            onDelete={onMaterialDelete}
+          />
+        )
       default:
       case AdminSectionMode.create:
         return null

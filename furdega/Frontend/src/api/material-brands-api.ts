@@ -23,6 +23,10 @@ const materialBrandsApi = {
   ): Promise<void> => {
     await axios.put(`${BASE_URL}/${brandId}`, request)
   },
+
+  delete: async (brandId: number): Promise<void> => {
+    await axios.delete(`${BASE_URL}/${brandId}`)
+  },
 }
 
 export { materialBrandsApi }
