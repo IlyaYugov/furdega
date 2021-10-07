@@ -1,0 +1,25 @@
+@use "../../styles/mixins";
+
+.title-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.title-wrapper {
+  position: absolute;
+  right: 0;
+
+  @include mixins.responsive(14px, 12px, 10px, 8px) using ($d) {
+    left: -$d;
+  }
+  @include mixins.responsive(42px, 38px, 32px, 20px) using ($d) {
+    bottom: -$d;
+  }
+}
+
+.title {
+  line-height: 1;
+  @include mixins.responsive(112px, 96px, 78px, 48px) using ($d) {
+    font-size: $d;
+  }
+}
