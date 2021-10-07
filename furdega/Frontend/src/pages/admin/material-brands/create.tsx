@@ -5,8 +5,11 @@ import { FormInputEvent } from "../../../types/utils"
 import { fileToBase64 } from "../../../utils/file-to-base64"
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
 import { getDefaultImage } from "../../../utils/get-default-image"
-import { MaterialBrandCreateRequest } from "../../../types/material-brand"
-import { BrandData } from "."
+import {
+  MaterialBrand,
+  MaterialBrandCreateRequest,
+} from "../../../types/material-brand"
+import { ImageResponse } from "../../../types/image"
 
 type CreateProps = {
   show: boolean
@@ -15,7 +18,7 @@ type CreateProps = {
   close: () => void
 }
 
-const getCreateBrandData = (materialId: number): BrandData => ({
+const getCreateBrand = (materialId: number): MaterialBrand => ({
   id: -1,
   materialId,
   title: "",
@@ -28,19 +31,23 @@ const Create: FC<CreateProps> = ({ show, materialId, submit, close }) => {
   const [title, setTitle] = useState<string>("")
   const [previewImage, setPreviewImage] = useState(getDefaultImage())
   const [mainImage, setMainImage] = useState(getDefaultImage())
-  const [images, setImages] = useState()
+  const [images, setImages] = useState<ImageResponse[]>([])
   const [previewImageBase64, setPreviewImageBase64] = useState<string | null>(
     null
   )
   const [mainImageBase64, setMainImageBase64] = useState<string | null>(null)
+  const [newImagesBase64, setNewImagesBase64] = useState<
+    Record<string, string>
+  >({})
 
   useEffect(() => {
-    const data = getCreateBrandData(materialId)
+    const data = getCreateBrand(materialId)
     setTitle(data.title)
     setPreviewImage(data.previewImage)
     setMainImage(data.mainImage)
     setPreviewImageBase64(null)
     setMainImageBase64(null)
+    setImages(data.images)
   }, [show])
 
   const onPreviewImageChange = async (event: FormInputEvent) => {
@@ -81,10 +88,38 @@ const Create: FC<CreateProps> = ({ show, materialId, submit, close }) => {
         id: previewImage.id,
         base64ImageString: previewImageBase64,
       },
-      images: [],
+      images: Object.keys(newImagesBase64).map((imageId) => ({
+        id: imageId,
+        base64ImageString: newImagesBase64[imageId],
+      })),
     }
 
     submit(request)
+  }
+
+  const onImageChange = (imageId: string) => async (event: FormInputEvent) => {
+    const files = (event.currentTarget as HTMLInputElement).files
+    if (!files) return null
+
+    const file = files[0]
+    const fileUrl = URL.createObjectURL(file)
+    const base64 = await fileToBase64(file)
+
+    const newImages = [...images]
+    const imageIndex = images.findIndex((i) => i.id === imageId)
+    newImages.splice(imageIndex, 1, { id: imageId, imageUrl: fileUrl })
+
+    const newNewImagesBase64 = { ...newImagesBase64 }
+    newNewImagesBase64[imageId] = base64
+
+    setImages(newImages)
+    setNewImagesBase64(newNewImagesBase64)
+  }
+
+  const addNewImage = () => {
+    const newImages = [...images]
+    newImages.push(getDefaultImage())
+    setImages(newImages)
   }
 
   return (
@@ -146,6 +181,40 @@ const Create: FC<CreateProps> = ({ show, materialId, submit, close }) => {
                     />
                   </Col>
                 </Row>
+              </Col>
+            </Row>
+          </Col>
+
+          <Col>
+            <div className="fw-bold">Изображения</div>
+
+            <Row>
+              {images.map((i) => (
+                <Col xs={6}>
+                  <Row className="flex-column gy-2">
+                    <Col>
+                      <Image fluid src={i.imageUrl} />
+                    </Col>
+
+                    <Col>
+                      <Form.Control
+                        type="file"
+                        accept=".jpeg, .jpg, .png"
+                        onChange={onImageChange(i.id)}
+                      />
+                    </Col>
+                  </Row>
+                </Col>
+              ))}
+
+              <Col xs={6}>
+                <Button
+                  onClick={() => {
+                    addNewImage()
+                  }}
+                >
+                  Добавить
+                </Button>
               </Col>
             </Row>
           </Col>

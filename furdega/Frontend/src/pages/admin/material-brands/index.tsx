@@ -10,13 +10,11 @@ import {
   MaterialBrand,
   MaterialBrandCreateRequest,
   MaterialBrandSimple,
+  MaterialBrandUpdateRequest,
 } from "../../../types/material-brand"
 import { useParams } from "react-router"
 import { materialBrandsApi } from "../../../api/material-brands-api"
 import { Material } from "../../../types/material"
-
-export type BrandData = MaterialBrandSimple &
-  Pick<MaterialBrand, "mainImage" | "images" | "materialId">
 
 const MaterialBrands: FC = () => {
   const { materialId } = useParams<{ materialId: string }>()
@@ -24,7 +22,7 @@ const MaterialBrands: FC = () => {
   const [mode, setMode] = useState<AdminSectionMode>(AdminSectionMode.view)
 
   const [material, setMaterial] = useState<Material | null>(null)
-  const [brandData, setBrandData] = useState<BrandData | null>(null)
+  const [brand, setBrand] = useState<MaterialBrand | null>(null)
   const [brands, setBrands] = useState<MaterialBrandSimple[]>([])
 
   const fetchBrands = async () => {
@@ -38,29 +36,30 @@ const MaterialBrands: FC = () => {
     setMaterial(data)
   }
 
-  const getBrandById = async (brandId: number): Promise<MaterialBrand> => {
-    const data = await materialBrandsApi.getMaterialBrand(brandId)
-    return data
-  }
-
   const createNewBrand = async (request: MaterialBrandCreateRequest) => {
     await materialBrandsApi.create(request)
   }
 
-  const fetchBrandDataByBrandSimple = async (b: MaterialBrandSimple) => {
-    const material = await getBrandById(b.id)
-
-    setBrandData({
-      ...material,
-      previewImage: b.previewImage,
-    })
+  const fetchBrandById = async (brandId: number) => {
+    const brandResponse = await materialBrandsApi.getMaterialBrand(brandId)
+    setBrand(brandResponse)
   }
 
   const onBrandDelete = async (id: number) => {
     await materialBrandsApi.delete(id)
-    setBrandData(null)
+    setBrand(null)
     setMode(AdminSectionMode.view)
     fetchBrands()
+  }
+
+  const onBrandUpdate = async (
+    id: number,
+    request: MaterialBrandUpdateRequest
+  ) => {
+    await materialBrandsApi.update(id, request)
+    fetchBrandById(id)
+    fetchBrands()
+    setMode(AdminSectionMode.view)
   }
 
   useEffect(() => {
@@ -69,14 +68,19 @@ const MaterialBrands: FC = () => {
   }, [])
 
   const renderContent = () => {
-    if (!brandData) return
+    if (!brand) return
 
     switch (mode) {
       case AdminSectionMode.view:
-        return <View data={brandData} setMode={setMode} />
+        return <View data={brand} setMode={setMode} />
       case AdminSectionMode.edit:
         return (
-          <Edit data={brandData} setMode={setMode} onDelete={onBrandDelete} />
+          <Edit
+            data={brand}
+            setMode={setMode}
+            onDelete={onBrandDelete}
+            onUpdate={onBrandUpdate}
+          />
         )
       default:
       case AdminSectionMode.create:
@@ -95,9 +99,9 @@ const MaterialBrands: FC = () => {
               {brands.map((b) => (
                 <Nav.Item>
                   <Nav.Link
-                    active={brandData?.id === b.id}
+                    active={brand?.id === b.id}
                     onClick={async () => {
-                      fetchBrandDataByBrandSimple(b)
+                      fetchBrandById(b.id)
                     }}
                   >
                     {b.title}
@@ -128,7 +132,7 @@ const MaterialBrands: FC = () => {
                 await createNewBrand(request)
                 setMode(AdminSectionMode.view)
                 const newBrands = await fetchBrands()
-                fetchBrandDataByBrandSimple(newBrands[newBrands.length - 1])
+                fetchBrandById(newBrands[newBrands.length - 1].id)
               }}
               close={() => {
                 setMode(AdminSectionMode.view)

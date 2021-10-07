@@ -3,10 +3,10 @@ import { Col, Row, Button, Image } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../const/admin"
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
-import { BrandData } from "."
+import { MaterialBrand } from "../../../types/material-brand"
 
 type ViewProps = {
-  data: BrandData
+  data: MaterialBrand
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 
@@ -48,7 +48,17 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
         </Row>
       </Col>
 
-      <Col>TODO Images</Col>
+      <Col>
+        <h4 className="fw-bold">Изображения</h4>
+
+        <Row>
+          {images.map((i) => (
+            <Col xs={6}>
+              <Image fluid src={i.imageUrl} />
+            </Col>
+          ))}
+        </Row>
+      </Col>
     </Row>
   )
 }
