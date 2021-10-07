@@ -33,7 +33,7 @@ const Portfolio: FC = () => {
   }, [furnitureTypes])
 
   return (
-    <>
+    <Container fluid className="g-0">
       <Container className={`g-0 ${styles["title-container"]}`}>
         <Image src="/assets/portfolio-top-pic.jpg" width="1440" height="460" />
         <div
@@ -61,7 +61,7 @@ const Portfolio: FC = () => {
           </Col>
         </Row>
       </Container>
-    </>
+    </Container>
   )
 }
 

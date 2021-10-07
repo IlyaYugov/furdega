@@ -76,7 +76,7 @@ const Catalog: FC = () => {
   }
 
   return (
-    <>
+    <Container fluid className="g-0">
       <Container className={`g-0 ${styles["title-container"]}`}>
         <Image src="/assets/catalog-top-pic.jpg" width="1440" height="460" />
         <div
@@ -104,7 +104,7 @@ const Catalog: FC = () => {
           </Col>
         </Row>
       </Container>
-    </>
+    </Container>
   )
 }
 
