@@ -12,7 +12,8 @@ namespace Furdega.Services.MaterialBrands.Mapping
         {
             CreateMap<MaterialBrandRequest, MaterialBrand>()
                 .ForMember(dest => dest.MainImageId, s => s.MapFrom(source => source.MainImage.Id))
-                .ForMember(dest => dest.PreviewImageId, s => s.MapFrom(source => source.PreviewImage.Id)); 
+                .ForMember(dest => dest.PreviewImageId, s => s.MapFrom(source => source.PreviewImage.Id))
+                .ForMember(dest => dest.Images, s => s.Ignore()); 
 
             CreateMap<MaterialBrand, MaterialBrandResponse>()
                 .ForMember(dest => dest.MainImage, s => s.MapFrom(source => new ImageResponse
