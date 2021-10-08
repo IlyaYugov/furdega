@@ -1,11 +1,12 @@
 import { FC } from "react"
 import { Tab, Container, Row, Nav } from "react-bootstrap"
-import { Route, Switch, useLocation, useRouteMatch } from "react-router"
+import { Route, Switch, useLocation } from "react-router"
 import { Link } from "react-router-dom"
+
 import { Catalog } from "./catalog"
 import { MaterialBrands } from "./material-brands"
-
 import { Home } from "./home"
+import { Portfolio } from "./portfolio"
 
 const Admin: FC = () => {
   const { pathname } = useLocation()
@@ -26,6 +27,12 @@ const Admin: FC = () => {
                 <Link to={`/admin/catalog`}>Каталог</Link>
               </Nav.Link>
             </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link active={pathname === `/admin/portfolio`}>
+                <Link to={`/admin/portfolio`}>Портфолио</Link>
+              </Nav.Link>
+            </Nav.Item>
           </Nav>
         </Row>
 
@@ -36,6 +43,10 @@ const Admin: FC = () => {
 
           <Route exact path={`/admin/catalog`}>
             <Catalog />
+          </Route>
+
+          <Route exact path={`/admin/portfolio`}>
+            <Portfolio />
           </Route>
 
           <Route path={`/admin/catalog/:materialId/brands`}>
