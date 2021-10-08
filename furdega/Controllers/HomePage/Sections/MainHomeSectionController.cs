@@ -4,6 +4,7 @@ using Furdega.Services.HomePage.Sections;
 using Furdega.Services.HomePage.Sections.MainHome;
 using Furdega.Services.HomePage.Sections.MainHome.Dtos.Input;
 using Furdega.Services.HomePage.Sections.MainHome.Dtos.Output;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers.HomePage.Sections
