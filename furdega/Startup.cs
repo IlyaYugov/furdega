@@ -1,6 +1,7 @@
 using System.IO;
 using Furdega.Configuration;
 using Furdega.DataAccess;
+using Furdega.Middleware;
 using Furdega.Repositories;
 using Furdega.Repositories.RepositoryBase;
 using Furdega.Services.Accounts;
@@ -76,6 +77,8 @@ namespace Furdega
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseExceptionMiddleware();
 
             app.UseHttpsRedirection();
 

@@ -14,6 +14,8 @@ namespace Furdega.Services.Accounts
 {
     public class AccountService : IAccountService
     {
+        private const string InvalidCredentials = "Invalid login or password";
+
         private readonly AuthOptions _authOptions;
 
         private readonly IRepositoryBase<User> _userRepository;
@@ -28,7 +30,7 @@ namespace Furdega.Services.Accounts
         {
             var user = await _userRepository.FirstOrDefault(u => u.Login == request.Login && u.Password == request.Password);
             if (user == null)
-               return "Invalid login or password";
+                throw new AccountException(InvalidCredentials);
 
             return GetIdentity(user);
         }
@@ -37,7 +39,7 @@ namespace Furdega.Services.Accounts
         {
             var user = await _userRepository.FirstOrDefault(u => u.Login == request.Login && u.Password == request.OldPassword);
             if (user == null)
-                return "Invalid login or password";
+                throw new AccountException(InvalidCredentials);
 
             user.Password = request.NewPassword;
 
