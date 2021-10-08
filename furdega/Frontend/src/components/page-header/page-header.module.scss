@@ -1,0 +1,20 @@
+@use "../../styles/mixins";
+
+.wrapper {
+  display: flex;
+  position: absolute;
+  right: 0;
+  @include mixins.responsive(8px, 6px, 4px, 2px) using ($d) {
+    left: -$d;
+  }
+  @include mixins.responsive(32px, 30px, 22px, 18px) using ($d) {
+    bottom: -$d;
+  }
+}
+
+.title {
+  line-height: 1;
+  @include mixins.responsive(100px, 88px, 64px, 46px) using ($d) {
+    font-size: $d;
+  }
+}

@@ -1,13 +1,12 @@
-import { Col, Container, Image, Row } from "react-bootstrap"
+import { Col, Container, Row } from "react-bootstrap"
 import { FC, useEffect, useState } from "react"
 
-import { ReactComponent as YellowSnakeIcon } from "../../assets/svg/yellow-snake.svg"
 import { Scrollspy } from "../../components/scrollspy"
 import { furnitureTypesApi } from "../../api/furniture-types-api"
 import { FurnitureType } from "../../types/furniture"
 import { ScrollspyAnchor } from "../../types/scrollspy-anchor"
-import styles from "./portfolio.module.scss"
 import { Title } from "../../components/title"
+import { PageHeader } from "../../components/page-header"
 
 const mapFurTypesToScrollspyAnchors = (
   furTypes: FurnitureType[]
@@ -35,14 +34,7 @@ const Portfolio: FC = () => {
 
   return (
     <Container fluid className="g-0">
-      <Container className={`g-0 ${styles["title-container"]}`}>
-        <Image src="/assets/portfolio-top-pic.jpg" width="1440" height="460" />
-        <div
-          className={`d-flex justify-content-sm-start justify-content-center ${styles["title-wrapper"]}`}
-        >
-          <h1 className={`text-white ${styles.title}`}>Портфолио</h1>
-        </div>
-      </Container>
+      <PageHeader imageSrc="/assets/portfolio-top-pic.jpg" title="Портфолио" />
 
       <Container className="g-0 content overflow-hidden">
         <Row className="flex-nowrap py-5 g-0 bg-light">

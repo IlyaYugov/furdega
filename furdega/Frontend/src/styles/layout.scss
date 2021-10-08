@@ -37,3 +37,16 @@
     font-size: 1rem;
   }
 }
+
+.fade-container {
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+}
+
+.fade-container.loaded {
+  opacity: 1;
+}
+
+.fade-container.unloaded {
+  opacity: 0;
+}

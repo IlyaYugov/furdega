@@ -1,42 +1,15 @@
 import { FC } from "react"
-import { Col, Image, Row } from "react-bootstrap"
+import { Image, Row } from "react-bootstrap"
 
-import styles from "../catalog.module.scss"
 import { MaterialBrand } from "../../../types/material-brand"
+import { PreviewList, PreviewListItem } from "../preview-list"
 
 type BrandViewProps = MaterialBrand
 
-const BrandView: FC<BrandViewProps> = ({ title, mainImage, images }) => {
-  const renderImages = () => {
-    let prevStep = -3
-    let prevNextStep = -2
-
-    return images.map((image, index) => {
-      let addGutter = false
-
-      if (index === prevStep + 4) {
-        prevStep = index
-        addGutter = true
-      }
-
-      if (index === prevNextStep + 4) {
-        prevNextStep = index
-        addGutter = true
-      }
-
-      return (
-        <>
-          {addGutter ? <Col className="d-none d-sm-block" xs={1}></Col> : null}
-
-          <Col xs={6} sm={5}>
-            <Image fluid src={image.imageUrl} className="mb-3" />
-          </Col>
-
-          {addGutter ? <Col className="d-none d-sm-block" xs={1}></Col> : null}
-        </>
-      )
-    })
-  }
+const BrandView: FC<BrandViewProps> = ({ mainImage, images }) => {
+  const previewListItems: PreviewListItem[] = images.map((image) => ({
+    imageSrc: image.imageUrl,
+  }))
 
   return (
     <>
@@ -44,7 +17,7 @@ const BrandView: FC<BrandViewProps> = ({ title, mainImage, images }) => {
         <Image fluid src={mainImage.imageUrl} />
       </Row>
 
-      <Row className={`g-0 ${styles.container}`}>{renderImages()}</Row>
+      <PreviewList items={previewListItems} />
     </>
   )
 }
