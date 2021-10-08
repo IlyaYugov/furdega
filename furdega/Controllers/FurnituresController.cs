@@ -21,9 +21,9 @@ namespace Furdega.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<FurnitureResponse>> GetEmployees(int? furnitureTypeId, int? materialTypeId)
+        public async Task<IEnumerable<FurnitureResponse>> GetFurniture(int? furnitureTypeId)
         {
-            return await _furnitureService.GetFiltered(furnitureTypeId, materialTypeId);
+            return await _furnitureService.GetFiltered(furnitureTypeId);
         }
 
         [HttpGet("{id:int}")]
