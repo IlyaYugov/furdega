@@ -29,18 +29,24 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using Serilog.Core;
 
 namespace Furdega
 {
     public class Startup
     {
-        private readonly IConfiguration _configuration;
+        private readonly Logger _logger;
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _configuration = configuration;
+            _logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .Enrich.FromLogContext()
+                .CreateLogger(); ;
         }
 
         public IConfiguration Configuration { get; }
@@ -65,8 +71,10 @@ namespace Furdega
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddSerilog(_logger, true);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -132,7 +140,7 @@ namespace Furdega
 
         private void ConfigureImageStore(IApplicationBuilder app)
         {
-            var projectSettings = _configuration.GetSection(nameof(ProjectSettings)).Get<ProjectSettings>();
+            var projectSettings = Configuration.GetSection(nameof(ProjectSettings)).Get<ProjectSettings>();
 
             Directory.CreateDirectory(projectSettings.GetImageDirectoryPath);
 
@@ -147,7 +155,7 @@ namespace Furdega
 
         private void ConfigureAuth(IServiceCollection services)
         {
-            var authOptions = _configuration.GetSection(nameof(AuthOptions)).Get<AuthOptions>();
+            var authOptions = Configuration.GetSection(nameof(AuthOptions)).Get<AuthOptions>();
 
             services.AddAuthorization(options =>
             {
@@ -181,8 +189,8 @@ namespace Furdega
 
         private void ConfigureProjectSettings(IServiceCollection services)
         {
-            services.Configure<ProjectSettings>(options => _configuration.GetSection(nameof(ProjectSettings)).Bind(options));
-            services.Configure<AuthOptions>(options => _configuration.GetSection(nameof(AuthOptions)).Bind(options));
+            services.Configure<ProjectSettings>(options => Configuration.GetSection(nameof(ProjectSettings)).Bind(options));
+            services.Configure<AuthOptions>(options => Configuration.GetSection(nameof(AuthOptions)).Bind(options));
         }
     }
 }
