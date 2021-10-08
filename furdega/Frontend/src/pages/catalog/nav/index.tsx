@@ -2,7 +2,8 @@ import { FC, useRef, useState } from "react"
 
 import { ReactComponent as DotsIcon } from "../../../assets/svg/dots.svg"
 import { useOnClickOutside } from "../../../utils/use-on-click-outside"
-import styles from "./nav.module.scss"
+import styles from "../../../components/scrollspy/scrollspy.module.scss"
+import navStyles from "./nav.module.scss"
 import { MaterialSimple } from "../../../types/material"
 import { MaterialBrandSimple } from "../../../types/material-brand"
 
@@ -36,10 +37,16 @@ const Nav: FC<NavProps> = ({
     isActive: boolean
   ) => {
     return (
-      <li key={`nav-li-${index}`} className={styles["nav-li"]}>
+      <li
+        key={`scrollspy-li-${index}`}
+        className={`${styles["scrollspy-li"]}`}
+        style={{ cursor: "pointer" }}
+      >
         <span
           className={`d-flex text-body ${
-            isActive ? styles["nav-link-active"] : styles["nav-link"]
+            isActive
+              ? styles["scrollspy-link-active"]
+              : styles["scrollspy-link"]
           }`}
           onClick={() => {
             onMaterialClick(material?.id || -1)
@@ -50,8 +57,8 @@ const Nav: FC<NavProps> = ({
           <span
             className={
               isActive
-                ? styles["nav-link-active-name"]
-                : styles["nav-link-name"]
+                ? styles["scrollspy-link-active-name"]
+                : styles["scrollspy-link-name"]
             }
           >
             {material?.title || "Все материалы"}
@@ -70,7 +77,7 @@ const Nav: FC<NavProps> = ({
         }`}
       >
         <div className="d-flex flex-column" style={{ position: "relative" }}>
-          <div className={styles.nav}>
+          <div className={styles.scrollspy}>
             {renderMaterilNavItem(null, -1, activeMaterialId === -1)}
 
             {materials.map((material, index) => {
@@ -81,13 +88,16 @@ const Nav: FC<NavProps> = ({
                   {renderMaterilNavItem(material, index, isActive)}
 
                   {isActive && brands.length ? (
-                    <div className={`${styles["brands-container"]} border p-3`}>
+                    <div
+                      className={`${navStyles["brands-container"]} border p-3`}
+                      style={{ cursor: "pointer" }}
+                    >
                       {brands.map((brand) => (
                         <div
                           className={`d-flex text-body ${
                             brand.id === activeBrandId
-                              ? styles["brand-link-active"]
-                              : styles["brand-link"]
+                              ? styles["scrollspy-link-active"]
+                              : styles["scrollspy-link"]
                           }`}
                           onClick={() => {
                             onBrandClick(brand.id)
