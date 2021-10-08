@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers.HomePage.Sections
 {
-    [Authorize]
-    [Route("api/home/working-process")]
+	[Authorize]
+    [Route("api/sections/working-process")]
     [ApiController]
     public class WorkingProcessSectionController : ControllerBase
     {

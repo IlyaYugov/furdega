@@ -4,15 +4,15 @@ import { Row, Col } from "react-bootstrap"
 import { Edit } from "./edit"
 import { View } from "./view"
 import { AdminSectionMode } from "../../../../const/admin"
-import { mainHomeSectionApi } from "../../../../api/home/main-home-section-api"
-import { MainHomeSectionResponse } from "../../../../types/home/main"
+import { mainSectionApi } from "../../../../api/sections/main-section-api"
+import { MainSectionResponse } from "../../../../types/home/main"
 
 const MainHomeSection: FC = () => {
-  const [data, setData] = useState<MainHomeSectionResponse | null>(null)
+  const [data, setData] = useState<MainSectionResponse | null>(null)
   const [mode, setMode] = useState<AdminSectionMode>(AdminSectionMode.view)
 
   const fetchData = async () => {
-    const data = await mainHomeSectionApi.get()
+    const data = await mainSectionApi.get()
     setData(data)
   }
 

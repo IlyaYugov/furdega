@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState } from "react"
 import { Row, Col, Button, Form } from "react-bootstrap"
 
-import { workingProcessSectionApi } from "../../../../api/home/working-process-section-api"
+import { workingProcessSectionApi } from "../../../../api/sections/working-process-section-api"
 import { AdminSectionMode } from "../../../../const/admin"
 import { WorkingProcessSectionResponse } from "../../../../types/home/process"
 import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow-snake.svg"

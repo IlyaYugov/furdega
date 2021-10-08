@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers.HomePage.Sections
 {
-    [Authorize]
-    [Route("api/home/company-benefits")]
+	Authorize]
+    [Route("api/sections/company-benefits")]
     [ApiController]
     public class CompanyBenefitsSectionController: ControllerBase
     {

@@ -22,12 +22,11 @@ namespace Furdega.Services.Furnitures
             _imageManager = imageManager;
         }
 
-        public async Task<IEnumerable<FurnitureResponse>> GetFiltered(int? furnitureTypeId, int? materialTypeId)
+        public async Task<IEnumerable<FurnitureResponse>> GetFiltered(int? furnitureTypeId)
         {
 
             var furniture = await _furnitureRepository
-                .GetItems(s => (furnitureTypeId == null || s.FurnitureTypeId == furnitureTypeId) && 
-                               (materialTypeId == null || s.MaterialTypeId == materialTypeId));
+                .GetItems(s => furnitureTypeId == null || s.FurnitureTypeId == furnitureTypeId);
 
             var response = _mapper.Map<List<FurnitureResponse>>(furniture);
 

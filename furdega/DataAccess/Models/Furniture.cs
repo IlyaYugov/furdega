@@ -12,6 +12,5 @@ namespace Furdega.DataAccess.Models
         public string AfterImageUrl { get; set; }
 
         public int FurnitureTypeId { get; set; }
-        public int MaterialTypeId { get; set; }
     }
 }

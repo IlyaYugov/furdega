@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap"
 import { Edit } from "./edit"
 import { View } from "./view"
 import { AdminSectionMode } from "../../../../const/admin"
-import { issueSolutionsSectionApi } from "../../../../api/home/issue-solutions-section-api"
+import { issueSolutionsSectionApi } from "../../../../api/sections/issue-solutions-section-api"
 import { IssueSolutionsSectionResponse } from "../../../../types/home/solutions"
 
 const SolutionsSection: FC = () => {

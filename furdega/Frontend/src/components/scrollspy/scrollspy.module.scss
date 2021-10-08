@@ -5,31 +5,11 @@ $li-gutter: 12px;
 $wrapper-small-padding: 22px;
 $wrapper-small-translate: calc(-100% - #{variables.$content-sm-padding});
 
-@mixin scrollspy-link {
-  opacity: 0.5;
-  white-space: nowrap;
-  &:hover {
-    opacity: 1;
-  }
-}
-
-@mixin scrollspy-link-name {
-  position: relative;
-  margin-left: 96px;
-
-  @media screen and (max-width: 992px) {
-    margin-left: 64px;
-  }
-
-  @media screen and (max-width: 768px) {
-    margin-left: 32px;
-  }
-}
+// scrollspy-wrapper
 
 @mixin wrapper {
   position: sticky;
   background-color: #fff;
-  z-index: 1020; // bootstrap z-index sticky
   top: 32px;
 
   @media screen and (max-width: 576px) {
@@ -47,6 +27,7 @@ $wrapper-small-translate: calc(-100% - #{variables.$content-sm-padding});
 
 .wrapper-shown {
   @include wrapper;
+  z-index: 1020; // bootstrap z-index sticky
   @media screen and (max-width: 576px) {
     transform: translateX(-#{variables.$content-sm-padding});
   }
@@ -74,6 +55,29 @@ $wrapper-small-translate: calc(-100% - #{variables.$content-sm-padding});
 
   @media screen and (min-width: 576px) {
     display: none;
+  }
+}
+
+// react-scrollspy
+
+@mixin scrollspy-link {
+  opacity: 0.5;
+  white-space: nowrap;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+@mixin scrollspy-link-name {
+  position: relative;
+  margin-left: 96px;
+
+  @media screen and (max-width: 992px) {
+    margin-left: 64px;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-left: 32px;
   }
 }
 
@@ -145,6 +149,8 @@ $wrapper-small-translate: calc(-100% - #{variables.$content-sm-padding});
     }
   }
 }
+
+// other
 
 .button {
   @include mixins.responsive(16px, 14px, 12px, 10px) using ($d) {

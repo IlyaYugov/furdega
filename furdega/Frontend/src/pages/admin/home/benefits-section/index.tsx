@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react"
 import { Row, Col } from "react-bootstrap"
 
-import { companyBenefitsApi } from "../../../../api/home/company-benefits-api"
+import { companyBenefitsApi } from "../../../../api/sections/company-benefits-api"
 import { Edit } from "./edit"
 import { View } from "./view"
 import { AdminSectionMode } from "../../../../const/admin"

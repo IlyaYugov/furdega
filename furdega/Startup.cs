@@ -16,8 +16,8 @@ using Furdega.Services.HomePage.Sections.MainHome;
 using Furdega.Services.HomePage.Sections.Staff;
 using Furdega.Services.HomePage.Sections.WorkExamples;
 using Furdega.Services.HomePage.Sections.WorkingProcess;
+using Furdega.Services.MaterialBrands;
 using Furdega.Services.Materials;
-using Furdega.Services.MaterialTypes;
 using Furdega.Services.Staff;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -109,7 +109,7 @@ namespace Furdega
             services.AddScoped(typeof(IRepositoryBase<>), typeof(FurdegaRepository<>));
 
             services.AddScoped<IFurnitureTypeService, FurnitureTypeService>();
-            services.AddScoped<IMaterialTypeService, MaterialTypeService>();
+            services.AddScoped<IMaterialBrandService, MaterialBrandService>();
             services.AddScoped<IHomePageService, HomePageService>();
             services.AddScoped<IImageManager, ImageManager>();
             services.AddScoped<IEmployeeService, EmployeeService>();

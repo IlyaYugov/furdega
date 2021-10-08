@@ -1,0 +1,6 @@
+@use "../../../components/scrollspy/scrollspy.module.scss" as scrollspy;
+
+.brands-container {
+  @include scrollspy.scrollspy-link-name;
+  margin-bottom: scrollspy.$li-gutter + 16px;
+}

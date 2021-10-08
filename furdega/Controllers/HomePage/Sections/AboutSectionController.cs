@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers.HomePage.Sections
 {
-    [Authorize]
-    [Route("api/home/about")]
+	[Authorize]
+    [Route("api/sections/about")]
     [ApiController]
     public class AboutSectionController : ControllerBase
     {

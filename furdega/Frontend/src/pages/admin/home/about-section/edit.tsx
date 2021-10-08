@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState } from "react"
 import { Row, Col, Form, Button } from "react-bootstrap"
 
-import { aboutSectionApi } from "../../../../api/home/about-section-api"
+import { aboutSectionApi } from "../../../../api/sections/about-section-api"
 import { AdminSectionMode } from "../../../../const/admin"
 import {
   AboutSectionCreateRequest,

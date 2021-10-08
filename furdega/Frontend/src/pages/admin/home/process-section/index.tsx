@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap"
 import { Edit } from "./edit"
 import { View } from "./view"
 import { AdminSectionMode } from "../../../../const/admin"
-import { workingProcessSectionApi } from "../../../../api/home/working-process-section-api"
+import { workingProcessSectionApi } from "../../../../api/sections/working-process-section-api"
 import { WorkingProcessSectionResponse } from "../../../../types/home/process"
 
 const ProcessSection: FC = () => {

@@ -11,19 +11,26 @@ namespace Furdega.Services.Materials.Mapping
         public MaterialProfile()
         {
             CreateMap<MaterialRequest, Material>()
-                .ForMember(dest => dest.ImageId, s => s.MapFrom(source => source.Image.Id))
-                .ForMember(dest => dest.ImageId, s => s.MapFrom(source => source.Image.Id));
+                .ForMember(dest => dest.MainImageId, s => s.MapFrom(source => source.MainImage.Id))
+                .ForMember(dest => dest.PreviewImageId, s => s.MapFrom(source => source.PreviewImage.Id));
 
             CreateMap<Material, MaterialResponse>()
-                .ForMember(dest => dest.Image, s => s.MapFrom(source => new ImageResponse
+                .ForMember(dest => dest.MainImage, s => s.MapFrom(source => new ImageResponse
                 {
-                    Id = source.ImageId,
-                    ImageUrl = source.ImageUrl
+                    Id = source.MainImageId,
+                    ImageUrl = source.MainImageUrl
                 }))
-                .ForMember(dest => dest.Image, s => s.MapFrom(source => new ImageResponse
+                .ForMember(dest => dest.PreviewImage, s => s.MapFrom(source => new ImageResponse
                 {
-                    Id = source.ImageId,
-                    ImageUrl = source.ImageUrl
+                    Id = source.PreviewImageId,
+                    ImageUrl = source.PreviewImageUrl
+                }));
+
+            CreateMap<Material, GetMaterialsResponse>()
+                .ForMember(dest => dest.PreviewImage, s => s.MapFrom(source => new ImageResponse
+                {
+                    Id = source.PreviewImageId,
+                    ImageUrl = source.PreviewImageUrl
                 }));
         }
     }

@@ -3,6 +3,7 @@ import { Row, Col } from "react-bootstrap"
 
 import { CompanyBenefitsSectionResponse } from "../../../types/home/benefits"
 import { BenefitCard } from "./benefit-card"
+import styles from "./benefit.module.scss"
 
 const Benefits: FC<CompanyBenefitsSectionResponse> = ({
   header,
@@ -15,19 +16,36 @@ const Benefits: FC<CompanyBenefitsSectionResponse> = ({
     <>
       <h2 className="block-title">{header}</h2>
 
-      <div>
-        <Row className="g-0 flex-nowrap justify-content-evenly flex-column flex-md-row">
-          <Col xs={12}>
+      <div className="block-content">
+        <Row className="flex-nowrap mb-5">
+          <Col xs={5}>
             <BenefitCard data={companyBenefit1} />
           </Col>
-          <Col xs={12}>
-            <BenefitCard data={companyBenefit2} />
+          <Col xs={7}></Col>
+        </Row>
+
+        <Row className="flex-nowrap mb-5">
+          <Col xs={7}></Col>
+          <Col xs={5}>
+            <div className={styles.card}>
+              <BenefitCard data={companyBenefit2} />
+            </div>
           </Col>
-          <Col xs={12}>
+        </Row>
+
+        <Row className="flex-nowrap mb-5">
+          <Col xs={5}>
             <BenefitCard data={companyBenefit3} />
           </Col>
-          <Col xs={12}>
-            <BenefitCard data={companyBenefit4} />
+          <Col xs={7}></Col>
+        </Row>
+
+        <Row className="flex-nowrap">
+          <Col xs={7}></Col>
+          <Col xs={5}>
+            <div className={styles.card}>
+              <BenefitCard data={companyBenefit4} />
+            </div>
           </Col>
         </Row>
       </div>

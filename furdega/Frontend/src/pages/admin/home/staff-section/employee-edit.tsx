@@ -2,10 +2,10 @@ import { FC, useEffect, useState } from "react"
 import { Modal, Button, Form, Row, Col } from "react-bootstrap"
 import { v4 as uuidv4 } from "uuid"
 
-import { staffApi } from "../../../../api/staff-api"
+import { employeesApi } from "../../../../api/employees-api"
 import { EmployeeResponse } from "../../../../types/home/employee"
 import { FormInputEvent } from "../../../../types/utils"
-import { fileToBase64 } from "../../../../utils/fileToBase64"
+import { fileToBase64 } from "../../../../utils/file-to-base64"
 
 type EmployeeEditProps = {
   show: boolean
@@ -42,7 +42,7 @@ const EmployeeEdit: FC<EmployeeEditProps> = ({
     if (isCreate) {
       setEmployee(getDefaultEmployeeResponse())
     } else {
-      const data = await staffApi.get(employeeId)
+      const data = await employeesApi.get(employeeId)
       setEmployee(data)
     }
   }

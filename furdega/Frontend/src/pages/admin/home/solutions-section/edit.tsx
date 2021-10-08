@@ -12,7 +12,7 @@ import {
   IssueSolutionsSectionCreateRequest,
   IssueSolutionsSectionUpdateRequest,
 } from "../../../../types/home/solutions"
-import { issueSolutionsSectionApi } from "../../../../api/home/issue-solutions-section-api"
+import { issueSolutionsSectionApi } from "../../../../api/sections/issue-solutions-section-api"
 
 type EditProps = {
   data: IssueSolutionsSectionResponse

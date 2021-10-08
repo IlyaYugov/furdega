@@ -1,13 +1,13 @@
 import { AboutSectionResponse } from "./about"
 import { CompanyBenefitsSectionResponse } from "./benefits"
 import { IssueSolutionsSectionResponse } from "./solutions"
-import { MainHomeSectionResponse } from "./main"
+import { MainSectionResponse } from "./main"
 import { StaffSectionResponse } from "./staff"
 import { WorkExamplesSectionResponse } from "./examples"
 import { WorkingProcessSectionResponse } from "./process"
 
-export type HomePageContent = {
-  mainHomeSection: MainHomeSectionResponse
+export type SectionsResponse = {
+  mainHomeSection: MainSectionResponse
   aboutSection: AboutSectionResponse
   workExamplesSection: WorkExamplesSectionResponse
   companyBenefitsSection: CompanyBenefitsSectionResponse

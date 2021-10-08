@@ -1,14 +1,14 @@
 import { HomeSectionBaseRequest, HomeSectionBaseResponse } from "./common"
-import { ImageUpdateRequest, ImageСreateRequest, ImageResponse } from "../image"
+import { ImageUpdateRequest, ImageCreateRequest, ImageResponse } from "../image"
 
 export type MainHomeSectionUpdateRequest = HomeSectionBaseRequest & {
   image: ImageUpdateRequest
 }
 
-export type MainHomeSectionResponse = HomeSectionBaseResponse & {
+export type MainSectionResponse = HomeSectionBaseResponse & {
   image: ImageResponse | null
 }
 
 export type MainHomeSectionCreateRequest = HomeSectionBaseRequest & {
-  image: ImageСreateRequest
+  image: ImageCreateRequest
 }

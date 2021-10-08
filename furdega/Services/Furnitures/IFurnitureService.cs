@@ -7,7 +7,7 @@ namespace Furdega.Services.Furnitures
 {
     public interface IFurnitureService
     {
-        Task<IEnumerable<FurnitureResponse>> GetFiltered(int? furnitureTypeId, int? materialTypeId);
+        Task<IEnumerable<FurnitureResponse>> GetFiltered(int? furnitureTypeId);
         Task<FurnitureResponse> Get(int id);
         Task<int> Create(FurnitureRequest furnitureRequest);
         Task Update(int id, FurnitureRequest furnitureRequest);

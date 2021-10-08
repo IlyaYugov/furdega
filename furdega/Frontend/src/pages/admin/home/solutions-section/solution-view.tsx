@@ -1,5 +1,6 @@
 import { FC } from "react"
 import { Col, Row } from "react-bootstrap"
+
 import { IssueSolutionResponse } from "../../../../types/home/solutions"
 
 type SolutionViewProps = {
