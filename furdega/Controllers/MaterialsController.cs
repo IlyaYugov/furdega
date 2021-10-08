@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Furdega.Services.FileManagers;
 using Furdega.Services.HomePage.Sections;
@@ -8,10 +7,12 @@ using Furdega.Services.MaterialBrands.Dtos.Output;
 using Furdega.Services.Materials;
 using Furdega.Services.Materials.Dtos.Input;
 using Furdega.Services.Materials.Dtos.Output;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MaterialsController : ControllerBase
@@ -25,6 +26,7 @@ namespace Furdega.Controllers
             _materialBrandService = materialBrandService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<GetMaterialsResponse>> GetMaterials()
         {
@@ -37,6 +39,7 @@ namespace Furdega.Controllers
             return await _materialBrandService.GetBrands(id);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:int}")]
         public async Task<MaterialResponse> Get(int id)
         {

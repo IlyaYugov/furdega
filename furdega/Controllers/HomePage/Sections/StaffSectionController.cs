@@ -2,10 +2,12 @@
 using Furdega.Services.HomePage.Sections.Staff;
 using Furdega.Services.HomePage.Sections.Staff.Dtos.Input;
 using Furdega.Services.HomePage.Sections.Staff.Dtos.Output;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers.HomePage.Sections
 {
+	[Authorize]
     [Route("api/sections/staff")]
     [ApiController]
     public class StaffSectionController : ControllerBase
@@ -17,6 +19,7 @@ namespace Furdega.Controllers.HomePage.Sections
             _sectionService = sectionService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<StaffResponse> Get()
         {

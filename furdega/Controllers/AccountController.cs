@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Furdega.Services.Accounts;
 using Furdega.Services.Accounts.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers
@@ -22,6 +23,7 @@ namespace Furdega.Controllers
             return await _accountService.GetToken(request);
         }
 
+        [Authorize]
         [HttpPost("ChangePassword")]
         public async Task<string> ChangePassword(ChangePasswordRequest request)
         {

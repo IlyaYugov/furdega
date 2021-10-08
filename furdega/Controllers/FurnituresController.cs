@@ -5,10 +5,12 @@ using Furdega.Services.Furnitures;
 using Furdega.Services.Furnitures.Dtos.Input;
 using Furdega.Services.Furnitures.Dtos.Output;
 using Furdega.Services.HomePage.Sections;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FurnituresController : ControllerBase
@@ -20,12 +22,14 @@ namespace Furdega.Controllers
             _furnitureService = furnitureService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<FurnitureResponse>> GetFurniture(int? typeId)
         {
             return await _furnitureService.GetFiltered(typeId);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:int}")]
         public async Task<FurnitureResponse> Get(int id)
         {

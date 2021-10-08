@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Furdega.Controllers.HomePage.Sections
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/sections/main")]
     [ApiController]
     public class MainHomeSectionController : ControllerBase
@@ -20,7 +20,7 @@ namespace Furdega.Controllers.HomePage.Sections
             _sectionService = sectionService;
         }
 
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<MainHomeSectionResponse> Get()
         {
