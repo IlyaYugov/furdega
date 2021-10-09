@@ -1,7 +1,7 @@
 import { FC, forwardRef, MouseEvent as ReactMouseEvent, useState } from "react"
 import { Col, Container, Dropdown, Row } from "react-bootstrap"
 import { useLocation } from "react-router"
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 
 import { ReactComponent as LogoIcon } from "../../assets/svg/logo.svg"
 import { ReactComponent as WhatsappIcon } from "../../assets/svg/whatsapp.svg"
@@ -49,7 +49,9 @@ const Header: FC = () => {
               xl={7}
               className={`border-end d-flex flex-nowrap justify-content-between pe-lg-5 pe-md-3 pe-0 ${styles["header-section"]}`}
             >
-              <LogoIcon />
+              <NavLink to="/">
+                <LogoIcon />
+              </NavLink>
 
               <div className="d-none d-md-block">
                 <div className="mb-1 opacity-50">написать нам</div>

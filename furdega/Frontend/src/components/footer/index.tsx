@@ -7,6 +7,7 @@ import { ReactComponent as VkContrastIcon } from "../../assets/svg/vk-contrast.s
 import { ReactComponent as InstaContrastIcon } from "../../assets/svg/insta-contrast.svg"
 
 import styles from "./footer.module.scss"
+import { NavLink } from "react-router-dom"
 
 const Footer: FC = () => {
   return (
@@ -39,33 +40,33 @@ const Footer: FC = () => {
               <Col>
                 <Row className="flex-column gy-4 gx-0">
                   <Col>
-                    <a>
+                    <NavLink to="/#about">
                       <small>О&nbsp;фабрике</small>
-                    </a>
+                    </NavLink>
                   </Col>
 
                   <Col>
-                    <a>
-                      <small>Услуги</small>
-                    </a>
-                  </Col>
-
-                  <Col>
-                    <a>
-                      <small>Преимущества</small>
-                    </a>
-                  </Col>
-
-                  <Col>
-                    <a>
+                    <NavLink to="/#examples">
                       <small>Работы</small>
-                    </a>
+                    </NavLink>
                   </Col>
 
                   <Col>
-                    <a>
+                    <NavLink to="/#benefits">
+                      <small>Преимущества</small>
+                    </NavLink>
+                  </Col>
+
+                  <Col>
+                    <NavLink to="/#process">
+                      <small>Процесс</small>
+                    </NavLink>
+                  </Col>
+
+                  <Col>
+                    <NavLink to="/#calculator">
                       <small>Калькулятор</small>
-                    </a>
+                    </NavLink>
                   </Col>
                 </Row>
               </Col>
@@ -73,33 +74,33 @@ const Footer: FC = () => {
               <Col>
                 <Row className="flex-column gy-4 gx-0">
                   <Col>
-                    <a>
+                    <NavLink to="/">
                       <small>Главная</small>
-                    </a>
+                    </NavLink>
                   </Col>
 
                   <Col>
-                    <a>
+                    <NavLink to="/portfolio">
                       <small>Портфолио</small>
-                    </a>
+                    </NavLink>
                   </Col>
 
                   <Col>
-                    <a>
+                    <NavLink to="/catalog">
                       <small>Каталог</small>
-                    </a>
+                    </NavLink>
                   </Col>
 
                   <Col>
-                    <a>
+                    <NavLink to="/blog">
                       <small>Блог</small>
-                    </a>
+                    </NavLink>
                   </Col>
 
                   <Col>
-                    <a>
+                    <NavLink to="/contacts">
                       <small>Контакты</small>
-                    </a>
+                    </NavLink>
                   </Col>
                 </Row>
               </Col>
