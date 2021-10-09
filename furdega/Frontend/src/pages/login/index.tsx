@@ -15,14 +15,18 @@ const Login: FC = () => {
   const [changeMode, setChangeMode] = useState<boolean>(false)
   const [newPwd, setNewPwd] = useState<string>("")
 
+  const goBack = () => {
+    window.location.href = query.get("returnUrl") || "/admin/home"
+  }
+
   const onLogin = async () => {
     if (!(login && pwd)) return
 
     const token = await accountApi.token({ login, password: pwd })
 
     if (token) {
+      alert("Вы успешно залогинились")
       localStorage.setItem("accessToken", token)
-      window.location.href = query.get("returnUrl") || "/admin/home"
     } else {
       localStorage.removeItem("accessToken")
     }
@@ -40,16 +44,29 @@ const Login: FC = () => {
     if (token) {
       alert("Пароль успешно изменен")
       localStorage.setItem("accessToken", token)
-      window.location.href = query.get("returnUrl") || "/admin/home"
+      setChangeMode(false)
     } else {
       localStorage.removeItem("accessToken")
     }
+  }
+
+  const onModeChange = () => {
+    if (!changeMode && !localStorage.getItem("accessToken")) {
+      alert("Сначала залогиньтесь")
+      return
+    }
+
+    setChangeMode(!changeMode)
   }
 
   return (
     <Container fluid>
       <Container className="justify-content-center">
         <Row className="p-5 flex-column gy-5 w-50">
+          <Col>
+            <Button onClick={goBack}>Назад</Button>
+          </Col>
+
           <Col>
             <Form.Label>Логин</Form.Label>
             <Form.Control
@@ -102,13 +119,9 @@ const Login: FC = () => {
                   {changeMode ? "Сменить пароль" : "Войти"}
                 </Button>
               </Col>
+
               <Col>
-                <Button
-                  variant="secondary"
-                  onClick={() => {
-                    setChangeMode(!changeMode)
-                  }}
-                >
+                <Button variant="secondary" onClick={onModeChange}>
                   {changeMode ? "Отмена" : "Сменить пароль"}
                 </Button>
               </Col>

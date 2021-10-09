@@ -6,9 +6,7 @@ axios.interceptors.response.use(
   },
   function (error) {
     if (401 === error.response?.status) {
-      if (window.location.href.includes("login")) {
-        alert("Неверные логин или пароль")
-      } else {
+      if (!window.location.href.includes("login")) {
         alert(
           "Срок действия пароля истек или пароль не верен, вы будете перенаправлены на страницу логина"
         )
@@ -23,8 +21,11 @@ axios.interceptors.response.use(
 
 axios.interceptors.request.use(function (config) {
   if (config.method !== "get") {
-    config.headers = {
-      authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    const accessToken = localStorage.getItem("accessToken")
+    if (accessToken) {
+      config.headers = {
+        authorization: `Bearer ${accessToken}`,
+      }
     }
   }
   return config
