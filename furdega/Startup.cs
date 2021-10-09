@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Furdega.Configuration;
 using Furdega.DataAccess;
@@ -46,7 +47,7 @@ namespace Furdega
             _logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(configuration)
                 .Enrich.FromLogContext()
-                .CreateLogger(); ;
+                .CreateLogger();
         }
 
         public IConfiguration Configuration { get; }
@@ -177,6 +178,8 @@ namespace Furdega
                         ValidateLifetime = true,
                         IssuerSigningKey = authOptions.GetSymmetricSecurityKey(),
                         ValidateIssuerSigningKey = true,
+                        RequireExpirationTime = true,
+                        ClockSkew = TimeSpan.Zero
                     };
                 });
         }

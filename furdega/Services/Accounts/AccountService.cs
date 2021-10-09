@@ -60,7 +60,7 @@ namespace Furdega.Services.Accounts
                 new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
                     ClaimsIdentity.DefaultRoleClaimType);
 
-            var now = DateTime.UtcNow;
+            var now = DateTime.Now;
 
             // create JWT-token
             var jwt = new JwtSecurityToken(
