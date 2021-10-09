@@ -5,6 +5,6 @@ export type TokenRequest = {
 
 export type ChangePasswordRequest = {
   login: string
-  password: string
+  newPassword: string
   oldPassword: string
 }
