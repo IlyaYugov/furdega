@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "../axios"
 import { SectionsResponse } from "../../types/home/content"
 
 const BASE_URL = "/api/sections"

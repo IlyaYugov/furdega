@@ -8,7 +8,7 @@ import {
   WorkExampleResponse,
   WorkExamplesSectionResponse,
 } from "../types/home/examples"
-import { MainSectionResponse } from "../types/home/main"
+import { MainHomeSectionResponse } from "../types/home/main"
 import { WorkingProcessSectionResponse } from "../types/home/process"
 import {
   IssueSolutionResponse,
@@ -52,7 +52,7 @@ const defaultImageResponse: ImageResponse = {
   imageUrl: "",
 }
 
-const defaultMainHomeSection: MainSectionResponse = {
+const defaultMainHomeSection: MainHomeSectionResponse = {
   header: "",
   image: defaultImageResponse,
 }

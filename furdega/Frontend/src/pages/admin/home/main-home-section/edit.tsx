@@ -5,7 +5,7 @@ import { mainSectionApi } from "../../../../api/sections/main-section-api"
 import { AdminSectionMode } from "../../../../const/admin"
 import {
   MainHomeSectionCreateRequest,
-  MainSectionResponse,
+  MainHomeSectionResponse,
 } from "../../../../types/home/main"
 import { ImageResponse, ImageUpdateRequest } from "../../../../types/image"
 import { FormInputEvent } from "../../../../types/utils"
@@ -14,7 +14,7 @@ import { ReactComponent as YellowSnakeIcon } from "../../../../assets/svg/yellow
 import { getDefaultImage } from "../../../../utils/get-default-image"
 
 type EditProps = {
-  data: MainSectionResponse
+  data: MainHomeSectionResponse
   setMode: Dispatch<SetStateAction<AdminSectionMode>>
 }
 

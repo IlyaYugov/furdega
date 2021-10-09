@@ -1,15 +1,15 @@
-import axios from "axios"
+import axios from "../axios"
 import {
   MainHomeSectionCreateRequest,
-  MainSectionResponse,
   MainHomeSectionUpdateRequest,
+  MainHomeSectionResponse,
 } from "../../types/home/main"
 
 const BASE_URL = "/api/sections/main"
 
 const mainSectionApi = {
-  get: async (): Promise<MainSectionResponse> => {
-    const response = await axios.get<MainSectionResponse>(BASE_URL)
+  get: async (): Promise<MainHomeSectionResponse> => {
+    const response = await axios.get<MainHomeSectionResponse>(BASE_URL)
     return response.data
   },
 
