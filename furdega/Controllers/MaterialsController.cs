@@ -33,6 +33,7 @@ namespace Furdega.Controllers
             return await _materialService.GetAll();
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:int}/brands")]
         public async Task<IEnumerable<GetMaterialBrandsResponse>> GetBrands(int id)
         {

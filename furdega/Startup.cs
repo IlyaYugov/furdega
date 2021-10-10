@@ -18,6 +18,7 @@ using Furdega.Services.HomePage.Sections.MainHome;
 using Furdega.Services.HomePage.Sections.Staff;
 using Furdega.Services.HomePage.Sections.WorkExamples;
 using Furdega.Services.HomePage.Sections.WorkingProcess;
+using Furdega.Services.MailSenders;
 using Furdega.Services.MaterialBrands;
 using Furdega.Services.Materials;
 using Furdega.Services.Staff;
@@ -128,6 +129,7 @@ namespace Furdega
             services.AddScoped<IFurnitureService, FurnitureService>();
             services.AddScoped<IMaterialService, MaterialService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IMailSender, MailSender>();
 
             services.AddScoped<IHomePageService, HomePageService>();
             services.AddScoped<IAboutSectionService, AboutSectionService>(); 
@@ -194,6 +196,7 @@ namespace Furdega
         {
             services.Configure<ProjectSettings>(options => Configuration.GetSection(nameof(ProjectSettings)).Bind(options));
             services.Configure<AuthOptions>(options => Configuration.GetSection(nameof(AuthOptions)).Bind(options));
+            services.Configure<MailSettings>(options => Configuration.GetSection(nameof(MailSettings)).Bind(options));
         }
     }
 }
