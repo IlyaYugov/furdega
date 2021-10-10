@@ -11,6 +11,7 @@ $wrapper-small-translate: calc(-100% - #{variables.$content-sm-padding});
   position: sticky;
   background-color: #fff;
   top: 32px;
+  z-index: 890;
 
   @media screen and (max-width: 576px) {
     position: fixed;
@@ -27,14 +28,13 @@ $wrapper-small-translate: calc(-100% - #{variables.$content-sm-padding});
 
 .wrapper-shown {
   @include wrapper;
-  z-index: 1020; // bootstrap z-index sticky
   @media screen and (max-width: 576px) {
     transform: translateX(-#{variables.$content-sm-padding});
   }
 }
 
 .backdrop {
-  @include mixins.backdrop(variables.$zindex-scrollspy-backdrop);
+  @include mixins.backdrop(880);
 }
 
 .small-toggle {

@@ -64,8 +64,8 @@ const Home: FC = () => {
           <Image
             fluid
             src="/assets/home-top-pic.jpg"
-            width={2880}
-            height={1100}
+            width={1440}
+            height={550}
             // src={content.mainHomeSection.image?.imageUrl}
           />
         </LazyLoad>
@@ -100,11 +100,7 @@ const Home: FC = () => {
 
             <div className="block">
               <LazyLoad height={398}>
-                <img
-                  className="img-fluid w-100"
-                  src="/assets/separator.png"
-                  alt="/assets/separator.png"
-                />
+                <Image fluid src="/assets/separator.png" height={398} />
               </LazyLoad>
             </div>
 
