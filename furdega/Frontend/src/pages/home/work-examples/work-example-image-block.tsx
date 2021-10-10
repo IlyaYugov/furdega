@@ -31,13 +31,13 @@ const WorkExampleImageBlock: FC<WorkExampleImageBlockProps> = ({
               </LazyLoad>
             </Col>
             <Col>
-              {before ? (
-                <Button variant="secondary" className="w-100 py-3">
-                  До
-                </Button>
-              ) : (
-                <Button className="w-100 py-3">После</Button>
-              )}
+              <div
+                className={`${
+                  before ? "bg-secondary" : "bg-primary"
+                } px-4 py-2 text-center`}
+              >
+                {before ? "До" : "После"}
+              </div>
             </Col>
           </Row>
         </Col>

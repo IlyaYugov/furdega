@@ -29,13 +29,13 @@ const RegModal: FC<RegModalProps> = ({ show, onClose }) => {
 
   return (
     <Modal show={show} onHide={onClose}>
-      <Modal.Header>
-        <Modal.Title className="px-5 pt-5 pb-4">
-          <h2 className={styles.title}>закажите бесплатный выезд дизайнера</h2>
-        </Modal.Title>
-      </Modal.Header>
+      <Modal.Header closeButton></Modal.Header>
 
-      <Modal.Body className="overflow-hidden p-5">
+      <Modal.Body className="overflow-hidden px-5 pb-5 pt-0">
+        <h2 className={`${styles.title} mb-5`}>
+          закажите бесплатный выезд дизайнера
+        </h2>
+
         <Form onSubmit={onSubmit}>
           <Row className="flex-column gy-4">
             <Col>
