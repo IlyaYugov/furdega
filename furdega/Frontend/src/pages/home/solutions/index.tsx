@@ -28,9 +28,9 @@ const Solutions: FC<IssueSolutionsSectionResponse> = ({
       </Row>
 
       <SolutionBlock data={issueSolution1} />
-      <SolutionBlock data={issueSolution2} />
+      <SolutionBlock left data={issueSolution2} />
       <SolutionBlock data={issueSolution3} />
-      <SolutionBlock data={issueSolution4} />
+      <SolutionBlock left data={issueSolution4} />
     </>
   )
 }

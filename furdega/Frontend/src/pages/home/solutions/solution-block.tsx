@@ -1,6 +1,7 @@
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { Row, Col } from "react-bootstrap"
 import LazyLoad from "react-lazyload"
+import { AppContext } from "../../../app"
 
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
 import { RoundedButton } from "../../../components/rounded-button"
@@ -8,9 +9,12 @@ import { IssueSolutionResponse } from "../../../types/home/solutions"
 
 type SolutionBlockProps = {
   data: IssueSolutionResponse | null
+  left?: boolean
 }
 
-const SolutionBlock: FC<SolutionBlockProps> = ({ data }) => {
+const SolutionBlock: FC<SolutionBlockProps> = ({ data, left = false }) => {
+  const { setShowRegModal } = useContext(AppContext)
+
   return (
     <>
       <Row className="g-0">
@@ -26,22 +30,36 @@ const SolutionBlock: FC<SolutionBlockProps> = ({ data }) => {
         </LazyLoad>
       </div>
 
-      <Row className="g-0 mt-5">
+      <Row className={`g-0 mt-5 ${left ? "flex-row-reverse" : ""}`}>
         <Col xs={0} lg={4}></Col>
         <Col xs={12} lg={8}>
-          <Row className="g-4 flex-column flex-sm-row flex-nowrap">
+          <Row
+            className={`g-4 flex-nowrap flex-column ${
+              left ? "flex-sm-row-reverse" : "flex-sm-row"
+            }`}
+          >
             <Col className="text-white">{data?.description || ""}</Col>
             <Col>
-              <RoundedButton>бесплатная консультация</RoundedButton>
+              <RoundedButton
+                type={left ? "secondary" : "primary"}
+                onClick={() => {
+                  setShowRegModal(true)
+                }}
+              >
+                бесплатная консультация
+              </RoundedButton>
             </Col>
           </Row>
         </Col>
       </Row>
 
-      <Row className="g-0 my-5">
+      <Row className={`g-0 my-5 ${left ? "flex-row-reverse" : ""}`}>
         <Col md={4}></Col>
         <Col md={8} className="position-relative" style={{ height: "53px" }}>
-          <YellowSnakeIcon className="position-absolute" style={{ left: 0 }} />
+          <YellowSnakeIcon
+            className="position-absolute"
+            style={left ? { right: 0 } : { left: 0 }}
+          />
         </Col>
       </Row>
     </>
