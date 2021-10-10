@@ -1,0 +1,8 @@
+@use "../../styles/mixins";
+
+.title {
+  line-height: 1.2;
+  @include mixins.responsive(32px, 28px, 24px, 20px) using ($d) {
+    font-size: $d;
+  }
+}
