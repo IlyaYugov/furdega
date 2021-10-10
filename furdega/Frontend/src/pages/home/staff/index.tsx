@@ -25,7 +25,7 @@ const Staff: FC<StaffSectionResponse> = ({ header }) => {
       <div className="block-content">
         <Row className="flex-column gy-5">
           {employees.map((employee, index) => (
-            <Col>
+            <Col key={`employee-card-${index}`}>
               <EmployeeCard reverse={index % 2 === 1} {...employee} />
             </Col>
           ))}

@@ -108,33 +108,27 @@ const Footer: FC = () => {
               <Col>
                 <Row className="flex-column gy-4 gx-0">
                   <Col>
-                    <a>
-                      <small className="text-primary opacity-75">
-                        телефон:
-                      </small>
-                    </a>
+                    <small className="text-primary opacity-75">телефон:</small>
                   </Col>
 
                   <Col>
-                    <a>
+                    <a href="tel:">
                       <small>+7&nbsp;(962)&nbsp;366&#8209;70&#8209;74</small>
                     </a>
                   </Col>
 
                   <Col>
-                    <a>
+                    <a href="tel:">
                       <small>+7&nbsp;(495)&nbsp;136&#8209;70&#8209;74</small>
                     </a>
                   </Col>
 
                   <Col>
-                    <a>
-                      <small className="text-primary opacity-75">E-mail:</small>
-                    </a>
+                    <small className="text-primary opacity-75">E-mail:</small>
                   </Col>
 
                   <Col>
-                    <a>
+                    <a href="email:">
                       <small>daasobivka@mail.ru</small>
                     </a>
                   </Col>

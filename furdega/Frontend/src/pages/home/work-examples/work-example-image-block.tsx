@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { Col, Row, Button } from "react-bootstrap"
+import { Col, Row } from "react-bootstrap"
 import LazyLoad from "react-lazyload"
 import { ImageResponse } from "../../../types/image"
 

@@ -88,7 +88,9 @@ const RegModal: FC<RegModalProps> = ({ show, onClose }) => {
                 >
                   <option value="">Выберите удобное время</option>
                   {regOptions.map((o) => (
-                    <option value={o}>{o}</option>
+                    <option value={o} key={`time-option-${o}`}>
+                      {o}
+                    </option>
                   ))}
                 </Form.Select>
               </Form.Group>

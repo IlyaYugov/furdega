@@ -5,6 +5,7 @@ import { Footer } from "./components/footer"
 import { Header } from "./components/header"
 import { RegModal } from "./components/reg-modal"
 import { Admin } from "./pages/admin"
+import { Blog } from "./pages/blog"
 import { Catalog } from "./pages/catalog"
 import { Contacts } from "./pages/contacts"
 import { Home } from "./pages/home"
@@ -46,6 +47,9 @@ const App: FC = () => {
           </Route>
           <Route path="/catalog">
             <Catalog />
+          </Route>
+          <Route path="/blog">
+            <Blog />
           </Route>
           <Route path="/admin">
             <Admin />

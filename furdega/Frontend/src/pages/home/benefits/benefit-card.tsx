@@ -1,6 +1,5 @@
 import { FC } from "react"
 import LazyLoad from "react-lazyload"
-import { Row, Col } from "react-bootstrap"
 
 import { CompanyBenefitResponse } from "../../../types/home/benefits"
 
