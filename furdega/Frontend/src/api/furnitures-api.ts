@@ -9,11 +9,9 @@ import {
 const BASE_URL = "/api/furnitures"
 
 const furnituresApi = {
-  getByFurnitureTypeId: async (
-    furnitureTypeId?: number
-  ): Promise<Furniture[]> => {
+  getByFurnitureTypeId: async (typeId?: number): Promise<Furniture[]> => {
     const response = await axios.get<Furniture[]>(BASE_URL, {
-      params: { furnitureTypeId },
+      params: { typeId },
     })
     return response.data
   },
