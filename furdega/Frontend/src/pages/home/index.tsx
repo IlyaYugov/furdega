@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react"
+import { FC, useContext, useEffect, useState } from "react"
 import LazyLoad from "react-lazyload"
 import { Row, Col, Container, Button, Image } from "react-bootstrap"
 import { useInView } from "react-intersection-observer"
@@ -19,6 +19,7 @@ import { Process } from "./process"
 import { Staff } from "./staff"
 import styles from "./home.module.scss"
 import { SectionsResponse } from "../../types/home/content"
+import { AppContext } from "../../app"
 
 const Home: FC = () => {
   const [content, setContent] = useState<SectionsResponse>(
@@ -27,6 +28,7 @@ const Home: FC = () => {
   const [topScrollspyRef, isTopScrollspyVisible] = useInView()
   const [bottomScrollspyRef, isBottomScrollspyVisible] = useInView()
   const isMobile = useMobileScreen()
+  const { setShowRegModal } = useContext(AppContext)
 
   const fetchContent = async () => {
     const data = await sectionsApi.get()
@@ -48,6 +50,9 @@ const Home: FC = () => {
           <Button
             size="lg"
             className={`fw-demibold mt-4 mt-xl-0 mb-0 mb-xl-4 ${styles["title-button"]}`}
+            onClick={() => {
+              setShowRegModal(true)
+            }}
           >
             бесплатная консультация
           </Button>
@@ -72,6 +77,9 @@ const Home: FC = () => {
             <Scrollspy
               shown={isMobile || isTopScrollspyVisible}
               anchors={scrollspyAnchors}
+              onRegClick={() => {
+                setShowRegModal(true)
+              }}
             />
           </Col>
 
@@ -122,6 +130,9 @@ const Home: FC = () => {
             <Scrollspy
               shown={!isMobile && isBottomScrollspyVisible}
               anchors={scrollspyAnchors}
+              onRegClick={() => {
+                setShowRegModal(true)
+              }}
             />
           </Col>
 

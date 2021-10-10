@@ -39,4 +39,8 @@ $nav-pills-link-active-color: map-get($theme-colors, "dark");
 $nav-pills-link-active-bg: map-get($theme-colors, "primary");
 $nav-tabs-link-active-color: map-get($theme-colors, "dark");
 $nav-tabs-link-active-bg: map-get($theme-colors, "primary");
-$nav-tabs-link-active-border-color: map-get($theme-colors, "primary"); ;
+$nav-tabs-link-active-border-color: map-get($theme-colors, "primary");
+
+$input-font-size-lg: 14px;
+$input-padding-y-lg: 14px;
+$input-padding-x-lg: 14px;

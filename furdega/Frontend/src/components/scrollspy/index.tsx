@@ -13,9 +13,10 @@ import styles from "./scrollspy.module.scss"
 type ScrollspyProps = {
   shown: boolean
   anchors: ScrollspyAnchor[]
+  onRegClick: () => void
 }
 
-const Scrollspy: FC<ScrollspyProps> = ({ shown, anchors }) => {
+const Scrollspy: FC<ScrollspyProps> = ({ shown, anchors, onRegClick }) => {
   const [activeId, setActiveId] = useState("")
   const [smallShown, setSmallShown] = useState(false)
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -81,6 +82,7 @@ const Scrollspy: FC<ScrollspyProps> = ({ shown, anchors }) => {
           <Button
             size="lg"
             className={`fw-demibold mt-4 px-2 d-sm-block d-none ${styles.button}`}
+            onClick={onRegClick}
           >
             бесплатная консультация
           </Button>
