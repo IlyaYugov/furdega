@@ -3,10 +3,10 @@ import { Row, Col, Form, Button, Image } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../const/admin"
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
-import { FormInputEvent } from "../../../types/utils"
-import { fileToBase64 } from "../../../utils/file-to-base64"
 import { Material, MaterialUpdateRequest } from "../../../types/material"
 import { Link } from "react-router-dom"
+import { ImageUpload } from "../../../components/image-upload"
+import { ImageUploadRuleType } from "../../../types/image-upload"
 
 type EditProps = {
   data: Material
@@ -42,28 +42,17 @@ const Edit: FC<EditProps> = ({ data, setMode, onDelete, onUpdate }) => {
     onUpdate(data.id, request)
   }
 
-  const onPreviewImageChange = async (event: FormInputEvent) => {
-    const files = (event.currentTarget as HTMLInputElement).files
-    if (!files) return null
-
-    const file = files[0]
-    const fileUrl = URL.createObjectURL(file)
-    const base64 = await fileToBase64(file)
-
-    setPreviewImage({ ...previewImage, imageUrl: fileUrl })
-    setPreviewImageBase64(base64)
+  const onPreviewImageChange = async (
+    imageUrl: string,
+    imageBase64: string
+  ) => {
+    setPreviewImage({ ...previewImage, imageUrl })
+    setPreviewImageBase64(imageBase64)
   }
 
-  const onMainImageChange = async (event: FormInputEvent) => {
-    const files = (event.currentTarget as HTMLInputElement).files
-    if (!files) return null
-
-    const file = files[0]
-    const fileUrl = URL.createObjectURL(file)
-    const base64 = await fileToBase64(file)
-
-    setMainImage({ ...mainImage, imageUrl: fileUrl })
-    setMainImageBase64(base64)
+  const onMainImageChange = async (imageUrl: string, imageBase64: string) => {
+    setMainImage({ ...mainImage, imageUrl })
+    setMainImageBase64(imageBase64)
   }
 
   return (
@@ -148,9 +137,8 @@ const Edit: FC<EditProps> = ({ data, setMode, onDelete, onUpdate }) => {
               </Col>
 
               <Col>
-                <Form.Control
-                  type="file"
-                  accept=".jpeg, .jpg, .png"
+                <ImageUpload
+                  rules={{ type: ImageUploadRuleType.ratio, ratio: 1 }}
                   onChange={onPreviewImageChange}
                 />
               </Col>
@@ -166,11 +154,7 @@ const Edit: FC<EditProps> = ({ data, setMode, onDelete, onUpdate }) => {
               </Col>
 
               <Col>
-                <Form.Control
-                  type="file"
-                  accept=".jpeg, .jpg, .png"
-                  onChange={onMainImageChange}
-                />
+                <ImageUpload onChange={onMainImageChange} />
               </Col>
             </Row>
           </Col>
