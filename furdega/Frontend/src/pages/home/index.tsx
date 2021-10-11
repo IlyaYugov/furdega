@@ -45,8 +45,7 @@ const Home: FC = () => {
         <div
           className={`d-flex flex-xl-row flex-column justify-content-between align-items-xl-end align-items-sm-start align-items-stretch ${styles["title"]}`}
         >
-          {/* <h1 className="me-3">{content.mainHomeSection.header}</h1> */}
-          <h1 className="me-3">подарите мягкой мебели вторую жизнь</h1>
+          <h1 className="me-3">{content.mainHomeSection.header}</h1>
           <Button
             size="lg"
             className={`fw-demibold mt-4 mt-xl-0 mb-0 mb-xl-4 ${styles["title-button"]}`}
@@ -63,10 +62,9 @@ const Home: FC = () => {
         <LazyLoad height={550}>
           <Image
             fluid
-            src="/assets/home-top-pic.jpg"
+            src={content.mainHomeSection.image?.imageUrl}
             width={1440}
             height={550}
-            // src={content.mainHomeSection.image?.imageUrl}
           />
         </LazyLoad>
       </Container>
@@ -99,9 +97,12 @@ const Home: FC = () => {
             </div>
 
             <div className="block">
-              <LazyLoad height={398}>
-                <Image fluid src="/assets/separator.png" height={398} />
-              </LazyLoad>
+              <Image
+                fluid
+                src="/assets/separator.png"
+                width={1821}
+                height={526}
+              />
             </div>
 
             <div className="block" id={scrollspyAnchorsMap["benefits"].id}>
@@ -145,13 +146,13 @@ const Home: FC = () => {
       </Container>
 
       <Container fluid className="g-0">
-        <LazyLoad height={312}>
-          <img
-            className="img-fluid w-100"
-            src="/assets/separator-big.png"
-            alt="/assets/separator-big.png"
-          />
-        </LazyLoad>
+        <Image
+          fluid
+          className="w-100"
+          src="/assets/separator-big.png"
+          width={1440}
+          height={312}
+        />
       </Container>
     </Container>
   )
