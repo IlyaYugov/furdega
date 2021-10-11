@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { Col, Form, Row } from "react-bootstrap"
+import { Col, Form, Image, Row } from "react-bootstrap"
 
 import { ImageResponse } from "../../../../types/image"
 import { FormInputEvent } from "../../../../types/utils"
@@ -28,7 +28,7 @@ const WorkExampleImageEdit: FC<WorkExampleImageEditProps> = ({
   return (
     <Row className="flex-column gy-2">
       <Col>
-        <img src={image?.imageUrl} alt="" className="img-fluid w-100" />
+        <Image fluid src={image?.imageUrl} />
       </Col>
 
       <Col>

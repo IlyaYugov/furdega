@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction, useState } from "react"
-import { Row, Col, Button, Form } from "react-bootstrap"
+import { Row, Col, Button, Form, Image } from "react-bootstrap"
 
 import { mainSectionApi } from "../../../../api/sections/main-section-api"
 import { AdminSectionMode } from "../../../../const/admin"
@@ -116,7 +116,7 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
           <h4 className="fw-bold">Изображение</h4>
 
           <Col>
-            <img src={image?.imageUrl} alt="" className="img-fluid w-100" />
+            <Image fluid src={image?.imageUrl} />
           </Col>
 
           <Col>

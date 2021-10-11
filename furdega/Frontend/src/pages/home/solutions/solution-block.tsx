@@ -1,5 +1,5 @@
 import { FC, useContext } from "react"
-import { Row, Col } from "react-bootstrap"
+import { Row, Col, Image } from "react-bootstrap"
 import LazyLoad from "react-lazyload"
 import { AppContext } from "../../../app"
 
@@ -26,7 +26,7 @@ const SolutionBlock: FC<SolutionBlockProps> = ({ data, left = false }) => {
 
       <div className="mt-5">
         <LazyLoad height={500}>
-          <img className="img-fluid w-100" src={data?.image?.imageUrl} alt="" />
+          <Image fluid src={data?.image?.imageUrl} />
         </LazyLoad>
       </div>
 

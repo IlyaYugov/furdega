@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction } from "react"
-import { Col, Row, Button } from "react-bootstrap"
+import { Col, Row, Button, Image } from "react-bootstrap"
 
 import { AdminSectionMode } from "../../../../const/admin"
 import { MainHomeSectionResponse } from "../../../../types/home/main"
@@ -50,7 +50,7 @@ const View: FC<ViewProps> = ({ data, setMode }) => {
 
       <Col>
         <h4 className="fw-bold">Изображение</h4>
-        <img src={image?.imageUrl} alt="" className="img-fluid w-100" />
+        <Image fluid src={image?.imageUrl} />
       </Col>
     </Row>
   )

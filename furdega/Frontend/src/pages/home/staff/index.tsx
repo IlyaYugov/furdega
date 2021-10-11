@@ -11,7 +11,6 @@ const Staff: FC<StaffSectionResponse> = ({ header }) => {
 
   const fetchData = async () => {
     const data = await employeesApi.getAll()
-    console.log(data)
     setEmployees(data)
   }
 

@@ -1,4 +1,5 @@
 import { FC } from "react"
+import { Image } from "react-bootstrap"
 import LazyLoad from "react-lazyload"
 
 import { CompanyBenefitResponse } from "../../../types/home/benefits"
@@ -11,7 +12,7 @@ const BenefitCard: FC<BenefitCardProps> = ({ data }) => {
   return (
     <>
       <LazyLoad height={512}>
-        <img className="img-fluid w-100" src={data?.image?.imageUrl} alt="" />
+        <Image fluid src={data?.image?.imageUrl} />
       </LazyLoad>
 
       <div className="mt-2 mt-md-5">

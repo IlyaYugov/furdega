@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { Col, Row } from "react-bootstrap"
+import { Col, Image, Row } from "react-bootstrap"
 
 import { CompanyBenefitResponse } from "../../../../types/home/benefits"
 
@@ -26,7 +26,7 @@ const BenefitView: FC<BenefitViewProps> = ({ data }) => {
 
       <Col>
         <div className="fw-bold">Изображение</div>
-        <img src={image?.imageUrl} alt="" className="img-fluid w-100" />
+        <Image fluid src={image?.imageUrl} />
       </Col>
     </Row>
   )
