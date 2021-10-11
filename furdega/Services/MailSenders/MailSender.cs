@@ -31,7 +31,7 @@ namespace Furdega.Services.MailSenders
             emailMessage.From.Add(_fromMailAddress);
             emailMessage.To.Add(_fromMailAddress);
             emailMessage.Subject = "Выезд Дизайнера";
-            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text)
+            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
                 Text =
  @$"<h3><b>Имя</b></h3>
