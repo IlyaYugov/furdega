@@ -9,8 +9,13 @@ const BASE_URL = "/api/employees"
 
 const employeesApi = {
   getAll: async (): Promise<EmployeeResponse[]> => {
-    const response = await axios.get<EmployeeResponse[]>(BASE_URL)
-    return response.data
+    try {
+      const response = await axios.get<EmployeeResponse[]>(BASE_URL)
+      return response.data || []
+    } catch (error) {
+      console.error(error)
+      return []
+    }
   },
 
   get: async (id: number): Promise<EmployeeResponse> => {
