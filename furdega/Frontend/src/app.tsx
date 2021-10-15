@@ -33,27 +33,13 @@ const App: FC = () => {
         <Header />
 
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/portfolio">
-            <Portfolio />
-          </Route>
-          <Route path="/contacts">
-            <Contacts />
-          </Route>
-          <Route path="/catalog">
-            <Catalog />
-          </Route>
-          <Route path="/blog">
-            <Blog />
-          </Route>
-          <Route path="/admin">
-            <Admin />
-          </Route>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/portfolio" component={Portfolio} />
+          <Route path="/contacts" component={Contacts} />
+          <Route path="/catalog" component={Catalog} />
+          <Route path="/blog" component={Blog} />
+          <Route path="/admin" component={Admin} />
         </Switch>
 
         <Footer />

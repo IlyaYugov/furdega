@@ -22,6 +22,23 @@ const accountApi = {
     )
     return response.data
   },
+
+  isAuthorize: async (): Promise<boolean> => {
+    try {
+      const accessToken = localStorage.getItem("accessToken")
+
+      await axios.get(`${BASE_URL}/isAuthorize`, {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      })
+
+      return true
+    } catch (error) {
+      console.error(error)
+      return false
+    }
+  },
 }
 
 export { accountApi }

@@ -1,22 +1,17 @@
 import { FC, useState } from "react"
 import { Row, Col, Button, Form, Container } from "react-bootstrap"
-import { useLocation } from "react-router"
+import { Redirect } from "react-router"
 import { accountApi } from "../../api/account-api"
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search)
-}
-
 const Login: FC = () => {
-  const query = useQuery()
-
   const [login, setLogin] = useState<string>("")
   const [pwd, setPwd] = useState<string>("")
   const [changeMode, setChangeMode] = useState<boolean>(false)
   const [newPwd, setNewPwd] = useState<string>("")
+  const [returnPath, setReturnPath] = useState<string | null>(null)
 
-  const goBack = () => {
-    window.location.href = query.get("returnUrl") || "/admin/home"
+  const goToAdmin = () => {
+    setReturnPath("/admin/home")
   }
 
   const onLogin = async () => {
@@ -59,12 +54,14 @@ const Login: FC = () => {
     setChangeMode(!changeMode)
   }
 
+  if (returnPath) return <Redirect to={returnPath} />
+
   return (
     <Container fluid>
       <Container className="justify-content-center">
         <Row className="p-5 flex-column gy-5 w-50">
           <Col>
-            <Button onClick={goBack}>Назад</Button>
+            <Button onClick={goToAdmin}>На страницу логина</Button>
           </Col>
 
           <Col>
