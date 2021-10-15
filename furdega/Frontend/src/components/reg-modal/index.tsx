@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState } from "react"
+import { FC, FormEvent, useEffect, useState } from "react"
 import { Col, Form, Modal, Row, Button } from "react-bootstrap"
 import { appointmentApi } from "../../api/appointment-api"
 import { regOptions } from "../../const/app"
@@ -15,17 +15,38 @@ const RegModal: FC<RegModalProps> = ({ show, onClose }) => {
   const [phone, setPhone] = useState<string>("")
   const [time, setTime] = useState<string>("")
 
+  const [isServerError, setIsServerError] = useState<boolean>(false)
+  const [isInputError, setIsInputError] = useState<boolean>(false)
+
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    if (!(name && phone && time)) return
+    if (!(name && phone && time)) {
+      setIsInputError(true)
+      return
+    }
 
-    await appointmentApi.make({
-      senderName: name.trim(),
-      phoneNumber: phone.trim(),
-      timeInterval: time.trim(),
-    })
+    try {
+      await appointmentApi.make({
+        senderName: name.trim(),
+        phoneNumber: phone.trim(),
+        timeInterval: time.trim(),
+      })
+
+      onClose()
+    } catch (error) {
+      console.error(error)
+      setIsServerError(true)
+    }
   }
+
+  useEffect(() => {
+    setIsServerError(false)
+    setIsInputError(false)
+    setName("")
+    setPhone("")
+    setTime("")
+  }, [show])
 
   return (
     <Modal show={show} onHide={onClose}>
@@ -49,6 +70,7 @@ const RegModal: FC<RegModalProps> = ({ show, onClose }) => {
                   size="lg"
                   value={name}
                   onChange={(e) => {
+                    setIsInputError(false)
                     setName(e.target.value)
                   }}
                 />
@@ -66,6 +88,7 @@ const RegModal: FC<RegModalProps> = ({ show, onClose }) => {
                   size="lg"
                   value={phone}
                   onChange={(e) => {
+                    setIsInputError(false)
                     setPhone(e.target.value)
                   }}
                 />
@@ -83,6 +106,7 @@ const RegModal: FC<RegModalProps> = ({ show, onClose }) => {
                   size="lg"
                   value={time}
                   onChange={(e) => {
+                    setIsInputError(false)
                     setTime(e.currentTarget.value)
                   }}
                 >
@@ -95,6 +119,20 @@ const RegModal: FC<RegModalProps> = ({ show, onClose }) => {
                 </Form.Select>
               </Form.Group>
             </Col>
+
+            {isServerError ? (
+              <Col>
+                <div className="text-red">
+                  Произошла ошибка. Пожалуйста, повторите попытку позже
+                </div>
+              </Col>
+            ) : null}
+
+            {isInputError ? (
+              <Col>
+                <div className="text-red">Пожалуйста, заполните все поля</div>
+              </Col>
+            ) : null}
 
             <Col className="mt-5">
               <Button size="lg" className="w-100" type="submit">

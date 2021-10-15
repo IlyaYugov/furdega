@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react"
+import { FC, useContext, useRef, useState } from "react"
 import { Col, Row, Button } from "react-bootstrap"
 
 import { ReactComponent as WhatsappIcon } from "../../../assets/svg/whatsapp.svg"
@@ -9,6 +9,7 @@ import { useOnClickOutside } from "../../../utils/use-on-click-outside"
 import styles from "../../../components/scrollspy/scrollspy.module.scss"
 import { FurnitureType } from "../../../types/furniture"
 import { defaultFurType } from ".."
+import { AppContext } from "../../../app"
 
 type NavProps = {
   items: FurnitureType[]
@@ -19,6 +20,7 @@ type NavProps = {
 const Nav: FC<NavProps> = ({ items, onItemClick, activeItem }) => {
   const [smallShown, setSmallShown] = useState(false)
   const wrapperRef = useRef<HTMLDivElement>(null)
+  const { setShowRegModal } = useContext(AppContext)
 
   useOnClickOutside(wrapperRef, () => {
     setSmallShown(false)
@@ -82,6 +84,9 @@ const Nav: FC<NavProps> = ({ items, onItemClick, activeItem }) => {
           <Button
             size="lg"
             className={`fw-demibold mt-4 px-2 d-sm-block d-none ${styles.button}`}
+            onClick={() => {
+              setShowRegModal(true)
+            }}
           >
             бесплатная консультация
           </Button>
