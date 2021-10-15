@@ -29,5 +29,11 @@ namespace Furdega.Controllers
         {
             return await _accountService.ChangePassword(request);
         }
+
+        [Authorize]
+        [HttpGet("IsAuthorize")]
+        public void IsAuthorize()
+        {
+        }
     }
 }
