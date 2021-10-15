@@ -61,7 +61,7 @@ const Login: FC = () => {
       <Container className="justify-content-center">
         <Row className="p-5 flex-column gy-5 w-50">
           <Col>
-            <Button onClick={goToAdmin}>На страницу логина</Button>
+            <Button onClick={goToAdmin}>На страницу CMS</Button>
           </Col>
 
           <Col>
