@@ -19,4 +19,4 @@ const About: FC<AboutSectionResponse> = ({ header, text }) => {
   )
 }
 
-export { About }
+export { About as default }

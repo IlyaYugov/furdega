@@ -35,4 +35,4 @@ const Solutions: FC<IssueSolutionsSectionResponse> = ({
   )
 }
 
-export { Solutions }
+export { Solutions as default }

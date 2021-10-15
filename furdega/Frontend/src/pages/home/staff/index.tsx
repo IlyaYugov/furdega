@@ -35,4 +35,4 @@ const Staff: FC<StaffSectionResponse> = ({ header }) => {
   )
 }
 
-export { Staff }
+export { Staff as default }

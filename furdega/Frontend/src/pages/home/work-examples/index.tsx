@@ -33,4 +33,4 @@ const WorkExamples: FC<WorkExamplesProps> = ({ data }) => {
   )
 }
 
-export { WorkExamples }
+export { WorkExamples as default }

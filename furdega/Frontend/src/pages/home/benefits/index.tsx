@@ -53,4 +53,4 @@ const Benefits: FC<CompanyBenefitsSectionResponse> = ({
   )
 }
 
-export { Benefits }
+export { Benefits as default }

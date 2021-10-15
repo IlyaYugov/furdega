@@ -86,4 +86,4 @@ const Process: FC<WorkingProcessSectionResponse> = ({
   )
 }
 
-export { Process }
+export { Process as default }

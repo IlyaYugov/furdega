@@ -1,6 +1,12 @@
-import { FC, useContext, useEffect, useState } from "react"
-import LazyLoad from "react-lazyload"
-import { Row, Col, Container, Button, Image } from "react-bootstrap"
+import { FC, useContext, useEffect, useState, lazy, Suspense } from "react"
+import {
+  Row,
+  Col,
+  Container,
+  Button,
+  Image,
+  Placeholder,
+} from "react-bootstrap"
 import { useInView } from "react-intersection-observer"
 
 import { Scrollspy } from "../../components/scrollspy"
@@ -11,17 +17,19 @@ import {
   scrollspyAnchorsMap,
 } from "../../const/home"
 import { sectionsApi } from "../../api/sections/sections-api"
-import { About } from "./about"
-import { WorkExamples } from "./work-examples"
-import { Benefits } from "./benefits"
-import { Solutions } from "./solutions"
-import { Process } from "./process"
-import { Staff } from "./staff"
 import styles from "./home.module.scss"
 import { SectionsResponse } from "../../types/home/content"
 import { AppContext } from "../../app"
 
+const About = lazy(() => import("./about"))
+const WorkExamples = lazy(() => import("./work-examples"))
+const Benefits = lazy(() => import("./benefits"))
+const Solutions = lazy(() => import("./solutions"))
+const Process = lazy(() => import("./process"))
+const Staff = lazy(() => import("./staff"))
+
 const Home: FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [content, setContent] = useState<SectionsResponse>(
     defaultSectionsResponse
   )
@@ -33,6 +41,7 @@ const Home: FC = () => {
   const fetchContent = async () => {
     const data = await sectionsApi.get()
     setContent(data)
+    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -45,7 +54,14 @@ const Home: FC = () => {
         <div
           className={`d-flex flex-xl-row flex-column justify-content-between align-items-xl-end align-items-sm-start align-items-stretch ${styles["title"]}`}
         >
-          <h1 className="me-3">{content.mainHomeSection.header}</h1>
+          {isLoading ? (
+            <h1 className="w-100">
+              <Placeholder className="w-75" size="lg" />
+              <Placeholder className="w-50" size="lg" />
+            </h1>
+          ) : (
+            <h1 className="me-3">{content.mainHomeSection.header}</h1>
+          )}
           <Button
             size="lg"
             className={`fw-demibold mt-4 mt-xl-0 mb-0 mb-xl-4 ${styles["title-button"]}`}
@@ -59,14 +75,17 @@ const Home: FC = () => {
       </Container>
 
       <Container className={`g-0 ${styles["banner"]}`}>
-        <LazyLoad height={550}>
-          <Image
-            fluid
-            src={content.mainHomeSection.image?.imageUrl}
-            width={1440}
-            height={550}
+        {isLoading ? (
+          <Placeholder
+            className={styles["banner-image"]}
+            style={{ width: "100%", left: 0 }}
           />
-        </LazyLoad>
+        ) : (
+          <Image
+            className={styles["banner-image"]}
+            src={content.mainHomeSection.image?.imageUrl}
+          />
+        )}
       </Container>
 
       <Container className="g-0 content" ref={topScrollspyRef}>
@@ -89,11 +108,15 @@ const Home: FC = () => {
             className="px-3 ps-sm-5 overflow-hidden"
           >
             <div className="block" id={scrollspyAnchorsMap["about"].id}>
-              <About {...content.aboutSection} />
+              <Suspense fallback={<h4>Загрузка...</h4>}>
+                <About {...content.aboutSection} />
+              </Suspense>
             </div>
 
             <div className="block" id={scrollspyAnchorsMap["examples"].id}>
-              <WorkExamples data={content.workExamplesSection} />
+              <Suspense fallback={<h4>Загрузка...</h4>}>
+                <WorkExamples data={content.workExamplesSection} />
+              </Suspense>
             </div>
 
             <div className="block">
@@ -106,7 +129,9 @@ const Home: FC = () => {
             </div>
 
             <div className="block" id={scrollspyAnchorsMap["benefits"].id}>
-              <Benefits {...content.companyBenefitsSection} />
+              <Suspense fallback={<h4>Загрузка...</h4>}>
+                <Benefits {...content.companyBenefitsSection} />
+              </Suspense>
             </div>
           </Col>
         </Row>
@@ -117,7 +142,9 @@ const Home: FC = () => {
           id="solutions"
           className={`g-0 content ${styles["solutions-block"]}`}
         >
-          <Solutions {...content.issueSolutionsSection} />
+          <Suspense fallback={<h4>Загрузка...</h4>}>
+            <Solutions {...content.issueSolutionsSection} />
+          </Suspense>
         </Container>
       </Container>
 
@@ -135,11 +162,15 @@ const Home: FC = () => {
 
           <Col sm={8} md={8} lg={9} className="ps-sm-5">
             <div className="block" id={scrollspyAnchorsMap["process"].id}>
-              <Process {...content.workingProcessSection} />
+              <Suspense fallback={<h4>Загрузка...</h4>}>
+                <Process {...content.workingProcessSection} />
+              </Suspense>
             </div>
 
             <div className="block" id={scrollspyAnchorsMap["staff"].id}>
-              <Staff {...content.staff} />
+              <Suspense fallback={<h4>Загрузка...</h4>}>
+                <Staff {...content.staff} />
+              </Suspense>
             </div>
           </Col>
         </Row>
