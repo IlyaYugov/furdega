@@ -1,12 +1,5 @@
 import { FC, useContext, useEffect, useState, lazy, Suspense } from "react"
-import {
-  Row,
-  Col,
-  Container,
-  Button,
-  Image,
-  Placeholder,
-} from "react-bootstrap"
+import { Row, Col, Container, Button, Image } from "react-bootstrap"
 import { useInView } from "react-intersection-observer"
 
 import { Scrollspy } from "../../components/scrollspy"
@@ -56,8 +49,8 @@ const Home: FC = () => {
         >
           {isLoading ? (
             <h1 className="w-100">
-              <Placeholder className="w-75" size="lg" />
-              <Placeholder className="w-50" size="lg" />
+              <div className="w-75" style={{ height: "1em" }} />
+              <div className="w-50" style={{ height: "1em" }} />
             </h1>
           ) : (
             <h1 className="me-3">{content.mainHomeSection.header}</h1>
