@@ -76,7 +76,7 @@ const Home: FC = () => {
 
       <Container className={`g-0 ${styles["banner"]}`}>
         {isLoading ? (
-          <Placeholder
+          <div
             className={styles["banner-image"]}
             style={{ width: "100%", left: 0 }}
           />
