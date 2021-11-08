@@ -97,13 +97,19 @@ const Scrollspy: FC<ScrollspyProps> = ({ shown, anchors, onRegClick }) => {
                 className="gx-4 flex-nowrap justify-content-center"
               >
                 <Col>
-                  <WhatsappIcon />
+                  <a target="_blank" href="https://wa.me/79623667074">
+                    <WhatsappIcon />
+                  </a>
                 </Col>
                 <Col>
-                  <ViberIcon />
+                  <a target="_blank" href="https://viber.click/79623667074">
+                    <ViberIcon />
+                  </a>
                 </Col>
                 <Col>
-                  <TelegramIcon />
+                  <a target="_blank" href="https://t.me/deganov_mebel">
+                    <TelegramIcon />
+                  </a>
                 </Col>
               </Row>
             </Col>

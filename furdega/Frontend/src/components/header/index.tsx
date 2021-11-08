@@ -57,13 +57,19 @@ const Header: FC = () => {
                 <div className="mb-1 opacity-50">написать нам</div>
                 <Row className="gx-3">
                   <Col>
-                    <WhatsappIcon />
+                    <a target="_blank" href="https://wa.me/79623667074">
+                      <WhatsappIcon />
+                    </a>
                   </Col>
                   <Col>
-                    <ViberIcon />
+                    <a target="_blank" href="https://viber.click/79623667074">
+                      <ViberIcon />
+                    </a>
                   </Col>
                   <Col>
-                    <TelegramIcon />
+                    <a target="_blank" href="https://t.me/deganov_mebel">
+                      <TelegramIcon />
+                    </a>
                   </Col>
                 </Row>
               </div>
@@ -83,7 +89,9 @@ const Header: FC = () => {
               </div>
 
               <div className="d-sm-none">
-                <PhoneIcon />
+                <a href="tel:+74951367074">
+                  <PhoneIcon />
+                </a>
               </div>
             </Col>
 
@@ -152,13 +160,19 @@ const Header: FC = () => {
             <div className="mb-1 opacity-50">написать нам</div>
             <Row className="gx-3">
               <Col>
-                <WhatsappIcon />
+                <a target="_blank" href="https://wa.me/79623667074">
+                  <WhatsappIcon />
+                </a>
               </Col>
               <Col>
-                <ViberIcon />
+                <a target="_blank" href="https://viber.click/79623667074">
+                  <ViberIcon />
+                </a>
               </Col>
               <Col>
-                <TelegramIcon />
+                <a target="_blank" href="https://t.me/deganov_mebel">
+                  <TelegramIcon />
+                </a>
               </Col>
             </Row>
           </div>

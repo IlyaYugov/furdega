@@ -22,10 +22,17 @@ const Footer: FC = () => {
             <div className="d-flex justify-content-start mt-4">
               <Row className="flex-nowrap">
                 <Col>
-                  <VkContrastIcon />
+                  <a target="_blank" href="https://vk.com/deganov_mebel">
+                    <VkContrastIcon />
+                  </a>
                 </Col>
                 <Col>
-                  <InstaContrastIcon />
+                  <a
+                    target="_blank"
+                    href="https://www.instagram.com/deganov_mebel/"
+                  >
+                    <InstaContrastIcon />
+                  </a>
                 </Col>
               </Row>
             </div>
