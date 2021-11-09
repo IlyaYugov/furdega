@@ -57,13 +57,19 @@ const Header: FC = () => {
                 <div className="mb-1 opacity-50">написать нам</div>
                 <Row className="gx-3">
                   <Col>
-                    <WhatsappIcon />
+                    <a target="_blank" href="https://wa.me/79623667074">
+                      <WhatsappIcon />
+                    </a>
                   </Col>
                   <Col>
-                    <ViberIcon />
+                    <a target="_blank" href="https://viber.click/79623667074">
+                      <ViberIcon />
+                    </a>
                   </Col>
                   <Col>
-                    <TelegramIcon />
+                    <a target="_blank" href="https://t.me/deganov_mebel">
+                      <TelegramIcon />
+                    </a>
                   </Col>
                 </Row>
               </div>
@@ -79,11 +85,13 @@ const Header: FC = () => {
             >
               <div className="d-none d-sm-flex flex-column justify-content-start text-nowrap">
                 <div className="mb-1 opacity-50">связаться с нами</div>
-                <div className="fw-demibold fs-medium">8 800 242 24 42</div>
+                <div className="fw-demibold fs-medium">+7 (495) 136‑70‑74</div>
               </div>
 
               <div className="d-sm-none">
-                <PhoneIcon />
+                <a href="tel:+74951367074">
+                  <PhoneIcon />
+                </a>
               </div>
             </Col>
 
@@ -145,20 +153,26 @@ const Header: FC = () => {
 
           <div className="d-flex d-sm-none flex-column align-items-end border-top text-nowrap ps-4 ps-sm-5 pe-3 pe-sm-5 py-3">
             <div className="mb-1 opacity-50">связаться с нами</div>
-            <div className="fw-demibold">8 800 242 24 42</div>
+            <div className="fw-demibold">+7 (495) 136‑70‑74</div>
           </div>
 
           <div className="d-flex flex-column align-items-end d-md-none border-top ps-4 ps-sm-5 pe-3 pe-sm-5 py-3">
             <div className="mb-1 opacity-50">написать нам</div>
             <Row className="gx-3">
               <Col>
-                <WhatsappIcon />
+                <a target="_blank" href="https://wa.me/79623667074">
+                  <WhatsappIcon />
+                </a>
               </Col>
               <Col>
-                <ViberIcon />
+                <a target="_blank" href="https://viber.click/79623667074">
+                  <ViberIcon />
+                </a>
               </Col>
               <Col>
-                <TelegramIcon />
+                <a target="_blank" href="https://t.me/deganov_mebel">
+                  <TelegramIcon />
+                </a>
               </Col>
             </Row>
           </div>

@@ -2,7 +2,6 @@ import { FC } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 
 import { ReactComponent as LogoContrastIcon } from "../../assets/svg/logo-contrast.svg"
-import { ReactComponent as FacebookContrastIcon } from "../../assets/svg/facebook-contrast.svg"
 import { ReactComponent as VkContrastIcon } from "../../assets/svg/vk-contrast.svg"
 import { ReactComponent as InstaContrastIcon } from "../../assets/svg/insta-contrast.svg"
 
@@ -21,15 +20,19 @@ const Footer: FC = () => {
             <LogoContrastIcon />
 
             <div className="d-flex justify-content-start mt-4">
-              <Row className="gx-4 flex-nowrap">
+              <Row className="flex-nowrap">
                 <Col>
-                  <FacebookContrastIcon />
+                  <a target="_blank" href="https://vk.com/deganov_mebel">
+                    <VkContrastIcon />
+                  </a>
                 </Col>
                 <Col>
-                  <VkContrastIcon />
-                </Col>
-                <Col>
-                  <InstaContrastIcon />
+                  <a
+                    target="_blank"
+                    href="https://www.instagram.com/deganov_mebel/"
+                  >
+                    <InstaContrastIcon />
+                  </a>
                 </Col>
               </Row>
             </div>
@@ -82,12 +85,6 @@ const Footer: FC = () => {
                   <Col>
                     <NavLink to="/portfolio">
                       <small>Портфолио</small>
-                    </NavLink>
-                  </Col>
-
-                  <Col>
-                    <NavLink to="/catalog">
-                      <small>Каталог</small>
                     </NavLink>
                   </Col>
 

@@ -8,10 +8,6 @@ export const routes = [
     name: "Портфолио",
   },
   {
-    path: "/catalog",
-    name: "Каталог",
-  },
-  {
     path: "/blog",
     name: "Блог",
   },
