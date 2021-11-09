@@ -49,7 +49,7 @@ const Header: FC = () => {
               xl={7}
               className={`border-end d-flex flex-nowrap justify-content-between pe-lg-5 pe-md-3 pe-0 ${styles["header-section"]}`}
             >
-              <NavLink to="/">
+              <NavLink to="/" className="d-flex align-items-center">
                 <LogoIcon />
               </NavLink>
 
@@ -57,17 +57,29 @@ const Header: FC = () => {
                 <div className="mb-1 opacity-50">написать нам</div>
                 <Row className="gx-3">
                   <Col>
-                    <a target="_blank" href="https://wa.me/79623667074">
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href="https://wa.me/79623667074"
+                    >
                       <WhatsappIcon />
                     </a>
                   </Col>
                   <Col>
-                    <a target="_blank" href="https://viber.click/79623667074">
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href="https://viber.click/79623667074"
+                    >
                       <ViberIcon />
                     </a>
                   </Col>
                   <Col>
-                    <a target="_blank" href="https://t.me/deganov_mebel">
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href="https://t.me/deganov_mebel"
+                    >
                       <TelegramIcon />
                     </a>
                   </Col>
@@ -85,7 +97,12 @@ const Header: FC = () => {
             >
               <div className="d-none d-sm-flex flex-column justify-content-start text-nowrap">
                 <div className="mb-1 opacity-50">связаться с нами</div>
-                <div className="fw-demibold fs-medium">+7 (495) 136‑70‑74</div>
+                <a
+                  href="tel:+7 (495) 136‑70‑74"
+                  className="fw-demibold fs-medium"
+                >
+                  +7 (495) 136‑70‑74
+                </a>
               </div>
 
               <div className="d-sm-none">
@@ -153,7 +170,9 @@ const Header: FC = () => {
 
           <div className="d-flex d-sm-none flex-column align-items-end border-top text-nowrap ps-4 ps-sm-5 pe-3 pe-sm-5 py-3">
             <div className="mb-1 opacity-50">связаться с нами</div>
-            <div className="fw-demibold">+7 (495) 136‑70‑74</div>
+            <a href="tel:+7 (495) 136‑70‑74" className="fw-demibold">
+              +7 (495) 136‑70‑74
+            </a>
           </div>
 
           <div className="d-flex flex-column align-items-end d-md-none border-top ps-4 ps-sm-5 pe-3 pe-sm-5 py-3">

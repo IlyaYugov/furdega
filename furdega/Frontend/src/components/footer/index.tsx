@@ -22,13 +22,18 @@ const Footer: FC = () => {
             <div className="d-flex justify-content-start mt-4">
               <Row className="flex-nowrap">
                 <Col>
-                  <a target="_blank" href="https://vk.com/deganov_mebel">
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://vk.com/deganov_mebel"
+                  >
                     <VkContrastIcon />
                   </a>
                 </Col>
                 <Col>
                   <a
                     target="_blank"
+                    rel="noreferrer"
                     href="https://www.instagram.com/deganov_mebel/"
                   >
                     <InstaContrastIcon />
@@ -109,13 +114,13 @@ const Footer: FC = () => {
                   </Col>
 
                   <Col>
-                    <a href="tel:">
+                    <a href="tel:+79623667074">
                       <small>+7&nbsp;(962)&nbsp;366&#8209;70&#8209;74</small>
                     </a>
                   </Col>
 
                   <Col>
-                    <a href="tel:">
+                    <a href="tel:+74951367074">
                       <small>+7&nbsp;(495)&nbsp;136&#8209;70&#8209;74</small>
                     </a>
                   </Col>
@@ -125,7 +130,7 @@ const Footer: FC = () => {
                   </Col>
 
                   <Col>
-                    <a href="email:">
+                    <a href="email:daasobivka@mail.ru">
                       <small>daasobivka@mail.ru</small>
                     </a>
                   </Col>
