@@ -17,7 +17,9 @@ const Footer: FC = () => {
             md={4}
             className="mb-5 mb-md-0 d-flex flex-column align-items-md-start align-items-center"
           >
-            <LogoContrastIcon />
+            <NavLink to="/">
+              <LogoContrastIcon />
+            </NavLink>
 
             <div className="d-flex justify-content-start mt-4">
               <Row className="flex-nowrap">

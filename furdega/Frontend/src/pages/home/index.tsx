@@ -37,8 +37,33 @@ const Home: FC = () => {
     setIsLoading(false)
   }
 
+  const initCalculator = () => {
+    function init(t: string, p: any) {
+      // @ts-ignore
+      window.Marquiz
+        ? // @ts-ignore
+          Marquiz.add([t, p])
+        : document.addEventListener("marquizLoaded", function () {
+            // @ts-ignore
+            Marquiz.add([t, p])
+          })
+    }
+
+    init("Inline", {
+      id: "618984d8c8ea35003f260c76",
+      buttonText: "Пройти тест",
+      bgColor: "#f6e294",
+      textColor: "#363636",
+      rounded: true,
+      shadow: "rgba(246, 226, 148, 0.5)",
+      blicked: true,
+      buttonOnMobile: true,
+    })
+  }
+
   useEffect(() => {
     fetchContent()
+    initCalculator()
   }, [])
 
   return (
@@ -177,6 +202,10 @@ const Home: FC = () => {
           width={1440}
           height={312}
         />
+      </Container>
+
+      <Container className="g-0 pb-5 content">
+        <div data-marquiz-id="618984d8c8ea35003f260c76"></div>
       </Container>
     </Container>
   )
