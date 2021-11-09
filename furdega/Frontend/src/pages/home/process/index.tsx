@@ -17,8 +17,8 @@ const Process: FC<WorkingProcessSectionResponse> = ({
       <h2 className="block-title">{header}</h2>
 
       <div className="block-content">
-        <Row>
-          <Col xs={6}>
+        <Row className="mt-5">
+          <Col xs={6} className="ps-4">
             <div className="d-flex">
               <h3 className={styles["step-title"]}>Первый этап</h3>
             </div>
@@ -31,7 +31,7 @@ const Process: FC<WorkingProcessSectionResponse> = ({
           <Col xs={6}></Col>
         </Row>
 
-        <Row>
+        <Row className="mt-5">
           <Col xs={6}></Col>
           <Col xs={6}>
             <div className="d-flex">
@@ -44,8 +44,8 @@ const Process: FC<WorkingProcessSectionResponse> = ({
           </Col>
         </Row>
 
-        <Row>
-          <Col xs={6}>
+        <Row className="mt-5">
+          <Col xs={6} className="ps-4">
             <div className="d-flex">
               <h3 className={styles["step-title"]}>Третий шаг</h3>
             </div>
@@ -58,7 +58,7 @@ const Process: FC<WorkingProcessSectionResponse> = ({
           <Col xs={6}></Col>
         </Row>
 
-        <Row>
+        <Row className="mt-5 pb-5">
           <Col xs={6}></Col>
 
           <Col xs={6}>

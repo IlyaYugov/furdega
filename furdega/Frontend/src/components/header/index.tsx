@@ -179,17 +179,29 @@ const Header: FC = () => {
             <div className="mb-1 opacity-50">написать нам</div>
             <Row className="gx-3">
               <Col>
-                <a target="_blank" href="https://wa.me/79623667074">
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://wa.me/79623667074"
+                >
                   <WhatsappIcon />
                 </a>
               </Col>
               <Col>
-                <a target="_blank" href="https://viber.click/79623667074">
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://viber.click/79623667074"
+                >
                   <ViberIcon />
                 </a>
               </Col>
               <Col>
-                <a target="_blank" href="https://t.me/deganov_mebel">
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://t.me/deganov_mebel"
+                >
                   <TelegramIcon />
                 </a>
               </Col>
