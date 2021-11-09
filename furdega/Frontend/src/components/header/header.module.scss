@@ -12,7 +12,7 @@
 }
 
 .header-section {
-  @include mixins.responsive(32px, 32px, 32px, 6px) using ($d) {
+  @include mixins.responsive(32px, 32px, 32px, 12px) using ($d) {
     padding: $d 0;
   }
 }

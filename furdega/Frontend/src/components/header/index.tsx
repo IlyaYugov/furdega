@@ -118,7 +118,7 @@ const Header: FC = () => {
               md={2}
               lg={2}
               xl={2}
-              className={`d-flex align-items-center justify-content-center ${styles["header-section"]}`}
+              className={`d-flex align-items-center justify-content-center ps-2 ${styles["header-section"]}`}
             >
               <div
                 role="button"
