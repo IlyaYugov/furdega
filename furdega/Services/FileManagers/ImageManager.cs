@@ -39,7 +39,7 @@ namespace Furdega.Services.FileManagers
 
             return new ImageResponse
             {
-                Id = image.Id,
+                Id = Guid.NewGuid(),
                 ImageUrl = imageUrl
             };
         }
