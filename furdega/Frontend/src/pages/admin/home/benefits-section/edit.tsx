@@ -50,7 +50,7 @@ const Edit: FC<EditProps> = ({ data, setMode }) => {
     clone(data.companyBenefit3 || getDefaultBenefit())
   )
   const [benefit4, setBenefit4] = useState<CompanyBenefitResponse>(
-    clone(data.companyBenefit3 || getDefaultBenefit())
+    clone(data.companyBenefit4 || getDefaultBenefit())
   )
 
   const save = async () => {
