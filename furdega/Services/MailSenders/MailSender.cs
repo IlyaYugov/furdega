@@ -4,6 +4,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using Furdega.Configuration;
 using Furdega.Services.MailSenders.Dtos.Input;
+using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
@@ -29,7 +30,7 @@ namespace Furdega.Services.MailSenders
         {
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(_fromMailAddress);
-            emailMessage.To.Add(_fromMailAddress);
+            emailMessage.To.Add(_tomMailAddress);
             emailMessage.Subject = "Выезд Дизайнера";
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -52,18 +53,15 @@ namespace Furdega.Services.MailSenders
 
             using (var client = new SmtpClient())
             {
-                try
-                {
-                    client.Connect(_mailSettings.SmtpServer, _mailSettings.Port, true);
-                    client.AuthenticationMechanisms.Remove("XOAUTH2");
-                    client.Authenticate(_mailSettings.FromMailAddress, _mailSettings.FromMailPassword);
+                   client.ServerCertificateValidationCallback = (_, _, _, _) => true;
+                   client.AuthenticationMechanisms.Remove("XOAUTH2");
+
+                    await client.ConnectAsync(_mailSettings.SmtpServer, _mailSettings.Port, true);
+
+                    await client.AuthenticateAsync(_mailSettings.FromMailAddress, _mailSettings.FromMailPassword);
                     await client.SendAsync(mailMessage);
-                }
-                finally
-                {
-                    client.Disconnect(true);
-                    client.Dispose();
-                }
+
+                    await client.DisconnectAsync(true);
             }
         }
     }
