@@ -1,4 +1,5 @@
 import { FC } from "react"
+import { useLocation } from "react-router-dom"
 import { Col, Container, Row } from "react-bootstrap"
 
 import { ReactComponent as LogoContrastIcon } from "../../assets/svg/logo-contrast.svg"
@@ -7,8 +8,23 @@ import { ReactComponent as InstaContrastIcon } from "../../assets/svg/insta-cont
 
 import styles from "./footer.module.scss"
 import { NavLink } from "react-router-dom"
+import { scrollspyAnchorsMap } from "../../const/home"
 
 const Footer: FC = () => {
+  const location = useLocation()
+
+  const onFooterLinkClick = (anchorName: string) => {
+    if (location.pathname === "/") {
+      const element = document.getElementById(
+        scrollspyAnchorsMap[anchorName].id
+      )
+
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" })
+      }
+    }
+  }
+
   return (
     <Container fluid className="g-0 bg-dark">
       <Container className={`g-0 content ${styles["footer"]}`}>
@@ -50,31 +66,46 @@ const Footer: FC = () => {
               <Col>
                 <Row className="flex-column gy-4 gx-0">
                   <Col>
-                    <NavLink to="/#about">
+                    <NavLink
+                      to="/#about"
+                      onClick={() => onFooterLinkClick("about")}
+                    >
                       <small>О&nbsp;фабрике</small>
                     </NavLink>
                   </Col>
 
                   <Col>
-                    <NavLink to="/#examples">
+                    <NavLink
+                      to="/#examples"
+                      onClick={() => onFooterLinkClick("examples")}
+                    >
                       <small>Работы</small>
                     </NavLink>
                   </Col>
 
                   <Col>
-                    <NavLink to="/#benefits">
+                    <NavLink
+                      to="/#benefits"
+                      onClick={() => onFooterLinkClick("benefits")}
+                    >
                       <small>Преимущества</small>
                     </NavLink>
                   </Col>
 
                   <Col>
-                    <NavLink to="/#process">
+                    <NavLink
+                      to="/#process"
+                      onClick={() => onFooterLinkClick("process")}
+                    >
                       <small>Процесс</small>
                     </NavLink>
                   </Col>
 
                   <Col>
-                    <NavLink to="/#calculator">
+                    <NavLink
+                      to="/#calculator"
+                      onClick={() => onFooterLinkClick("calculator")}
+                    >
                       <small>Калькулятор</small>
                     </NavLink>
                   </Col>

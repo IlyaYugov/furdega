@@ -13,6 +13,7 @@ import { sectionsApi } from "../../api/sections/sections-api"
 import styles from "./home.module.scss"
 import { SectionsResponse } from "../../types/home/content"
 import { AppContext } from "../../app"
+import { useLocation } from "react-router-dom"
 
 const About = lazy(() => import("./about"))
 const WorkExamples = lazy(() => import("./work-examples"))
@@ -30,6 +31,7 @@ const Home: FC = () => {
   const [bottomScrollspyRef, isBottomScrollspyVisible] = useInView()
   const isMobile = useMobileScreen()
   const { setShowRegModal } = useContext(AppContext)
+  const location = useLocation()
 
   const fetchContent = async () => {
     const data = await sectionsApi.get()
@@ -61,9 +63,22 @@ const Home: FC = () => {
     })
   }
 
+  const scrollToSectionById = (id: string) => {
+    const element = document.getElementById(scrollspyAnchorsMap[id].id)
+
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
   useEffect(() => {
     fetchContent()
     initCalculator()
+    const hash = location.hash.substring(1)
+    if (hash)
+      setTimeout(() => {
+        scrollToSectionById(hash)
+      }, 1000)
   }, [])
 
   return (
