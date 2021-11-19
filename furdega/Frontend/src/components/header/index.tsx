@@ -37,7 +37,7 @@ const Header: FC = () => {
   const [showMenu, setShowMenu] = useState(false)
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.wrapper}>
         <Container className="g-0 content">
           <Row className="flex-nowrap g-0">
@@ -211,7 +211,7 @@ const Header: FC = () => {
       </Dropdown>
 
       {showMenu ? <div className={styles["menu-backdrop"]}></div> : null}
-    </>
+    </div>
   )
 }
 
