@@ -89,7 +89,7 @@ const Scrollspy: FC<ScrollspyProps> = ({ shown, anchors, onRegClick }) => {
 
           <Row className="mt-2 gy-3 flex-column align-items-center d-sm-flex d-none">
             <Col md={8} className="opacity-50 text-center">
-              написать нам
+              всегда онлайн
             </Col>
             <Col md={8}>
               <Row
