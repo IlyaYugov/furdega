@@ -54,7 +54,7 @@ const Header: FC = () => {
               </NavLink>
 
               <div className="d-none d-md-block">
-                <div className="mb-1 opacity-50">написать нам</div>
+                <div className="mb-1 opacity-50">всегда онлайн</div>
                 <Row className="gx-3">
                   <Col>
                     <a
@@ -176,7 +176,7 @@ const Header: FC = () => {
           </div>
 
           <div className="d-flex flex-column align-items-end d-md-none border-top ps-4 ps-sm-5 pe-3 pe-sm-5 py-3">
-            <div className="mb-1 opacity-50">написать нам</div>
+            <div className="mb-1 opacity-50">всегда онлайн</div>
             <Row className="gx-3">
               <Col>
                 <a
