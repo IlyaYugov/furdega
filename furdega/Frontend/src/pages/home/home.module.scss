@@ -34,8 +34,14 @@
   @include mixins.responsive(550px, 550px, 400px, 320px) using ($d) {
     height: $d;
   }
-  @include mixins.responsive(0, 0, 25%, 25%) using ($d) {
+  @include mixins.responsive(0, 15%, 40%, 60%) using ($d) {
     left: -$d;
+  }
+  @media screen and (max-width: 350px) {
+    left: -85%;
+  }
+  @media screen and (max-width: 300px) {
+    left: -110%;
   }
 }
 
