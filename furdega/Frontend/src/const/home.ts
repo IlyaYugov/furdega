@@ -33,7 +33,7 @@ const scrollspyAnchorsMap: Record<string, ScrollspyAnchor> = {
   },
   solutions: {
     id: "solutions",
-    name: "Решения",
+    name: "Услуги",
   },
   process: {
     id: "process",
