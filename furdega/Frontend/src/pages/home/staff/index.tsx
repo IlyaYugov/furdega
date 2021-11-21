@@ -9,12 +9,12 @@ import { StaffSectionResponse } from "../../../types/home/staff"
 const Staff: FC<StaffSectionResponse> = ({ header }) => {
   const [employees, setEmployees] = useState<EmployeeResponse[]>([])
 
-  const fetchData = async () => {
-    const data = await employeesApi.getAll()
-    setEmployees(data)
-  }
-
   useEffect(() => {
+    const fetchData = async () => {
+      const data = await employeesApi.getAll()
+      setEmployees(data)
+    }
+
     fetchData()
   }, [])
 
@@ -25,7 +25,7 @@ const Staff: FC<StaffSectionResponse> = ({ header }) => {
       <div className="block-content">
         <Row className="flex-column gy-5">
           {employees.map((employee, index) => (
-            <Col key={`employee-card-${index}`}>
+            <Col className="my-5" key={employee.id}>
               <EmployeeCard reverse={index % 2 === 1} {...employee} />
             </Col>
           ))}
