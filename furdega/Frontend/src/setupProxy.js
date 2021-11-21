@@ -9,4 +9,13 @@ module.exports = function (app) {
       secure: false,
     })
   )
+
+  app.use(
+    "/Images",
+    createProxyMiddleware({
+      target: "https://deganov-mebel.ru",
+      changeOrigin: true,
+      secure: false,
+    })
+  )
 }

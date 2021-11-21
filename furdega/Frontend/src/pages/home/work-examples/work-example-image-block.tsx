@@ -1,6 +1,6 @@
-import { FC } from "react"
+import React from "react"
 import { Col, Row } from "react-bootstrap"
-import LazyLoad from "react-lazyload"
+import { Image } from "antd"
 import { ImageResponse } from "../../../types/image"
 
 type WorkExampleImageBlockProps = {
@@ -10,7 +10,7 @@ type WorkExampleImageBlockProps = {
   image3: ImageResponse | null
 }
 
-const WorkExampleImageBlock: FC<WorkExampleImageBlockProps> = ({
+const WorkExampleImageBlock: React.FC<WorkExampleImageBlockProps> = ({
   before = false,
   image1,
   image2,
@@ -22,13 +22,7 @@ const WorkExampleImageBlock: FC<WorkExampleImageBlockProps> = ({
         <Col xs={6} md={4} xl={6}>
           <Row className="g-3 flex-column-reverse flex-xl-column">
             <Col>
-              <LazyLoad height={512}>
-                <img
-                  className="img-fluid w-100"
-                  src={image1?.imageUrl}
-                  alt={image1?.imageUrl}
-                />
-              </LazyLoad>
+              <Image width="100%" src={image1?.imageUrl} />
             </Col>
             <Col>
               <div
@@ -45,23 +39,11 @@ const WorkExampleImageBlock: FC<WorkExampleImageBlockProps> = ({
         <Col xs={6} md={8} xl={6}>
           <Row className="g-3 flex-row flex-xl-column flex-nowrap align-items-end align-items-xl-start">
             <Col md={6} xl={10}>
-              <LazyLoad height={512}>
-                <img
-                  className="img-fluid w-100"
-                  src={image2?.imageUrl}
-                  alt={image2?.imageUrl}
-                />
-              </LazyLoad>
+              <Image width="100%" src={image2?.imageUrl} />
             </Col>
 
             <Col md={6} xl={12} className="d-none d-md-block">
-              <LazyLoad height={512}>
-                <img
-                  className="img-fluid w-100"
-                  src={image3?.imageUrl}
-                  alt={image3?.imageUrl}
-                />
-              </LazyLoad>
+              <Image width="100%" src={image3?.imageUrl} />
             </Col>
           </Row>
         </Col>
