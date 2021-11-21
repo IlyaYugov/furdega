@@ -43,6 +43,10 @@ const scrollspyAnchorsMap: Record<string, ScrollspyAnchor> = {
     id: "staff",
     name: "Персонал",
   },
+  calc: {
+    id: "calc",
+    name: "Узнать стоимость",
+  },
 }
 
 const scrollspyAnchors: ScrollspyAnchor[] = Object.values(scrollspyAnchorsMap)

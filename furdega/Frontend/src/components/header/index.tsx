@@ -37,7 +37,7 @@ const Header: FC = () => {
   const [showMenu, setShowMenu] = useState(false)
 
   return (
-    <div className={styles.container}>
+    <div>
       <div className={styles.wrapper}>
         <Container className="g-0 content">
           <Row className="flex-nowrap g-0">

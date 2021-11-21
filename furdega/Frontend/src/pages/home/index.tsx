@@ -219,7 +219,10 @@ const Home: FC = () => {
         />
       </Container>
 
-      <Container className="g-0 pb-5 content">
+      <Container
+        className="g-0 pb-5 content"
+        id={scrollspyAnchorsMap["calc"].id}
+      >
         <div data-marquiz-id="618984d8c8ea35003f260c76"></div>
       </Container>
     </Container>
