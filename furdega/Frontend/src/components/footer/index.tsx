@@ -163,8 +163,8 @@ const Footer: FC = () => {
                   </Col>
 
                   <Col>
-                    <a href="email:daasobivka@mail.ru">
-                      <small>daasobivka@mail.ru</small>
+                    <a href="mailto:hello@deganov-mebel.ru">
+                      <small>hello@deganov-mebel.ru</small>
                     </a>
                   </Col>
                 </Row>
