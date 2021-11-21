@@ -11,6 +11,8 @@ const EmployeeCard: FC<EmployeeResponse & { reverse?: boolean }> = ({
   description,
   reverse = false,
 }) => {
+  const [position, exp] = description.split('.')
+
   return (
     <Row
       className={`g-0 flex-nowrap justify-items-between${reverse ? " flex-row-reverse" : ""}`}
@@ -25,7 +27,8 @@ const EmployeeCard: FC<EmployeeResponse & { reverse?: boolean }> = ({
 
       <Col xs={5} className="d-flex flex-column justify-content-end">
         <h4 className="fw-bold">{`${firstName} ${lastName}`}</h4>
-        <small className="d-block mt-3">{description}</small>
+        <small className="d-block mt-3">{position.trim()}</small>
+        <small className="d-block">{exp.trim()}</small>
       </Col>
     </Row>
   )
