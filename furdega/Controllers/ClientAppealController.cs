@@ -17,9 +17,9 @@ namespace Furdega.Controllers
         }
 
         [HttpPost]
-        public async Task SendDesignerArrivalMessage(DesignerArrivalMessage message)
+        public void SendDesignerArrivalMessage(DesignerArrivalMessage message)
         {
-            await _mailSender.SendDesignerArrivalMessage(message);
+            Task.Run(async () => { await _mailSender.SendDesignerArrivalMessage(message); });
         }
     }
 }
