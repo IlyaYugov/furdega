@@ -1,15 +1,12 @@
 import { FC, useContext, useRef, useState } from "react"
-import { Col, Row, Button } from "react-bootstrap"
-
-import { ReactComponent as WhatsappIcon } from "../../../assets/svg/whatsapp.svg"
-import { ReactComponent as ViberIcon } from "../../../assets/svg/viber.svg"
-import { ReactComponent as TelegramIcon } from "../../../assets/svg/telegram.svg"
+import { Button } from "react-bootstrap"
 import { ReactComponent as DotsIcon } from "../../../assets/svg/dots.svg"
 import { useOnClickOutside } from "../../../utils/use-on-click-outside"
 import styles from "../../../components/scrollspy/scrollspy.module.scss"
 import { FurnitureType } from "../../../types/furniture"
 import { defaultFurType } from ".."
 import { AppContext } from "../../../app"
+import { Social } from "../../../components/social"
 
 type NavProps = {
   items: FurnitureType[]
@@ -83,7 +80,7 @@ const Nav: FC<NavProps> = ({ items, onItemClick, activeItem }) => {
 
           <Button
             size="lg"
-            className={`fw-demibold mt-4 px-2 d-sm-block d-none ${styles.button}`}
+            className={`fw-demibold my-4 px-2 d-sm-block d-none ${styles.button}`}
             onClick={() => {
               setShowRegModal(true)
             }}
@@ -91,27 +88,7 @@ const Nav: FC<NavProps> = ({ items, onItemClick, activeItem }) => {
             бесплатная консультация
           </Button>
 
-          <Row className="mt-2 gy-3 flex-column align-items-center d-sm-flex d-none">
-            <Col md={8} className="opacity-50 text-center">
-              всегда онлайн
-            </Col>
-            <Col md={8}>
-              <Row
-                xs="auto"
-                className="gx-4 flex-nowrap justify-content-center"
-              >
-                <Col>
-                  <WhatsappIcon />
-                </Col>
-                <Col>
-                  <ViberIcon />
-                </Col>
-                <Col>
-                  <TelegramIcon />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+          <Social />
 
           <div
             className={styles["small-toggle"]}

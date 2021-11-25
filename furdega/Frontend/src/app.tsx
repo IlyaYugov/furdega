@@ -10,6 +10,7 @@ import { Contacts } from "./pages/contacts"
 import { Home } from "./pages/home"
 import { Login } from "./pages/login"
 import { Portfolio } from "./pages/portfolio"
+import { Thanks } from "./pages/thanks"
 import { ConfigProvider } from "antd"
 import ruRU from "antd/lib/locale/ru_RU"
 import "./styles/index.scss"
@@ -41,6 +42,7 @@ const App: FC = () => {
             <Route path="/catalog" component={Catalog} />
             <Route path="/blog" component={Blog} />
             <Route path="/admin" component={Admin} />
+            <Route path="/thanks" component={Thanks} />
           </Switch>
 
           <Footer />

@@ -1,0 +1,7 @@
+@use "../../styles/mixins";
+
+.text {
+  @include mixins.responsive(18px, 18px, 16px, 16px) using ($d) {
+    font-size: $d;
+  }
+}

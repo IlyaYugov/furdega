@@ -1,8 +1,7 @@
 import { FC, FormEvent, useEffect, useState } from "react"
 import { Col, Form, Modal, Row, Button } from "react-bootstrap"
+import { Redirect } from "react-router"
 import { appointmentApi } from "../../api/appointment-api"
-import { regOptions } from "../../const/app"
-
 import styles from "./reg-modal.module.scss"
 
 type RegModalProps = {
@@ -13,15 +12,16 @@ type RegModalProps = {
 const RegModal: FC<RegModalProps> = ({ show, onClose }) => {
   const [name, setName] = useState<string>("")
   const [phone, setPhone] = useState<string>("")
-  const [time, setTime] = useState<string>("")
 
   const [isServerError, setIsServerError] = useState<boolean>(false)
   const [isInputError, setIsInputError] = useState<boolean>(false)
 
+  const [isSuccess, setIsSuccess] = useState<boolean>(false)
+
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    if (!(name && phone && time)) {
+    if (!(name && phone)) {
       setIsInputError(true)
       return
     }
@@ -30,9 +30,10 @@ const RegModal: FC<RegModalProps> = ({ show, onClose }) => {
       await appointmentApi.make({
         senderName: name.trim(),
         phoneNumber: phone.trim(),
-        timeInterval: time.trim(),
+        timeInterval: "",
       })
 
+      setIsSuccess(true)
       onClose()
     } catch (error) {
       console.error(error)
@@ -45,8 +46,10 @@ const RegModal: FC<RegModalProps> = ({ show, onClose }) => {
     setIsInputError(false)
     setName("")
     setPhone("")
-    setTime("")
+    setIsSuccess(false)
   }, [show])
+
+  if (isSuccess) return <Redirect to={"thanks"} />
 
   return (
     <Modal show={show} onHide={onClose}>
@@ -61,12 +64,10 @@ const RegModal: FC<RegModalProps> = ({ show, onClose }) => {
           <Row className="flex-column gy-4">
             <Col>
               <Form.Group>
-                <Form.Label className="opacity-75">
-                  Как к вам обращаться
-                </Form.Label>
+                <Form.Label className="opacity-75">Ваше имя</Form.Label>
                 <Form.Control
                   as="input"
-                  placeholder="Ваше имя"
+                  placeholder="Введите имя"
                   size="lg"
                   value={name}
                   onChange={(e) => {
@@ -80,11 +81,11 @@ const RegModal: FC<RegModalProps> = ({ show, onClose }) => {
             <Col>
               <Form.Group>
                 <Form.Label className="opacity-75">
-                  На какой номер звонить?
+                  Телефон для связи
                 </Form.Label>
                 <Form.Control
                   as="input"
-                  placeholder="Ваш номер телефона"
+                  placeholder="Введите номер телефона"
                   size="lg"
                   value={phone}
                   onChange={(e) => {
@@ -92,31 +93,6 @@ const RegModal: FC<RegModalProps> = ({ show, onClose }) => {
                     setPhone(e.target.value)
                   }}
                 />
-              </Form.Group>
-            </Col>
-
-            <Col>
-              <Form.Group>
-                <Form.Label className="opacity-75">
-                  В какое время удобно связаться?
-                </Form.Label>
-                <Form.Select
-                  as="select"
-                  placeholder="Ваше имя"
-                  size="lg"
-                  value={time}
-                  onChange={(e) => {
-                    setIsInputError(false)
-                    setTime(e.currentTarget.value)
-                  }}
-                >
-                  <option value="">Выберите удобное время</option>
-                  {regOptions.map((o) => (
-                    <option value={o} key={`time-option-${o}`}>
-                      {o}
-                    </option>
-                  ))}
-                </Form.Select>
               </Form.Group>
             </Col>
 
