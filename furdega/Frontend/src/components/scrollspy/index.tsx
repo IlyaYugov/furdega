@@ -1,5 +1,5 @@
 import { FC, useRef, useState } from "react"
-import { Col, Row, Button } from "react-bootstrap"
+import { Button } from "react-bootstrap"
 import ReactScrollspy from "react-scrollspy"
 
 import { ReactComponent as DotsIcon } from "../../assets/svg/dots.svg"
