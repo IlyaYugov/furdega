@@ -1,7 +1,6 @@
 import { FC, useRef, useState } from "react"
 import { Button } from "react-bootstrap"
 import ReactScrollspy from "react-scrollspy"
-
 import { ReactComponent as DotsIcon } from "../../assets/svg/dots.svg"
 import { useOnClickOutside } from "../../utils/use-on-click-outside"
 import { ScrollspyAnchor } from "../../types/scrollspy-anchor"
@@ -11,10 +10,9 @@ import { Social } from "../social"
 type ScrollspyProps = {
   shown: boolean
   anchors: ScrollspyAnchor[]
-  onRegClick: () => void
 }
 
-const Scrollspy: FC<ScrollspyProps> = ({ shown, anchors, onRegClick }) => {
+const Scrollspy: FC<ScrollspyProps> = ({ shown, anchors }) => {
   const [activeId, setActiveId] = useState("")
   const [smallShown, setSmallShown] = useState(false)
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -80,7 +78,7 @@ const Scrollspy: FC<ScrollspyProps> = ({ shown, anchors, onRegClick }) => {
           <Button
             size="lg"
             className={`fw-demibold my-4 px-2 d-sm-block d-none ${styles.button}`}
-            onClick={onRegClick}
+            href="https://mrqz.me/618984d8c8ea35003f260c76"
           >
             бесплатная консультация
           </Button>

@@ -1,6 +1,5 @@
 import { FC } from "react"
 import { FormControl } from "react-bootstrap"
-
 import { ImageUploadRules } from "../../types/image-upload"
 import { FormInputEvent } from "../../types/utils"
 import { fileToBase64 } from "../../utils/file-to-base64"

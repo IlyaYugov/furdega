@@ -80,6 +80,26 @@
     </script>
     <!-- Marquiz script end -->
 
+    <script>
+      ;(function (t, p) {
+        window.Marquiz
+          ? Marquiz.add([t, p])
+          : document.addEventListener("marquizLoaded", function () {
+              Marquiz.add([t, p])
+            })
+      })("Inline", {
+        id: "618984d8c8ea35003f260c76",
+        buttonText: "Узнать стоимость работ",
+        bgColor: "#f6e294",
+        textColor: "#363636",
+        rounded: true,
+        shadow: "rgba(246, 226, 148, 0.5)",
+        blicked: true,
+        buttonOnMobile: true,
+        width: "320",
+      })
+    </script>
+
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
       ;(function (m, e, t, r, i, k, a) {

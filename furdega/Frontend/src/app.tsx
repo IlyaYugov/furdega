@@ -1,4 +1,4 @@
-import { createContext, Dispatch, FC, SetStateAction, useState } from "react"
+import { FC, useState } from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import { Footer } from "./components/footer"
 import { Header } from "./components/header"
@@ -15,48 +15,36 @@ import { ConfigProvider } from "antd"
 import ruRU from "antd/lib/locale/ru_RU"
 import "./styles/index.scss"
 
-type AppContextState = {
-  showRegModal: boolean
-  setShowRegModal: Dispatch<SetStateAction<boolean>>
-}
-
-const AppContext = createContext<AppContextState>({
-  showRegModal: false,
-  setShowRegModal: () => {},
-})
-
 const App: FC = () => {
   const [showRegModal, setShowRegModal] = useState<boolean>(false)
 
   return (
     <BrowserRouter>
       <ConfigProvider locale={ruRU}>
-        <AppContext.Provider value={{ showRegModal, setShowRegModal }}>
-          <Header />
+        <Header />
 
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/portfolio" component={Portfolio} />
-            <Route path="/contacts" component={Contacts} />
-            <Route path="/catalog" component={Catalog} />
-            <Route path="/blog" component={Blog} />
-            <Route path="/admin" component={Admin} />
-            <Route path="/thanks" component={Thanks} />
-          </Switch>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/portfolio" component={Portfolio} />
+          <Route path="/contacts" component={Contacts} />
+          <Route path="/catalog" component={Catalog} />
+          <Route path="/blog" component={Blog} />
+          <Route path="/admin" component={Admin} />
+          <Route path="/thanks" component={Thanks} />
+        </Switch>
 
-          <Footer />
+        <Footer />
 
-          <RegModal
-            show={showRegModal}
-            onClose={() => {
-              setShowRegModal(false)
-            }}
-          />
-        </AppContext.Provider>
+        <RegModal
+          show={showRegModal}
+          onClose={() => {
+            setShowRegModal(false)
+          }}
+        />
       </ConfigProvider>
     </BrowserRouter>
   )
 }
 
-export { App, AppContext }
+export { App }

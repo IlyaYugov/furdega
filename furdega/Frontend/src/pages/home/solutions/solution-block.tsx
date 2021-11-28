@@ -1,8 +1,6 @@
-import { FC, useContext } from "react"
+import { FC } from "react"
 import { Row, Col, Image } from "react-bootstrap"
 import LazyLoad from "react-lazyload"
-import { AppContext } from "../../../app"
-
 import { ReactComponent as YellowSnakeIcon } from "../../../assets/svg/yellow-snake.svg"
 import { RoundedButton } from "../../../components/rounded-button"
 import { IssueSolutionResponse } from "../../../types/home/solutions"
@@ -13,8 +11,6 @@ type SolutionBlockProps = {
 }
 
 const SolutionBlock: FC<SolutionBlockProps> = ({ data, left = false }) => {
-  const { setShowRegModal } = useContext(AppContext)
-
   return (
     <>
       <Row className="g-0">
@@ -42,9 +38,7 @@ const SolutionBlock: FC<SolutionBlockProps> = ({ data, left = false }) => {
             <Col>
               <RoundedButton
                 type={left ? "secondary" : "primary"}
-                onClick={() => {
-                  setShowRegModal(true)
-                }}
+                href="https://mrqz.me/618984d8c8ea35003f260c76"
               >
                 бесплатная консультация
               </RoundedButton>

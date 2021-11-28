@@ -1,11 +1,10 @@
-import { FC, useContext, useRef, useState } from "react"
+import { FC, useRef, useState } from "react"
 import { Button } from "react-bootstrap"
 import { ReactComponent as DotsIcon } from "../../../assets/svg/dots.svg"
 import { useOnClickOutside } from "../../../utils/use-on-click-outside"
 import styles from "../../../components/scrollspy/scrollspy.module.scss"
 import { FurnitureType } from "../../../types/furniture"
 import { defaultFurType } from ".."
-import { AppContext } from "../../../app"
 import { Social } from "../../../components/social"
 
 type NavProps = {
@@ -17,7 +16,6 @@ type NavProps = {
 const Nav: FC<NavProps> = ({ items, onItemClick, activeItem }) => {
   const [smallShown, setSmallShown] = useState(false)
   const wrapperRef = useRef<HTMLDivElement>(null)
-  const { setShowRegModal } = useContext(AppContext)
 
   useOnClickOutside(wrapperRef, () => {
     setSmallShown(false)
@@ -81,9 +79,7 @@ const Nav: FC<NavProps> = ({ items, onItemClick, activeItem }) => {
           <Button
             size="lg"
             className={`fw-demibold my-4 px-2 d-sm-block d-none ${styles.button}`}
-            onClick={() => {
-              setShowRegModal(true)
-            }}
+            href="https://mrqz.me/618984d8c8ea35003f260c76"
           >
             бесплатная консультация
           </Button>
