@@ -6,6 +6,7 @@ import { useOnClickOutside } from "../../utils/use-on-click-outside"
 import { ScrollspyAnchor } from "../../types/scrollspy-anchor"
 import styles from "./scrollspy.module.scss"
 import { Social } from "../social"
+import { useHistory } from "react-router-dom"
 
 type ScrollspyProps = {
   shown: boolean
@@ -16,6 +17,7 @@ const Scrollspy: FC<ScrollspyProps> = ({ shown, anchors }) => {
   const [activeId, setActiveId] = useState("")
   const [smallShown, setSmallShown] = useState(false)
   const wrapperRef = useRef<HTMLDivElement>(null)
+  const history = useHistory()
 
   useOnClickOutside(wrapperRef, () => {
     setSmallShown(false)
@@ -49,13 +51,17 @@ const Scrollspy: FC<ScrollspyProps> = ({ shown, anchors }) => {
                   className={styles["scrollspy-li"]}
                 >
                   <a
-                    href={`#${anchor.id}`}
+                    href={anchor.id === "examples" ? "" : `#${anchor.id}`}
                     className={`d-flex text-body ${
                       isActive
                         ? styles["scrollspy-link-active"]
                         : styles["scrollspy-link"]
                     }`}
-                    onClick={() => {
+                    onClick={(event) => {
+                      if (anchor.id === "examples") {
+                        event.preventDefault()
+                        history.push("/portfolio")
+                      }
                       setSmallShown(false)
                     }}
                   >

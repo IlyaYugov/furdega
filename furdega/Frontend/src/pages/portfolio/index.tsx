@@ -42,6 +42,9 @@ const Portfolio: FC = () => {
 
   useEffect(() => {
     fetchFurnitureTypes()
+    setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 500)
   }, [])
 
   useEffect(() => {
