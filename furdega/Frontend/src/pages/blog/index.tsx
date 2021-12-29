@@ -1,10 +1,15 @@
-import { FC } from "react"
+import { FC, ReactElement } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-
+import { Link, Switch, Route, useRouteMatch } from "react-router-dom"
 import { ReactComponent as ArrowIcon } from "../../assets/svg/arrow-long-right.svg"
-import { tags, topBlog } from "../../const/blog"
+import { tags, blogArticlesPreviews } from "../../const/blog"
+import { useParams } from "react-router"
+import { blogArticles } from "../../const/blog"
 
-const Blog: FC = () => {
+const BlogHome: FC = () => {
+  const lastArticlePreview =
+    blogArticlesPreviews[blogArticlesPreviews.length - 1]
+
   return (
     <Container fluid className="g-0 my-5 py-4">
       <Container className="g-0 content">
@@ -42,10 +47,16 @@ const Blog: FC = () => {
           <Col xs={12} md={7} lg={8} className="ps-5">
             <h6 className="opacity-75 mt-4">ГЛАВНОЕ ЗА НЕДЕЛЮ</h6>
 
-            <h1 className="my-5">{topBlog.title}</h1>
+            <h1 className="my-5">
+              <Link to={`/blog/${lastArticlePreview.id}`}>
+                {lastArticlePreview.title}
+              </Link>
+            </h1>
 
             <Row xs="auto" className="gx-5 mb-5">
-              <Col className="fw-demibold">читать</Col>
+              <Col className="fw-demibold">
+                <Link to={`/blog/${lastArticlePreview.id}`}>читать</Link>
+              </Col>
               <Col>
                 <ArrowIcon style={{ transform: "rotate(180deg)" }} />
               </Col>
@@ -54,6 +65,26 @@ const Blog: FC = () => {
         </Row>
       </Container>
     </Container>
+  )
+}
+
+const BlogArticle: FC = () => {
+  const { id } = useParams<{ id: string }>()
+  return blogArticles[id] as ReactElement
+}
+
+const Blog: FC = () => {
+  const { path } = useRouteMatch()
+
+  return (
+    <Switch>
+      <Route exact path={path}>
+        <BlogHome />
+      </Route>
+      <Route path={`${path}/:id`}>
+        <BlogArticle />
+      </Route>
+    </Switch>
   )
 }
 
